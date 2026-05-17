@@ -3,563 +3,829 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>🔮 星之密语 · 八字占卜</title>
+<title>🔮 星之密语 · 命理占卜</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@300;400;600&display=swap');
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
+/* ═══════════════════════════════════════
+   DESIGN SYSTEM — Mystical Psychology
+   ═══════════════════════════════════════ */
 :root {
-  --gold: #d4a853; --gold-light: #f0d68a; --purple: #6b3fa0;
-  --purple-dark: #1a0a2e; --text-light: #e0d5f5; --bg-card: rgba(107,63,160,0.15);
-  --border-subtle: rgba(212,168,83,0.12);
+  /* Deep mystical palette */
+  --void: #0a0618;
+  --abyss: #120c24;
+  --cosmos: #1a1035;
+  --nebula: #261845;
+  --twilight: #342058;
+  --amethyst: #6b4fa0;
+  --lavender: #9b7ec4;
+  --gold-dim: #8b6f2e;
+  --gold: #bf9b4a;
+  --gold-glow: #e8c97a;
+  --gold-bright: #f5dc90;
+  --rose: #c47a8a;
+  --rose-light: #e8b4be;
+  --text-primary: #e8e0f0;
+  --text-secondary: #b8a8d0;
+  --text-muted: #7a6a95;
+  --glass-bg: rgba(26, 16, 53, 0.55);
+  --glass-border: rgba(191, 155, 74, 0.18);
+  --glass-border-active: rgba(191, 155, 74, 0.45);
+  --glow-gold: rgba(191, 155, 74, 0.25);
+  --glow-purple: rgba(107, 79, 160, 0.3);
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
-  font-family: 'ZCOOL XiaoWei', 'Ma Shan Zheng', serif;
-  background: var(--purple-dark);
-  min-height: 100vh; overflow-x: hidden;
-  color: var(--text-light); user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  font-family: 'Noto Serif SC', 'ZCOOL XiaoWei', serif;
+  background: var(--void);
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(107,79,160,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(191,155,74,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(26,16,53,0.8) 0%, var(--void) 100%);
+  min-height:100vh; overflow-x:hidden;
+  color:var(--text-primary);
+  -webkit-tap-highlight-color:transparent;
+  cursor:default;
 }
 
+/* Scrollbar */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:rgba(191,155,74,0.25); border-radius:2px; }
+
+/* ═══ Canvas ═══ */
 #starfield { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
-.ambient-glow {
-  position:fixed; top:-50%; left:-50%; width:200%; height:200%;
-  background: radial-gradient(ellipse at center, rgba(107,63,160,0.15) 0%, transparent 70%);
-  pointer-events:none; z-index:0;
-  animation: ambientPulse 8s ease-in-out infinite;
-}
-@keyframes ambientPulse {
-  0%,100% { opacity:0.3; transform:scale(1); }
-  50% { opacity:0.6; transform:scale(1.05); }
+
+/* ═══ Vignette overlay ═══ */
+.vignette {
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(10,6,24,0.7) 100%);
 }
 
+/* ═══ App shell ═══ */
 #app {
-  position:relative; z-index:1; max-width:500px; margin:0 auto;
-  padding:20px; min-height:100vh;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  position:relative; z-index:1; max-width:440px; margin:0 auto;
+  padding:24px 18px 40px; min-height:100vh;
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center;
 }
 
+/* ═══ Screen transitions ═══ */
 .screen {
   width:100%; display:none; flex-direction:column; align-items:center;
-  animation: fadeSlideIn 0.6s ease-out;
+  animation:screenIn 0.7s ease-out;
 }
 .screen.active { display:flex; }
-@keyframes fadeSlideIn {
-  from { opacity:0; transform:translateY(30px); }
-  to { opacity:1; transform:translateY(0); }
+@keyframes screenIn {
+  from { opacity:0; transform:translateY(24px) scale(0.97); filter:blur(4px); }
+  to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
 }
 
-/* ── Title ── */
-.title {
-  font-family:'Ma Shan Zheng', cursive; font-size:2.2em;
-  background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 60%, #a07828 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 2px 8px rgba(212,168,83,0.4));
-  letter-spacing:4px; text-align:center; margin-bottom:4px;
+/* ═══ Title ═══ */
+.title-block { text-align:center; margin-bottom:8px; }
+.title-main {
+  font-family:'Ma Shan Zheng', cursive;
+  font-size:2.6em;
+  background: linear-gradient(180deg,
+    var(--gold-bright) 0%, var(--gold) 35%, var(--gold-glow) 55%, var(--gold-dim) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+  filter:drop-shadow(0 2px 12px rgba(191,155,74,0.35));
+  letter-spacing:8px; line-height:1.3;
 }
-.subtitle {
-  font-size:0.75em; color:rgba(224,213,245,0.5);
-  letter-spacing:6px; text-align:center; margin-bottom:20px;
+.title-sub {
+  font-size:0.7em; color:var(--text-muted);
+  letter-spacing:8px; margin-top:2px;
 }
 
-/* ── Form ── */
-.form-group {
-  width:100%; max-width:340px; margin-bottom:14px;
+/* ═══ Glass card base ═══ */
+.glass-card {
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius-lg);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  padding:20px;
+  width:100%; max-width:380px;
 }
-.form-label {
-  font-size:0.78em; color:rgba(224,213,245,0.7);
-  letter-spacing:2px; margin-bottom:6px; display:block;
+
+/* ═══ Form Elements ═══ */
+.form-section { width:100%; max-width:380px; }
+.field { margin-bottom:16px; }
+.field-label {
+  font-size:0.72em; color:var(--text-muted);
+  letter-spacing:3px; margin-bottom:7px; display:flex; align-items:center;
+  gap:6px;
 }
-.form-input, .form-select {
-  width:100%; padding:12px 16px;
-  background: rgba(26,10,46,0.7); border:1px solid rgba(212,168,83,0.25);
-  border-radius:12px; color:var(--text-light); font-size:0.95em;
-  font-family: inherit; outline:none;
-  transition: all 0.3s;
+.field-label .icon { font-size:1.1em; }
+
+.input, .select {
+  width:100%; padding:13px 16px;
+  background:rgba(18,12,36,0.7);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius);
+  color:var(--text-primary); font-size:0.92em;
+  font-family:inherit; outline:none;
+  transition:var(--transition);
 }
-.form-input:focus, .form-select:focus {
-  border-color:var(--gold-light);
-  box-shadow:0 0 20px rgba(212,168,83,0.15);
+.input:focus, .select:focus {
+  border-color:var(--glass-border-active);
+  box-shadow:0 0 24px var(--glow-purple), inset 0 0 12px rgba(107,79,160,0.1);
 }
-.form-row {
-  display:flex; gap:10px;
-}
-.form-row > * { flex:1; }
-.form-select {
-  appearance:none; -webkit-appearance:none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23d4a853' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+.input::placeholder { color:var(--text-muted); opacity:0.6; }
+
+.select {
+  appearance:none; -webkit-appearance:none; cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%23bf9b4a' d='M7 9L2 4h10z'/%3E%3C/svg%3E");
   background-repeat:no-repeat; background-position:right 14px center;
-  padding-right:36px; cursor:pointer;
-}
-.gender-toggle {
-  display:flex; gap:10px;
-}
-.gender-btn {
-  flex:1; padding:12px; border-radius:12px; text-align:center; cursor:pointer;
-  border:1px solid rgba(212,168,83,0.25);
-  background:rgba(26,10,46,0.5); color:rgba(224,213,245,0.6);
-  font-family:inherit; font-size:0.95em;
-  transition:all 0.3s;
-}
-.gender-btn.selected {
-  border-color:var(--gold-light); color:var(--gold-light);
-  background:rgba(212,168,83,0.15);
-  box-shadow:0 0 16px rgba(212,168,83,0.15);
+  padding-right:38px;
 }
 
-/* ── Zodiac Grid ── */
-.zodiac-grid {
-  display:grid; grid-template-columns:repeat(4,1fr);
-  gap:10px; width:100%; max-width:400px; margin:16px 0;
-}
-.zodiac-card {
-  aspect-ratio:1;
-  background:linear-gradient(135deg, rgba(107,63,160,0.3), rgba(26,10,46,0.6));
-  border:1px solid rgba(212,168,83,0.25); border-radius:14px;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  cursor:pointer; transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
-  position:relative; overflow:hidden;
-}
-.zodiac-card:hover, .zodiac-card:active {
-  transform:translateY(-3px) scale(1.03);
-  border-color:var(--gold-light);
-  box-shadow:0 8px 30px rgba(212,168,83,0.2);
-}
-.zodiac-emoji { font-size:1.8em; position:relative; z-index:1; }
-.zodiac-name { font-size:0.7em; color:var(--text-light); position:relative; z-index:1; letter-spacing:2px; margin-top:2px; }
+.row { display:flex; gap:10px; }
+.row > * { flex:1; }
 
-/* ── Fortune Card ── */
-.fortune-card-wrap {
-  perspective:1200px; width:100%; max-width:380px; min-height:520px;
-  margin:12px 0;
+/* Gender toggle */
+.gender-group { display:flex; gap:10px; }
+.gender-opt {
+  flex:1; padding:13px; border-radius:var(--radius); text-align:center;
+  cursor:pointer; border:1px solid var(--glass-border);
+  background:rgba(18,12,36,0.5); color:var(--text-muted);
+  font-family:inherit; font-size:0.9em;
+  transition:var(--transition);
 }
-.fortune-card {
-  width:100%; height:100%;
-  position:relative; transform-style:preserve-3d;
-  transition:transform 1.2s cubic-bezier(0.4,0,0.2,1);
-  min-height:520px;
+.gender-opt.selected {
+  border-color:var(--gold); color:var(--gold-glow);
+  background:rgba(191,155,74,0.1);
+  box-shadow:0 0 20px var(--glow-gold);
 }
-.fortune-card.flipped { transform:rotateY(180deg); }
-.card-face {
-  position:absolute; inset:0; backface-visibility:hidden;
-  border-radius:20px; display:flex; flex-direction:column;
-  align-items:center; padding:20px 16px;
-}
-.card-back {
-  background:linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #1a0a2e 100%);
-  border:2px solid var(--gold);
-  box-shadow:0 0 60px rgba(212,168,83,0.2), inset 0 0 40px rgba(107,63,160,0.2);
-  cursor:pointer; gap:12px; justify-content:center;
-}
-.card-back::after {
-  content:''; position:absolute; inset:12px; border:1px solid rgba(212,168,83,0.3);
-  border-radius:14px; pointer-events:none;
-}
-.card-back-symbol { font-size:3.5em; animation:symbolFloat 3s ease-in-out infinite; }
-@keyframes symbolFloat {
-  0%,100% { transform:translateY(0) rotate(0deg); }
-  25% { transform:translateY(-8px) rotate(2deg); }
-  75% { transform:translateY(8px) rotate(-2deg); }
-}
-.card-back-text {
-  font-family:'Ma Shan Zheng', cursive; font-size:1.3em;
-  color:var(--gold); letter-spacing:6px;
-}
-.card-back-hint { font-size:0.78em; color:rgba(224,213,245,0.5); letter-spacing:2px; /* moved animation to JS for better control */ }
-
-.card-front {
-  background:linear-gradient(135deg, #1e0d3a 0%, #2d1b4e 40%, #1a0a2e 100%);
-  border:2px solid var(--gold-light);
-  box-shadow:0 0 80px rgba(212,168,83,0.25);
-  transform:rotateY(180deg); gap:0; overflow-y:auto;
-  justify-content:flex-start; align-items:stretch;
+.gender-opt:hover:not(.selected) {
+  border-color:rgba(191,155,74,0.3); color:var(--text-secondary);
 }
 
-/* ── Bazi display ── */
-.bazi-display {
-  display:flex; justify-content:center; gap:8px; margin-bottom:12px;
-  flex-wrap:wrap;
-}
-.bazi-pillar {
-  text-align:center; padding:6px 10px;
-  background:rgba(107,63,160,0.2); border-radius:10px;
-  border:1px solid rgba(212,168,83,0.15);
-  min-width:52px;
-}
-.bazi-pillar .pillar-label { font-size:0.55em; color:rgba(224,213,245,0.45); letter-spacing:1px; }
-.bazi-pillar .pillar-stem { font-size:0.95em; color:var(--gold-light); }
-.bazi-pillar .pillar-branch { font-size:0.85em; color:var(--text-light); }
-
-/* ── Huangli ── */
-.huangli-bar {
-  display:flex; gap:8px; flex-wrap:wrap; justify-content:center;
-  margin-bottom:10px; font-size:0.72em;
-}
-.huangli-tag {
-  padding:4px 10px; border-radius:20px;
-  background:rgba(107,63,160,0.2); border:1px solid rgba(212,168,83,0.12);
-  color:rgba(224,213,245,0.7);
-}
-.huangli-tag.clash { border-color:rgba(255,100,100,0.3); color:#ff9999; }
-.huangli-tag.good { border-color:rgba(100,255,150,0.3); color:#99ffaa; }
-
-/* ── Tabs for periods ── */
-.period-tabs {
-  display:flex; gap:4px; margin-bottom:10px;
-  border-radius:12px; overflow:hidden;
-  background:rgba(26,10,46,0.5); border:1px solid rgba(212,168,83,0.12);
-}
-.period-tab {
-  flex:1; padding:8px 0; text-align:center; cursor:pointer;
-  font-size:0.72em; color:rgba(224,213,245,0.5);
-  letter-spacing:1px; transition:all 0.3s;
-}
-.period-tab.active {
-  background:rgba(212,168,83,0.2); color:var(--gold-light);
-}
-
-/* ── Fortune sections ── */
-.period-content { display:none; flex-direction:column; gap:8px; }
-.period-content.active { display:flex; }
-
-.fortune-block {
-  background:var(--bg-card); border-radius:10px;
-  border:1px solid var(--border-subtle); padding:10px 12px;
-}
-.fortune-block h4 {
-  font-size:0.7em; color:rgba(224,213,245,0.5);
-  letter-spacing:2px; margin-bottom:4px;
-  display:flex; align-items:center; gap:6px;
-}
-.fortune-block .stars { color:var(--gold); font-size:0.8em; letter-spacing:2px; }
-.fortune-block p { font-size:0.78em; color:var(--text-light); line-height:1.6; }
-.fortune-block .advice { color:var(--gold-light); margin-top:2px; }
-
-.dos-donts {
-  display:flex; gap:8px; margin-top:4px;
-}
-.do-box, .dont-box {
-  flex:1; padding:8px 10px; border-radius:8px; font-size:0.72em;
-}
-.do-box {
-  background:rgba(100,255,150,0.08); border:1px solid rgba(100,255,150,0.2);
-}
-.dont-box {
-  background:rgba(255,100,100,0.08); border:1px solid rgba(255,100,100,0.2);
-}
-.do-box h5 { color:#99ffaa; font-size:0.75em; margin-bottom:3px; }
-.dont-box h5 { color:#ff9999; font-size:0.75em; margin-bottom:3px; }
-.do-box li, .dont-box li { color:rgba(224,213,245,0.7); line-height:1.6; list-style:none; }
-
-/* ── Buttons ── */
+/* ═══ Buttons ═══ */
 .btn {
-  padding:11px 28px; border:1px solid var(--gold);
-  background:linear-gradient(135deg, rgba(107,63,160,0.4), rgba(26,10,46,0.6));
-  color:var(--gold-light); font-family:inherit; font-size:0.9em;
-  border-radius:30px; cursor:pointer; letter-spacing:3px;
-  transition:all 0.3s; margin-top:8px;
+  padding:13px 32px; border-radius:30px; cursor:pointer;
+  font-family:inherit; font-size:0.9em; letter-spacing:3px;
+  transition:var(--transition); outline:none;
+  border:1px solid var(--glass-border);
+  background:rgba(26,16,53,0.6); color:var(--text-secondary);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
 }
 .btn:hover, .btn:active {
-  background:linear-gradient(135deg, rgba(212,168,83,0.3), rgba(107,63,160,0.5));
-  box-shadow:0 4px 20px rgba(212,168,83,0.3); transform:scale(1.03);
+  border-color:var(--glass-border-active);
+  box-shadow:0 4px 24px var(--glow-gold);
+  transform:translateY(-1px);
 }
-.btn-sm { padding:7px 18px; font-size:0.75em; letter-spacing:2px; }
 .btn-primary {
-  background:linear-gradient(135deg, rgba(212,168,83,0.3), rgba(107,63,160,0.6));
-  border-color:var(--gold-light);
+  background:linear-gradient(135deg, rgba(191,155,74,0.2), rgba(107,79,160,0.3));
+  border-color:rgba(191,155,74,0.4); color:var(--gold-glow);
+  box-shadow:0 0 30px rgba(191,155,74,0.1);
+}
+.btn-primary:hover {
+  background:linear-gradient(135deg, rgba(191,155,74,0.3), rgba(107,79,160,0.45));
+  box-shadow:0 0 40px rgba(191,155,74,0.25);
+}
+.btn-sm { padding:8px 20px; font-size:0.75em; letter-spacing:2px; }
+.btn-row { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:8px; }
+
+/* ═══ Zodiac Grid ═══ */
+.zodiac-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:10px; width:100%; max-width:380px; margin:16px 0;
+}
+.zodiac-item {
+  aspect-ratio:1;
+  background:rgba(26,16,53,0.5);
+  border:1px solid var(--glass-border);
+  border-radius:var(--radius);
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; cursor:pointer;
+  transition:var(--transition); position:relative;
+  overflow:hidden;
+}
+.zodiac-item::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at 50% 30%, rgba(191,155,74,0.12), transparent);
+  opacity:0; transition:opacity 0.4s;
+}
+.zodiac-item:hover, .zodiac-item:active {
+  transform:translateY(-3px) scale(1.04);
+  border-color:rgba(191,155,74,0.5);
+  box-shadow:0 8px 30px rgba(191,155,74,0.15);
+}
+.zodiac-item:hover::before { opacity:1; }
+.zodiac-icon { font-size:2em; position:relative; z-index:1; }
+.zodiac-label { font-size:0.68em; color:var(--text-secondary); position:relative; z-index:1; letter-spacing:2px; margin-top:3px; }
+
+/* ═══ Fortune Card (Tarot Style) ═══ */
+.tarot-stage {
+  perspective:1400px; width:100%; max-width:350px; min-height:480px;
+  margin:10px 0;
+}
+.tarot-card {
+  width:100%; min-height:480px; position:relative;
+  transform-style:preserve-3d;
+  transition:transform 1.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.tarot-card.flipped { transform:rotateY(180deg); }
+
+.tarot-face {
+  position:absolute; inset:0; backface-visibility:hidden;
+  border-radius:var(--radius-xl);
+  display:flex; flex-direction:column; align-items:center;
 }
 
-/* ── Sound toggle ── */
-.sound-toggle {
-  position:fixed; top:16px; right:16px; z-index:10;
-  width:40px; height:40px; border-radius:50%;
-  border:1px solid rgba(212,168,83,0.3);
-  background:rgba(26,10,46,0.7); color:var(--gold-light);
-  font-size:1.2em; cursor:pointer;
+/* Card Back */
+.tarot-back {
+  background:linear-gradient(160deg, #0f0a24 0%, #1a1035 30%, #261845 60%, #1a1035 100%);
+  border:2px solid rgba(191,155,74,0.3);
+  box-shadow:
+    0 0 60px rgba(107,79,160,0.2),
+    inset 0 0 60px rgba(107,79,160,0.1);
+  cursor:pointer; justify-content:center; gap:18px;
+  position:relative;
+}
+.tarot-back::before {
+  content:''; position:absolute; inset:10px;
+  border:1px solid rgba(191,155,74,0.15); border-radius:18px;
+}
+.tarot-back::after {
+  content:''; position:absolute; inset:20px;
+  border:1px solid rgba(191,155,74,0.08); border-radius:12px;
+}
+.tarot-back-inner { text-align:center; position:relative; z-index:1; }
+.tarot-symbol {
+  font-size:4em; filter:drop-shadow(0 0 20px rgba(191,155,74,0.4));
+  animation:floatSymbol 4s ease-in-out infinite;
+}
+@keyframes floatSymbol {
+  0%,100% { transform:translateY(0) scale(1); }
+  30% { transform:translateY(-6px) scale(1.03); }
+  60% { transform:translateY(4px) scale(0.98); }
+}
+.tarot-back-title {
+  font-family:'Ma Shan Zheng', cursive; font-size:1.4em;
+  color:var(--gold-glow); letter-spacing:6px;
+}
+.tarot-back-hint {
+  font-size:0.72em; color:var(--text-muted); letter-spacing:3px;
+  animation:pulseHint 2.5s ease-in-out infinite;
+}
+@keyframes pulseHint {
+  0%,100% { opacity:0.3; }
+  50% { opacity:0.8; }
+}
+
+/* Card Front */
+.tarot-front {
+  background:linear-gradient(160deg, #120c24 0%, #1a1035 25%, #261845 55%, #1a1035 100%);
+  border:2px solid rgba(191,155,74,0.35);
+  box-shadow:0 0 80px rgba(107,79,160,0.2);
+  transform:rotateY(180deg);
+  padding:20px 16px; overflow-y:auto; align-items:stretch;
+  gap:0; justify-content:flex-start;
+}
+
+/* ═══ Bazi Display ═══ */
+.bazi-row {
+  display:flex; justify-content:center; gap:6px;
+  margin-bottom:10px; flex-wrap:wrap;
+}
+.bazi-pillar {
+  text-align:center; padding:8px 8px 6px;
+  background:rgba(38,24,69,0.5); border-radius:var(--radius-sm);
+  border:1px solid rgba(191,155,74,0.1);
+  min-width:50px; backdrop-filter:blur(8px);
+}
+.bazi-pillar .pl { font-size:0.5em; color:var(--text-muted); letter-spacing:1px; }
+.bazi-pillar .ps { font-size:0.9em; color:var(--gold-glow); font-weight:600; }
+.bazi-pillar .pb { font-size:0.8em; color:var(--text-primary); }
+.bazi-pillar .pa { font-size:0.55em; color:rgba(200,180,220,0.4); }
+
+/* ═══ Huangli Tags ═══ */
+.tags-row {
+  display:flex; gap:6px; flex-wrap:wrap; justify-content:center;
+  margin-bottom:10px;
+}
+.tag {
+  padding:4px 10px; border-radius:20px; font-size:0.65em;
+  background:rgba(38,24,69,0.5); border:1px solid rgba(191,155,74,0.1);
+  color:var(--text-muted); letter-spacing:1px;
+  backdrop-filter:blur(8px);
+}
+.tag.warn { border-color:rgba(200,120,130,0.25); color:var(--rose-light); }
+.tag.good { border-color:rgba(120,200,150,0.2); color:#90d8a8; }
+
+/* ═══ Period Tabs ═══ */
+.tabs {
+  display:flex; gap:2px; margin-bottom:10px;
+  border-radius:var(--radius-sm); overflow:hidden;
+  background:rgba(18,12,36,0.6); border:1px solid rgba(191,155,74,0.08);
+}
+.tab {
+  flex:1; padding:9px 0; text-align:center; cursor:pointer;
+  font-size:0.7em; color:var(--text-muted); letter-spacing:2px;
+  transition:var(--transition); font-family:inherit;
+}
+.tab.active {
+  background:rgba(191,155,74,0.12); color:var(--gold-glow);
+  box-shadow:inset 0 -1px 0 var(--gold);
+}
+
+/* ═══ Fortune Content ═══ */
+.period-panel { display:none; flex-direction:column; gap:8px; }
+.period-panel.active { display:flex; }
+
+.fortune-box {
+  background:rgba(38,24,69,0.35); border-radius:var(--radius-sm);
+  border:1px solid rgba(191,155,74,0.08); padding:10px 12px;
+  backdrop-filter:blur(8px);
+}
+.fortune-box h4 {
+  font-size:0.7em; color:var(--text-muted); letter-spacing:2px;
+  margin-bottom:5px; display:flex; align-items:center; gap:6px;
+  font-weight:400;
+}
+.fortune-box .stars { color:var(--gold); font-size:0.75em; letter-spacing:2px; }
+.fortune-box p { font-size:0.76em; color:var(--text-secondary); line-height:1.7; }
+.fortune-box .highlight { color:var(--gold-glow); }
+
+.advice-row { display:flex; gap:8px; }
+.advice-col {
+  flex:1; padding:10px 11px; border-radius:var(--radius-sm);
+  font-size:0.68em; backdrop-filter:blur(8px);
+}
+.advice-col.do {
+  background:rgba(120,200,150,0.06); border:1px solid rgba(120,200,150,0.15);
+}
+.advice-col.dont {
+  background:rgba(200,120,130,0.06); border:1px solid rgba(200,120,130,0.15);
+}
+.advice-col h5 { font-size:0.8em; margin-bottom:4px; font-weight:400; }
+.advice-col.do h5 { color:#90d8a8; }
+.advice-col.dont h5 { color:var(--rose-light); }
+.advice-col li { color:var(--text-secondary); line-height:1.8; list-style:none; }
+
+.lucky-bar {
+  text-align:center; font-size:0.68em; color:var(--text-muted);
+  padding:8px 0; letter-spacing:1px;
+}
+.lucky-bar b { color:var(--gold-glow); }
+
+/* ═══ User info line ═══ */
+.user-meta {
+  text-align:center; font-size:0.65em; color:var(--text-muted);
+  margin-bottom:8px; letter-spacing:1px;
+}
+
+/* ═══ Particle burst ═══ */
+.particle {
+  position:fixed; pointer-events:none; z-index:5;
+  animation:particleFly 1.2s ease-out forwards;
+}
+@keyframes particleFly {
+  0% { opacity:1; transform:translate(0,0) scale(1); }
+  100% { opacity:0; transform:translate(var(--dx),var(--dy)) scale(0); }
+}
+
+/* ═══ Music toggle ═══ */
+.music-btn {
+  position:fixed; top:16px; right:16px; z-index:20;
+  width:42px; height:42px; border-radius:50%;
+  border:1px solid rgba(191,155,74,0.25);
+  background:rgba(18,12,36,0.7); color:var(--text-muted);
+  font-size:1.1em; cursor:pointer;
   display:flex; align-items:center; justify-content:center;
-  transition:all 0.3s; backdrop-filter:blur(8px);
+  transition:var(--transition); backdrop-filter:blur(12px);
 }
+.music-btn:hover { border-color:var(--gold); color:var(--gold-glow); }
+.music-btn.on { border-color:var(--gold); color:var(--gold-glow); }
 
-/* ── Loading / Shooting Star ── */
-.shooting-star {
-  position:fixed; width:2px; height:2px; background:white;
-  border-radius:50%; pointer-events:none; z-index:0;
-  animation:shoot 1.5s ease-out forwards; opacity:0;
+/* ═══ Shooting stars ═══ */
+.shooting {
+  position:fixed; pointer-events:none; z-index:0;
+  width:2px; height:80px;
+  background:linear-gradient(to bottom, rgba(255,255,255,0.9), transparent);
+  border-radius:1px;
+  animation:shoot 1.2s ease-out forwards; opacity:0;
 }
 @keyframes shoot {
   0% { opacity:1; transform:translate(0,0); }
-  100% { opacity:0; transform:translate(300px,300px); }
+  100% { opacity:0; transform:translate(200px,250px); }
 }
 
-/* ── Responsive ── */
+/* ═══ Responsive ═══ */
 @media (max-width:380px) {
-  .zodiac-grid { gap:7px; } .zodiac-emoji { font-size:1.5em; }
-  .title { font-size:1.7em; } .bazi-pillar { min-width:44px; padding:4px 6px; }
-  .bazi-pillar .pillar-stem { font-size:0.85em; }
-  .bazi-pillar .pillar-branch { font-size:0.75em; }
+  .title-main { font-size:2em; }
+  .zodiac-grid { gap:7px; }
+  .zodiac-icon { font-size:1.6em; }
+  .tarot-symbol { font-size:3em; }
+  .bazi-pillar { min-width:42px; padding:6px 5px 4px; }
+  .bazi-pillar .ps { font-size:0.8em; }
+  #app { padding:16px 12px 32px; }
 }
 </style>
 </head>
 <body>
 
 <canvas id="starfield"></canvas>
-<div class="ambient-glow"></div>
-<button class="sound-toggle" id="soundBtn" title="音效">🔇</button>
+<div class="vignette"></div>
+<button class="music-btn" id="musicBtn" title="宿命之音">♪</button>
 
 <div id="app">
   <!-- ═══ Screen 1: User Info ═══ -->
   <div class="screen active" id="screen-info">
-    <div class="title">星 之 密 语</div>
-    <div class="subtitle">✦ 八字命理 · 黄历占卜 ✦</div>
-
-    <div class="form-group">
-      <label class="form-label">📅 出生日期</label>
-      <input type="date" class="form-input" id="birthDate"
-             min="1920-01-01" max="2020-12-31">
-    </div>
-    <div class="form-group">
-      <label class="form-label">⏰ 出生时辰</label>
-      <select class="form-select" id="birthHour">
-        <option value="-1">不指定（默认午时）</option>
-        <option value="0">子时 23:00-01:00</option>
-        <option value="1">丑时 01:00-03:00</option>
-        <option value="2">寅时 03:00-05:00</option>
-        <option value="3">卯时 05:00-07:00</option>
-        <option value="4">辰时 07:00-09:00</option>
-        <option value="5">巳时 09:00-11:00</option>
-        <option value="6" selected>午时 11:00-13:00</option>
-        <option value="7">未时 13:00-15:00</option>
-        <option value="8">申时 15:00-17:00</option>
-        <option value="9">酉时 17:00-19:00</option>
-        <option value="10">戌时 19:00-21:00</option>
-        <option value="11">亥时 21:00-23:00</option>
-      </select>
+    <div class="title-block">
+      <div class="title-main">星 之 密 语</div>
+      <div class="title-sub">✦ 命 理 占 卜 ✦</div>
     </div>
 
-    <div class="form-group">
-      <label class="form-label">⚤ 性别</label>
-      <div class="gender-toggle" id="genderToggle">
-        <div class="gender-btn selected" data-gender="male">♂ 男</div>
-        <div class="gender-btn" data-gender="female">♀ 女</div>
+    <div class="form-section">
+      <div class="field">
+        <div class="field-label"><span class="icon">📅</span> 出生日期</div>
+        <input type="date" class="input" id="birthDate" min="1920-01-01" max="2020-12-31">
+      </div>
+      <div class="field">
+        <div class="field-label"><span class="icon">⏰</span> 出生时辰</div>
+        <select class="select" id="birthHour">
+          <option value="-1">不指定（默认午时）</option>
+          <option value="0">子时 23:00 – 01:00</option>
+          <option value="1">丑时 01:00 – 03:00</option>
+          <option value="2">寅时 03:00 – 05:00</option>
+          <option value="3">卯时 05:00 – 07:00</option>
+          <option value="4">辰时 07:00 – 09:00</option>
+          <option value="5">巳时 09:00 – 11:00</option>
+          <option value="6" selected>午时 11:00 – 13:00</option>
+          <option value="7">未时 13:00 – 15:00</option>
+          <option value="8">申时 15:00 – 17:00</option>
+          <option value="9">酉时 17:00 – 19:00</option>
+          <option value="10">戌时 19:00 – 21:00</option>
+          <option value="11">亥时 21:00 – 23:00</option>
+        </select>
+      </div>
+      <div class="field">
+        <div class="field-label"><span class="icon">⚤</span> 性别</div>
+        <div class="gender-group" id="genderToggle">
+          <div class="gender-opt selected" data-gender="male">♂ 阳</div>
+          <div class="gender-opt" data-gender="female">♀ 阴</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label"><span class="icon">📍</span> 出生地 <span style="font-size:0.85em;opacity:0.5;">（选填）</span></div>
+        <input type="text" class="input" id="birthPlace" placeholder="如：北京、上海、成都…" maxlength="20">
+      </div>
+      <div style="text-align:center;margin-top:8px;">
+        <button class="btn btn-primary" onclick="goToZodiac()">✦ 感应星命 ✦</button>
       </div>
     </div>
-
-    <div class="form-group">
-      <label class="form-label">📍 出生地（选填）</label>
-      <input type="text" class="form-input" id="birthPlace"
-             placeholder="例如：北京、上海、广州..." maxlength="20">
-    </div>
-
-    <button class="btn btn-primary" onclick="goToZodiac()">
-      ✦ 继续选择星座 ✦
-    </button>
   </div>
 
-  <!-- ═══ Screen 2: Zodiac Pick ═══ -->
+  <!-- ═══ Screen 2: Zodiac ═══ -->
   <div class="screen" id="screen-pick">
-    <div class="title" style="font-size:1.8em;">选择你的星座</div>
-    <div class="subtitle">共十二星宫，各有所属</div>
+    <div class="title-block">
+      <div class="title-main" style="font-size:2em;">感 应 星 座</div>
+      <div class="title-sub">十二星宫 · 各司其命</div>
+    </div>
     <div class="zodiac-grid" id="zodiacGrid"></div>
-    <button class="btn btn-sm" onclick="backToInfo()" style="margin-top:4px;">↩ 返回修改信息</button>
+    <button class="btn btn-sm" onclick="backToInfo()" style="margin-top:4px;">↩ 返回修改</button>
   </div>
 
-  <!-- ═══ Screen 3: Fortune Reveal ═══ -->
+  <!-- ═══ Screen 3: Fortune ═══ -->
   <div class="screen" id="screen-fortune">
-    <div class="title" style="font-size:1.6em;">你的命运之牌</div>
-    <div class="fortune-card-wrap">
-      <div class="fortune-card" id="fortuneCard">
-        <!-- Card Back -->
-        <div class="card-face card-back" id="cardBack">
-          <div class="card-back-symbol">🔮</div>
-          <div class="card-back-text">触碰水晶球</div>
-          <div class="card-back-hint">揭开你的命运</div>
+    <div class="title-block">
+      <div class="title-main" style="font-size:1.7em;">命 运 之 牌</div>
+    </div>
+    <div class="tarot-stage">
+      <div class="tarot-card" id="fortuneCard">
+        <div class="tarot-face tarot-back" id="cardBack">
+          <div class="tarot-back-inner">
+            <div class="tarot-symbol">🔮</div>
+            <div class="tarot-back-title">触 碰 水 晶 球</div>
+            <div class="tarot-back-hint">星辰正在凝视你的命运</div>
+          </div>
         </div>
-        <!-- Card Front -->
-        <div class="card-face card-front" id="cardFront">
+        <div class="tarot-face tarot-front" id="cardFront">
           <div id="fortuneContent"></div>
         </div>
       </div>
     </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
-      <button class="btn btn-sm" onclick="backToPick()">↩ 重新选择</button>
-      <button class="btn btn-sm" onclick="flipAgain()">🔮 再占一次</button>
+    <div class="btn-row">
+      <button class="btn btn-sm" onclick="backToPick()">↩ 重选星座</button>
+      <button class="btn btn-sm" onclick="flipAgain()">🔮 再次占卜</button>
     </div>
   </div>
 </div>
 
+<!-- Particle container -->
+<div id="particles"></div>
+
 <script>
-// ═══════════════════════════════════════
-//  1. STARFIELD CANVAS
-// ═══════════════════════════════════════
+// ═══════════════════════════════════════════════
+//  1. STARFIELD (enhanced)
+// ═══════════════════════════════════════════════
 const canvas=document.getElementById('starfield'), ctx=canvas.getContext('2d');
 let stars=[], w, h;
 function resize(){ w=canvas.width=innerWidth; h=canvas.height=innerHeight; }
 resize(); window.addEventListener('resize',resize);
-function initStars(n=150){
+function initStars(n=180){
   stars=Array.from({length:n},()=>({
-    x:Math.random()*w, y:Math.random()*h, r:Math.random()*1.8+.3,
-    twinkleSpeed:Math.random()*.02+.005, twinkleOffset:Math.random()*Math.PI*2,
-    baseAlpha:Math.random()*.5+.5, hue:Math.random()<.15?40+Math.random()*20:260+Math.random()*40
+    x:Math.random()*w, y:Math.random()*h,
+    r:Math.random()*2.2+.2,
+    twinkleSpeed:Math.random()*.015+.003,
+    twinkleOffset:Math.random()*Math.PI*2,
+    baseAlpha:Math.random()*.45+.3,
+    hue:Math.random()<.12 ? 38+Math.random()*18 : 250+Math.random()*50
   }));
 }
 initStars();
 function draw(t){
   ctx.clearRect(0,0,w,h);
   for(const s of stars){
-    const a=s.baseAlpha+Math.sin(t*s.twinkleSpeed+s.twinkleOffset)*.3;
+    const a=s.baseAlpha+Math.sin(t*s.twinkleSpeed+s.twinkleOffset)*.25;
     ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-    ctx.fillStyle=`hsla(${s.hue},60%,80%,${a})`; ctx.fill();
-    if(s.r>1.2){ ctx.beginPath(); ctx.arc(s.x,s.y,s.r*2.5,0,Math.PI*2); ctx.fillStyle=`hsla(${s.hue},60%,80%,${a*.15})`; ctx.fill(); }
+    ctx.fillStyle=`hsla(${s.hue},55%,78%,${Math.min(1,a)})`; ctx.fill();
+    if(s.r>1.1){
+      const grd=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*3);
+      grd.addColorStop(0,`hsla(${s.hue},55%,78%,${a*.2})`);
+      grd.addColorStop(1,'transparent');
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r*3,0,Math.PI*2);
+      ctx.fillStyle=grd; ctx.fill();
+    }
   }
   requestAnimationFrame(draw);
 }
 requestAnimationFrame(draw);
-setInterval(()=>{ if(Math.random()<.3)spawnShootingStar(); },4000);
-function spawnShootingStar(){
-  const d=document.createElement('div'); d.className='shooting-star';
-  d.style.left=Math.random()*80+'%'; d.style.top=Math.random()*40+'%';
-  d.style.animationDuration=(Math.random()*1.5+1)+'s';
-  document.body.appendChild(d); setTimeout(()=>d.remove(),2000);
+
+// Shooting stars
+function spawnShooting(){
+  const el=document.createElement('div');
+  el.className='shooting';
+  el.style.left=Math.random()*75+'%';
+  el.style.top=Math.random()*30+'%';
+  el.style.transform=`rotate(${15+Math.random()*30}deg)`;
+  el.style.animationDuration=(Math.random()*1+0.8)+'s';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),2000);
 }
-spawnShootingStar();
+setInterval(()=>{ if(Math.random()<.25) spawnShooting(); },5000);
+spawnShooting();
 
-// ═══════════════════════════════════════
-//  2. LUNAR CALENDAR ENGINE
-// ═══════════════════════════════════════
-// Lunar year info 1900-2100. Each int encodes:
-// bits 0-11: month lengths (1=30d, 0=29d), month 1 = lowest bit
-// bits 12-15: leap month number (0=none, 1-12)
-// bit 16: leap month days (1=30d, 0=29d)
+// ═══════════════════════════════════════════════
+//  2. PARTICLE BURST on card flip
+// ═══════════════════════════════════════════════
+function burstParticles(x,y,count=30){
+  const colors=['#f5dc90','#e8c97a','#bf9b4a','#c47a8a','#9b7ec4','#e8b4be'];
+  const container=document.getElementById('particles');
+  for(let i=0;i<count;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const angle=Math.random()*Math.PI*2;
+    const dist=60+Math.random()*140;
+    p.style.cssText=`
+      left:${x}px; top:${y}px;
+      width:${2+Math.random()*4}px; height:${2+Math.random()*4}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      border-radius:50%;
+      --dx:${Math.cos(angle)*dist}px; --dy:${Math.sin(angle)*dist}px;
+      animation-duration:${0.8+Math.random()*1}s;
+      box-shadow:0 0 ${4+Math.random()*8}px currentColor;
+    `;
+    container.appendChild(p);
+    setTimeout(()=>p.remove(),1500);
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  3. FATE MUSIC ENGINE (宿命感生成式音乐)
+// ═══════════════════════════════════════════════
+let audioCtx=null, musicOn=false, musicNodes=null;
+
+function initAudioCtx(){
+  if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+}
+
+// Generative ambient — slow, fateful, evolving drone
+function startMusic(){
+  if(!audioCtx||musicNodes) return;
+  const now=audioCtx.currentTime;
+  const masterGain=audioCtx.createGain();
+  masterGain.gain.setValueAtTime(0,now);
+  masterGain.gain.linearRampToValueAtTime(0.08,now+3);
+  masterGain.connect(audioCtx.destination);
+
+  // Deep sub drone — the "fate" underpinning
+  const sub=audioCtx.createOscillator();
+  sub.type='sine'; sub.frequency.setValueAtTime(55,now); // A1
+  const subGain=audioCtx.createGain();
+  subGain.gain.setValueAtTime(0.35,now);
+  sub.connect(subGain); subGain.connect(masterGain);
+  sub.start(now);
+
+  // Slow LFO for sub movement
+  const lfo=audioCtx.createOscillator();
+  lfo.type='sine'; lfo.frequency.setValueAtTime(0.03,now);
+  const lfoGain=audioCtx.createGain();
+  lfoGain.gain.setValueAtTime(4,now);
+  lfo.connect(lfoGain); lfoGain.connect(sub.frequency);
+  lfo.start(now);
+
+  // Ethereal pad layer 1
+  const pad1=audioCtx.createOscillator();
+  pad1.type='triangle'; pad1.frequency.setValueAtTime(220,now);
+  const pad1Gain=audioCtx.createGain();
+  pad1Gain.gain.setValueAtTime(0.12,now);
+  const pad1Filter=audioCtx.createBiquadFilter();
+  pad1Filter.type='lowpass'; pad1Filter.frequency.setValueAtTime(500,now);
+  pad1Filter.Q.setValueAtTime(0.5,now);
+  pad1.connect(pad1Filter); pad1Filter.connect(pad1Gain); pad1Gain.connect(masterGain);
+  pad1.start(now);
+
+  // Pad LFO for subtle detune
+  const padLFO=audioCtx.createOscillator();
+  padLFO.type='sine'; padLFO.frequency.setValueAtTime(0.07,now);
+  const padLFOGain=audioCtx.createGain();
+  padLFOGain.gain.setValueAtTime(3,now);
+  padLFO.connect(padLFOGain); padLFOGain.connect(pad1.frequency);
+  padLFO.start(now);
+
+  // High shimmer — "starlight"
+  const shimmer=audioCtx.createOscillator();
+  shimmer.type='sine'; shimmer.frequency.setValueAtTime(880,now);
+  const shimmerGain=audioCtx.createGain();
+  shimmerGain.gain.setValueAtTime(0,now);
+  // Pulse the shimmer
+  const shimmerPulse=audioCtx.createOscillator();
+  shimmerPulse.type='sine'; shimmerPulse.frequency.setValueAtTime(0.12,now);
+  const shimmerPulseGain=audioCtx.createGain();
+  shimmerPulseGain.gain.setValueAtTime(0.04,now);
+  shimmerPulse.connect(shimmerPulseGain); shimmerPulseGain.connect(shimmerGain.gain);
+  shimmerGain.gain.setValueAtTime(0.02,now);
+  shimmer.connect(shimmerGain); shimmerGain.connect(masterGain);
+  shimmer.start(now); shimmerPulse.start(now);
+
+  // Occasional chime
+  let chimeTimeout;
+  function scheduleChime(){
+    const delay=8+Math.random()*14;
+    chimeTimeout=setTimeout(()=>{
+      if(!musicNodes) return;
+      playChimeNote();
+      scheduleChime();
+    },delay*1000);
+  }
+  function playChimeNote(){
+    const t=audioCtx.currentTime;
+    const freqs=[523.25,587.33,659.25,783.99,880,1046.5];
+    const f=freqs[Math.floor(Math.random()*freqs.length)];
+    const o=audioCtx.createOscillator();
+    o.type='sine';
+    const g=audioCtx.createGain();
+    g.gain.setValueAtTime(0.04,t);
+    g.gain.exponentialRampToValueAtTime(0.001,t+1.8);
+    o.frequency.setValueAtTime(f,t);
+    o.connect(g); g.connect(masterGain);
+    o.start(t); o.stop(t+2);
+  }
+  scheduleChime();
+
+  musicNodes={masterGain,sub,subGain,lfo,lfoGain,pad1,pad1Gain,pad1Filter,padLFO,padLFOGain,shimmer,shimmerGain,shimmerPulse,shimmerPulseGain,chimeTimeout};
+}
+
+function stopMusic(){
+  if(!musicNodes) return;
+  clearTimeout(musicNodes.chimeTimeout);
+  const now=audioCtx.currentTime;
+  musicNodes.masterGain.gain.linearRampToValueAtTime(0,now+2);
+  setTimeout(()=>{
+    try{musicNodes.sub.stop();}catch(e){}
+    try{musicNodes.lfo.stop();}catch(e){}
+    try{musicNodes.pad1.stop();}catch(e){}
+    try{musicNodes.padLFO.stop();}catch(e){}
+    try{musicNodes.shimmer.stop();}catch(e){}
+    try{musicNodes.shimmerPulse.stop();}catch(e){}
+    musicNodes=null;
+  },2200);
+}
+
+// Sound effects
+function playChime(){
+  if(!audioCtx) return;
+  const now=audioCtx.currentTime;
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+  o.type='sine';
+  o.frequency.setValueAtTime(880,now);
+  o.frequency.exponentialRampToValueAtTime(1760,now+.08);
+  o.frequency.exponentialRampToValueAtTime(880,now+.25);
+  g.gain.setValueAtTime(.12,now);
+  g.gain.exponentialRampToValueAtTime(.001,now+.4);
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(now); o.stop(now+.45);
+}
+
+function playRevealSound(){
+  if(!audioCtx) return;
+  const now=audioCtx.currentTime;
+  [523.25,659.25,783.99,1046.5,1318.5].forEach((f,i)=>{
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type='sine';
+    o.frequency.setValueAtTime(f,now+i*.1);
+    g.gain.setValueAtTime(.1,now+i*.1);
+    g.gain.exponentialRampToValueAtTime(.001,now+i*.1+.5);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(now+i*.1); o.stop(now+i*.1+.55);
+  });
+}
+
+// Music toggle
+document.getElementById('musicBtn').addEventListener('click',()=>{
+  initAudioCtx();
+  musicOn=!musicOn;
+  const btn=document.getElementById('musicBtn');
+  if(musicOn){
+    btn.textContent='♪'; btn.classList.add('on');
+    startMusic();
+  }else{
+    btn.textContent='♪'; btn.classList.remove('on');
+    stopMusic();
+  }
+});
+// Start music on first interaction (user-friendly)
+document.addEventListener('click',()=>{ if(!audioCtx){ initAudioCtx(); if(!musicOn){ musicOn=true; document.getElementById('musicBtn').classList.add('on'); startMusic(); } } },{once:true});
+
+// ═══════════════════════════════════════════════
+//  4. LUNAR CALENDAR ENGINE
+// ═══════════════════════════════════════════════
 const lunarInfo=[0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,0x06ca0,0x0b550,0x15355,0x04da0,0x0a5b0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x05ac0,0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c4,0x0aae0,0x0a2e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a4d0,0x0d150,0x0f252,0x0d520];
-
 const STEMS=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
 const BRANCHES=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
-const ZODIAC_ANIMALS=['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
+const ANIMALS=['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
 const ELEMENTS=['木','木','火','火','土','土','金','金','水','水'];
-const BRANCH_ELEMENTS=['水','土','木','木','土','火','火','土','金','金','土','水'];
-// Solar terms (approx day-of-year offsets for non-leap year)
-const SOLAR_TERMS=[0,21208,42467,63836,85337,107014,128867,150921,173149,195551,218072,240693,263343,285989,308563,331033,353350,375494,397447,419210,440795,462224,483532,504758];
 
-function getLunarYearInfo(year){
-  return lunarInfo[year-1900];
-}
-
-// Days in solar year
+function getLunarYearInfo(y){ return lunarInfo[y-1900]; }
 function solarDays(y){ return (y%4==0&&y%100!=0)||y%400==0?366:365; }
-
-// Days in lunar year
-function lunarYearDays(y){
-  let info=getLunarYearInfo(y), sum=0;
-  for(let i=0;i<12;i++) sum+= (info>>(i+4))&1 ? 30:29;
-  return sum+leapMonthDays(y);
-}
+function lunarYearDays(y){ let info=getLunarYearInfo(y),s=0; for(let i=0;i<12;i++) s+=(info>>(i+4))&1?30:29; return s+leapMonthDays(y); }
 function leapMonth(y){ return getLunarYearInfo(y)&0xf; }
-function leapMonthDays(y){
-  if(leapMonth(y)) return (getLunarYearInfo(y)>>16)&1 ? 30:29;
-  return 0;
-}
-function lunarMonthDays(y,m){
-  return (getLunarYearInfo(y)>>(m+3))&1 ? 30:29;
-}
+function leapMonthDays(y){ return leapMonth(y)?((getLunarYearInfo(y)>>16)&1?30:29):0; }
+function lunarMonthDays(y,m){ return (getLunarYearInfo(y)>>(m+3))&1?30:29; }
 
-// Convert solar date to lunar date
 function solarToLunar(year,month,day){
-  // Days from 1900-01-31 (lunar 1900-01-01)
   let offset=0;
   for(let y=1900;y<year;y++) offset+=solarDays(y);
-  const monthDays=[31,28,31,30,31,30,31,31,30,31,30,31];
-  if((year%4==0&&year%100!=0)||year%400==0) monthDays[1]=29;
-  for(let m=1;m<month;m++) offset+=monthDays[m-1];
-  offset+=day-31; // offset from 1900-01-31
-
-  let ly=1900, lm=1, ld=1, days=lunarYearDays(1900);
+  const md=[31,28,31,30,31,30,31,31,30,31,30,31];
+  if((year%4==0&&year%100!=0)||year%400==0) md[1]=29;
+  for(let m=1;m<month;m++) offset+=md[m-1];
+  offset+=day-31;
+  let ly=1900,lm=1,ld=1,days=lunarYearDays(1900);
   while(offset>=days){ offset-=days; ly++; days=lunarYearDays(ly); }
-
-  // Find month
-  const leap=leapMonth(ly);
-  let isLeap=false;
+  const leap=leapMonth(ly); let isLeap=false;
   for(lm=1;lm<=12;lm++){
     let md=lunarMonthDays(ly,lm);
-    if(offset<md) break;
-    offset-=md;
-    if(lm===leap){
-      md=leapMonthDays(ly);
-      if(offset<md){ isLeap=true; break; }
-      offset-=md;
-    }
+    if(offset<md) break; offset-=md;
+    if(lm===leap){ md=leapMonthDays(ly); if(offset<md){ isLeap=true; break; } offset-=md; }
   }
   ld=offset+1;
-  return {year:ly, month:lm, day:ld, isLeap};
+  return {year:ly,month:lm,day:ld,isLeap};
 }
 
-// Get stem-branch index (0-59)
-function getYearStemBranch(year){
-  return (year-4)%60;
-}
 function getDayStemBranch(year,month,day){
-  // Days from 1900-01-01 (甲戌日)
   let days=0;
   for(let y=1900;y<year;y++) days+=solarDays(y);
   const md=[31,28,31,30,31,30,31,31,30,31,30,31];
   if((year%4==0&&year%100!=0)||year%400==0) md[1]=29;
   for(let m=1;m<month;m++) days+=md[m-1];
   days+=day-1;
-  // 1900-01-01 was 甲戌日 (stem=0,branch=10), so offset is:
-  // 甲=0, so stem=(days+0)%10, branch=(days+10)%12
-  return ((days%10+10)%10)*12+((days%12+10)%12);
-  // Actually simpler: stem=(days%10), branch=(days%12+10)%12
-  // stem index = days%10 (since 甲=0 on 1900-01-01)
-  // branch index = (days+10)%12 (since 戌=10 on 1900-01-01)
-  // combined: stemIdx*12+branchIdx
+  const stem=days%10, branch=(days+10)%12;
+  return stem*12+branch;
 }
 
-// Get month stem-branch based on year stem and solar term
+function getYearStemBranch(year){ return (year-4)%60; }
+
 function getMonthStemBranch(year,month,day){
-  // Calculate which solar term period we're in
   const isLeap=(year%4==0&&year%100!=0)||year%400==0;
   const stOff=[0,31,59,90,120,151,181,212,243,273,304,334];
   if(isLeap) for(let i=2;i<12;i++) stOff[i]++;
-  // Actually, solar term calculation is complex. Let me use approximate:
-  // Month pillar changes at 节气, roughly around the 4th-8th of each month
-  // Simplified: month number - 1 for stem-branch (立春=寅月=month 1 in Bazi)
-  
-  // Simplified approach: calculate approximate 节气 date
-  const doy=stOff[month-1]+day;
-  // Solar terms in day-of-year for non-leap year
   const termDays=[5,19,4,19,5,21,6,22,7,23,7,23,7,23,7,23,7,23,7,23,7,22,7,22];
   if(isLeap) for(let i=2;i<24;i++) termDays[i]++;
-  
-  let baziMonth=month; // Default
-  if(day<termDays[(month-1)*2]) baziMonth=((month+10)%12)||12; // Before 节气, use previous month
-  
-  // Month stem depends on year stem
-  // Year stem 甲/己 → month stem 丙 for 寅月 (month branch 2)
-  // Year stem 乙/庚 → month stem 戊 for 寅月
-  // Year stem 丙/辛 → month stem 庚 for 寅月
-  // Year stem 丁/壬 → month stem 壬 for 寅月
-  // Year stem 戊/癸 → month stem 甲 for 寅月
+  let baziMonth=month;
+  if(day<termDays[(month-1)*2]) baziMonth=((month+10)%12)||12;
   const yStem=getYearStemBranch(year)%10;
-  const monthStemBase=[2,4,6,8,0]; // 丙戊庚壬甲 for 寅月
+  const monthStemBase=[2,4,6,8,0];
   const base=monthStemBase[Math.floor(yStem/2)];
   const mStem=(base+(baziMonth-1))%10;
-  const mBranch=(baziMonth+1)%12; // 寅=2 → month 1, 卯=3 → month 2, etc
-  
+  const mBranch=(baziMonth+1)%12;
   return mStem*12+mBranch;
 }
 
 function getHourStemBranch(dayStem,hour){
-  // Hour branch: 子=23-01(hour 0), 丑=1-3(hour 1), ...
   const hBranch=Math.floor((hour+1)/2)%12;
-  // Hour stem: based on day stem
-  // 甲/己 day → 甲子时
-  // 乙/庚 day → 丙子时
-  // 丙/辛 day → 戊子时
-  // 丁/壬 day → 庚子时
-  // 戊/癸 day → 壬子时
-  const hourStemBase=[0,2,4,6,8]; // 甲丙戊庚壬 for 子时
+  const hourStemBase=[0,2,4,6,8];
   const base=hourStemBase[Math.floor(dayStem/2)];
   const hStem=(base+hBranch)%10;
   return hStem*12+hBranch;
@@ -571,7 +837,7 @@ function calculateBazi(year,month,day,hour){
   const dSB=getDayStemBranch(year,month,day);
   const hSB=getHourStemBranch(dSB%10,hour);
   return {
-    year:{stem:STEMS[ySB%10],branch:BRANCHES[ySB%12],animal:ZODIAC_ANIMALS[ySB%12],element:ELEMENTS[ySB%10]},
+    year:{stem:STEMS[ySB%10],branch:BRANCHES[ySB%12],animal:ANIMALS[ySB%12],element:ELEMENTS[ySB%10]},
     month:{stem:STEMS[mSB%10],branch:BRANCHES[mSB%12],element:ELEMENTS[mSB%10]},
     day:{stem:STEMS[dSB%10],branch:BRANCHES[dSB%12],element:ELEMENTS[dSB%10]},
     hour:{stem:STEMS[hSB%10],branch:BRANCHES[hSB%12],element:ELEMENTS[hSB%10]},
@@ -579,261 +845,126 @@ function calculateBazi(year,month,day,hour){
   };
 }
 
-// ═══════════════════════════════════════
-//  3. 黄历 DAILY ALMANAC
-// ═══════════════════════════════════════
-function getDayClash(dayBranchIdx){
-  // Clash: branch clashes with branch+6
-  const clash=(dayBranchIdx+6)%12;
-  return {clashBranch:BRANCHES[clash], clashAnimal:ZODIAC_ANIMALS[clash]};
-}
-
-const AUSPICIOUS_POOL=['祭祀','祈福','出行','嫁娶','开市','交易','纳财','入宅','安床','修造','入学','会友','签约','求医','动土','栽种','开光'];
-const INAUSPICIOUS_POOL=['安葬','行丧','伐木','作灶','开渠','置产','词讼','远行'];
+// ═══════════════════════════════════════════════
+//  5. HUANGLI & FORTUNE
+// ═══════════════════════════════════════════════
+const AUSPICIOUS=['祭祀','祈福','出行','嫁娶','开市','交易','纳财','入宅','安床','修造','入学','会友','签约','求医','动土','栽种','开光','纳采'];
+const INAUSPICIOUS=['安葬','行丧','伐木','作灶','开渠','置产','词讼','远行','破土'];
 
 function getDailyHuangli(daySB){
   const dStem=daySB%10, dBranch=daySB%12;
-  const clash=getDayClash(dBranch);
-
-  // Pick auspicious based on day stem-branch
-  const seed=dStem*12+dBranch;
-  const auspicious=[];
-  const inauspicious=[];
-  
-  // Deterministic pseudo-random based on day
-  let r=seed;
+  const clashBranch=(dBranch+6)%12;
+  let r=dStem*12+dBranch;
   const nextRand=()=>{ r=(r*1103515245+12345)&0x7fffffff; return r; };
-  
-  // Pick 4-6 auspicious
-  const pool=[...AUSPICIOUS_POOL];
-  const nAusp=4+(nextRand()%3);
-  for(let i=0;i<nAusp;i++){
-    const idx=nextRand()%pool.length;
-    auspicious.push(pool.splice(idx,1)[0]);
-  }
-  
-  // Pick 3-4 inauspicious
-  const pool2=[...INAUSPICIOUS_POOL];
-  const nInausp=3+(nextRand()%2);
-  for(let i=0;i<nInausp;i++){
-    const idx=nextRand()%pool2.length;
-    inauspicious.push(pool2.splice(idx,1)[0]);
-  }
-
+  const pool=[...AUSPICIOUS], pool2=[...INAUSPICIOUS];
+  const ausp=[], inausp=[];
+  for(let i=0;i<4+(nextRand()%3);i++){ const idx=nextRand()%pool.length; ausp.push(pool.splice(idx,1)[0]); }
+  for(let i=0;i<3+(nextRand()%2);i++){ const idx=nextRand()%pool2.length; inausp.push(pool2.splice(idx,1)[0]); }
   return {
-    dayStem:STEMS[dStem], dayBranch:BRANCHES[dBranch],
-    clash,
-    auspicious, inauspicious,
-    goodDirection:['东','南','西','北','东南','西南','东北','西北'][nextRand()%8],
-    luckyColor:['金色','红色','紫色','蓝色','绿色','白色','黄色','粉色'][nextRand()%8]
+    dayStem:STEMS[dStem],dayBranch:BRANCHES[dBranch],
+    clash:{clashBranch:BRANCHES[clashBranch],clashAnimal:ANIMALS[clashBranch]},
+    auspicious:ausp,inauspicious:inausp,
+    goodDirection:['东方','南方','西方','北方','东南','西南','东北','西北'][nextRand()%8],
+    luckyColor:['金色','紫色','红色','蓝色','翠绿','月白','琥珀','珊瑚'][nextRand()%8]
   };
 }
 
-// ═══════════════════════════════════════
-//  4. FORTUNE GENERATOR
-// ═══════════════════════════════════════
-const FORTUNE_THEMES={
-  love:['感情升温，适合表白','关系稳定，互相理解','桃花运旺，注意挑选','适合深入沟通','旧情复燃需谨慎','单身者有望邂逅','避免情感冲动'],
-  career:['事业上升期，积极进取','贵人相助，把握机会','稳扎稳打，不宜冒进','创意爆发，大胆提案','团队合作是关键','学习新技能的好时机','避免与同事争执'],
-  wealth:['财运亨通，适合投资','偏财运佳，小惊喜','守财为主，不宜冒险','意外之财将至','理财规划初见成效','控制冲动消费','开源节流的好时机'],
-  health:['精力充沛，适合运动','注意作息规律','饮食清淡为宜','多接触大自然','情绪管理很重要','注意肩颈疲劳','养生调理正当时'],
-  overall:['运势上扬，诸事顺遂','平稳过渡，保持耐心','挑战与机遇并存','守护星庇佑，信心满满','放慢脚步，静待花开','吉星高照，心想事成','转机在即，保持信念']
-};
-
-function generateFortune(bazi, huangli, zodiacInfo, period){
+function generateFortune(bazi,huangli,zodiacInfo,period){
   const today=new Date();
   const daySB=getDayStemBranch(today.getFullYear(),today.getMonth()+1,today.getDate());
-  const dStem=daySB%10;
-  const userDayStem=bazi.raw.dSB%10;
-  
-  // Compatibility: how well day stem matches user's day stem
+  const dStem=daySB%10, userDayStem=bazi.raw.dSB%10;
   const relation=(dStem-userDayStem+10)%10;
-  const harmonyMap=[5,4,3,3,4,5,4,3,3,4]; // 0=比和(great), 1=我生(ok), 2=我克(good)...
+  const harmonyMap=[5,4,3,3,4,5,4,3,3,4];
   const baseLuck=harmonyMap[relation];
-  
-  // Period adjustments
-  const periodMod={today:0, week:0.5, month3:1}[period];
+  const periodMod={today:0,week:0.5,month3:1}[period];
   const luck=Math.min(5,Math.max(1,Math.round(baseLuck+periodMod+(Math.random()*2-1))));
-  
   const stars='★'.repeat(luck)+'☆'.repeat(5-luck);
-  
-  // Generate advice based on day's energy vs user's Bazi
   const userElement=bazi.day.element;
   const dayElement=ELEMENTS[dStem];
-  
-  const elementRelation=userElement===dayElement ? '比和相助' :
-    ({'木火':'木生火，运势上升','火土':'火生土，根基稳固','土金':'土生金，收获在望',
-      '金水':'金生水，灵感涌现','水木':'水生木，成长顺利',
-      '火木':'火被木生，能量充盈','土火':'土被火生，温暖向上',
-      '金土':'金被土生，厚积薄发','水金':'水被金生，贵人相助',
-      '木水':'木被水生，滋润发展',
-      '木土':'木克土，需注意口舌','土水':'土克水，情绪波动','水金':'水泄金，消耗较大',
-      '金木':'金克木，压力增加','火金':'火克金，需克制冲动'})[userElement+dayElement] || '各有得失';
-  
-  // Specific advice
-  const todayAdvice=period==='today' ? getDailyAdvice(bazi,huangli,dStem) : 
-                    period==='week' ? getWeekAdvice(bazi,dStem) : getMonth3Advice(bazi);
-  
-  return {
-    stars, luck, elementRelation, ...todayAdvice,
-    periodLabel:{today:'今日',week:'未来一周',month3:'未来三月'}[period]
-  };
+  const elRel=userElement===dayElement?'比和相助，如鱼得水':({'木火':'木火相生，运势蒸腾','火土':'火土相济，根基稳固','土金':'土金相生，厚积薄发','金水':'金水相生，灵感涌现','水木':'水木相生，生机勃发','火木':'木助火势，能量充盈','土火':'火暖厚土，温暖前行','金土':'土生金石，贵人相助','水金':'金生丽水，财源暗涌','木水':'水润根木，滋养成长','木土':'木克土，注意人际摩擦','土水':'土挡水流，情绪需疏导','水金':'水泄金气，避免透支','金木':'金伐木，压力中成长','火金':'火炼金，磨砺出真知'})[userElement+dayElement]||'各有天命';
+  return {stars,luck,elementRelation:elRel,
+    ...(period==='today'?dailyAdvice(bazi,huangli,dStem):period==='week'?weekAdvice(bazi):month3Advice(bazi)),
+    periodLabel:{today:'今日',week:'未来一周',month3:'未来三月'}[period]};
 }
 
-function getDailyAdvice(bazi,huangli,dStem){
-  const dos=[], donts=[];
-  const dayClashAnimal=huangli.clash.clashAnimal;
-  const userAnimal=bazi.year.animal;
-  
-  // Check if day clashes with user's year animal
-  if(dayClashAnimal===userAnimal){
-    donts.push('今日冲你的生肖'+userAnimal+'，大事不宜');
-  }
-  
-  // General daily advice based on stem relation
+function dailyAdvice(bazi,huangli,dStem){
+  const dos=[],donts=[];
+  if(huangli.clash.clashAnimal===bazi.year.animal) donts.push('今日冲你生肖'+bazi.year.animal+'，大事缓行');
   const r=(dStem-bazi.raw.dSB%10+10)%10;
-  if(r===0) dos.push('与日柱比和，适合出社交和谈判');
-  else if(r===1||r===2) dos.push('日柱生助，做事顺遂');
-  else if(r===3||r===4||r===5) dos.push('顺势而为，不宜强求');
-  else dos.push('保持平常心，以静制动');
-  
+  const rText=['和谐共振，万事顺遂','滋养生长，好运自来','推动前行，积极主动','耐心应对，以静制动','反思调整，内观自省','静观其变，顺势而为'];
+  if(r===0) dos.push('与日柱比和，社交谈判皆宜');
+  else if(r<3) dos.push('日柱生助，做事如有神助');
+  else dos.push('低调行事，积蓄力量');
   dos.push('宜：'+huangli.auspicious.slice(0,2).join('、'));
   donts.push('忌：'+huangli.inauspicious.slice(0,2).join('、'));
-  
+  return {advice:'今日<span class="highlight">'+huangli.dayStem+huangli.dayBranch+'日</span>，与你的日柱<span class="highlight">'+bazi.day.stem+bazi.day.branch+'</span>能量互动：'+rText[r]+'。',dos,donts};
+}
+
+function weekAdvice(bazi){
   return {
-    advice:'今日'+huangli.dayStem+huangli.dayBranch+'日，与你的日柱'+
-           bazi.day.stem+bazi.day.branch+'的互动能量：'+
-           ({0:'和谐共振',1:'滋养生长',2:'推动前行',3:'需耐心应对',4:'反思调整',5:'静观其变'})[r]+'。',
-    dos, donts
+    advice:'本周<span class="highlight">'+bazi.day.stem+'</span>日主的能量在七日内有三日与天时相合。保持<span class="highlight">'+bazi.day.element+'</span>属性的觉知，顺势而为，不必强求。',
+    dos:['关注每日变化，灵活应对','利用前三日上升能量推进计划','周中适合做重要决策与沟通'],
+    donts:['避免在冲煞日做重大决定','不与负面情绪纠缠','减少无谓的社交消耗']
   };
 }
 
-function getWeekAdvice(bazi,dStem){
-  const dos=['关注每日变化，灵活应对','利用好前3天的上升能量','周中适合做重要决策'];
-  const donts=['避免在冲煞日做重大决定','不与他人发生正面冲突','减少不必要的开销'];
-  const advice='本周整体运势波动中偏上。日主'+bazi.day.stem+'在接下来7天中，有2-3天与天时相合，适合推动重要计划。保持作息规律，多接触'+bazi.day.element+'属性的能量场。';
-  return {advice, dos, donts};
+function month3Advice(bazi){
+  const elMsg={木:'春生之气涌动，创意的种子正在萌芽，保持开放心态迎接新生。',火:'热情之火冉冉升起，表达自我、展现才华的黄金时段已至。',土:'根基正在加固，适合学习积累，厚积薄发静待花开。',金:'收获的季节悄然临近，过往的耕耘即将结出硕果。',水:'灵感的源泉潺潺流动，直觉比理性更加可靠。'};
+  return {
+    advice:'未来三个月，<span class="highlight">'+bazi.day.stem+bazi.day.branch+'</span>的能量将与季节共鸣。<span class="highlight">'+bazi.day.element+'</span>属性在此期间尤为重要——'+elMsg[bazi.day.element],
+    dos:['制定季度目标，分解为可行步骤','投资自我提升，学习新技能','拓展有意义的社交连接'],
+    donts:['避免冲动投资或重大财务决策','不要忽视身体发出的信号','减少消耗型的人际关系']
+  };
 }
 
-function getMonth3Advice(bazi){
-  const dos=['制定季度计划并严格执行','投资学习提升自我价值','拓展人脉关系网'];
-  const donts=['避免重大投资的冲动决策','不要忽视身体健康信号','减少无谓的社交消耗'];
-  const advice='未来三个月，你的命局中'+bazi.day.stem+bazi.day.branch+
-    '的能量将与季节变换产生共鸣。'+
-    bazi.day.element+'属性在此期间特别重要——'+
-    ({'木':'春季生机勃发，创意和成长是主旋律','火':'热情能量高涨，适合展现自我','土':'根基稳固，适合积累和沉淀',
-      '金':'收获的季节，之前的努力将见成果','水':'灵感如泉涌，直觉特别敏锐'})[bazi.day.element]+'。';
-  return {advice, dos, donts};
-}
-
-// ═══════════════════════════════════════
-//  5. ZODIAC DATA
-// ═══════════════════════════════════════
+// ═══════════════════════════════════════════════
+//  6. ZODIAC DATA
+// ═══════════════════════════════════════════════
 const zodiacs=[
-  {emoji:'♈',name:'白羊座',date:'3/21-4/19',element:'火',ruler:'火星',color:'红色',stone:'钻石'},
-  {emoji:'♉',name:'金牛座',date:'4/20-5/20',element:'土',ruler:'金星',color:'绿色',stone:'翡翠'},
-  {emoji:'♊',name:'双子座',date:'5/21-6/21',element:'风',ruler:'水星',color:'黄色',stone:'玛瑙'},
-  {emoji:'♋',name:'巨蟹座',date:'6/22-7/22',element:'水',ruler:'月亮',color:'银色',stone:'珍珠'},
-  {emoji:'♌',name:'狮子座',date:'7/23-8/22',element:'火',ruler:'太阳',color:'金色',stone:'红宝石'},
-  {emoji:'♍',name:'处女座',date:'8/23-9/22',element:'土',ruler:'水星',color:'灰色',stone:'蓝宝石'},
-  {emoji:'♎',name:'天秤座',date:'9/23-10/23',element:'风',ruler:'金星',color:'粉色',stone:'蛋白石'},
-  {emoji:'♏',name:'天蝎座',date:'10/24-11/22',element:'水',ruler:'冥王星',color:'深红',stone:'黄玉'},
-  {emoji:'♐',name:'射手座',date:'11/23-12/21',element:'火',ruler:'木星',color:'紫色',stone:'紫水晶'},
-  {emoji:'♑',name:'摩羯座',date:'12/22-1/19',element:'土',ruler:'土星',color:'棕色',stone:'石榴石'},
-  {emoji:'♒',name:'水瓶座',date:'1/20-2/18',element:'风',ruler:'天王星',color:'蓝色',stone:'紫水晶'},
-  {emoji:'♓',name:'双鱼座',date:'2/19-3/20',element:'水',ruler:'海王星',color:'海蓝',stone:'月光石'},
+  {emoji:'♈',name:'白羊座',date:'3/21 – 4/19',element:'火',ruler:'火星',color:'炽红',stone:'钻石'},
+  {emoji:'♉',name:'金牛座',date:'4/20 – 5/20',element:'土',ruler:'金星',color:'翠绿',stone:'翡翠'},
+  {emoji:'♊',name:'双子座',date:'5/21 – 6/21',element:'风',ruler:'水星',color:'明黄',stone:'玛瑙'},
+  {emoji:'♋',name:'巨蟹座',date:'6/22 – 7/22',element:'水',ruler:'月亮',color:'月银',stone:'珍珠'},
+  {emoji:'♌',name:'狮子座',date:'7/23 – 8/22',element:'火',ruler:'太阳',color:'鎏金',stone:'红宝石'},
+  {emoji:'♍',name:'处女座',date:'8/23 – 9/22',element:'土',ruler:'水星',color:'烟灰',stone:'蓝宝石'},
+  {emoji:'♎',name:'天秤座',date:'9/23 – 10/23',element:'风',ruler:'金星',color:'藕粉',stone:'蛋白石'},
+  {emoji:'♏',name:'天蝎座',date:'10/24 – 11/22',element:'水',ruler:'冥王星',color:'深绯',stone:'黄玉'},
+  {emoji:'♐',name:'射手座',date:'11/23 – 12/21',element:'火',ruler:'木星',color:'绛紫',stone:'紫水晶'},
+  {emoji:'♑',name:'摩羯座',date:'12/22 – 1/19',element:'土',ruler:'土星',color:'赭褐',stone:'石榴石'},
+  {emoji:'♒',name:'水瓶座',date:'1/20 – 2/18',element:'风',ruler:'天王星',color:'天蓝',stone:'紫水晶'},
+  {emoji:'♓',name:'双鱼座',date:'2/19 – 3/20',element:'水',ruler:'海王星',color:'海蓝',stone:'月光石'},
 ];
 
-// ═══════════════════════════════════════
-//  6. AUDIO
-// ═══════════════════════════════════════
-let audioCtx=null, soundEnabled=false, ambientNode=null;
-function initAudio(){ if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)(); }
-function playAmbient(){
-  if(!soundEnabled||!audioCtx)return; stopAmbient();
-  const now=audioCtx.currentTime, gain=audioCtx.createGain();
-  gain.gain.setValueAtTime(0,now); gain.gain.linearRampToValueAtTime(0.06,now+2);
-  const o1=audioCtx.createOscillator(); o1.type='sine'; o1.frequency.setValueAtTime(130.81,now); o1.frequency.linearRampToValueAtTime(138.59,now+4); o1.frequency.linearRampToValueAtTime(130.81,now+8);
-  const o2=audioCtx.createOscillator(); o2.type='triangle'; o2.frequency.setValueAtTime(196,now); o2.frequency.linearRampToValueAtTime(207.65,now+4); o2.frequency.linearRampToValueAtTime(196,now+8);
-  const f=audioCtx.createBiquadFilter(); f.type='lowpass'; f.frequency.setValueAtTime(400,now);
-  o1.connect(f); o2.connect(f); f.connect(gain); gain.connect(audioCtx.destination);
-  o1.start(now); o2.start(now); o1.stop(now+8); o2.stop(now+8);
-  ambientNode={o1,o2,gain,f,timeout:setTimeout(playAmbient,7500)};
-}
-function stopAmbient(){
-  if(ambientNode){ clearTimeout(ambientNode.timeout); try{ambientNode.o1.stop();}catch(e){} try{ambientNode.o2.stop();}catch(e){} ambientNode=null; }
-}
-function playChime(){
-  if(!soundEnabled||!audioCtx)return;
-  const now=audioCtx.currentTime, o=audioCtx.createOscillator(), g=audioCtx.createGain();
-  o.type='sine'; o.frequency.setValueAtTime(880,now); o.frequency.exponentialRampToValueAtTime(1760,now+.1); o.frequency.exponentialRampToValueAtTime(880,now+.3);
-  g.gain.setValueAtTime(.15,now); g.gain.exponentialRampToValueAtTime(.001,now+.5);
-  o.connect(g); g.connect(audioCtx.destination); o.start(now); o.stop(now+.5);
-}
-function playReveal(){
-  if(!soundEnabled||!audioCtx)return;
-  const now=audioCtx.currentTime;
-  [523.25,659.25,783.99,1046.5].forEach((f,i)=>{
-    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-    o.type='sine'; o.frequency.setValueAtTime(f,now+i*.12);
-    g.gain.setValueAtTime(.12,now+i*.12); g.gain.exponentialRampToValueAtTime(.001,now+i*.12+.4);
-    o.connect(g); g.connect(audioCtx.destination); o.start(now+i*.12); o.stop(now+i*.12+.4);
-  });
-}
-document.getElementById('soundBtn').onclick=()=>{
-  initAudio(); soundEnabled=!soundEnabled;
-  const b=document.getElementById('soundBtn');
-  if(soundEnabled){ b.textContent='🔊'; playAmbient(); }
-  else { b.textContent='🔇'; stopAmbient(); }
-};
-document.addEventListener('click',()=>initAudio(),{once:true});
-
-// ═══════════════════════════════════════
+// ═══════════════════════════════════════════════
 //  7. UI LOGIC
-// ═══════════════════════════════════════
+// ═══════════════════════════════════════════════
 let userInfo=null, currentZodiac=null;
 
-// Gender toggle
-document.querySelectorAll('.gender-btn').forEach(b=>{
-  b.onclick=()=>{
-    document.querySelectorAll('.gender-btn').forEach(x=>x.classList.remove('selected'));
-    b.classList.add('selected');
-  };
+document.querySelectorAll('.gender-opt').forEach(b=>{
+  b.onclick=()=>{ document.querySelectorAll('.gender-opt').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); };
 });
 
-function getGender(){
-  return document.querySelector('.gender-btn.selected')?.dataset.gender||'male';
-}
+function getGender(){ return document.querySelector('.gender-opt.selected')?.dataset.gender||'male'; }
 
 function goToZodiac(){
   const dateVal=document.getElementById('birthDate').value;
-  if(!dateVal){ alert('请选择出生日期'); return; }
+  if(!dateVal){ alert('请先选择出生日期'); return; }
   const [y,m,d]=dateVal.split('-').map(Number);
   let hour=parseInt(document.getElementById('birthHour').value);
-  if(hour<0) hour=12; // Default noon
-  
+  if(hour<0) hour=12;
   const birthPlace=document.getElementById('birthPlace').value.trim()||'未知';
   const gender=getGender();
-  
-  // Calculate lunar date
   const lunar=solarToLunar(y,m,d);
-  
-  // Calculate Bazi
   const bazi=calculateBazi(y,m,d,hour);
-  
-  // Calculate daily huangli
   const today=new Date();
   const daySB=getDayStemBranch(today.getFullYear(),today.getMonth()+1,today.getDate());
   const huangli=getDailyHuangli(daySB);
-  
   userInfo={birthDate:{y,m,d},birthHour:hour,birthPlace,gender,lunar,bazi,todayHuangli:huangli};
-  
   playChime();
   showScreen('pick');
 }
 
 function backToInfo(){ showScreen('info'); }
-
 function showScreen(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+name).classList.add('active');
@@ -841,173 +972,110 @@ function showScreen(name){
 
 function renderZodiacGrid(){
   document.getElementById('zodiacGrid').innerHTML=zodiacs.map((z,i)=>`
-    <div class="zodiac-card" onclick="selectZodiac(${i})">
-      <div class="zodiac-emoji">${z.emoji}</div>
-      <div class="zodiac-name">${z.name}</div>
+    <div class="zodiac-item" onclick="selectZodiac(${i})">
+      <div class="zodiac-icon">${z.emoji}</div>
+      <div class="zodiac-label">${z.name}</div>
     </div>
   `).join('');
 }
 
-function selectZodiac(idx){
-  currentZodiac=zodiacs[idx];
-  playChime();
-  showScreen('fortune');
-  resetCard();
-}
-
+function selectZodiac(idx){ currentZodiac=zodiacs[idx]; playChime(); showScreen('fortune'); resetCard(); }
 function backToPick(){ currentZodiac=null; showScreen('pick'); }
-
-function resetCard(){
-  document.getElementById('fortuneCard').classList.remove('flipped');
-}
-
+function resetCard(){ document.getElementById('fortuneCard').classList.remove('flipped'); }
 function flipAgain(){ resetCard(); }
 
-// Build fortune content
 function buildFortuneHTML(){
-  const b=userInfo.bazi, h=userInfo.todayHuangli, z=currentZodiac;
-  const lunar=userInfo.lunar;
-  
-  // Generate fortunes for all periods
-  const fortuneToday=generateFortune(b,h,z,'today');
-  const fortuneWeek=generateFortune(b,h,z,'week');
-  const fortuneMonth3=generateFortune(b,h,z,'month3');
-  
-  // Lucky number based on day
+  const b=userInfo.bazi, h=userInfo.todayHuangli, z=currentZodiac, lunar=userInfo.lunar;
+  const ft=generateFortune(b,h,z,'today');
+  const fw=generateFortune(b,h,z,'week');
+  const fm=generateFortune(b,h,z,'month3');
   const luckyNum=Math.floor(Math.random()*36)+1;
-  
+
+  const baziHTML=['年','月','日','时'].map((label,i)=>{
+    const p=[b.year,b.month,b.day,b.hour][i];
+    const extra=i===0?`<div class="pa">${b.year.animal}</div>`:i===2?`<div class="pa">日主${b.day.element}</div>`:'';
+    return `<div class="bazi-pillar"><div class="pl">${label}柱</div><div class="ps">${p.stem}</div><div class="pb">${p.branch}</div>${extra}</div>`;
+  }).join('');
+
   return `
-    <div style="text-align:center;margin-bottom:10px;">
-      <div style="font-size:2.2em;">${z.emoji}</div>
-      <div style="font-family:'Ma Shan Zheng',cursive;font-size:1.2em;color:var(--gold-light);">${z.name}</div>
+    <div style="text-align:center;margin-bottom:6px;">
+      <div style="font-size:2.4em;filter:drop-shadow(0 0 12px rgba(191,155,74,0.3));">${z.emoji}</div>
+      <div style="font-family:'Ma Shan Zheng',cursive;font-size:1.15em;color:var(--gold-glow);letter-spacing:3px;">${z.name}</div>
     </div>
-
-    <div style="font-size:0.7em;color:rgba(224,213,245,0.5);text-align:center;margin-bottom:8px;">
-      ${userInfo.gender==='male'?'♂':'♀'} ${userInfo.birthDate.y}年${userInfo.birthDate.m}月${userInfo.birthDate.d}日 · ${lunar.year}年${lunar.isLeap?'闰':''}${lunar.month}月${lunar.day}日 · ${userInfo.birthPlace}
+    <div class="user-meta">
+      ${userInfo.gender==='male'?'♂ 阳':'♀ 阴'} · ${userInfo.birthDate.y}年${userInfo.birthDate.m}月${userInfo.birthDate.d}日 · 农历${lunar.year}年${lunar.isLeap?'闰':''}${lunar.month}月${lunar.day}日 · ${userInfo.birthPlace}
     </div>
-
-    <div class="bazi-display">
-      <div class="bazi-pillar">
-        <div class="pillar-label">年柱</div>
-        <div class="pillar-stem">${b.year.stem}</div>
-        <div class="pillar-branch">${b.year.branch}</div>
-        <div style="font-size:0.6em;color:rgba(224,213,245,0.4);">${b.year.animal}</div>
-      </div>
-      <div class="bazi-pillar">
-        <div class="pillar-label">月柱</div>
-        <div class="pillar-stem">${b.month.stem}</div>
-        <div class="pillar-branch">${b.month.branch}</div>
-      </div>
-      <div class="bazi-pillar">
-        <div class="pillar-label">日柱</div>
-        <div class="pillar-stem">${b.day.stem}</div>
-        <div class="pillar-branch">${b.day.branch}</div>
-        <div style="font-size:0.6em;color:rgba(224,213,245,0.4);">日主${b.day.element}</div>
-      </div>
-      <div class="bazi-pillar">
-        <div class="pillar-label">时柱</div>
-        <div class="pillar-stem">${b.hour.stem}</div>
-        <div class="pillar-branch">${b.hour.branch}</div>
-      </div>
+    <div class="bazi-row">${baziHTML}</div>
+    <div class="tags-row">
+      <span class="tag">📅 ${h.dayStem}${h.dayBranch}日</span>
+      <span class="tag warn">⚡ 冲${h.clash.clashAnimal}</span>
+      <span class="tag good">🧭 吉方${h.goodDirection}</span>
+      <span class="tag">🎨 ${h.luckyColor}</span>
     </div>
-
-    <div class="huangli-bar">
-      <span class="huangli-tag">📅 ${h.dayStem}${h.dayBranch}日</span>
-      <span class="huangli-tag clash">⚡ 冲${h.clash.clashAnimal}</span>
-      <span class="huangli-tag good">🧭 吉方${h.goodDirection}</span>
-      <span class="huangli-tag">🎨 ${h.luckyColor}</span>
+    <div class="tabs">
+      <div class="tab active" onclick="switchPeriod('today',this)">📌 今日</div>
+      <div class="tab" onclick="switchPeriod('week',this)">📅 一周</div>
+      <div class="tab" onclick="switchPeriod('month3',this)">🗓 三月</div>
     </div>
-
-    <div class="period-tabs">
-      <div class="period-tab active" onclick="switchPeriod('today',this)">📌 今日</div>
-      <div class="period-tab" onclick="switchPeriod('week',this)">📅 一周</div>
-      <div class="period-tab" onclick="switchPeriod('month3',this)">🗓 三月</div>
+    <div class="period-panel active" id="period-today">
+      <div class="fortune-box">
+        <h4>✦ 今日运势 <span class="stars">${ft.stars}</span></h4>
+        <p>能量：${ft.elementRelation}</p>
+        <p>${ft.advice}</p>
+      </div>
+      <div class="advice-row">
+        <div class="advice-col do"><h5>✅ 宜</h5>${ft.dos.map(d=>`<li>· ${d}</li>`).join('')}</div>
+        <div class="advice-col dont"><h5>❌ 忌</h5>${ft.donts.map(d=>`<li>· ${d}</li>`).join('')}</div>
+      </div>
+      <div class="lucky-bar">🔢 幸运数字：<b>${luckyNum}</b>　🎨 幸运色：<b>${h.luckyColor}</b>　💎 守护石：<b>${z.stone}</b></div>
     </div>
-
-    <div class="period-content active" id="period-today">
-      <div class="fortune-block">
-        <h4>⭐ 整体运势 <span class="stars">${fortuneToday.stars}</span></h4>
-        <p>能量互动：${fortuneToday.elementRelation}</p>
-        <p class="advice">${fortuneToday.advice}</p>
+    <div class="period-panel" id="period-week">
+      <div class="fortune-box">
+        <h4>✦ 一周运势 <span class="stars">${fw.stars}</span></h4>
+        <p>${fw.advice}</p>
       </div>
-      <div class="dos-donts">
-        <div class="do-box">
-          <h5>✅ 宜</h5>
-          ${fortuneToday.dos.map(d=>`<li>· ${d}</li>`).join('')}
-        </div>
-        <div class="dont-box">
-          <h5>❌ 忌</h5>
-          ${fortuneToday.donts.map(d=>`<li>· ${d}</li>`).join('')}
-        </div>
-      </div>
-      <div class="fortune-block" style="text-align:center;font-size:0.72em;">
-        🔢 幸运数字：<b style="color:var(--gold-light);">${luckyNum}</b>　
-        🎨 幸运色：<b style="color:var(--gold-light);">${h.luckyColor}</b>　
-        💎 守护石：${z.stone}
+      <div class="advice-row">
+        <div class="advice-col do"><h5>✅ 应当加强</h5>${fw.dos.map(d=>`<li>· ${d}</li>`).join('')}</div>
+        <div class="advice-col dont"><h5>❌ 需要避忌</h5>${fw.donts.map(d=>`<li>· ${d}</li>`).join('')}</div>
       </div>
     </div>
-
-    <div class="period-content" id="period-week">
-      <div class="fortune-block">
-        <h4>⭐ 一周运势 <span class="stars">${fortuneWeek.stars}</span></h4>
-        <p>能量趋势：${fortuneWeek.elementRelation}</p>
-        <p class="advice">${fortuneWeek.advice}</p>
+    <div class="period-panel" id="period-month3">
+      <div class="fortune-box">
+        <h4>✦ 三月运势 <span class="stars">${fm.stars}</span></h4>
+        <p>${fm.advice}</p>
       </div>
-      <div class="dos-donts">
-        <div class="do-box">
-          <h5>✅ 应当加强</h5>
-          ${fortuneWeek.dos.map(d=>`<li>· ${d}</li>`).join('')}
-        </div>
-        <div class="dont-box">
-          <h5>❌ 需要避忌</h5>
-          ${fortuneWeek.donts.map(d=>`<li>· ${d}</li>`).join('')}
-        </div>
-      </div>
-    </div>
-
-    <div class="period-content" id="period-month3">
-      <div class="fortune-block">
-        <h4>⭐ 三月运势 <span class="stars">${fortuneMonth3.stars}</span></h4>
-        <p>季运基调：${fortuneMonth3.elementRelation}</p>
-        <p class="advice">${fortuneMonth3.advice}</p>
-      </div>
-      <div class="dos-donts">
-        <div class="do-box">
-          <h5>✅ 应当加强</h5>
-          ${fortuneMonth3.dos.map(d=>`<li>· ${d}</li>`).join('')}
-        </div>
-        <div class="dont-box">
-          <h5>❌ 需要避忌</h5>
-          ${fortuneMonth3.donts.map(d=>`<li>· ${d}</li>`).join('')}
-        </div>
+      <div class="advice-row">
+        <div class="advice-col do"><h5>✅ 应当加强</h5>${fm.dos.map(d=>`<li>· ${d}</li>`).join('')}</div>
+        <div class="advice-col dont"><h5>❌ 需要避忌</h5>${fm.donts.map(d=>`<li>· ${d}</li>`).join('')}</div>
       </div>
     </div>
   `;
 }
 
 function switchPeriod(period,el){
-  document.querySelectorAll('.period-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
-  document.querySelectorAll('.period-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.period-panel').forEach(c=>c.classList.remove('active'));
   document.getElementById('period-'+period).classList.add('active');
 }
 
-// Card flip
-document.getElementById('cardBack').addEventListener('click',()=>{
-  if(!currentZodiac||!userInfo)return;
+// Card flip + particles
+document.getElementById('cardBack').addEventListener('click',(e)=>{
+  if(!currentZodiac||!userInfo) return;
   const card=document.getElementById('fortuneCard');
-  if(card.classList.contains('flipped'))return;
+  if(card.classList.contains('flipped')) return;
   document.getElementById('fortuneContent').innerHTML=buildFortuneHTML();
   card.classList.add('flipped');
-  playReveal();
+  playRevealSound();
+  // Particle burst at click position
+  const rect=card.getBoundingClientRect();
+  burstParticles(rect.left+rect.width/2, rect.top+rect.height/2, 40);
 });
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════════════════
 //  INIT
-// ═══════════════════════════════════════
+// ═══════════════════════════════════════════════
 renderZodiacGrid();
-
-// Set default date to suggest (optional: today minus ~25 years)
 const d=new Date(); d.setFullYear(d.getFullYear()-25);
 document.getElementById('birthDate').value=d.toISOString().slice(0,10);
 </script>
