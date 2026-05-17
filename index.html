@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🔮 星座占卜 - 星之密语</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #d4a853;
+    --gold-light: #f0d68a;
+    --purple: #6b3fa0;
+    --purple-dark: #1a0a2e;
+    --blue-mystic: #16213e;
+    --text-light: #e0d5f5;
+  }
+
+  body {
+    font-family: 'ZCOOL XiaoWei', 'Ma Shan Zheng', serif;
+    background: var(--purple-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--text-light);
+    cursor: default;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ── Canvas Starfield ── */
+  #starfield {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── Ambient overlay ── */
+  .ambient-glow {
+    position: fixed;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at center, rgba(107,63,160,0.15) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    animation: ambientPulse 8s ease-in-out infinite;
+  }
+  @keyframes ambientPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.05); }
+  }
+
+  /* ── Main container ── */
+  #app {
+    position: relative;
+    z-index: 1;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Screen transitions ── */
+  .screen {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeSlideIn 0.6s ease-out;
+  }
+  .screen.active { display: flex; }
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Title ── */
+  .title-wrap { text-align: center; margin-bottom: 8px; }
+  .title {
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: 2.6em;
+    background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 60%, #a07828 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    filter: drop-shadow(0 2px 8px rgba(212,168,83,0.4));
+    letter-spacing: 4px;
+  }
+  .subtitle {
+    font-size: 0.85em;
+    color: rgba(224,213,245,0.6);
+    letter-spacing: 6px;
+    margin-top: -4px;
+  }
+
+  /* ── Zodiac Grid ── */
+  .zodiac-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px 0;
+  }
+  .zodiac-card {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, rgba(107,63,160,0.3), rgba(26,10,46,0.6));
+    border: 1px solid rgba(212,168,83,0.25);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .zodiac-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(212,168,83,0.15), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .zodiac-card:hover, .zodiac-card:active {
+    transform: translateY(-3px) scale(1.03);
+    border-color: var(--gold-light);
+    box-shadow: 0 8px 30px rgba(212,168,83,0.2);
+  }
+  .zodiac-card:hover::before, .zodiac-card:active::before { opacity: 1; }
+  .zodiac-emoji { font-size: 2em; margin-bottom: 2px; position: relative; z-index: 1; }
+  .zodiac-name { font-size: 0.75em; color: var(--text-light); position: relative; z-index: 1; letter-spacing: 2px; }
+
+  /* ── Fortune Screen ── */
+  .fortune-card-wrap {
+    perspective: 1200px;
+    width: 100%;
+    max-width: 340px;
+    height: 420px;
+    margin: 16px 0;
+  }
+  .fortune-card {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .fortune-card.flipped {
+    transform: rotateY(180deg);
+  }
+  .card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+  }
+  .card-back {
+    background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #1a0a2e 100%);
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 60px rgba(212,168,83,0.2), inset 0 0 40px rgba(107,63,160,0.2);
+    cursor: pointer;
+    gap: 16px;
+  }
+  .card-back::after {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(212,168,83,0.3);
+    border-radius: 16px;
+    pointer-events: none;
+  }
+  .card-back-symbol {
+    font-size: 4em;
+    animation: symbolFloat 3s ease-in-out infinite;
+  }
+  @keyframes symbolFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-8px) rotate(2deg); }
+    75% { transform: translateY(8px) rotate(-2deg); }
+  }
+  .card-back-text {
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: 1.4em;
+    color: var(--gold);
+    letter-spacing: 6px;
+  }
+  .card-back-hint {
+    font-size: 0.8em;
+    color: rgba(224,213,245,0.5);
+    letter-spacing: 2px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  .card-front {
+    background: linear-gradient(135deg, #1e0d3a 0%, #2d1b4e 40%, #1a0a2e 100%);
+    border: 2px solid var(--gold-light);
+    box-shadow: 0 0 80px rgba(212,168,83,0.25);
+    transform: rotateY(180deg);
+    gap: 10px;
+    overflow-y: auto;
+  }
+  .card-front .sign-emoji { font-size: 2.8em; }
+  .card-front .sign-name {
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: 1.6em;
+    color: var(--gold-light);
+  }
+  .card-front .sign-date {
+    font-size: 0.75em;
+    color: rgba(224,213,245,0.5);
+    margin-bottom: 8px;
+  }
+
+  .fortune-sections {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .fortune-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: rgba(107,63,160,0.15);
+    border-radius: 10px;
+    border: 1px solid rgba(212,168,83,0.12);
+  }
+  .fortune-icon { font-size: 1.3em; flex-shrink: 0; width: 28px; text-align: center; }
+  .fortune-label {
+    font-size: 0.7em;
+    color: rgba(224,213,245,0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .fortune-stars { color: var(--gold); font-size: 0.85em; letter-spacing: 2px; }
+  .fortune-text {
+    font-size: 0.82em;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+
+  .fortune-extras {
+    display: flex;
+    gap: 16px;
+    margin-top: 6px;
+    font-size: 0.75em;
+    color: rgba(224,213,245,0.6);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .fortune-extras span { display: flex; align-items: center; gap: 4px; }
+
+  /* ── Buttons ── */
+  .btn {
+    padding: 12px 32px;
+    border: 1px solid var(--gold);
+    background: linear-gradient(135deg, rgba(107,63,160,0.4), rgba(26,10,46,0.6));
+    color: var(--gold-light);
+    font-family: 'ZCOOL XiaoWei', serif;
+    font-size: 1em;
+    border-radius: 30px;
+    cursor: pointer;
+    letter-spacing: 3px;
+    transition: all 0.3s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:hover, .btn:active {
+    background: linear-gradient(135deg, rgba(212,168,83,0.3), rgba(107,63,160,0.5));
+    box-shadow: 0 4px 20px rgba(212,168,83,0.3);
+    transform: scale(1.03);
+  }
+  .btn-sm {
+    padding: 8px 20px;
+    font-size: 0.8em;
+    letter-spacing: 2px;
+  }
+
+  /* ── Sound toggle ── */
+  .sound-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(212,168,83,0.3);
+    background: rgba(26,10,46,0.7);
+    color: var(--gold-light);
+    font-size: 1.2em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    backdrop-filter: blur(8px);
+  }
+  .sound-toggle:hover { border-color: var(--gold-light); }
+
+  /* ── Loading particles ── */
+  .shooting-star {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: shoot 1.5s ease-out forwards;
+    opacity: 0;
+  }
+  @keyframes shoot {
+    0% { opacity: 1; transform: translate(0, 0); }
+    100% { opacity: 0; transform: translate(300px, 300px); }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 380px) {
+    .zodiac-grid { gap: 8px; }
+    .zodiac-emoji { font-size: 1.6em; }
+    .zodiac-name { font-size: 0.65em; }
+    .title { font-size: 2em; }
+    .fortune-card-wrap { height: 380px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div class="ambient-glow"></div>
+
+<button class="sound-toggle" id="soundBtn" title="音效开关">🔇</button>
+
+<div id="app">
+  <!-- Screen 1: Zodiac Picker -->
+  <div class="screen active" id="screen-pick">
+    <div class="title-wrap">
+      <div class="title">星 之 密 语</div>
+      <div class="subtitle">✦ Z O D I A C · F O R T U N E ✦</div>
+    </div>
+    <div class="zodiac-grid" id="zodiacGrid"></div>
+  </div>
+
+  <!-- Screen 2: Fortune Reveal -->
+  <div class="screen" id="screen-fortune">
+    <div class="title-wrap">
+      <div class="title" style="font-size:1.8em;">你的命运之牌</div>
+    </div>
+    <div class="fortune-card-wrap">
+      <div class="fortune-card" id="fortuneCard">
+        <!-- Card Back -->
+        <div class="card-face card-back" id="cardBack">
+          <div class="card-back-symbol">🔮</div>
+          <div class="card-back-text">触碰水晶球</div>
+          <div class="card-back-hint">揭开你的命运</div>
+        </div>
+        <!-- Card Front -->
+        <div class="card-face card-front" id="cardFront">
+          <div class="sign-emoji" id="signEmoji"></div>
+          <div class="sign-name" id="signName"></div>
+          <div class="sign-date" id="signDate"></div>
+          <div class="fortune-sections" id="fortuneSections"></div>
+          <div class="fortune-extras" id="fortuneExtras"></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+      <button class="btn btn-sm" onclick="resetToPick()">↩ 重新选择</button>
+      <button class="btn btn-sm" onclick="flipAgain()">🔮 再占一次</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════
+//  STARFIELD CANVAS
+// ═══════════════════════
+const canvas = document.getElementById('starfield');
+const ctx = canvas.getContext('2d');
+let stars = [];
+let w, h;
+
+function resizeCanvas() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function initStars(count = 150) {
+  stars = [];
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.8 + 0.3,
+      twinkleSpeed: Math.random() * 0.02 + 0.005,
+      twinkleOffset: Math.random() * Math.PI * 2,
+      baseAlpha: Math.random() * 0.5 + 0.5,
+      hue: Math.random() < 0.15 ? 40 + Math.random() * 20 : 260 + Math.random() * 40,
+    });
+  }
+}
+initStars();
+
+function drawStars(timestamp) {
+  ctx.clearRect(0, 0, w, h);
+  for (const s of stars) {
+    const alpha = s.baseAlpha + Math.sin(timestamp * s.twinkleSpeed + s.twinkleOffset) * 0.3;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${s.hue}, 60%, 80%, ${alpha})`;
+    ctx.fill();
+    // Glow for bigger stars
+    if (s.r > 1.2) {
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r * 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${s.hue}, 60%, 80%, ${alpha * 0.15})`;
+      ctx.fill();
+    }
+  }
+  requestAnimationFrame(drawStars);
+}
+requestAnimationFrame(drawStars);
+
+// Shooting stars
+function spawnShootingStar() {
+  const star = document.createElement('div');
+  star.className = 'shooting-star';
+  star.style.left = Math.random() * 80 + '%';
+  star.style.top = Math.random() * 40 + '%';
+  star.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
+  document.body.appendChild(star);
+  setTimeout(() => star.remove(), 2000);
+}
+setInterval(() => {
+  if (Math.random() < 0.3) spawnShootingStar();
+}, 4000);
+spawnShootingStar();
+
+// ═══════════════════════
+//  ZODIAC DATA
+// ═══════════════════════
+const zodiacs = [
+  { emoji:'♈', name:'白羊座', date:'3/21 - 4/19', element:'火', planet:'火星', number:[3,7,21], color:'红色', stone:'钻石' },
+  { emoji:'♉', name:'金牛座', date:'4/20 - 5/20', element:'土', planet:'金星', number:[2,6,9], color:'绿色', stone:'翡翠' },
+  { emoji:'♊', name:'双子座', date:'5/21 - 6/21', element:'风', planet:'水星', number:[5,11,22], color:'黄色', stone:'玛瑙' },
+  { emoji:'♋', name:'巨蟹座', date:'6/22 - 7/22', element:'水', planet:'月亮', number:[2,7,18], color:'银色', stone:'珍珠' },
+  { emoji:'♌', name:'狮子座', date:'7/23 - 8/22', element:'火', planet:'太阳', number:[1,9,17], color:'金色', stone:'红宝石' },
+  { emoji:'♍', name:'处女座', date:'8/23 - 9/22', element:'土', planet:'水星', number:[4,6,14], color:'灰色', stone:'蓝宝石' },
+  { emoji:'♎', name:'天秤座', date:'9/23 - 10/23', element:'风', planet:'金星', number:[6,15,24], color:'粉色', stone:'蛋白石' },
+  { emoji:'♏', name:'天蝎座', date:'10/24 - 11/22', element:'水', planet:'冥王星', number:[8,13,27], color:'深红', stone:'黄玉' },
+  { emoji:'♐', name:'射手座', date:'11/23 - 12/21', element:'火', planet:'木星', number:[3,12,21], color:'紫色', stone:'紫水晶' },
+  { emoji:'♑', name:'摩羯座', date:'12/22 - 1/19', element:'土', planet:'土星', number:[4,8,22], color:'棕色', stone:'石榴石' },
+  { emoji:'♒', name:'水瓶座', date:'1/20 - 2/18', element:'风', planet:'天王星', number:[7,14,23], color:'蓝色', stone:'紫水晶' },
+  { emoji:'♓', name:'双鱼座', date:'2/19 - 3/20', element:'水', planet:'海王星', number:[5,9,18], color:'海蓝', stone:'月光石' },
+];
+
+// Fortune pools
+const loveFortunes = [
+  { stars:'★★★★★', text:'真爱近在咫尺，勇敢表达你的心意。月亮女神正为你牵线。' },
+  { stars:'★★★★☆', text:'感情运势上升，已有的关系会更加甜蜜稳定。' },
+  { stars:'★★★★☆', text:'邂逅的缘分就在转角处，保持心灵的开放。' },
+  { stars:'★★★☆☆', text:'感情需要耐心浇灌，不要急于求成。顺其自然便是最好。' },
+  { stars:'★★★☆☆', text:'单身的你可能遇到有趣的人，但请先看清自己的心。' },
+  { stars:'★★★★★', text:'金星闪耀，今天你的魅力值爆表！大胆去约会吧。' },
+  { stars:'★★☆☆☆', text:'感情上需要多一些独处的时间，倾听内心的声音。' },
+  { stars:'★★★★☆', text:'旧情复燃的可能性很大，但请谨慎决定。星辰在指引你。' },
+];
+
+const careerFortunes = [
+  { stars:'★★★★★', text:'事业将迎来重大突破，你的努力终于被看见了。' },
+  { stars:'★★★★☆', text:'职场贵人即将出现，保持谦逊和开放的心态。' },
+  { stars:'★★★★☆', text:'新的项目机会正向你走来，请做好迎接的准备。' },
+  { stars:'★★★☆☆', text:'稳扎稳打是最好的策略，不要被短期诱惑分心。' },
+  { stars:'★★★☆☆', text:'团队合作是本周的关键词，学会借力而行。' },
+  { stars:'★★★★★', text:'木星进入你的职业宫，升职加薪的好时机！' },
+  { stars:'★★☆☆☆', text:'工作上可能遇到小波折，但这是成长的必要过程。' },
+  { stars:'★★★★☆', text:'你的创意将大放异彩，勇敢提出你的想法吧。' },
+];
+
+const wealthFortunes = [
+  { stars:'★★★★★', text:'财运亨通！投资眼光独到，可能会有一笔意外之财。' },
+  { stars:'★★★★☆', text:'理财计划初见成效，继续保持审慎的态度。' },
+  { stars:'★★★★☆', text:'偏财运不错，小赌怡情但别太贪心哦。' },
+  { stars:'★★★☆☆', text:'财务上宜守不宜攻，做好预算规划最重要。' },
+  { stars:'★★★☆☆', text:'开源节流的好时机，审视你的消费习惯吧。' },
+  { stars:'★★★★★', text:'财富之星特别眷顾你，大胆追逐你的财务目标！' },
+  { stars:'★★☆☆☆', text:'近期开销较多，请控制冲动消费的欲望。' },
+  { stars:'★★★★☆', text:'有望收到一笔延迟的款项或奖金，惊喜即将到来。' },
+];
+
+const healthFortunes = [
+  { stars:'★★★★★', text:'身心状态极佳，精力充沛，是开始新运动计划的好时机。' },
+  { stars:'★★★★☆', text:'睡眠质量将明显改善，尝试冥想会有意想不到的效果。' },
+  { stars:'★★★★☆', text:'身体的直觉很灵敏，听从它给你发出的信号。' },
+  { stars:'★★★☆☆', text:'注意饮食均衡，多一些蔬果，少一些油腻。' },
+  { stars:'★★★☆☆', text:'适度的运动会让你精神焕发，哪怕只是散步也好。' },
+  { stars:'★★★★★', text:'水元素带来净化能量，多喝水，多接触大自然。' },
+  { stars:'★★☆☆☆', text:'注意肩颈疲劳，工作间隙多站起来活动活动。' },
+  { stars:'★★★★☆', text:'情绪和身体都在好转，继续保持良好的作息习惯。' },
+];
+
+const overallFortunes = [
+  { stars:'★★★★★', text:'宇宙的能量与你同行，今天做什么都会格外顺利！' },
+  { stars:'★★★★☆', text:'整体运势上扬，保持积极心态，好运自然会来。' },
+  { stars:'★★★★☆', text:'这是一个充满惊喜的周期，打开心扉迎接变化。' },
+  { stars:'★★★☆☆', text:'生活在平稳中前进，珍惜当下的美好时光。' },
+  { stars:'★★★☆☆', text:'挑战与机遇并存，你的选择将决定未来的走向。' },
+  { stars:'★★★★★', text:'群星正为你排列成最美的图案，今天是你的幸运日！' },
+  { stars:'★★☆☆☆', text:'放慢脚步，宇宙正在为你酝酿更大的惊喜。' },
+  { stars:'★★★★☆', text:'守护星特别明亮，直觉会带你走向正确的方向。' },
+];
+
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+// ═══════════════════════
+//  AUDIO CONTEXT (ambient)
+// ═══════════════════════
+let audioCtx = null;
+let soundEnabled = false;
+let ambientNode = null;
+
+function initAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+}
+
+function playAmbient() {
+  if (!soundEnabled || !audioCtx) return;
+  stopAmbient();
+  const now = audioCtx.currentTime;
+  const gain = audioCtx.createGain();
+  gain.gain.setValueAtTime(0, now);
+  gain.gain.linearRampToValueAtTime(0.06, now + 2);
+
+  // Create a mystical drone
+  const osc1 = audioCtx.createOscillator();
+  osc1.type = 'sine';
+  osc1.frequency.setValueAtTime(130.81, now); // C3
+  osc1.frequency.linearRampToValueAtTime(138.59, now + 4); // C#3
+  osc1.frequency.linearRampToValueAtTime(130.81, now + 8);
+
+  const osc2 = audioCtx.createOscillator();
+  osc2.type = 'triangle';
+  osc2.frequency.setValueAtTime(196, now);
+  osc2.frequency.linearRampToValueAtTime(207.65, now + 4);
+  osc2.frequency.linearRampToValueAtTime(196, now + 8);
+
+  const filter = audioCtx.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.setValueAtTime(400, now);
+
+  osc1.connect(filter);
+  osc2.connect(filter);
+  filter.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc1.start(now);
+  osc2.start(now);
+  osc1.stop(now + 8);
+  osc2.stop(now + 8);
+
+  ambientNode = { osc1, osc2, gain, filter, timeout: setTimeout(playAmbient, 7500) };
+}
+
+function stopAmbient() {
+  if (ambientNode) {
+    clearTimeout(ambientNode.timeout);
+    try { ambientNode.osc1.stop(); } catch(e){}
+    try { ambientNode.osc2.stop(); } catch(e){}
+    ambientNode = null;
+  }
+}
+
+function playChime() {
+  if (!soundEnabled || !audioCtx) return;
+  const now = audioCtx.currentTime;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(880, now);
+  osc.frequency.exponentialRampToValueAtTime(1760, now + 0.1);
+  osc.frequency.exponentialRampToValueAtTime(880, now + 0.3);
+  gain.gain.setValueAtTime(0.15, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start(now);
+  osc.stop(now + 0.5);
+}
+
+function playRevealSound() {
+  if (!soundEnabled || !audioCtx) return;
+  const now = audioCtx.currentTime;
+  [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, now + i * 0.12);
+    gain.gain.setValueAtTime(0.12, now + i * 0.12);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.4);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(now + i * 0.12);
+    osc.stop(now + i * 0.12 + 0.4);
+  });
+}
+
+document.getElementById('soundBtn').addEventListener('click', () => {
+  initAudio();
+  soundEnabled = !soundEnabled;
+  const btn = document.getElementById('soundBtn');
+  if (soundEnabled) {
+    btn.textContent = '🔊';
+    btn.style.borderColor = 'var(--gold-light)';
+    playAmbient();
+  } else {
+    btn.textContent = '🔇';
+    btn.style.borderColor = 'rgba(212,168,83,0.3)';
+    stopAmbient();
+  }
+});
+
+// First tap init audio
+document.addEventListener('click', () => initAudio(), { once: true });
+
+// ═══════════════════════
+//  UI LOGIC
+// ═══════════════════════
+let currentZodiac = null;
+
+function renderZodiacGrid() {
+  const grid = document.getElementById('zodiacGrid');
+  grid.innerHTML = zodiacs.map((z, i) => `
+    <div class="zodiac-card" onclick="selectZodiac(${i})">
+      <div class="zodiac-emoji">${z.emoji}</div>
+      <div class="zodiac-name">${z.name}</div>
+    </div>
+  `).join('');
+}
+
+function selectZodiac(idx) {
+  currentZodiac = zodiacs[idx];
+  playChime();
+  showScreen('fortune');
+  resetCard();
+}
+
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+}
+
+function resetCard() {
+  const card = document.getElementById('fortuneCard');
+  card.classList.remove('flipped');
+}
+
+function flipAgain() {
+  resetCard();
+}
+
+function generateFortune(z) {
+  const love = pick(loveFortunes);
+  const career = pick(careerFortunes);
+  const wealth = pick(wealthFortunes);
+  const health = pick(healthFortunes);
+  const overall = pick(overallFortunes);
+  const luckyNum = z.number[Math.floor(Math.random() * z.number.length)];
+
+  document.getElementById('signEmoji').textContent = z.emoji;
+  document.getElementById('signName').textContent = z.name;
+  document.getElementById('signDate').textContent = z.date;
+
+  document.getElementById('fortuneSections').innerHTML = `
+    <div class="fortune-item">
+      <span class="fortune-icon">💕</span>
+      <div style="flex:1">
+        <div class="fortune-label">爱情运势</div>
+        <div class="fortune-stars">${love.stars}</div>
+        <div class="fortune-text">${love.text}</div>
+      </div>
+    </div>
+    <div class="fortune-item">
+      <span class="fortune-icon">💼</span>
+      <div style="flex:1">
+        <div class="fortune-label">事业运势</div>
+        <div class="fortune-stars">${career.stars}</div>
+        <div class="fortune-text">${career.text}</div>
+      </div>
+    </div>
+    <div class="fortune-item">
+      <span class="fortune-icon">💰</span>
+      <div style="flex:1">
+        <div class="fortune-label">财富运势</div>
+        <div class="fortune-stars">${wealth.stars}</div>
+        <div class="fortune-text">${wealth.text}</div>
+      </div>
+    </div>
+    <div class="fortune-item">
+      <span class="fortune-icon">🌿</span>
+      <div style="flex:1">
+        <div class="fortune-label">健康运势</div>
+        <div class="fortune-stars">${health.stars}</div>
+        <div class="fortune-text">${health.text}</div>
+      </div>
+    </div>
+    <div class="fortune-item">
+      <span class="fortune-icon">⭐</span>
+      <div style="flex:1">
+        <div class="fortune-label">整体运势</div>
+        <div class="fortune-stars">${overall.stars}</div>
+        <div class="fortune-text">${overall.text}</div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('fortuneExtras').innerHTML = `
+    <span>🔢 幸运数字：${luckyNum}</span>
+    <span>🎨 幸运色：${z.color}</span>
+    <span>💎 守护石：${z.stone}</span>
+    <span>🌍 元素：${z.element}</span>
+  `;
+}
+
+// Card flip
+document.getElementById('cardBack').addEventListener('click', () => {
+  if (!currentZodiac) return;
+  const card = document.getElementById('fortuneCard');
+  if (card.classList.contains('flipped')) return;
+
+  generateFortune(currentZodiac);
+  card.classList.add('flipped');
+  playRevealSound();
+});
+
+function resetToPick() {
+  currentZodiac = null;
+  showScreen('pick');
+}
+
+// ═══════════════════════
+//  INIT
+// ═══════════════════════
+renderZodiacGrid();
+</script>
+
+</body>
+</html>
