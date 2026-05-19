@@ -1,1579 +1,1141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>🔮 Lalalin · Mystic East Divination</title>
-<meta name="description" content="Ancient Chinese divination reimagined: BaZi astrology, Five Elements, Face & Palm Reading, Character Oracle. Discover your destiny.">
-<meta name="keywords" content="chinese astrology, bazi, five elements, face reading, palm reading, divination, feng shui, zodiac, mystic">
-<meta name="author" content="Lalalin">
-<meta name="theme-color" content="#c49a3c">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Lalalin">
-<link rel="manifest" href="/manifest.json">
-<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/icon-192.svg">
-
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="🔮 Lalalin · Chinese Divination">
-<meta property="og:description" content="Ancient wisdom meets modern design. BaZi astrology, Five Elements, face reading, palm reading, and more.">
+<title>Lalalin · 玄学占卜 | Mystic East Divination</title>
+<meta name="description" content="八字算命、星座运势、塔罗占卜、每日运势，探索你的命运密码。Explore your destiny with Chinese astrology, tarot reading and daily horoscope.">
+<meta name="keywords" content="占卜,八字,算命,星座,塔罗,运势,风水,lalalin,divination,bazi,zodiac,tarot,horoscope">
+<meta name="theme-color" content="#0f0a05">
+<meta property="og:title" content="Lalalin · 玄学占卜">
+<meta property="og:description" content="探索你的命运密码 | Explore your destiny">
 <meta property="og:url" content="https://lalalin.xyz/">
-<meta property="og:site_name" content="Lalalin">
-<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lalalin.xyz/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="🔮 Lalalin · Chinese Divination">
-<meta name="twitter:description" content="Ancient Chinese divination reimagined. BaZi, Face Reading, Palm Reading, and more.">
-<meta name="twitter:image" content="https://lalalin.xyz/og-image.png">
-
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@300;400;600;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@300;400;600&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
-
 :root {
-  --void:#0f0a05; --abyss:#1a1008; --cosmos:#261a0e; --nebula:#342214;
-  --twilight:#452e1a; --amethyst:#8b5e3c; --lavender:#b8946e;
-  --gold-dim:#7a5c28; --gold:#c49a3c; --gold-glow:#e8c46a; --gold-bright:#f5dc90;
-  --rose:#b8655a; --rose-light:#d4958a; --text-primary:#f0e8d8;
-  --text-secondary:#c8b898; --text-muted:#8a7a5e;
-  --glass-bg:rgba(38,26,14,0.6); --glass-border:rgba(196,154,60,0.2);
-  --glass-border-active:rgba(196,154,60,0.5); --glow-gold:rgba(196,154,60,0.3);
-  --glow-warm:rgba(180,120,60,0.35); --radius:16px; --radius-lg:22px;
-  --transition:0.35s cubic-bezier(0.4,0,0.2,1);
+  --bg: #0a0806; --bg2: #14100c; --bg3: #1e1914;
+  --gold: #c49a3c; --gold2: #e8c46a; --gold3: #f5dc90;
+  --gold-dim: #7a5c28; --red: #c75b53;
+  --text: #e8dfd0; --text2: #b8a88a; --text3: #7a6e58;
+  --border: rgba(196,154,60,0.15); --border2: rgba(196,154,60,0.3);
+  --radius: 14px; --radius2: 20px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
 }
-
 *{margin:0;padding:0;box-sizing:border-box;}
-
 body{
-  font-family:'Cormorant Garamond','Noto Serif SC',serif;
-  background:var(--void);
+  font-family: 'Noto Serif SC', 'Cinzel', serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
   background-image:
-    radial-gradient(ellipse at 20% 20%,rgba(180,120,60,0.1) 0%,transparent 50%),
-    radial-gradient(ellipse at 80% 80%,rgba(196,154,60,0.08) 0%,transparent 50%),
-    radial-gradient(ellipse at 50% 50%,rgba(38,26,14,0.85) 0%,var(--void) 100%);
-  min-height:100vh;overflow-x:hidden;color:var(--text-primary);
-  -webkit-tap-highlight-color:transparent;
+    radial-gradient(ellipse at 30% 20%, rgba(196,154,60,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(180,120,60,0.05) 0%, transparent 50%);
 }
 
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:rgba(196,154,60,0.3);border-radius:2px;}
-
-#starfield{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
-.vignette{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,rgba(15,10,5,0.75) 100%);}
-
-/* ── Top Bar ── */
-#topbar{
-  position:fixed;top:0;left:0;right:0;z-index:30;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:12px 16px;pointer-events:none;
-}
-#topbar>*{pointer-events:auto;}
-.lang-btn,.music-btn{
-  width:40px;height:40px;border-radius:50%;
-  border:1px solid rgba(196,154,60,0.25);
-  background:rgba(26,16,8,0.7);color:var(--text-muted);
-  font-size:0.85em;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:var(--transition);backdrop-filter:blur(12px);
-  font-family:'Cinzel','Noto Serif SC',serif;font-weight:600;
-}
-.lang-btn:hover,.music-btn:hover{border-color:var(--gold);color:var(--gold-glow);}
-.music-btn.on{border-color:var(--gold);color:var(--gold-glow);}
-
-/* ── App Shell ── */
-#app{
-  position:relative;z-index:1;max-width:520px;margin:0 auto;
-  padding:60px 14px 100px;min-height:100vh;
-  display:flex;flex-direction:column;align-items:center;
+/* Stars background */
+#stars {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
 }
 
-/* ── Screen Transitions ── */
-.screen{width:100%;display:none;flex-direction:column;align-items:center;animation:scIn 0.6s ease-out;}
-.screen.active{display:flex;}
-@keyframes scIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-
-/* ── Title ── */
-.title-block{text-align:center;margin-bottom:16px;}
-.title-main{
-  font-family:'Cinzel','Ma Shan Zheng',serif;font-size:2.6em;font-weight:700;
-  background:linear-gradient(180deg,var(--gold-bright) 0%,var(--gold) 35%,var(--gold-glow) 55%,var(--gold-dim) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  filter:drop-shadow(0 2px 14px rgba(196,154,60,0.4));letter-spacing:6px;line-height:1.3;
-}
-.title-sub{font-size:0.85em;color:var(--text-muted);letter-spacing:6px;margin-top:4px;}
-
-/* ── Glass Card ── */
-.glass-card{
-  background:var(--glass-bg);border:1px solid var(--glass-border);
-  border-radius:var(--radius-lg);backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);padding:24px;width:100%;max-width:440px;
+/* App Container */
+#app {
+  position: relative; z-index: 1;
+  max-width: 480px; margin: 0 auto;
+  min-height: 100vh;
+  padding: 0 0 90px 0;
 }
 
-/* ── Form ── */
-.form-section{width:100%;max-width:440px;}
-.field{margin-bottom:16px;}
-.field-label{font-size:0.82em;color:var(--text-muted);letter-spacing:2px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
-.input,.select{
-  width:100%;padding:14px 16px;background:rgba(26,16,8,0.7);
-  border:1px solid var(--glass-border);border-radius:var(--radius);
-  color:var(--text-primary);font-size:1em;font-family:inherit;outline:none;
-  transition:var(--transition);
+/* Top Bar */
+#topbar {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 16px;
+  background: rgba(10,8,6,0.85); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
 }
-.input:focus,.select:focus{border-color:var(--glass-border-active);box-shadow:0 0 24px var(--glow-warm);}
-.input::placeholder{color:var(--text-muted);opacity:0.5;}
-.select{
-  appearance:none;-webkit-appearance:none;cursor:pointer;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%23bf9b4a' d='M7 9L2 4h10z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;
+.top-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--border2);
+  background: rgba(20,16,12,0.7);
+  color: var(--text3); font-size: 0.8em; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--transition);
+  font-family: 'Cinzel', serif;
 }
-
-.row{display:flex;gap:10px;}.row>*{flex:1;}
-
-.gender-group{display:flex;gap:10px;}
-.gender-opt{
-  flex:1;padding:14px;border-radius:var(--radius);text-align:center;cursor:pointer;
-  border:1px solid var(--glass-border);background:rgba(26,16,8,0.5);
-  color:var(--text-muted);font-family:inherit;font-size:1em;transition:var(--transition);
-}
-.gender-opt.selected{border-color:var(--gold);color:var(--gold-glow);background:rgba(196,154,60,0.12);box-shadow:0 0 24px var(--glow-gold);}
-
-/* ── Buttons ── */
-.btn{
-  padding:14px 32px;border-radius:28px;cursor:pointer;
-  font-family:inherit;font-size:0.92em;letter-spacing:2px;font-weight:600;
-  transition:var(--transition);outline:none;
-  border:1px solid var(--glass-border);background:rgba(38,26,14,0.6);
-  color:var(--text-secondary);backdrop-filter:blur(12px);
-}
-.btn:hover,.btn:active{border-color:var(--glass-border-active);box-shadow:0 4px 28px var(--glow-gold);transform:translateY(-1px);}
-.btn-primary{
-  background:linear-gradient(135deg,rgba(196,154,60,0.22),rgba(139,94,60,0.3));
-  border-color:rgba(196,154,60,0.45);color:var(--gold-glow);
-  box-shadow:0 0 30px rgba(196,154,60,0.12);font-size:1em;padding:15px 40px;
-}
-.btn-primary:hover{background:linear-gradient(135deg,rgba(196,154,60,0.32),rgba(139,94,60,0.45));box-shadow:0 0 45px rgba(196,154,60,0.3);}
-.btn-sm{padding:9px 20px;font-size:0.8em;letter-spacing:2px;}
-.btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:10px;}
-
-/* ── Bottom Nav ── */
-#bottomNav{
-  position:fixed;bottom:0;left:0;right:0;z-index:30;
-  display:flex;justify-content:space-around;
-  background:rgba(15,10,5,0.92);backdrop-filter:blur(20px);
-  border-top:1px solid rgba(196,154,60,0.12);
-  padding:6px 0 env(safe-area-inset-bottom,6px);
-}
-.nav-item{
-  flex:1;display:flex;flex-direction:column;align-items:center;
-  padding:8px 4px;cursor:pointer;transition:var(--transition);
-  color:var(--text-muted);font-size:0.65em;letter-spacing:1px;
-  font-family:'Cinzel','Noto Serif SC',serif;
-}
-.nav-item .ni{font-size:1.5em;margin-bottom:2px;}
-.nav-item.active{color:var(--gold-glow);}
-.nav-item:hover,.nav-item:active{color:var(--gold);}
-
-/* ── Zodiac Grid ── */
-.zodiac-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;width:100%;max-width:440px;margin:16px 0;}
-.zodiac-item{
-  aspect-ratio:1;background:rgba(38,26,14,0.5);border:1px solid var(--glass-border);
-  border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;
-  justify-content:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;
-}
-.zodiac-item::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(circle at 50% 30%,rgba(196,154,60,0.15),transparent);
-  opacity:0;transition:opacity 0.4s;
-}
-.zodiac-item:hover,.zodiac-item:active{transform:translateY(-3px) scale(1.04);border-color:rgba(196,154,60,0.5);box-shadow:0 8px 30px rgba(196,154,60,0.2);}
-.zodiac-item:hover::before{opacity:1;}
-.zodiac-icon{font-size:2.2em;position:relative;z-index:1;}
-.zodiac-label{font-size:0.78em;color:var(--text-secondary);position:relative;z-index:1;letter-spacing:2px;margin-top:4px;}
-
-/* ── Tarot Card ── */
-.tarot-stage{perspective:1400px;width:100%;max-width:440px;min-height:520px;margin:12px 0;}
-.tarot-card{width:100%;min-height:520px;position:relative;transform-style:preserve-3d;transition:transform 1.4s cubic-bezier(0.23,1,0.32,1);}
-.tarot-card.flipped{transform:rotateY(180deg);}
-.tarot-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius-lg);display:flex;flex-direction:column;align-items:center;}
-.tarot-back{
-  background:linear-gradient(160deg,#1a1008 0%,#261a0e 30%,#342214 60%,#261a0e 100%);
-  border:2px solid rgba(196,154,60,0.35);
-  box-shadow:0 0 60px rgba(180,120,60,0.15),inset 0 0 60px rgba(180,120,60,0.08);
-  cursor:pointer;justify-content:center;gap:20px;position:relative;
-}
-.tarot-back::before{content:'';position:absolute;inset:12px;border:1px solid rgba(196,154,60,0.18);border-radius:18px;}
-.tarot-back::after{content:'';position:absolute;inset:24px;border:1px solid rgba(196,154,60,0.1);border-radius:12px;}
-.tarot-back-inner{text-align:center;position:relative;z-index:1;}
-.tarot-symbol{font-size:5em;filter:drop-shadow(0 0 24px rgba(196,154,60,0.45));animation:floatSym 4s ease-in-out infinite;}
-@keyframes floatSym{0%,100%{transform:translateY(0) scale(1);}30%{transform:translateY(-6px) scale(1.03);}60%{transform:translateY(4px) scale(0.98);}}
-.tarot-back-title{font-family:'Cinzel','Ma Shan Zheng',serif;font-size:1.5em;color:var(--gold-glow);letter-spacing:6px;}
-.tarot-back-hint{font-size:0.78em;color:var(--text-muted);letter-spacing:3px;animation:pulseH 2.5s ease-in-out infinite;}
-@keyframes pulseH{0%,100%{opacity:0.25;}50%{opacity:0.85;}}
-.tarot-front{
-  background:linear-gradient(160deg,#1a1008 0%,#261a0e 25%,#342214 55%,#261a0e 100%);
-  border:2px solid rgba(196,154,60,0.4);box-shadow:0 0 80px rgba(180,120,60,0.15);
-  transform:rotateY(180deg);padding:24px 18px;overflow-y:auto;align-items:stretch;gap:0;justify-content:flex-start;
+.top-btn:hover, .top-btn:active { color: var(--gold2); border-color: var(--gold); }
+.top-btn.on { color: var(--gold2); border-color: var(--gold); }
+#app-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2em; font-weight: 700;
+  color: var(--gold); letter-spacing: 4px;
 }
 
-/* ── BaZi / Fortune Display ── */
-.bazi-row{display:flex;justify-content:center;gap:7px;margin-bottom:10px;flex-wrap:wrap;}
-.bazi-pillar{
-  text-align:center;padding:10px 8px 8px;background:rgba(52,34,20,0.5);
-  border-radius:10px;border:1px solid rgba(196,154,60,0.12);
-  min-width:62px;backdrop-filter:blur(8px);
+/* Screens */
+.screen {
+  display: none;
+  padding: 20px 16px;
+  animation: fadeUp 0.4s ease-out;
 }
-.bazi-pillar .pl{font-size:0.55em;color:var(--text-muted);letter-spacing:1px;}
-.bazi-pillar .ps{font-size:1.05em;color:var(--gold-glow);font-weight:600;}
-.bazi-pillar .pb{font-size:0.9em;color:var(--text-primary);}
-.bazi-pillar .pa{font-size:0.6em;color:rgba(200,180,160,0.45);}
-
-.tags-row{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:10px;}
-.tag{padding:5px 12px;border-radius:20px;font-size:0.72em;background:rgba(52,34,20,0.5);border:1px solid rgba(196,154,60,0.1);color:var(--text-muted);letter-spacing:1px;backdrop-filter:blur(8px);}
-.tag.warn{border-color:rgba(200,130,110,0.3);color:var(--rose-light);}
-.tag.good{border-color:rgba(130,190,140,0.25);color:#8ad098;}
-
-.tabs{display:flex;gap:2px;margin-bottom:10px;border-radius:10px;overflow:hidden;background:rgba(26,16,8,0.6);border:1px solid rgba(196,154,60,0.1);}
-.tab{flex:1;padding:11px 0;text-align:center;cursor:pointer;font-size:0.78em;color:var(--text-muted);letter-spacing:2px;transition:var(--transition);font-family:inherit;}
-.tab.active{background:rgba(196,154,60,0.15);color:var(--gold-glow);box-shadow:inset 0 -1px 0 var(--gold);}
-
-.period-panel{display:none;flex-direction:column;gap:9px;}
-.period-panel.active{display:flex;}
-
-.fortune-box{background:rgba(52,34,20,0.35);border-radius:10px;border:1px solid rgba(196,154,60,0.1);padding:12px 14px;backdrop-filter:blur(8px);}
-.fortune-box h4{font-size:0.85em;color:var(--text-muted);letter-spacing:2px;margin-bottom:6px;font-weight:400;}
-.fortune-box .stars{color:var(--gold);font-size:0.8em;letter-spacing:2px;}
-.fortune-box p{font-size:0.85em;color:var(--text-secondary);line-height:1.75;}
-.fortune-box .highlight{color:var(--gold-glow);}
-
-.advice-row{display:flex;gap:9px;}
-.advice-col{flex:1;padding:12px;border-radius:10px;font-size:0.78em;backdrop-filter:blur(8px);}
-.advice-col.do{background:rgba(130,190,140,0.07);border:1px solid rgba(130,190,140,0.18);}
-.advice-col.dont{background:rgba(200,130,110,0.07);border:1px solid rgba(200,130,110,0.18);}
-.advice-col h5{font-size:0.85em;margin-bottom:5px;font-weight:400;}
-.advice-col.do h5{color:#8ad098;}.advice-col.dont h5{color:var(--rose-light);}
-.advice-col li{color:var(--text-secondary);line-height:1.9;list-style:none;}
-
-.lucky-bar{text-align:center;font-size:0.78em;color:var(--text-muted);padding:10px 0;letter-spacing:1px;}
-.lucky-bar b{color:var(--gold-glow);}
-.user-meta{text-align:center;font-size:0.72em;color:var(--text-muted);margin-bottom:8px;letter-spacing:1px;}
-
-/* ── Wu Xing Element Wheel ── */
-.element-wheel{
-  position:relative;width:260px;height:260px;margin:16px auto;
-}
-.element-center{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:90px;height:90px;border-radius:50%;
-  background:rgba(26,16,8,0.8);border:2px solid var(--gold);
-  display:flex;align-items:center;justify-content:center;
-  text-align:center;z-index:2;font-size:2.2em;
-}
-.element-node{
-  position:absolute;width:70px;height:70px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  font-size:1.1em;z-index:1;transition:var(--transition);
-  border:2px solid rgba(196,154,60,0.2);
-  background:rgba(38,26,14,0.7);
-  color:var(--text-secondary);
-}
-.element-node:hover{transform:scale(1.15);border-color:var(--gold);box-shadow:0 0 30px var(--glow-gold);z-index:3;}
-.element-node.fire{background:rgba(200,80,60,0.15);border-color:rgba(200,100,80,0.4);color:#e8947a;}
-.element-node.earth{background:rgba(180,150,80,0.15);border-color:rgba(180,150,80,0.4);color:#d4bc6a;}
-.element-node.metal{background:rgba(200,190,180,0.15);border-color:rgba(200,190,180,0.4);color:#e0d8cc;}
-.element-node.water{background:rgba(60,120,180,0.15);border-color:rgba(80,140,200,0.4);color:#8ac0e8;}
-.element-node.wood{background:rgba(80,160,80,0.15);border-color:rgba(100,180,100,0.4);color:#90d090;}
-
-/* ── CeZi (Character Divination) ── */
-.char-input-wrap{text-align:center;margin:16px 0;}
-.char-input{
-  width:100px;height:100px;font-size:3em;text-align:center;
-  background:rgba(26,16,8,0.7);border:2px solid var(--glass-border);
-  border-radius:var(--radius);color:var(--gold-glow);
-  font-family:'Ma Shan Zheng','Noto Serif SC',serif;
-  outline:none;transition:var(--transition);
-}
-.char-input:focus{border-color:var(--gold);box-shadow:0 0 35px var(--glow-gold);}
-.char-decomp{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0;}
-.char-part{padding:8px 16px;background:rgba(52,34,20,0.5);border:1px solid rgba(196,154,60,0.15);border-radius:20px;font-size:1.2em;}
-
-/* ── Face Reading Quiz ── */
-.face-quiz{text-align:center;}
-.face-feature{margin:16px 0;}
-.face-options{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
-.face-opt{
-  padding:10px 18px;border-radius:20px;cursor:pointer;font-size:0.85em;
-  border:1px solid var(--glass-border);background:rgba(26,16,8,0.5);
-  color:var(--text-muted);transition:var(--transition);
-}
-.face-opt:hover,.face-opt.selected{border-color:var(--gold);color:var(--gold-glow);background:rgba(196,154,60,0.12);}
-.face-progress{height:4px;background:rgba(196,154,60,0.15);border-radius:2px;margin:16px 0;overflow:hidden;}
-.face-progress-bar{height:100%;background:var(--gold);border-radius:2px;transition:width 0.5s;}
-
-/* ── Palm Reading ── */
-.palm-diagram{
-  position:relative;width:200px;height:280px;margin:16px auto;
-  background:rgba(26,16,8,0.5);border:1px solid var(--glass-border);
-  border-radius:var(--radius-lg);overflow:hidden;
-}
-.palm-outline{
-  position:absolute;top:20px;left:35px;width:130px;height:240px;
-  border:2px solid rgba(196,154,60,0.25);border-radius:60px 60px 40px 40px;
-}
-.palm-line{
-  position:absolute;height:2px;background:rgba(196,154,60,0.3);
-  transform-origin:left center;border-radius:1px;
-}
-.palm-line:hover{background:var(--gold-glow);height:3px;z-index:2;}
-.palm-label{
-  position:absolute;font-size:0.6em;color:var(--text-muted);
-  white-space:nowrap;transform:rotate(-90deg);letter-spacing:1px;
+.screen.active { display: block; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Share Cards ── */
-.share-preview{
-  width:100%;max-width:360px;border-radius:var(--radius-lg);
-  overflow:hidden;border:2px solid var(--glass-border);
-  box-shadow:0 0 40px rgba(196,154,60,0.1);
+/* Section headers */
+.sec-title {
+  text-align: center; margin-bottom: 20px;
 }
-.share-card{
-  width:100%;background:linear-gradient(160deg,#1a1008,#261a0e,#342214);
-  padding:24px;text-align:center;position:relative;
+.sec-title h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6em; color: var(--gold2);
+  letter-spacing: 3px; margin-bottom: 4px;
 }
-.share-card .sc-icon{font-size:3em;margin-bottom:8px;}
-.share-card .sc-title{font-family:'Cinzel',serif;font-size:1.3em;color:var(--gold-glow);letter-spacing:3px;}
-.share-card .sc-result{font-size:0.9em;color:var(--text-secondary);margin:10px 0;line-height:1.6;}
-.share-card .sc-tag{display:inline-block;padding:4px 12px;background:rgba(196,154,60,0.12);border-radius:12px;font-size:0.7em;color:var(--gold);margin:4px;}
-.share-card .sc-watermark{font-size:0.7em;color:var(--text-muted);margin-top:12px;}
-.share-platforms{display:flex;gap:10px;justify-content:center;margin-top:12px;}
-.sp-btn{
-  padding:10px 20px;border-radius:22px;cursor:pointer;font-size:0.82em;letter-spacing:1px;
-  border:1px solid var(--glass-border);background:rgba(26,16,8,0.6);color:var(--text-secondary);
-  transition:var(--transition);backdrop-filter:blur(8px);
+.sec-title p {
+  font-size: 0.85em; color: var(--text3);
+  font-family: 'ZCOOL XiaoWei', serif;
 }
-.sp-btn:hover{border-color:var(--gold);color:var(--gold-glow);}
-.sp-btn.tiktok:hover{background:rgba(255,0,80,0.1);border-color:rgba(255,0,80,0.4);}
-.sp-btn.reddit:hover{background:rgba(255,69,0,0.1);border-color:rgba(255,69,0,0.4);}
 
-/* ── Particles ── */
-.particle{position:fixed;pointer-events:none;z-index:5;animation:partF 1.2s ease-out forwards;}
-@keyframes partF{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(0);}}
-.shooting{position:fixed;pointer-events:none;z-index:0;width:2px;height:80px;background:linear-gradient(to bottom,rgba(255,255,255,0.9),transparent);border-radius:1px;animation:shoot 1.2s ease-out forwards;opacity:0;}
-@keyframes shoot{0%{opacity:1;transform:translate(0,0);}100%{opacity:0;transform:translate(200px,250px);}}
+/* Cards */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 20px; margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
 
-/* ── Responsive ── */
-@media(max-width:380px){
-  .title-main{font-size:2em;}.zodiac-grid{gap:7px;}.zodiac-icon{font-size:1.7em;}
-  .tarot-symbol{font-size:3.8em;}.tarot-stage{min-height:480px;}.tarot-card{min-height:480px;}
-  .element-wheel{width:230px;height:230px;}.element-node{width:58px;height:58px;font-size:0.95em;}
-  #app{padding:56px 10px 90px;}
+/* Home - Daily Card */
+.daily-card {
+  text-align: center; padding: 30px 20px;
+  background: linear-gradient(135deg, var(--bg2) 0%, rgba(30,25,20,0.9) 100%);
+  border: 1px solid var(--border2);
+}
+.daily-card .date-display {
+  font-size: 0.85em; color: var(--text3);
+  margin-bottom: 12px;
+}
+.daily-card .fortune-icon {
+  font-size: 3.5em; margin-bottom: 8px;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.daily-card .fortune-title {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 1.8em; color: var(--gold);
+  margin-bottom: 8px;
+}
+.daily-card .fortune-desc {
+  font-size: 1em; color: var(--text2);
+  line-height: 1.6; margin-bottom: 8px;
+}
+.daily-card .fortune-stars {
+  color: var(--gold2); font-size: 1.4em;
+  letter-spacing: 4px; margin-bottom: 16px;
+}
+.daily-card .lucky-items {
+  display: flex; justify-content: center; gap: 16px;
+  flex-wrap: wrap; margin-top: 12px;
+}
+.lucky-tag {
+  padding: 6px 14px; border-radius: 20px;
+  background: rgba(196,154,60,0.1);
+  border: 1px solid var(--border2);
+  font-size: 0.82em; color: var(--text2);
+}
+.lucky-tag span { color: var(--gold); font-weight: 600; }
+
+/* Buttons */
+.btn {
+  display: inline-block; padding: 10px 28px;
+  border-radius: 25px; border: 1px solid var(--gold-dim);
+  background: transparent; color: var(--gold2);
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.95em; cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 1px;
+}
+.btn:hover, .btn:active {
+  background: rgba(196,154,60,0.15);
+  border-color: var(--gold);
+  color: var(--gold3);
+}
+.btn-primary {
+  background: linear-gradient(135deg, rgba(196,154,60,0.2), rgba(139,94,60,0.25));
+  border-color: var(--gold);
+  color: var(--gold3);
+  font-weight: 600;
+}
+
+/* Zodiac Grid */
+.z-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 10px; margin: 16px 0;
+}
+.z-item {
+  aspect-ratio: 1;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  cursor: pointer; transition: var(--transition);
+}
+.z-item:hover, .z-item:active {
+  border-color: var(--gold);
+  background: rgba(196,154,60,0.1);
+}
+.z-item .zi { font-size: 2em; }
+.z-item .zn {
+  font-size: 0.72em; color: var(--text2);
+  margin-top: 4px; letter-spacing: 1px;
+}
+
+/* Inputs */
+.field {
+  margin-bottom: 14px;
+}
+.field label {
+  display: block; font-size: 0.82em;
+  color: var(--text3); margin-bottom: 6px;
+}
+.input, .select {
+  width: 100%; padding: 12px 14px;
+  border-radius: 10px; border: 1px solid var(--border);
+  background: rgba(20,16,12,0.6); color: var(--text);
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.95em; outline: none;
+  transition: var(--transition);
+}
+.input:focus, .select:focus {
+  border-color: var(--gold-dim);
+  background: rgba(30,25,20,0.8);
+}
+.select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23c49a3c' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+/* Gender toggle */
+.gender-group {
+  display: flex; gap: 10px;
+}
+.gender-opt {
+  flex: 1; padding: 10px;
+  text-align: center; border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(20,16,12,0.6);
+  cursor: pointer; transition: var(--transition);
+  font-size: 0.9em; color: var(--text2);
+}
+.gender-opt.selected {
+  border-color: var(--gold);
+  background: rgba(196,154,60,0.12);
+  color: var(--gold2);
+}
+
+/* Tarot */
+.tarot-stage {
+  display: flex; flex-direction: column;
+  align-items: center; margin: 20px 0;
+}
+.tarot-card {
+  width: 200px; height: 300px;
+  perspective: 800px;
+  cursor: pointer;
+}
+.tarot-inner {
+  position: relative; width: 100%; height: 100%;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.tarot-card.flipped .tarot-inner {
+  transform: rotateY(180deg);
+}
+.tarot-face {
+  position: absolute; width: 100%; height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius2);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  border: 2px solid var(--border2);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+.tarot-back {
+  background: linear-gradient(135deg, #1a1008 0%, #2a1a0e 50%, #1a1008 100%);
+}
+.tarot-back .tb-icon { font-size: 3em; margin-bottom: 12px; }
+.tarot-back .tb-text {
+  font-family: 'Cinzel', serif;
+  color: var(--gold); letter-spacing: 4px;
+  font-size: 0.9em;
+}
+.tarot-front {
+  background: var(--bg2);
+  transform: rotateY(180deg);
+  padding: 24px 18px; text-align: center;
+  overflow-y: auto;
+}
+.tarot-front .tf-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3em; color: var(--gold2);
+  margin-bottom: 8px;
+}
+.tarot-front .tf-meaning {
+  font-size: 0.92em; color: var(--text2);
+  line-height: 1.6;
+}
+
+/* BaZi */
+.bazi-row {
+  display: flex; justify-content: center; gap: 10px;
+  flex-wrap: wrap; margin: 16px 0;
+}
+.bazi-pillar {
+  padding: 14px 18px; border-radius: var(--radius);
+  background: var(--bg3); border: 1px solid var(--border);
+  text-align: center; min-width: 70px;
+}
+.bazi-pillar .bp-label {
+  font-size: 0.7em; color: var(--text3);
+  margin-bottom: 4px;
+}
+.bazi-pillar .bp-stem {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4em; color: var(--gold);
+}
+.bazi-pillar .bp-branch {
+  font-size: 1.1em; color: var(--text);
+}
+
+/* Element Wheel */
+.wu-row {
+  display: flex; justify-content: center; gap: 12px;
+  margin: 20px 0; flex-wrap: wrap;
+}
+.wu-item {
+  width: 60px; height: 60px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5em; cursor: pointer; transition: var(--transition);
+  border: 2px solid transparent;
+}
+.wu-item:hover, .wu-item:active {
+  transform: scale(1.15);
+  border-color: var(--gold);
+}
+.wu-wood { background: rgba(72,140,72,0.2); border-color: rgba(72,140,72,0.3); }
+.wu-fire { background: rgba(200,80,60,0.2); border-color: rgba(200,80,60,0.3); }
+.wu-earth { background: rgba(180,150,60,0.2); border-color: rgba(180,150,60,0.3); }
+.wu-metal { background: rgba(200,190,160,0.2); border-color: rgba(200,190,160,0.3); }
+.wu-water { background: rgba(60,100,180,0.2); border-color: rgba(60,100,180,0.3); }
+
+/* Love compatibility */
+.love-form {
+  display: flex; gap: 8px; align-items: flex-end;
+}
+.love-form .field { flex: 1; }
+.love-result {
+  text-align: center; padding: 20px;
+}
+.love-score {
+  font-family: 'Cinzel', serif;
+  font-size: 3em; color: var(--gold);
+  margin: 12px 0;
+}
+.love-bar {
+  height: 8px; border-radius: 4px;
+  background: rgba(196,154,60,0.2);
+  margin: 8px 0 16px;
+}
+.love-bar-inner {
+  height: 100%; border-radius: 4px;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold2));
+  transition: width 1s ease-out;
+}
+
+/* Fortune periods */
+.period-tabs {
+  display: flex; gap: 6px; margin-bottom: 14px;
+}
+.period-tab {
+  flex: 1; padding: 8px; text-align: center;
+  border-radius: 8px; border: 1px solid var(--border);
+  cursor: pointer; font-size: 0.8em; color: var(--text3);
+  transition: var(--transition);
+}
+.period-tab.active {
+  border-color: var(--gold);
+  background: rgba(196,154,60,0.1);
+  color: var(--gold2);
+}
+
+/* Bottom Nav */
+#bottomNav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+  display: flex; justify-content: space-around;
+  background: rgba(10,8,6,0.94);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  padding: 6px 0 env(safe-area-inset-bottom, 8px);
+}
+.nav-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; padding: 6px 2px;
+  cursor: pointer; transition: var(--transition);
+  color: var(--text3); font-size: 0.62em;
+  letter-spacing: 1px;
+  font-family: 'Cinzel', 'Noto Serif SC', serif;
+}
+.nav-item .ni { font-size: 1.6em; margin-bottom: 2px; }
+.nav-item.active { color: var(--gold2); }
+.nav-item:active { color: var(--gold); }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 100px; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(196,154,60,0.9); color: #000;
+  padding: 10px 24px; border-radius: 25px;
+  font-size: 0.85em; z-index: 100;
+  animation: toastIn 0.3s ease-out, toastOut 0.3s ease-out 1.7s forwards;
+}
+@keyframes toastIn { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+@keyframes toastOut { from { opacity: 1; } to { opacity: 0; } }
+
+/* Responsive */
+@media (max-width: 360px) {
+  .z-grid { grid-template-columns: repeat(3, 1fr); }
+  .nav-item { font-size: 0.58em; }
 }
 </style>
 </head>
 <body>
 
-<canvas id="starfield"></canvas>
-<div class="vignette"></div>
+<canvas id="stars"></canvas>
 
-<!-- Top Bar -->
-<div id="topbar">
-  <button class="lang-btn" id="langBtn" onclick="toggleLang()">中</button>
-  <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Music">♪</button>
-</div>
-
-<!-- Main App -->
 <div id="app">
+  <!-- Top Bar -->
+  <div id="topbar">
+    <button class="top-btn" id="langBtn" onclick="toggleLang()" title="切换语言">中</button>
+    <div id="app-title">LALALIN</div>
+    <button class="top-btn" id="musicBtn" onclick="toggleMusic()" title="音乐" style="font-size:0.7em;">♪</button>
+  </div>
 
-  <!-- ═══ SCREEN: HOME (Zodiac + Fortune) ═══ -->
-  <div class="screen active" id="screen-home">
-    <div class="title-block">
-      <div class="title-main" id="t-home-title">LALALIN</div>
-      <div class="title-sub" id="t-home-sub">✦ Mystic East Divination ✦</div>
-    </div>
-    <div class="form-section" id="home-form">
+  <!-- ═══════════ HOME ═══════════ -->
+  <div class="screen active" id="tab-home">
+    <div class="card daily-card" id="dailyFortune"></div>
+    <div class="card">
+      <div class="sec-title">
+        <h2 id="t-quick-form">Quick Reading</h2>
+        <p id="t-quick-form-sub">Enter your info for personal fortune</p>
+      </div>
       <div class="field">
-        <div class="field-label" id="t-birth-label">📅 Birth Date</div>
+        <label id="t-birth-label">📅 Birth Date</label>
         <input type="date" class="input" id="birthDate" min="1920-01-01" max="2020-12-31">
       </div>
       <div class="field">
-        <div class="field-label" id="t-hour-label">⏰ Birth Hour (Chinese 2-hour periods)</div>
+        <label id="t-hour-label">⏰ Birth Hour</label>
         <select class="select" id="birthHour">
-          <option value="-1">Not specified (default noon)</option>
-          <option value="0">Zi 子 23:00–01:00</option>
-          <option value="1">Chou 丑 01:00–03:00</option>
-          <option value="2">Yin 寅 03:00–05:00</option>
-          <option value="3">Mao 卯 05:00–07:00</option>
-          <option value="4">Chen 辰 07:00–09:00</option>
-          <option value="5">Si 巳 09:00–11:00</option>
-          <option value="6" selected>Wu 午 11:00–13:00</option>
-          <option value="7">Wei 未 13:00–15:00</option>
-          <option value="8">Shen 申 15:00–17:00</option>
-          <option value="9">You 酉 17:00–19:00</option>
-          <option value="10">Xu 戌 19:00–21:00</option>
-          <option value="11">Hai 亥 21:00–23:00</option>
+          <option value="-1">Not specified</option>
+          <option value="0">子 Zi 23:00-01:00</option>
+          <option value="1">丑 Chou 01:00-03:00</option>
+          <option value="2">寅 Yin 03:00-05:00</option>
+          <option value="3">卯 Mao 05:00-07:00</option>
+          <option value="4">辰 Chen 07:00-09:00</option>
+          <option value="5">巳 Si 09:00-11:00</option>
+          <option value="6" selected>午 Wu 11:00-13:00</option>
+          <option value="7">未 Wei 13:00-15:00</option>
+          <option value="8">申 Shen 15:00-17:00</option>
+          <option value="9">酉 You 17:00-19:00</option>
+          <option value="10">戌 Xu 19:00-21:00</option>
+          <option value="11">亥 Hai 21:00-23:00</option>
         </select>
       </div>
       <div class="field">
-        <div class="field-label" id="t-gender-label">⚤ Gender</div>
+        <label id="t-gender-label">⚤ Gender</label>
         <div class="gender-group" id="genderToggle">
-          <div class="gender-opt selected" data-gender="male" id="g-male">♂ Yang</div>
-          <div class="gender-opt" data-gender="female" id="g-female">♀ Yin</div>
+          <div class="gender-opt selected" data-g="male">♂ Yang</div>
+          <div class="gender-opt" data-g="female">♀ Yin</div>
         </div>
       </div>
-      <div class="field">
-        <div class="field-label" id="t-place-label">📍 Birthplace <span style="font-size:0.85em;opacity:0.5;">(optional)</span></div>
-        <input type="text" class="input" id="birthPlace" placeholder="Beijing, Shanghai, London, NYC…" maxlength="20">
-      </div>
-      <div style="text-align:center;margin-top:8px;">
-        <button class="btn btn-primary" onclick="goToZodiac()" id="t-feel-btn">✦ Feel Your Stars ✦</button>
+      <div style="text-align:center;margin-top:14px;">
+        <button class="btn btn-primary" onclick="doReading()" style="font-size:1.05em;padding:12px 36px;">
+          ✦ <span id="t-read-btn">Reveal My Fortune</span> ✦
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- ═══ SCREEN: ZODIAC PICKER ═══ -->
-  <div class="screen" id="screen-pick">
-    <div class="title-block">
-      <div class="title-main" style="font-size:2em;" id="t-pick-title">Choose Your Sign</div>
-      <div class="title-sub" id="t-pick-sub">The Twelve Zodiac Houses</div>
+  <!-- ═══════════ ZODIAC ═══════════ -->
+  <div class="screen" id="tab-zodiac">
+    <div class="sec-title">
+      <h2 id="t-zodiac-title">Chinese Zodiac</h2>
+      <p id="t-zodiac-sub">十二生肖运势</p>
     </div>
-    <div class="zodiac-grid" id="zodiacGrid"></div>
-    <button class="btn btn-sm" onclick="backToInfo()" id="t-back-btn">↩ Back</button>
+    <div class="period-tabs">
+      <div class="period-tab active" onclick="switchPeriod('today',this)"><span id="t-period-today">Today</span></div>
+      <div class="period-tab" onclick="switchPeriod('week',this)"><span id="t-period-week">This Week</span></div>
+      <div class="period-tab" onclick="switchPeriod('month',this)"><span id="t-period-month">This Month</span></div>
+    </div>
+    <div class="z-grid" id="zodiacGrid"></div>
+    <div class="card" id="zodiacDetail" style="text-align:center;display:none;"></div>
   </div>
 
-  <!-- ═══ SCREEN: FORTUNE CARD ═══ -->
-  <div class="screen" id="screen-fortune">
-    <div class="title-block">
-      <div class="title-main" style="font-size:2em;" id="t-fortune-title">Card of Destiny</div>
+  <!-- ═══════════ BAZI ═══════════ -->
+  <div class="screen" id="tab-bazi">
+    <div class="sec-title">
+      <h2>Ba Zi</h2>
+      <p>Four Pillars of Destiny · 八字命理</p>
     </div>
-    <div class="tarot-stage">
-      <div class="tarot-card" id="fortuneCard">
-        <div class="tarot-face tarot-back" id="cardBack">
-          <div class="tarot-back-inner">
-            <div class="tarot-symbol">🔮</div>
-            <div class="tarot-back-title" id="t-touch-ball">TOUCH THE ORB</div>
-            <div class="tarot-back-hint" id="t-stars-gaze">The stars are gazing into your destiny</div>
+    <div class="card" id="baziContent">
+      <p style="text-align:center;color:var(--text3);padding:30px 0;" id="t-bazi-empty">
+        Return to Home and enter your birth info first,<br>then come back to view your full chart.
+      </p>
+    </div>
+  </div>
+
+  <!-- ═══════════ TAROT ═══════════ -->
+  <div class="screen" id="tab-tarot">
+    <div class="sec-title">
+      <h2 id="t-tarot-title">Tarot Reading</h2>
+      <p id="t-tarot-sub">塔罗牌占卜 · Single Card Draw</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <p style="color:var(--text3);margin-bottom:12px;" id="t-tarot-desc">
+        Focus on your question, then tap the card to reveal your answer
+      </p>
+      <div class="tarot-stage">
+        <div class="tarot-card" id="tarotCard">
+          <div class="tarot-inner">
+            <div class="tarot-face tarot-back">
+              <div class="tb-icon">🔮</div>
+              <div class="tb-text">TOUCH ME</div>
+            </div>
+            <div class="tarot-face tarot-front" id="tarotFront"></div>
           </div>
         </div>
-        <div class="tarot-face tarot-front" id="cardFront">
-          <div id="fortuneContent"></div>
-        </div>
       </div>
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-sm" onclick="backToPick()">↩ Back</button>
-      <button class="btn btn-sm" onclick="flipAgain()" id="t-redo-btn">🔮 Again</button>
-      <button class="btn btn-sm" onclick="showScreen('share')" id="t-share-btn" style="border-color:rgba(196,154,60,0.45);color:var(--gold-glow);">📸 Share</button>
+      <button class="btn" onclick="drawTarot()" id="t-tarot-draw" style="margin-top:8px;">🔮 Draw Again</button>
     </div>
   </div>
 
-  <!-- ═══ SCREEN: BAZI (Four Pillars) ═══ -->
-  <div class="screen" id="screen-bazi">
-    <div class="title-block">
-      <div class="title-main" style="font-size:2em;">Ba Zi</div>
-      <div class="title-sub" id="t-bazi-sub">Four Pillars of Destiny · 八字</div>
+  <!-- ═══════════ LOVE ═══════════ -->
+  <div class="screen" id="tab-love">
+    <div class="sec-title">
+      <h2 id="t-love-title">Love Match</h2>
+      <p id="t-love-sub">缘分测试 · Compatibility Check</p>
     </div>
-    <div class="glass-card" id="baziInfo">
-      <p style="text-align:center;color:var(--text-muted);margin:40px 0;" id="t-bazi-first">Enter your birth info on the Home screen first,<br>then revisit this page for your full chart.</p>
-    </div>
-  </div>
-
-  <!-- ═══ SCREEN: WU XING (Five Elements) ═══ -->
-  <div class="screen" id="screen-wuxing">
-    <div class="title-block">
-      <div class="title-main" style="font-size:2em;">Wu Xing</div>
-      <div class="title-sub" id="t-wuxing-sub">Five Elements · 五行</div>
-    </div>
-    <div class="glass-card" style="text-align:center;">
-      <div class="element-wheel" id="elementWheel"></div>
-      <div style="margin-top:8px;font-size:0.85em;color:var(--text-secondary);" id="t-wuxing-prompt">Tap an element to discover your affinity</div>
-      <div id="wuxingDetail" style="margin-top:12px;"></div>
-    </div>
-  </div>
-
-  <!-- ═══ SCREEN: CE ZI (Character Divination) ═══ -->
-  <div class="screen" id="screen-cezi">
-    <div class="title-block">
-      <div class="title-main" style="font-size:2em;">Ce Zi</div>
-      <div class="title-sub" id="t-cezi-sub">Character Oracle · 测字</div>
-    </div>
-    <div class="glass-card" style="text-align:center;">
-      <p style="font-size:0.85em;color:var(--text-muted);margin-bottom:8px;" id="t-cezi-desc">
-        Type a single Chinese character to reveal its hidden message
-      </p>
-      <div class="char-input-wrap">
-        <input type="text" class="char-input" id="charInput" maxlength="1" placeholder="字" oninput="this.value=this.value.slice(-1)">
+    <div class="card">
+      <div class="field">
+        <label id="t-love-you">💕 Your Zodiac</label>
+        <select class="select" id="loveYou"></select>
       </div>
-      <button class="btn btn-primary" onclick="doCezi()" id="t-cezi-btn">✦ Divine the Character ✦</button>
-      <div id="ceziResult" style="margin-top:16px;"></div>
-    </div>
-  </div>
-
-  <!-- ═══ SCREEN: MIAN XIANG (Face Reading) ═══ -->
-  <div class="screen" id="screen-mianxiang">
-    <div class="title-block">
-      <div class="title-main" style="font-size:2em;">Mian Xiang</div>
-      <div class="title-sub" id="t-mx-sub">Face Reading · 面相</div>
-    </div>
-    <div class="glass-card face-quiz">
-      <div class="face-progress"><div class="face-progress-bar" id="mxProgress" style="width:0%"></div></div>
-      <div id="mxQuestion" style="font-size:1.05em;color:var(--text-primary);margin:16px 0;"></div>
-      <div class="face-feature">
-        <div class="face-options" id="mxOptions"></div>
+      <div class="field">
+        <label id="t-love-them">💞 Their Zodiac</label>
+        <select class="select" id="loveThem"></select>
       </div>
-      <div id="mxResult" style="margin-top:12px;"></div>
-    </div>
-    <button class="btn btn-sm" onclick="resetMianxiang()" style="margin-top:8px;" id="t-mx-reset">Restart Reading</button>
-  </div>
-
-  <!-- ═══ SCREEN: SHOU XIANG (Palm Reading) ═══ -->
-  <div class="screen" id="screen-shouxiang">
-    <div class="title-block">
-      <div class="title-main" style="font-size:2em;">Shou Xiang</div>
-      <div class="title-sub" id="t-sx-sub">Palm Reading · 手相</div>
-    </div>
-    <div class="glass-card" style="text-align:center;">
-      <div class="palm-diagram" id="palmDiagram">
-        <div class="palm-outline"></div>
-        <!-- Life Line -->
-        <div class="palm-line" style="top:70px;left:55px;width:90px;transform:rotate(-55deg);" id="pl-life"></div>
-        <div class="palm-label" style="top:95px;left:50px;" id="t-pl-life">Life</div>
-        <!-- Head Line -->
-        <div class="palm-line" style="top:110px;left:50px;width:85px;transform:rotate(-20deg);" id="pl-head"></div>
-        <div class="palm-label" style="top:118px;left:46px;" id="t-pl-head">Head</div>
-        <!-- Heart Line -->
-        <div class="palm-line" style="top:85px;left:45px;width:95px;transform:rotate(-35deg);" id="pl-heart"></div>
-        <div class="palm-label" style="top:95px;left:40px;" id="t-pl-heart">Heart</div>
-        <!-- Fate Line -->
-        <div class="palm-line" style="top:40px;left:100px;width:3px;height:80px;transform:none;border-radius:0;" id="pl-fate"></div>
-        <div class="palm-label" style="top:70px;left:110px;" id="t-pl-fate">Fate</div>
+      <div style="text-align:center;">
+        <button class="btn btn-primary" onclick="checkLove()" id="t-love-check">❤️ Check Compatibility</button>
       </div>
-      <p style="font-size:0.78em;color:var(--text-muted);margin:8px 0;" id="t-sx-prompt">Tap each line on your palm for interpretation</p>
-      <div id="sxDetail" style="margin-top:8px;text-align:left;"></div>
+      <div class="love-result" id="loveResult" style="display:none;"></div>
     </div>
-  </div>
-
-  <!-- ═══ SCREEN: SHARE ═══ -->
-  <div class="screen" id="screen-share">
-    <div class="title-block">
-      <div class="title-main" style="font-size:2em;" id="t-share-title">Share Your Fortune</div>
-      <div class="title-sub" id="t-share-sub">Let the world see your destiny</div>
-    </div>
-    <div class="share-preview" id="sharePreview"></div>
-    <div class="share-platforms">
-      <button class="sp-btn tiktok" onclick="shareTo('tiktok')">🎵 TikTok</button>
-      <button class="sp-btn reddit" onclick="shareTo('reddit')">🤖 Reddit</button>
-      <button class="sp-btn" onclick="shareTo('download')">📥 Download</button>
-      <button class="sp-btn" onclick="shareTo('copy')">📋 Copy Text</button>
-    </div>
-    <button class="btn btn-sm" onclick="showScreen('fortune')" style="margin-top:12px;">↩ Back</button>
   </div>
 </div>
 
 <!-- Bottom Nav -->
 <div id="bottomNav">
-  <div class="nav-item active" onclick="showScreen('home')"><span class="ni">🏠</span><span class="nt" id="nav-home">Home</span></div>
-  <div class="nav-item" onclick="showScreen('bazi')"><span class="ni">☯️</span><span class="nt" id="nav-bazi">BaZi</span></div>
-  <div class="nav-item" onclick="showScreen('wuxing')"><span class="ni">⭐</span><span class="nt" id="nav-wuxing">WuXing</span></div>
-  <div class="nav-item" onclick="showScreen('cezi')"><span class="ni">🀄</span><span class="nt" id="nav-cezi">CeZi</span></div>
-  <div class="nav-item" onclick="showScreen('mianxiang')"><span class="ni">👤</span><span class="nt" id="nav-mx">Face</span></div>
-  <div class="nav-item" onclick="showScreen('shouxiang')"><span class="ni">✋</span><span class="nt" id="nav-sx">Palm</span></div>
+  <div class="nav-item active" data-tab="home">
+    <span class="ni">🏠</span><span>Home</span>
+  </div>
+  <div class="nav-item" data-tab="zodiac">
+    <span class="ni">🐉</span><span>Zodiac</span>
+  </div>
+  <div class="nav-item" data-tab="bazi">
+    <span class="ni">☯️</span><span>BaZi</span>
+  </div>
+  <div class="nav-item" data-tab="tarot">
+    <span class="ni">🔮</span><span>Tarot</span>
+  </div>
+  <div class="nav-item" data-tab="love">
+    <span class="ni">❤️</span><span>Love</span>
+  </div>
 </div>
 
-<div id="particles"></div>
-
 <script>
-// ═══════════════════════════════════════════════
-//  I18N SYSTEM
-// ═══════════════════════════════════════════════
-let LANG='en';
-const I18N={
-  en:{
-    'home-title':'LALALIN','home-sub':'✦ Mystic East Divination ✦',
-    'birth-label':'📅 Birth Date','hour-label':'⏰ Birth Hour (Chinese 2-hour periods)',
-    'gender-label':'⚤ Gender','g-male':'♂ Yang','g-female':'♀ Yin',
-    'place-label':'📍 Birthplace','feel-btn':'✦ Feel Your Stars ✦',
-    'pick-title':'Choose Your Sign','pick-sub':'The Twelve Zodiac Houses','back-btn':'↩ Back',
-    'fortune-title':'Card of Destiny','touch-ball':'TOUCH THE ORB',
-    'stars-gaze':'The stars are gazing into your destiny','redo-btn':'🔮 Again',
-    'share-btn':'📸 Share',
-    'bazi-sub':'Four Pillars of Destiny · 八字',
-    'bazi-first':'Enter your birth info on the Home screen first, then revisit this page for your full chart.',
-    'bazi-detail-sub':'Your Four Pillars Chart',
-    'wuxing-sub':'Five Elements · 五行',
-    'wuxing-prompt':'Tap an element to discover your affinity',
-    'cezi-sub':'Character Oracle · 测字',
-    'cezi-desc':'Type a single Chinese character to reveal its hidden message',
-    'cezi-btn':'✦ Divine the Character ✦',
-    'mx-sub':'Face Reading · 面相','mx-reset':'Restart Reading',
-    'sx-sub':'Palm Reading · 手相','sx-prompt':'Tap each line on your palm for interpretation',
-    'share-title':'Share Your Fortune','share-sub':'Let the world see your destiny',
-    'nav-home':'Home','nav-bazi':'BaZi','nav-wuxing':'WuXing','nav-cezi':'CeZi',
-    'nav-mx':'Face','nav-sx':'Palm',
-    // WuXing
-    'wx-fire':'Fire','wx-earth':'Earth','wx-metal':'Metal','wx-water':'Water','wx-wood':'Wood',
-    'wx-fire-desc':'Passionate, dynamic, charismatic. Fire people light up any room. Creative leaders who inspire others with vision and warmth.',
-    'wx-earth-desc':'Grounded, reliable, nurturing. Earth people are the foundation others lean on. Patient, practical, and deeply caring.',
-    'wx-metal-desc':'Disciplined, precise, principled. Metal people value order and excellence. Natural organizers with strong moral compass.',
-    'wx-water-desc':'Intuitive, wise, adaptable. Water people flow around obstacles with grace. Deep thinkers with powerful emotional intelligence.',
-    'wx-wood-desc':'Growth-minded, idealistic, flexible. Wood people are visionaries who expand horizons. Natural pioneers pushing boundaries.',
-    'wx-cycle':'Element Cycle','wx-generates':'Generates','wx-controls':'Controls',
-    // CeZi
-    'cezi-strokes':'strokes','cezi-element':'Element','cezi-fortune':'Fortune',
-    // Face Reading
-    'mx-q1':'How would you describe your forehead?',
-    'mx-q2':'What shape are your eyebrows?','mx-q3':'How would you describe your eyes?',
-    'mx-q4':'What best describes your nose?','mx-q5':'How are your cheekbones?',
-    'mx-q6':'What shape is your chin?',
-    'mx-fh1':'Wide & prominent','mx-fh2':'Narrow','mx-fh3':'Medium, smooth',
-    'mx-eb1':'Thick & bold','mx-eb2':'Thin & fine','mx-eb3':'Arched & elegant',
-    'mx-ey1':'Large & bright','mx-ey2':'Deep-set, intense','mx-ey3':'Almond-shaped, gentle',
-    'mx-no1':'Strong & prominent','mx-no2':'Small & refined','mx-no3':'Straight, balanced',
-    'mx-cb1':'High & defined','mx-cb2':'Soft, rounded','mx-cb3':'Not very noticeable',
-    'mx-ch1':'Strong, square jaw','mx-ch2':'Pointed, delicate','mx-ch3':'Rounded, full',
-    'mx-progress':'Question {n} of 6',
-    // Palm
-    'pl-life':'Life','pl-head':'Head','pl-heart':'Heart','pl-fate':'Fate',
-    'sx-life-desc':'Your Life Line suggests a journey of steady vitality and resilience. You possess deep reserves of energy that serve you well through challenges.',
-    'sx-head-desc':'Your Head Line reveals a sharp, analytical mind. You approach problems with logic and creativity — a rare combination.',
-    'sx-heart-desc':'Your Heart Line speaks of deep emotional capacity. You love intensely and form bonds that transcend the ordinary.',
-    'sx-fate-desc':'Your Fate Line indicates a path shaped by both destiny and personal choices. Major life changes often come from unexpected directions.',
-    // Share
-    'share-tiktok-title':'🔮 My Chinese Fortune Reading',
-    'share-tiktok-tags':'#ChineseAstrology #BaZi #Divination #MysticEast #FortuneTelling',
-    'share-reddit-title':'[Divination] My Chinese Astrology Reading on Lalalin.xyz',
-    'share-reddit-body':'Just got my fortune read using ancient Chinese divination methods — BaZi (Four Pillars), Five Elements, and more. Here is what the stars revealed:\n\n',
-    'share-reddit-footer':'\n\nTry it yourself: https://lalalin.xyz\n\n*This is for entertainment purposes only.*',
-    // Misc
-    'period-today':'Today','period-week':'This Week','period-3month':'3 Months',
-    'lucky-color':'Lucky Color','lucky-num':'Lucky Number','stone':'Stone',
-    'good-direction':'Good Direction','clash':'Clash',
-  },
-  zh:{
-    'home-title':'星 之 密 语','home-sub':'✦ 东方命理占卜 ✦',
-    'birth-label':'📅 出生日期','hour-label':'⏰ 出生时辰',
-    'gender-label':'⚤ 性别','g-male':'♂ 阳','g-female':'♀ 阴',
-    'place-label':'📍 出生地','feel-btn':'✦ 感应星命 ✦',
-    'pick-title':'感 应 星 座','pick-sub':'十二星宫 · 各司其命','back-btn':'↩ 返回修改',
-    'fortune-title':'命 运 之 牌','touch-ball':'触 碰 水 晶 球',
-    'stars-gaze':'星辰正在凝视你的命运','redo-btn':'🔮 再次占卜',
-    'share-btn':'📸 分享结果',
-    'bazi-sub':'四柱八字 · 命理推演',
-    'bazi-first':'请先在首页填写出生信息，<br>再返回此处查看完整命盘。',
-    'bazi-detail-sub':'你的八字命盘',
-    'wuxing-sub':'五行生克 · 相生相成',
-    'wuxing-prompt':'点击元素，探索你的五行属性',
-    'cezi-sub':'测字占卜 · 一字知命',
-    'cezi-desc':'输入一个汉字，揭示其中隐藏的命运信息',
-    'cezi-btn':'✦ 测字占卜 ✦',
-    'mx-sub':'面相分析 · 五官论命','mx-reset':'重新测试',
-    'sx-sub':'手相解读 · 掌纹知命','sx-prompt':'点击掌纹线条查看解读',
-    'share-title':'分享运势','share-sub':'让世界看见你的命运',
-    'nav-home':'首页','nav-bazi':'八字','nav-wuxing':'五行','nav-cezi':'测字',
-    'nav-mx':'面相','nav-sx':'手相',
-    'wx-fire':'火','wx-earth':'土','wx-metal':'金','wx-water':'水','wx-wood':'木',
-    'wx-fire-desc':'热情奔放、充满活力。火行人天生具有领袖魅力，走到哪里都是焦点。创造力强，富有感染力。',
-    'wx-earth-desc':'稳重可靠、包容善良。土行人是大家信赖的依靠。耐心务实，心怀大爱，是团队的中流砥柱。',
-    'wx-metal-desc':'严谨自律、追求卓越。金行人重视秩序与完美，是天生的组织者和执行者，有着强烈的正义感。',
-    'wx-water-desc':'灵性智慧、随机应变。水行人如水般柔韧，遇阻则绕，顺势而为。直觉敏锐，情感深沉。',
-    'wx-wood-desc':'志向远大、善于开拓。木行人充满理想与成长动力，是天生的创新者和先驱，不断突破边界。',
-    'wx-cycle':'五行生克','wx-generates':'相生','wx-controls':'相克',
-    'cezi-strokes':'画','cezi-element':'五行','cezi-fortune':'字运',
-    'mx-q1':'你的额头是什么类型？','mx-q2':'你的眉毛是什么形状？','mx-q3':'如何描述你的眼睛？',
-    'mx-q4':'你的鼻子是怎样的？','mx-q5':'你的颧骨如何？','mx-q6':'你的下巴是什么形状？',
-    'mx-fh1':'宽阔突出','mx-fh2':'较窄','mx-fh3':'中等平滑',
-    'mx-eb1':'浓密粗犷','mx-eb2':'细长柔美','mx-eb3':'弧形优雅',
-    'mx-ey1':'大而有神','mx-ey2':'深邃锐利','mx-ey3':'杏眼温柔',
-    'mx-no1':'挺拔突出','mx-no2':'小巧精致','mx-no3':'端正笔直',
-    'mx-cb1':'高而有型','mx-cb2':'柔和圆润','mx-cb3':'不太明显',
-    'mx-ch1':'刚毅方颌','mx-ch2':'尖翘精致','mx-ch3':'圆润饱满',
-    'mx-progress':'第 {n} / 6 题',
-    'pl-life':'生命线','pl-head':'智慧线','pl-heart':'感情线','pl-fate':'命运线',
-    'sx-life-desc':'你的生命线显示你拥有持久的活力和韧性。面对挑战时，你的内在力量总能支撑你渡过难关。',
-    'sx-head-desc':'你的智慧线揭示了一个敏锐而有分析力的头脑。你兼具理性思维与创造力，这是难得的天赋。',
-    'sx-heart-desc':'你的感情线诉说着深沉的情感能力。你爱得热烈而真挚，建立的情感纽带超越寻常。',
-    'sx-fate-desc':'你的命运线显示，你的道路由命运和个人选择共同塑造。人生的重大转折往往来自意想不到的方向。',
-    'share-tiktok-title':'🔮 我的东方命理解读',
-    'share-tiktok-tags':'#命理 #八字 #占卜 #东方文化 #国学',
-    'share-reddit-title':'[占卜] 我的命理解读 — Lalalin.xyz',
-    'share-reddit-body':'刚通过东方传统命理学进行了占卜——包括八字四柱、五行生克、面相手相等。以下是星辰揭示的命运：\n\n',
-    'share-reddit-footer':'\n\n你也来试试：https://lalalin.xyz\n\n*仅供娱乐参考。*',
-    'period-today':'今日','period-week':'未来一周','period-3month':'未来三月',
-    'lucky-color':'幸运色','lucky-num':'幸运数字','stone':'守护石',
-    'good-direction':'吉方','clash':'冲煞',
-  }
-};
+'use strict';
 
-function t(key){ return (I18N[LANG]&&I18N[LANG][key])||I18N['en'][key]||key; }
-function toggleLang(){
-  LANG=LANG==='en'?'zh':'en';
-  document.getElementById('langBtn').textContent=LANG==='en'?'中':'EN';
-  document.documentElement.lang=LANG==='en'?'en':'zh-CN';
-  refreshUI();
+// ═══════════════════════════════════
+//  STATE
+// ═══════════════════════════════════
+let LANG = 'zh';
+let userInfo = null;
+let currentZodiacIdx = -1;
+let currentPeriod = 'today';
+let audioCtx = null;
+let musicOn = false;
+let musicNode = null;
+
+// ═══════════════════════════════════
+//  DATA
+// ═══════════════════════════════════
+const zodiacs = [
+  { emoji: '🐭', name: { zh: '鼠', en: 'Rat' }, elem: { zh: '水', en: 'Water' }, stone: { zh: '石榴石', en: 'Garnet' }, luckNum: [2,3], colors: ['Blue','Gold'] },
+  { emoji: '🐮', name: { zh: '牛', en: 'Ox' }, elem: { zh: '土', en: 'Earth' }, stone: { zh: '翡翠', en: 'Jade' }, luckNum: [1,4], colors: ['Yellow','Green'] },
+  { emoji: '🐯', name: { zh: '虎', en: 'Tiger' }, elem: { zh: '木', en: 'Wood' }, stone: { zh: '琥珀', en: 'Amber' }, luckNum: [1,3,4], colors: ['Blue','Gray'] },
+  { emoji: '🐰', name: { zh: '兔', en: 'Rabbit' }, elem: { zh: '木', en: 'Wood' }, stone: { zh: '珍珠', en: 'Pearl' }, luckNum: [3,4,6], colors: ['Pink','Purple'] },
+  { emoji: '🐲', name: { zh: '龙', en: 'Dragon' }, elem: { zh: '土', en: 'Earth' }, stone: { zh: '紫水晶', en: 'Amethyst' }, luckNum: [1,6,7], colors: ['Gold','Silver'] },
+  { emoji: '🐍', name: { zh: '蛇', en: 'Snake' }, elem: { zh: '火', en: 'Fire' }, stone: { zh: '玛瑙', en: 'Agate' }, luckNum: [2,8,9], colors: ['Red','Black'] },
+  { emoji: '🐴', name: { zh: '马', en: 'Horse' }, elem: { zh: '火', en: 'Fire' }, stone: { zh: '黄玉', en: 'Topaz' }, luckNum: [2,3,7], colors: ['Brown','Yellow'] },
+  { emoji: '🐐', name: { zh: '羊', en: 'Goat' }, elem: { zh: '土', en: 'Earth' }, stone: { zh: '月光石', en: 'Moonstone' }, luckNum: [2,7], colors: ['Green','White'] },
+  { emoji: '🐵', name: { zh: '猴', en: 'Monkey' }, elem: { zh: '金', en: 'Metal' }, stone: { zh: '碧玺', en: 'Tourmaline' }, luckNum: [4,9], colors: ['White','Blue'] },
+  { emoji: '🐔', name: { zh: '鸡', en: 'Rooster' }, elem: { zh: '金', en: 'Metal' }, stone: { zh: '黄水晶', en: 'Citrine' }, luckNum: [5,7,8], colors: ['Gold','Brown'] },
+  { emoji: '🐶', name: { zh: '狗', en: 'Dog' }, elem: { zh: '土', en: 'Earth' }, stone: { zh: '虎眼石', en: "Tiger's Eye" }, luckNum: [3,4,9], colors: ['Green','Red'] },
+  { emoji: '🐷', name: { zh: '猪', en: 'Pig' }, elem: { zh: '水', en: 'Water' }, stone: { zh: '红宝石', en: 'Ruby' }, luckNum: [2,5,8], colors: ['Yellow','Gray'] }
+];
+
+const tStems = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+const tStemsEn = ['Jia','Yi','Bing','Ding','Wu','Ji','Geng','Xin','Ren','Gui'];
+const tBranches = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+const tBranchesEn = ['Zi','Chou','Yin','Mao','Chen','Si','Wu','Wei','Shen','You','Xu','Hai'];
+const tAnimals = ['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
+const tAnimalsEn = ['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
+const tElements = ['木','火','土','金','水'];
+const tElementsEn = ['Wood','Fire','Earth','Metal','Water'];
+
+const tarotCards = [
+  { name: { zh: '愚者', en: 'The Fool' }, emoji: '🌟', meaning: { zh: '新的开始，大胆前行。冒险的旅程即将展开，相信你的直觉。', en: 'A new beginning. Take the leap of faith. An adventure awaits.' } },
+  { name: { zh: '魔术师', en: 'The Magician' }, emoji: '🎩', meaning: { zh: '你拥有所需的一切力量。现在正是行动的最佳时机。', en: 'You have all the tools you need. Now is the time to act.' } },
+  { name: { zh: '女祭司', en: 'The High Priestess' }, emoji: '🌙', meaning: { zh: '倾听内心的声音。答案已经在你心中，相信你的直觉。', en: 'Listen to your inner voice. The answers lie within.' } },
+  { name: { zh: '女皇', en: 'The Empress' }, emoji: '👑', meaning: { zh: '丰收与富饶。创造力爆发，善待自己，享受生活。', en: 'Abundance and creativity. Nurture yourself and others.' } },
+  { name: { zh: '皇帝', en: 'The Emperor' }, emoji: '🏛️', meaning: { zh: '秩序与权威。掌控局面，建立稳定的基础。', en: 'Authority and structure. Take control and build solid foundations.' } },
+  { name: { zh: '恋人', en: 'The Lovers' }, emoji: '💕', meaning: { zh: '重要的选择在前方。信任你的心，跟随真爱。', en: 'A significant choice ahead. Follow your heart to true love.' } },
+  { name: { zh: '力量', en: 'Strength' }, emoji: '🦁', meaning: { zh: '内心的力量无穷大。以温柔和耐心克服一切困难。', en: 'Inner strength prevails. Overcome with patience and compassion.' } },
+  { name: { zh: '命运之轮', en: 'Wheel of Fortune' }, emoji: '🎡', meaning: { zh: '命运正在转动。好运即将来临，准备好迎接改变。', en: 'Destiny is turning. Good fortune approaches. Embrace change.' } },
+  { name: { zh: '星星', en: 'The Star' }, emoji: '⭐', meaning: { zh: '希望与灵感闪耀。保持信念，你的愿望终将实现。', en: 'Hope and inspiration shine bright. Keep faith, your wishes come true.' } },
+  { name: { zh: '太阳', en: 'The Sun' }, emoji: '☀️', meaning: { zh: '快乐与成功。阳光普照，尽情享受这美好的时光。', en: 'Joy and success. Bask in the warmth of this wonderful time.' } },
+  { name: { zh: '世界', en: 'The World' }, emoji: '🌍', meaning: { zh: '圆满与完成。一个阶段即将完美收官，新的循环在等待。', en: 'Completion and fulfillment. A cycle ends perfectly, a new one begins.' } },
+  { name: { zh: '隐士', en: 'The Hermit' }, emoji: '🏮', meaning: { zh: '向内探索的时刻。独处让你找到真正的智慧和方向。', en: 'Time for inner reflection. Solitude brings wisdom and clarity.' } }
+];
+
+const wuXingData = [
+  { name: { zh: '木', en: 'Wood' }, emoji: '🌳', color: 'wu-wood', desc: { zh: '生长与活力。木主仁，象征春天般的生机，代表创造力与包容之心。', en: 'Growth and vitality. Wood governs benevolence, representing creativity and compassion.' } },
+  { name: { zh: '火', en: 'Fire' }, emoji: '🔥', color: 'wu-fire', desc: { zh: '热情与光明。火主礼，象征夏天的能量，代表激情与文明之光。', en: 'Passion and light. Fire governs propriety, representing enthusiasm and illumination.' } },
+  { name: { zh: '土', en: 'Earth' }, emoji: '⛰️', color: 'wu-earth', desc: { zh: '承载与稳定。土主信，象征大地的包容，代表诚信与坚实可靠。', en: 'Stability and nurture. Earth governs trust, representing reliability and grounding.' } },
+  { name: { zh: '金', en: 'Metal' }, emoji: '⚜️', color: 'wu-metal', desc: { zh: '坚毅与决断。金主义，象征秋天的收获，代表正义与果断之力。', en: 'Resolve and justice. Metal governs righteousness, representing strength and decisiveness.' } },
+  { name: { zh: '水', en: 'Water' }, emoji: '💧', color: 'wu-water', desc: { zh: '智慧与流动。水主智，象征冬天的深藏，代表智慧与适应之力。', en: 'Wisdom and flow. Water governs wisdom, representing intelligence and adaptability.' } }
+];
+
+// ═══════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════
+function t(key) {
+  const dict = {
+    'stars-today': { zh: '今日运势', en: "Today's Fortune" },
+    'stars-week': { zh: '本周运势', en: "This Week's Fortune" },
+    'stars-month': { zh: '本月运势', en: "This Month's Fortune" },
+    'lucky-num': { zh: '幸运数字', en: 'Lucky Number' },
+    'lucky-color': { zh: '幸运颜色', en: 'Lucky Color' },
+    'lucky-stone': { zh: '幸运宝石', en: 'Lucky Stone' },
+    'dos': { zh: '宜', en: 'Favorable' },
+    'donts': { zh: '忌', en: 'Avoid' },
+  };
+  return (dict[key] && dict[key][LANG]) ? dict[key][LANG] : key;
 }
-function refreshUI(){
-  // Update all elements with id="t-*"
-  document.querySelectorAll('[id^="t-"]').forEach(el=>{
-    const k=el.id.replace('t-','');
-    if(I18N[LANG]&&I18N[LANG][k]){
-      if(el.tagName==='INPUT'&&el.type==='button') el.value=I18N[LANG][k];
-      else if(el.tagName==='BUTTON'||el.tagName==='DIV'||el.tagName==='SPAN'||el.tagName==='P'||el.tagName==='LABEL') el.innerHTML=I18N[LANG][k];
-    }
+
+function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+function getZodiacIdx(year) {
+  // Simplified: Rat = year 0 mod 12
+  return ((year - 4) % 12 + 12) % 12;
+}
+
+function getTianGan(year) {
+  return ((year - 4) % 10 + 10) % 10;
+}
+
+function getDiZhi(year) {
+  return ((year - 4) % 12 + 12) % 12;
+}
+
+function showToast(msg) {
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 2000);
+}
+
+// ═══════════════════════════════════
+//  NAVIGATION (FIXED!)
+// ═══════════════════════════════════
+function switchTab(tabName) {
+  // Hide all screens
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  // Show target
+  const target = document.getElementById('tab-' + tabName);
+  if (target) target.classList.add('active');
+  // Update nav
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const navItem = document.querySelector(`.nav-item[data-tab="${tabName}"]`);
+  if (navItem) navItem.classList.add('active');
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Refresh content if needed
+  if (tabName === 'bazi' && userInfo) updateBaziContent();
+}
+
+// Nav click handlers
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function() {
+    switchTab(this.dataset.tab);
   });
-  // Update nav items
-  document.querySelectorAll('.nt').forEach(el=>{
-    const k='nav-'+el.parentElement.textContent.toLowerCase().replace(/[^a-z]/g,'');
-    const lookup={'nav-home':'nav-home','nav-bazi':'nav-bazi','nav-wuxing':'nav-wuxing','nav-cezi':'nav-cezi','nav-face':'nav-mx','nav-palm':'nav-sx'};
-    const mapped=lookup['nav-'+el.parentElement.querySelector('.ni')?.nextSibling?.textContent?.toLowerCase()];
-    if(mapped&&I18N[LANG]&&I18N[LANG][mapped]) el.textContent=I18N[LANG][mapped];
+});
+
+// ═══════════════════════════════════
+//  STARS BACKGROUND
+// ═══════════════════════════════════
+(function() {
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  for (let i = 0; i < 80; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.3,
+      a: Math.random() * 0.6 + 0.2,
+      s: Math.random() * 0.005 + 0.002
+    });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      s.a += s.s;
+      const alpha = Math.abs(Math.sin(s.a));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(200,180,150,${alpha * 0.6})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ═══════════════════════════════════
+//  HOME - DAILY FORTUNE
+// ═══════════════════════════════════
+function renderDailyFortune() {
+  const now = new Date();
+  const seed = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+  const rng = (n) => Math.abs(Math.sin(seed * 127.1 + n * 311.7) * 10000) % 100;
+  const starCount = Math.floor(rng(1) / 20) + 1;
+  const stars = '⭐'.repeat(Math.min(starCount, 5));
+  const fortunes = LANG === 'zh' ? [
+    { title: '紫气东来', desc: '今日贵人运旺盛，适合社交与拓展人脉。工作上会迎来新的突破机会，大胆表达你的想法。', dos: '社交聚会、谈判签约、户外运动', donts: '宅家不动、与人争执、大额消费' },
+    { title: '稳中求进', desc: '看似平淡的一天，实则在酝酿重要的转机。保持耐心，细节决定成败。', dos: '整理规划、学习进修、家庭聚餐', donts: '冒险投资、冲动决策、熬夜加班' },
+    { title: '桃花盛开', desc: '今日桃花运势上升，单身者有望邂逅心仪之人。已有伴侣者感情甜蜜升华。', dos: '约会表白、艺术创作、朋友聚会', donts: '冷战赌气、犹豫不决、过度理性' },
+    { title: '财运亨通', desc: '偏财运不错的一天，可能会有意外之财。但要记得见好就收，切莫贪心。', dos: '理财规划、小额投资、慈善捐赠', donts: '赌博投机、借贷担保、奢侈消费' },
+    { title: '贵人相助', desc: '贵人星入命，长辈或上司会成为你的贵人。虚心请教，你会获得宝贵的指点。', dos: '请教长辈、进修学习、善行积德', donts: '骄傲自负、拒绝帮助、投机取巧' },
+  ] : [
+    { title: 'Fortune Smiles', desc: 'The stars align in your favor today. New opportunities emerge in your career and relationships. Speak your truth boldly.', dos: 'Social events, networking, negotiations', donts: 'Staying indoors, arguing, big spending' },
+    { title: 'Steady Progress', desc: 'A quiet but significant turning point brews beneath the surface. Patience reveals hidden opportunities.', dos: 'Planning, studying, family time', donts: 'Risky investments, rash decisions, overwork' },
+    { title: 'Love Blossoms', desc: 'Romantic energy peaks today. Singles may meet someone special. Couples deepen their bond.', dos: 'Dating, creative work, gatherings', donts: 'Cold silence, indecision, overthinking' },
+    { title: 'Prosperity Flow', desc: 'A favorable day for finances. Unexpected gains are possible. Know when to stop.', dos: 'Planning finances, small investments, giving', donts: 'Gambling, co-signing loans, splurging' },
+    { title: 'Noble Support', desc: 'A mentor figure appears in your life. Their guidance opens doors you never expected.', dos: 'Seek advice, learn humbly, do good deeds', donts: 'Arrogance, refusing help, shortcuts' },
+  ];
+  const idx = Math.floor(rng(0) / 20);
+  const f = fortunes[idx];
+  const colorSeed = Math.floor(rng(3) / 20);
+  const colors = ['#c49a3c', '#b8655a', '#8ad098', '#c8a0d0', '#80b0d8'];
+  const nums = [Math.floor(rng(4)/10)+1, Math.floor(rng(5)/10)+1];
+  const dateStr = `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')}`;
+  
+  document.getElementById('dailyFortune').innerHTML = `
+    <div class="date-display">${LANG==='zh'?'今日运势':'Daily Fortune'} · ${dateStr}</div>
+    <div class="fortune-icon">${['🔮','🌟','✨','💫','🎯'][idx]}</div>
+    <div class="fortune-stars">${stars}</div>
+    <div class="fortune-title">${f.title}</div>
+    <div class="fortune-desc">${f.desc}</div>
+    <div class="lucky-items">
+      <div class="lucky-tag">${t('lucky-num')} <span>${nums[0]}</span></div>
+      <div class="lucky-tag">${t('lucky-color')} <span style="color:${colors[colorSeed]}">●</span></div>
+      <div class="lucky-tag">${t('dos')} <span>${f.dos.split('、')[0]}</span></div>
+      <div class="lucky-tag">${t('donts')} <span>${f.donts.split('、')[0]}</span></div>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════
+//  HOME - DO READING
+// ═══════════════════════════════════
+function doReading() {
+  const dateVal = document.getElementById('birthDate').value;
+  if (!dateVal) {
+    showToast(LANG === 'zh' ? '请先选择出生日期' : 'Please select your birth date');
+    return;
+  }
+  const [y, m, d] = dateVal.split('-').map(Number);
+  const hour = parseInt(document.getElementById('birthHour').value);
+  const gender = document.querySelector('.gender-opt.selected')?.dataset.g || 'male';
+  const zi = getZodiacIdx(y);
+  currentZodiacIdx = zi;
+  
+  userInfo = {
+    birthYear: y, birthMonth: m, birthDay: d,
+    birthHour: hour < 0 ? 12 : hour,
+    gender: gender,
+    zodiacIdx: zi,
+    tg: tStems[getTianGan(y)],
+    tgen: tStemsEn[getTianGan(y)],
+    dz: tBranches[getDiZhi(y)],
+    dzen: tBranchesEn[getDiZhi(y)],
+    animal: tAnimals[zi],
+    animalEn: tAnimalsEn[zi],
+    elem: tElements[getTianGan(y) % 5],
+    elemEn: tElementsEn[getTianGan(y) % 5]
+  };
+  
+  showToast((LANG === 'zh' ? '命盘已生成 · 切换标签页查看' : 'Chart generated · Switch tabs to explore'));
+  switchTab('bazi');
+  updateBaziContent();
+}
+
+// ═══════════════════════════════════
+//  BAZI
+// ═══════════════════════════════════
+function updateBaziContent() {
+  if (!userInfo) return;
+  const u = userInfo;
+  const cz = zodiacs[u.zodiacIdx];
+  document.getElementById('baziContent').innerHTML = `
+    <div style="text-align:center;margin-bottom:16px;">
+      <div style="font-size:0.85em;color:var(--text3);">${u.birthYear}/${u.birthMonth}/${u.birthDay} · ${u.gender==='male'?(LANG==='zh'?'♂ 阳男':'♂ Yang Male'):(LANG==='zh'?'♀ 阴女':'♀ Yin Female')}</div>
+      <div style="font-family:'Ma Shan Zheng',cursive;font-size:1.4em;color:var(--gold);margin:6px 0;">${u.animal} · ${u.elem}命</div>
+    </div>
+    <div class="bazi-row">
+      <div class="bazi-pillar">
+        <div class="bp-label">${LANG==='zh'?'年柱':'Year'}</div>
+        <div class="bp-stem">${u.tg}</div>
+        <div class="bp-branch">${u.dz}</div>
+        <div style="font-size:0.7em;color:var(--text3);">${u.animal}</div>
+      </div>
+      <div class="bazi-pillar">
+        <div class="bp-label">${LANG==='zh'?'月柱':'Month'}</div>
+        <div class="bp-stem">${tStems[(getTianGan(u.birthYear)+2)%10]}</div>
+        <div class="bp-branch">${tBranches[u.birthMonth]}</div>
+      </div>
+      <div class="bazi-pillar">
+        <div class="bp-label">${LANG==='zh'?'日柱':'Day'}</div>
+        <div class="bp-stem">${tStems[(getTianGan(u.birthYear)+u.birthDay)%10]}</div>
+        <div class="bp-branch">${tBranches[(u.zodiacIdx+u.birthDay)%12]}</div>
+      </div>
+      <div class="bazi-pillar">
+        <div class="bp-label">${LANG==='zh'?'时柱':'Hour'}</div>
+        <div class="bp-stem">${tStems[(getTianGan(u.birthYear)+5)%10]}</div>
+        <div class="bp-branch">${tBranches[Math.floor(u.birthHour/2)]}</div>
+      </div>
+    </div>
+    <div style="background:rgba(196,154,60,0.08);border-radius:12px;padding:16px;margin-top:12px;">
+      <div style="font-weight:600;color:var(--gold2);margin-bottom:8px;">${LANG==='zh'?'命理解读':'Chart Interpretation'}</div>
+      <p style="font-size:0.9em;color:var(--text2);line-height:1.6;">
+        ${LANG==='zh' 
+          ? `你属${u.animal}，${u.elem}命之人。${u.elem === '金' ? '金主义，性格刚毅果断，做事有魄力。' : u.elem === '木' ? '木主仁，性格温和仁慈，富有创造力。' : u.elem === '水' ? '水主智，聪明灵活，善于变通。' : u.elem === '火' ? '火主礼，热情开朗，充满活力。' : '土主信，忠厚诚实，踏实稳重。'}
+              ${u.gender === 'male' ? '阳年生人，性格外向，做事积极主动。' : '阴年生人，性格内敛，善于思考谋划。'}
+              日主${tStems[(getTianGan(u.birthYear)+u.birthDay)%10]}，代表你内心真正的自我，也是你一生运势的关键所在。`
+          : `You are born under the sign of ${u.animalEn}, with a ${u.elemEn} destiny. ${u.elemEn === 'Metal' ? 'Metal governs righteousness - you are resolute and decisive.' : u.elemEn === 'Wood' ? 'Wood governs benevolence - you are compassionate and creative.' : u.elemEn === 'Water' ? 'Water governs wisdom - you are intelligent and adaptable.' : u.elemEn === 'Fire' ? 'Fire governs propriety - you are passionate and vibrant.' : 'Earth governs trust - you are reliable and grounded.'}
+              Your day master is ${tStemsEn[(getTianGan(u.birthYear)+u.birthDay)%10]}, representing your true inner self and the key to your destiny.`
+        }
+      </p>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+      <div class="lucky-tag">${t('lucky-num')} <span>${cz.luckNum.join(', ')}</span></div>
+      <div class="lucky-tag">${t('lucky-color')} <span>${cz.colors.join(', ')}</span></div>
+      <div class="lucky-tag">${t('lucky-stone')} <span>${cz.stone[LANG] || cz.stone.zh}</span></div>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════
+//  ZODIAC
+// ═══════════════════════════════════
+function renderZodiacGrid() {
+  document.getElementById('zodiacGrid').innerHTML = zodiacs.map((z, i) => `
+    <div class="z-item" onclick="selectZodiac(${i})">
+      <div class="zi">${z.emoji}</div>
+      <div class="zn">${z.name[LANG]}</div>
+    </div>
+  `).join('');
+}
+
+function selectZodiac(idx) {
+  currentZodiacIdx = idx;
+  showZodiacDetail(idx);
+  document.getElementById('zodiacDetail').style.display = 'block';
+  document.getElementById('zodiacDetail').scrollIntoView({ behavior: 'smooth' });
+}
+
+function showZodiacDetail(idx) {
+  const z = zodiacs[idx];
+  const seed = idx * 100 + (currentPeriod === 'today' ? 1 : currentPeriod === 'week' ? 7 : 30) + new Date().getDate();
+  const stars = Math.min(Math.floor((Math.abs(Math.sin(seed * 0.73)) * 10) % 5) + 1, 5);
+  const starStr = '⭐'.repeat(stars);
+  
+  const advices = LANG === 'zh' ? [
+    { dos: ['社交聚会','学习新技能','整理家务'], donts: ['冲动消费','与人争执','熬夜'] },
+    { dos: ['投资理财','旅行出行','艺术创作'], donts: ['借贷担保','过度劳累','暴饮暴食'] },
+    { dos: ['表白约会','家庭聚餐','运动健身'], donts: ['冷战赌气','拖延症','大话空谈'] },
+    { dos: ['谈判签约','进修深造','登山远足'], donts: ['赌博投机','酒驾出行','背后议论'] },
+    { dos: ['慈善捐赠','拜访长辈','水边散步'], donts: ['冲动辞职','借钱他人','深夜独行'] },
+  ] : [
+    { dos: ['Social events','Learn new skills','Organize home'], donts: ['Impulse buying','Arguments','Stay up late'] },
+    { dos: ['Invest wisely','Travel','Creative work'], donts: ['Co-sign loans','Overwork','Overeat'] },
+    { dos: ['Date night','Family dinner','Exercise'], donts: ['Cold silence','Procrastinate','Empty promises'] },
+    { dos: ['Negotiate deals','Further study','Mountain hike'], donts: ['Gamble','Drunk driving','Gossip'] },
+    { dos: ['Charity giving','Visit elders','Waterside walk'], donts: ['Quit impulsively','Lend money','Walk alone at night'] },
+  ];
+  const adv = advices[idx % 5];
+  
+  document.getElementById('zodiacDetail').innerHTML = `
+    <div style="font-size:3em;margin-bottom:8px;">${z.emoji}</div>
+    <div style="font-family:'Ma Shan Zheng',cursive;font-size:1.5em;color:var(--gold);">${z.name[LANG]}</div>
+    <div style="color:var(--text3);font-size:0.85em;">${LANG==='zh'?'五行属':'Element:'} ${z.elem[LANG]}</div>
+    <div class="fortune-stars" style="margin:10px 0;">${starStr}</div>
+    <div style="display:flex;gap:10px;margin:12px 0;">
+      <div style="flex:1;text-align:left;padding:12px;background:rgba(100,180,120,0.08);border-radius:10px;">
+        <div style="color:#8ad098;font-weight:600;margin-bottom:4px;">✅ ${t('dos')}</div>
+        ${adv.dos.map(d => `<div style="font-size:0.82em;color:var(--text2);">· ${d}</div>`).join('')}
+      </div>
+      <div style="flex:1;text-align:left;padding:12px;background:rgba(200,80,60,0.08);border-radius:10px;">
+        <div style="color:#d4958a;font-weight:600;margin-bottom:4px;">❌ ${t('donts')}</div>
+        ${adv.donts.map(d => `<div style="font-size:0.82em;color:var(--text2);">· ${d}</div>`).join('')}
+      </div>
+    </div>
+    <div class="lucky-items" style="justify-content:center;">
+      <div class="lucky-tag">${t('lucky-num')} <span>${z.luckNum.join(',')}</span></div>
+      <div class="lucky-tag">${t('lucky-stone')} <span>${z.stone[LANG]||z.stone.zh}</span></div>
+    </div>
+  `;
+}
+
+function switchPeriod(period, el) {
+  currentPeriod = period;
+  document.querySelectorAll('.period-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  if (currentZodiacIdx >= 0) showZodiacDetail(currentZodiacIdx);
+}
+
+// ═══════════════════════════════════
+//  TAROT
+// ═══════════════════════════════════
+function drawTarot() {
+  const card = tarotCards[randomInt(0, tarotCards.length - 1)];
+  const el = document.querySelector('.tarot-card');
+  el.classList.remove('flipped');
+  
+  document.getElementById('tarotFront').innerHTML = `
+    <div style="font-size:3em;">${card.emoji}</div>
+    <div class="tf-name">${card.name[LANG]}</div>
+    <div class="tf-meaning">${card.meaning[LANG]}</div>
+  `;
+  
+  setTimeout(() => {
+    el.classList.add('flipped');
+  }, 100);
+}
+
+// ═══════════════════════════════════
+//  LOVE
+// ═══════════════════════════════════
+function initLoveSelects() {
+  const sel1 = document.getElementById('loveYou');
+  const sel2 = document.getElementById('loveThem');
+  [sel1, sel2].forEach(s => {
+    s.innerHTML = zodiacs.map((z, i) => 
+      `<option value="${i}">${z.emoji} ${z.name[LANG]} (${z.elem[LANG]})</option>`
+    ).join('');
   });
-  // Rebuild dynamic content
+}
+
+function checkLove() {
+  const a = parseInt(document.getElementById('loveYou').value);
+  const b = parseInt(document.getElementById('loveThem').value);
+  const diff = Math.abs(a - b);
+  // Compatibility: closer signs (in the 12-cycle) are generally more compatible
+  const bases = [85, 72, 78, 65, 90, 55, 70, 60, 82, 58, 75, 68];
+  const score = Math.min(Math.max(bases[diff] + randomInt(-8, 8), 30), 98);
+  
+  const msgs = LANG === 'zh' ? [
+    score >= 90 ? '天作之合！你们简直是命中注定的一对。' :
+    score >= 75 ? '非常匹配！你们有很多共同点，关系会很甜蜜。' :
+    score >= 60 ? '还不错！需要多一点耐心和理解，未来可期。' :
+    score >= 45 ? '需要磨合。性格差异较大，但互补也能擦出火花。' :
+    '挑战较大。但如果真心相爱，没有跨不过的坎。'
+  ] : [
+    score >= 90 ? 'A match made in heaven! You are destined for each other.' :
+    score >= 75 ? 'Great match! You share many commonalities. Sweet relationship ahead.' :
+    score >= 60 ? 'Not bad! A little patience and understanding will go a long way.' :
+    score >= 45 ? 'Needs work. Different personalities, but opposites can attract.' :
+    'Challenging. But true love overcomes all obstacles.'
+  ];
+  
+  document.getElementById('loveResult').style.display = 'block';
+  document.getElementById('loveResult').innerHTML = `
+    <div style="font-size:2em;margin:8px 0;">
+      ${zodiacs[a].emoji} ❤️ ${zodiacs[b].emoji}
+    </div>
+    <div class="love-score">${score}%</div>
+    <div class="love-bar"><div class="love-bar-inner" style="width:${score}%;"></div></div>
+    <p style="color:var(--text2);font-size:1em;line-height:1.6;">${msgs[0]}</p>
+    <div style="margin-top:8px;color:var(--text3);font-size:0.82em;">
+      ${zodiacs[a].name[LANG]}(${zodiacs[a].elem[LANG]}) & ${zodiacs[b].name[LANG]}(${zodiacs[b].elem[LANG]})
+    </div>
+  `;
+  document.getElementById('loveResult').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ═══════════════════════════════════
+//  GENDER TOGGLE
+// ═══════════════════════════════════
+document.querySelectorAll('.gender-opt').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.gender-opt').forEach(b => b.classList.remove('selected'));
+    this.classList.add('selected');
+  });
+});
+
+// ═══════════════════════════════════
+//  LANGUAGE
+// ═══════════════════════════════════
+function toggleLang() {
+  LANG = LANG === 'zh' ? 'en' : 'zh';
+  document.getElementById('langBtn').textContent = LANG === 'zh' ? 'EN' : '中';
+  refreshAllContent();
+}
+
+function refreshAllContent() {
+  renderDailyFortune();
   renderZodiacGrid();
-  renderWuXing();
-  if(document.getElementById('screen-fortune').classList.contains('active')&&currentZodiac&&userInfo){
-    document.getElementById('fortuneContent').innerHTML=buildFortuneHTML();
-  }
-  if(document.getElementById('screen-bazi').classList.contains('active')&&userInfo){
-    document.getElementById('baziInfo').innerHTML=buildBaziDetail();
-  }
-  if(document.getElementById('screen-share').classList.contains('active')) renderSharePreview();
-}
-
-// ═══════════════════════════════════════════════
-//  STARFIELD
-// ═══════════════════════════════════════════════
-const canvas=document.getElementById('starfield'),ctx=canvas.getContext('2d');
-let stars=[],W,H;
-function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;}
-resize();window.addEventListener('resize',resize);
-function initStars(n=180){
-  stars=Array.from({length:n},()=>({
-    x:Math.random()*W,y:Math.random()*H,r:Math.random()*2.2+.2,
-    twinkleSpeed:Math.random()*.015+.003,twinkleOffset:Math.random()*Math.PI*2,
-    baseAlpha:Math.random()*.45+.3,hue:Math.random()<.12?38+Math.random()*18:250+Math.random()*50
-  }));
-}
-initStars();
-function draw(t){
-  ctx.clearRect(0,0,W,H);
-  for(const s of stars){
-    const a=s.baseAlpha+Math.sin(t*s.twinkleSpeed+s.twinkleOffset)*.25;
-    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-    ctx.fillStyle=`hsla(${s.hue},55%,78%,${Math.min(1,a)})`;ctx.fill();
-    if(s.r>1.1){
-      const grd=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*3);
-      grd.addColorStop(0,`hsla(${s.hue},55%,78%,${a*.2})`);grd.addColorStop(1,'transparent');
-      ctx.beginPath();ctx.arc(s.x,s.y,s.r*3,0,Math.PI*2);ctx.fillStyle=grd;ctx.fill();
-    }
-  }
-  requestAnimationFrame(draw);
-}
-requestAnimationFrame(draw);
-
-function spawnShooting(){
-  const el=document.createElement('div');el.className='shooting';
-  el.style.left=Math.random()*75+'%';el.style.top=Math.random()*30+'%';
-  el.style.transform=`rotate(${15+Math.random()*30}deg)`;
-  el.style.animationDuration=(Math.random()*1+0.8)+'s';
-  document.body.appendChild(el);setTimeout(()=>el.remove(),2000);
-}
-setInterval(()=>{if(Math.random()<.25)spawnShooting();},5000);
-spawnShooting();
-
-// ═══════════════════════════════════════════════
-//  PARTICLES
-// ═══════════════════════════════════════════════
-function burstParticles(x,y,count=30){
-  const colors=['#f5dc90','#e8c46a','#c49a3c','#d4958a','#b8946e','#e8b4a0'];
-  const container=document.getElementById('particles');
-  for(let i=0;i<count;i++){
-    const p=document.createElement('div');p.className='particle';
-    const angle=Math.random()*Math.PI*2,dist=60+Math.random()*140;
-    p.style.cssText=`left:${x}px;top:${y}px;width:${2+Math.random()*4}px;height:${2+Math.random()*4}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:50%;--dx:${Math.cos(angle)*dist}px;--dy:${Math.sin(angle)*dist}px;animation-duration:${0.8+Math.random()*1}s;box-shadow:0 0 ${4+Math.random()*8}px currentColor;`;
-    container.appendChild(p);setTimeout(()=>p.remove(),1500);
-  }
-}
-
-// ═══════════════════════════════════════════════
-//  MUSIC ENGINE (preserved)
-// ═══════════════════════════════════════════════
-let audioCtx=null,musicOn=false,musicNodes=null;
-function initAudioCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();}
-function toggleMusic(){
-  initAudioCtx();musicOn=!musicOn;const btn=document.getElementById('musicBtn');
-  if(musicOn){btn.classList.add('on');startMusic();}
-  else{btn.classList.remove('on');stopMusic();}
-}
-function startMusic(){
-  if(!audioCtx||musicNodes)return;
-  const now=audioCtx.currentTime;
-  const masterGain=audioCtx.createGain();masterGain.gain.setValueAtTime(0,now);masterGain.gain.linearRampToValueAtTime(0.08,now+3);masterGain.connect(audioCtx.destination);
-  const sub=audioCtx.createOscillator();sub.type='sine';sub.frequency.setValueAtTime(55,now);
-  const subGain=audioCtx.createGain();subGain.gain.setValueAtTime(0.35,now);sub.connect(subGain);subGain.connect(masterGain);sub.start(now);
-  const lfo=audioCtx.createOscillator();lfo.type='sine';lfo.frequency.setValueAtTime(0.03,now);
-  const lfoGain=audioCtx.createGain();lfoGain.gain.setValueAtTime(4,now);lfo.connect(lfoGain);lfoGain.connect(sub.frequency);lfo.start(now);
-  const pad1=audioCtx.createOscillator();pad1.type='triangle';pad1.frequency.setValueAtTime(220,now);
-  const pad1Gain=audioCtx.createGain();pad1Gain.gain.setValueAtTime(0.12,now);
-  const pad1Filter=audioCtx.createBiquadFilter();pad1Filter.type='lowpass';pad1Filter.frequency.setValueAtTime(500,now);pad1Filter.Q.setValueAtTime(0.5,now);
-  pad1.connect(pad1Filter);pad1Filter.connect(pad1Gain);pad1Gain.connect(masterGain);pad1.start(now);
-  const padLFO=audioCtx.createOscillator();padLFO.type='sine';padLFO.frequency.setValueAtTime(0.07,now);
-  const padLFOGain=audioCtx.createGain();padLFOGain.gain.setValueAtTime(3,now);padLFO.connect(padLFOGain);padLFOGain.connect(pad1.frequency);padLFO.start(now);
-  const shimmer=audioCtx.createOscillator();shimmer.type='sine';shimmer.frequency.setValueAtTime(880,now);
-  const shimmerGain=audioCtx.createGain();shimmerGain.gain.setValueAtTime(0,now);
-  const shimmerPulse=audioCtx.createOscillator();shimmerPulse.type='sine';shimmerPulse.frequency.setValueAtTime(0.12,now);
-  const shimmerPulseGain=audioCtx.createGain();shimmerPulseGain.gain.setValueAtTime(0.04,now);shimmerPulse.connect(shimmerPulseGain);shimmerPulseGain.connect(shimmerGain.gain);
-  shimmerGain.gain.setValueAtTime(0.02,now);shimmer.connect(shimmerGain);shimmerGain.connect(masterGain);
-  shimmer.start(now);shimmerPulse.start(now);
-  let chimeTimeout;
-  function scheduleChime(){
-    chimeTimeout=setTimeout(()=>{if(!musicNodes)return;playChimeNote();scheduleChime();},(8+Math.random()*14)*1000);
-  }
-  function playChimeNote(){
-    const t=audioCtx.currentTime;const freqs=[523.25,587.33,659.25,783.99,880,1046.5];const f=freqs[Math.floor(Math.random()*freqs.length)];
-    const o=audioCtx.createOscillator();o.type='sine';const g=audioCtx.createGain();
-    g.gain.setValueAtTime(0.04,t);g.gain.exponentialRampToValueAtTime(0.001,t+1.8);o.frequency.setValueAtTime(f,t);o.connect(g);g.connect(masterGain);o.start(t);o.stop(t+2);
-  }
-  scheduleChime();
-  musicNodes={masterGain,sub,subGain,lfo,lfoGain,pad1,pad1Gain,pad1Filter,padLFO,padLFOGain,shimmer,shimmerGain,shimmerPulse,shimmerPulseGain,chimeTimeout};
-}
-function stopMusic(){
-  if(!musicNodes)return;clearTimeout(musicNodes.chimeTimeout);
-  const now=audioCtx.currentTime;musicNodes.masterGain.gain.linearRampToValueAtTime(0,now+2);
-  setTimeout(()=>{try{musicNodes.sub.stop();}catch(e){}try{musicNodes.lfo.stop();}catch(e){}try{musicNodes.pad1.stop();}catch(e){}try{musicNodes.padLFO.stop();}catch(e){}try{musicNodes.shimmer.stop();}catch(e){}try{musicNodes.shimmerPulse.stop();}catch(e){}musicNodes=null;},2200);
-}
-function playChime(){if(!audioCtx)return;const now=audioCtx.currentTime;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.setValueAtTime(880,now);o.frequency.exponentialRampToValueAtTime(1760,now+.08);o.frequency.exponentialRampToValueAtTime(880,now+.25);g.gain.setValueAtTime(.12,now);g.gain.exponentialRampToValueAtTime(.001,now+.4);o.connect(g);g.connect(audioCtx.destination);o.start(now);o.stop(now+.45);}
-function playRevealSound(){if(!audioCtx)return;const now=audioCtx.currentTime;[523.25,659.25,783.99,1046.5,1318.5].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.setValueAtTime(f,now+i*.1);g.gain.setValueAtTime(.1,now+i*.1);g.gain.exponentialRampToValueAtTime(.001,now+i*.1+.5);o.connect(g);g.connect(audioCtx.destination);o.start(now+i*.1);o.stop(now+i*.1+.55);});}
-document.addEventListener('click',()=>{if(!audioCtx){initAudioCtx();if(!musicOn){musicOn=true;document.getElementById('musicBtn').classList.add('on');startMusic();}}},{once:true});
-
-// ═══════════════════════════════════════════════
-//  LUNAR & BAZI ENGINE (preserved)
-// ═══════════════════════════════════════════════
-const lunarInfo=[0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,0x06ca0,0x0b550,0x15355,0x04da0,0x0a5b0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x05ac0,0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c4,0x0aae0,0x0a2e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a4d0,0x0d150,0x0f252,0x0d520];
-const STEMS=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
-const BRANCHES=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
-const ANIMALS=['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
-const ANIMALS_ZH=['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
-const ELEMENTS_WX=['Wood','Wood','Fire','Fire','Earth','Earth','Metal','Metal','Water','Water'];
-const ELEMENTS_ZH=['木','木','火','火','土','土','金','金','水','水'];
-
-function getLunarYearInfo(y){return lunarInfo[y-1900];}
-function solarDays(y){return(y%4==0&&y%100!=0)||y%400==0?366:365;}
-function lunarYearDays(y){let info=getLunarYearInfo(y),s=0;for(let i=0;i<12;i++)s+=(info>>(i+4))&1?30:29;return s+leapMonthDays(y);}
-function leapMonth(y){return getLunarYearInfo(y)&0xf;}
-function leapMonthDays(y){return leapMonth(y)?((getLunarYearInfo(y)>>16)&1?30:29):0;}
-function lunarMonthDays(y,m){return(getLunarYearInfo(y)>>(m+3))&1?30:29;}
-
-function solarToLunar(year,month,day){
-  let offset=0;
-  for(let y=1900;y<year;y++)offset+=solarDays(y);
-  const md=[31,28,31,30,31,30,31,31,30,31,30,31];
-  if((year%4==0&&year%100!=0)||year%400==0)md[1]=29;
-  for(let m=1;m<month;m++)offset+=md[m-1];
-  offset+=day-31;
-  let ly=1900,lm=1,ld=1,days=lunarYearDays(1900);
-  while(offset>=days){offset-=days;ly++;days=lunarYearDays(ly);}
-  const leap=leapMonth(ly);let isLeap=false;
-  for(lm=1;lm<=12;lm++){
-    let d=lunarMonthDays(ly,lm);
-    if(offset<d)break;offset-=d;
-    if(lm===leap){d=leapMonthDays(ly);if(offset<d){isLeap=true;break;}offset-=d;}
-  }
-  ld=offset+1;
-  return{year:ly,month:lm,day:ld,isLeap};
-}
-
-function getDayStemBranch(year,month,day){
-  let days=0;
-  for(let y=1900;y<year;y++)days+=solarDays(y);
-  const md=[31,28,31,30,31,30,31,31,30,31,30,31];
-  if((year%4==0&&year%100!=0)||year%400==0)md[1]=29;
-  for(let m=1;m<month;m++)days+=md[m-1];
-  days+=day-1;
-  return(days%10)*12+(days+10)%12;
-}
-
-function getYearStemBranch(year){return(year-4)%60;}
-function getMonthStemBranch(year,month,day){
-  const isLeap=(year%4==0&&year%100!=0)||year%400==0;
-  const stOff=[0,31,59,90,120,151,181,212,243,273,304,334];
-  if(isLeap)for(let i=2;i<12;i++)stOff[i]++;
-  const termDays=[5,19,4,19,5,21,6,22,7,23,7,23,7,23,7,23,7,23,7,23,7,22,7,22];
-  if(isLeap)for(let i=2;i<24;i++)termDays[i]++;
-  let baziMonth=month;
-  if(day<termDays[(month-1)*2])baziMonth=((month+10)%12)||12;
-  const yStem=getYearStemBranch(year)%10;
-  const monthStemBase=[2,4,6,8,0];
-  const base=monthStemBase[Math.floor(yStem/2)];
-  const mStem=(base+(baziMonth-1))%10;
-  const mBranch=(baziMonth+1)%12;
-  return mStem*12+mBranch;
-}
-
-function getHourStemBranch(dayStem,hour){
-  const hBranch=Math.floor((hour+1)/2)%12;
-  const hourStemBase=[0,2,4,6,8];
-  const base=hourStemBase[Math.floor(dayStem/2)];
-  const hStem=(base+hBranch)%10;
-  return hStem*12+hBranch;
-}
-
-function calculateBazi(year,month,day,hour){
-  const ySB=getYearStemBranch(year);
-  const mSB=getMonthStemBranch(year,month,day);
-  const dSB=getDayStemBranch(year,month,day);
-  const hSB=getHourStemBranch(dSB%10,hour);
-  const ani=LANG==='zh'?ANIMALS_ZH:ANIMALS;
-  const ele=LANG==='zh'?ELEMENTS_ZH:ELEMENTS_WX;
-  return{
-    year:{stem:STEMS[ySB%10],branch:BRANCHES[ySB%12],animal:ani[ySB%12],element:ele[ySB%10]},
-    month:{stem:STEMS[mSB%10],branch:BRANCHES[mSB%12],element:ele[mSB%10]},
-    day:{stem:STEMS[dSB%10],branch:BRANCHES[dSB%12],element:ele[dSB%10]},
-    hour:{stem:STEMS[hSB%10],branch:BRANCHES[hSB%12],element:ele[hSB%10]},
-    raw:{ySB,mSB,dSB,hSB}
-  };
-}
-
-// ═══════════════════════════════════════════════
-//  HUANGLI & FORTUNE (preserved + bilingual)
-// ═══════════════════════════════════════════════
-const AUSPICIOUS_ZH=['祭祀','祈福','出行','嫁娶','开市','交易','纳财','入宅','安床','修造','入学','会友','签约','求医','动土','栽种','开光','纳采'];
-const INAUSPICIOUS_ZH=['安葬','行丧','伐木','作灶','开渠','置产','词讼','远行','破土'];
-const AUSPICIOUS_EN=['Worship','Blessing','Travel','Marriage','Open Business','Trade','Collect Wealth','Move House','Set Bed','Renovation','Study','Meet Friends','Sign Contract','Seek Medical','Break Ground','Planting','Consecration','Engagement'];
-const INAUSPICIOUS_EN=['Funeral','Mourning','Logging','Kitchen Work','Digging','Property Purchase','Lawsuit','Long Journey','Earth Breaking'];
-
-function getDailyHuangli(daySB){
-  const dStem=daySB%10,dBranch=daySB%12;
-  const clashBranch=(dBranch+6)%12;let r=dStem*12+dBranch;
-  const nextRand=()=>{r=(r*1103515245+12345)&0x7fffffff;return r;};
-  const auspList=LANG==='zh'?AUSPICIOUS_ZH:AUSPICIOUS_EN;
-  const inauspList=LANG==='zh'?INAUSPICIOUS_ZH:INAUSPICIOUS_EN;
-  const pool=[...auspList],pool2=[...inauspList];
-  const ausp=[],inausp=[];
-  for(let i=0;i<4+(nextRand()%3);i++){const idx=nextRand()%pool.length;ausp.push(pool.splice(idx,1)[0]);}
-  for(let i=0;i<3+(nextRand()%2);i++){const idx=nextRand()%pool2.length;inausp.push(pool2.splice(idx,1)[0]);}
-  const dirs_EN=['East','South','West','North','Southeast','Southwest','Northeast','Northwest'];
-  const dirs_ZH=['东方','南方','西方','北方','东南','西南','东北','西北'];
-  const cols_EN=['Gold','Purple','Red','Blue','Emerald','Moon White','Amber','Coral'];
-  const cols_ZH=['金色','紫色','红色','蓝色','翠绿','月白','琥珀','珊瑚'];
-  return{
-    dayStem:STEMS[dStem],dayBranch:BRANCHES[dBranch],
-    clash:{clashBranch:BRANCHES[clashBranch],clashAnimal:LANG==='zh'?ANIMALS_ZH[clashBranch]:ANIMALS[clashBranch]},
-    auspicious:ausp,inauspicious:inausp,
-    goodDirection:LANG==='zh'?dirs_ZH[nextRand()%8]:dirs_EN[nextRand()%8],
-    luckyColor:LANG==='zh'?cols_ZH[nextRand()%8]:cols_EN[nextRand()%8]
-  };
-}
-
-function generateFortune(bazi,huangli,zodiacInfo,period){
-  const today=new Date();
-  const daySB=getDayStemBranch(today.getFullYear(),today.getMonth()+1,today.getDate());
-  const dStem=daySB%10,userDayStem=bazi.raw.dSB%10;
-  const relation=(dStem-userDayStem+10)%10;
-  const harmonyMap=[5,4,3,3,4,5,4,3,3,4];
-  const baseLuck=harmonyMap[relation];
-  const periodMod={today:0,week:0.5,month3:1}[period]||0;
-  const luck=Math.min(5,Math.max(1,Math.round(baseLuck+periodMod+(Math.random()*2-1))));
-  const stars='★'.repeat(luck)+'☆'.repeat(5-luck);
-  const userElement=bazi.day.element;
-  const dayElement=(LANG==='zh'?ELEMENTS_ZH:ELEMENTS_WX)[dStem];
-  const elRel=(LANG==='zh'?
-    ({'木火':'木火相生，运势蒸腾','火土':'火土相济，根基稳固','土金':'土金相生，厚积薄发','金水':'金水相生，灵感涌现','水木':'水木相生，生机勃发','火木':'木助火势，能量充盈','土火':'火暖厚土，温暖前行','金土':'土生金石，贵人相助','水金':'金生丽水，财源暗涌','木水':'水润根木，滋养成长','木土':'木克土，注意人际摩擦','土水':'土挡水流，情绪需疏导','金水':'水泄金气，避免透支','金木':'金伐木，压力中成长','火金':'火炼金，磨砺出真知'})[userElement+dayElement]||'各有天命'
-  ):(
-    {'WoodFire':'Wood feeds Fire — explosive creative energy','FireEarth':'Fire creates Earth — solid foundation forming','EarthMetal':'Earth bears Metal — wealth accumulating','MetalWater':'Metal produces Water — inspiration flowing','WaterWood':'Water nourishes Wood — growth flourishing','FireWood':'Wood fuels Fire — energy surging','EarthFire':'Fire warms Earth — steady progress','MetalEarth':'Earth yields Metal — noble support','WaterMetal':'Metal births Water — hidden wealth','WoodWater':'Water feeds Wood — deep nourishment','WoodEarth':'Wood restrains Earth — watch for friction','EarthWater':'Earth blocks Water — emotional flow needed','MetalWood':'Metal chops Wood — growth through pressure','FireMetal':'Fire melts Metal — forged in challenge','WaterFire':'Water douses Fire — conserve your flame'})[userElement+dayElement]||'Balance in all things'
-  );
-  return{stars,luck,elementRelation:elRel,
-    ...(period==='today'?dailyAdvice(bazi,huangli,dStem):period==='week'?weekAdvice(bazi):month3Advice(bazi)),
-    periodLabel:t('period-'+period)};
-}
-
-function dailyAdvice(bazi,huangli,dStem){
-  const dos=[],donts=[];
-  if(huangli.clash.clashAnimal===bazi.year.animal)donts.push(LANG==='zh'?('今日冲你生肖'+bazi.year.animal+'，大事缓行'):('Today clashes with your zodiac '+bazi.year.animal+', postpone major decisions'));
-  const r=(dStem-bazi.raw.dSB%10+10)%10;
-  const rText=LANG==='zh'?['和谐共振，万事顺遂','滋养生长，好运自来','推动前行，积极主动','耐心应对，以静制动','反思调整，内观自省','静观其变，顺势而为']:['Harmonic resonance — all flows smoothly','Nurturing energy — fortune arrives naturally','Forward momentum — take initiative','Patience is power — stillness wins','Reflect and adjust — look within','Observe and adapt — go with the flow'];
-  if(r===0)dos.push(LANG==='zh'?'与日柱比和，社交谈判皆宜':'Day Pillar harmony — great for social & negotiation');
-  else if(r<3)dos.push(LANG==='zh'?'日柱生助，做事如有神助':'Day Pillar support — blessed momentum');
-  else dos.push(LANG==='zh'?'低调行事，积蓄力量':'Keep a low profile, gather strength');
-  dos.push((LANG==='zh'?'宜：':'Auspicious: ')+huangli.auspicious.slice(0,2).join('、'));
-  donts.push((LANG==='zh'?'忌：':'Avoid: ')+huangli.inauspicious.slice(0,2).join('、'));
-  const dayLabel=LANG==='zh'?huangli.dayStem+huangli.dayBranch+'日':'Day of '+huangli.dayStem+huangli.dayBranch;
-  return{advice:(LANG==='zh'?'今日':'Today')+' <span class="highlight">'+dayLabel+'</span>, '+(LANG==='zh'?'与你的日柱':'with your Day Pillar')+' <span class="highlight">'+bazi.day.stem+bazi.day.branch+'</span> '+(LANG==='zh'?'能量互动':'energy interaction')+'：'+rText[r]+'。',dos,donts};
-}
-
-function weekAdvice(bazi){
-  return{LANG==='zh'?{advice:'本周<span class="highlight">'+bazi.day.stem+'</span>日主的能量在七日内有三日与天时相合。保持<span class="highlight">'+bazi.day.element+'</span>属性的觉知，顺势而为，不必强求。',dos:['关注每日变化，灵活应对','利用前三日上升能量推进计划','周中适合做重要决策与沟通'],donts:['避免在冲煞日做重大决定','不与负面情绪纠缠','减少无谓的社交消耗']}:{advice:'This week, your <span class="highlight">'+bazi.day.stem+'</span> Day Master energy harmonizes with the cosmos on three days. Stay attuned to your <span class="highlight">'+bazi.day.element+'</span> nature and flow with the rhythm.',dos:['Watch daily shifts and stay flexible','Use the first 3 days of rising energy','Midweek is best for key decisions'],donts:['Avoid major decisions on clash days','Don\'t get tangled in negativity','Reduce draining social obligations']}}[LANG]};
-}
-
-function month3Advice(bazi){
-  const elMsg=LANG==='zh'?{木:'春生之气涌动，创意的种子正在萌芽，保持开放心态迎接新生。',火:'热情之火冉冉升起，表达自我、展现才华的黄金时段已至。',土:'根基正在加固，适合学习积累，厚积薄发静待花开。',金:'收获的季节悄然临近，过往的耕耘即将结出硕果。',水:'灵感的源泉潺潺流动，直觉比理性更加可靠。'}:{Wood:'Spring energy stirs — creative seeds are sprouting. Stay open to new beginnings.',Fire:'Passion rises — a golden time for self-expression and showcasing your talents.',Earth:'Foundations are strengthening — perfect for learning and steady accumulation.',Metal:'Harvest season approaches — past efforts will soon bear fruit.',Water:'Intuition flows like a spring — trust your instincts over logic now.'};
-  return{LANG==='zh'?{advice:'未来三个月，<span class="highlight">'+bazi.day.stem+bazi.day.branch+'</span>的能量将与季节共鸣。<span class="highlight">'+bazi.day.element+'</span>属性在此期间尤为重要——'+elMsg[bazi.day.element],dos:['制定季度目标，分解为可行步骤','投资自我提升，学习新技能','拓展有意义的社交连接'],donts:['避免冲动投资或重大财务决策','不要忽视身体发出的信号','减少消耗型的人际关系']}:{advice:'Over the next 3 months, your <span class="highlight">'+bazi.day.stem+bazi.day.branch+'</span> energy resonates with the season. Your <span class="highlight">'+bazi.day.element+'</span> element is especially potent — '+elMsg[bazi.day.element],dos:['Set quarterly goals in achievable steps','Invest in self-improvement, learn new skills','Build meaningful social connections'],donts:['Avoid impulsive investments or major financial moves','Don\'t ignore your body\'s signals','Reduce draining relationships']}}[LANG];
-}
-
-// ═══════════════════════════════════════════════
-//  ZODIAC DATA (bilingual)
-// ═══════════════════════════════════════════════
-const zodiacs=[
-  {emoji:'♈',name:{en:'Aries',zh:'白羊座'},date:'3/21–4/19',element:{en:'Fire',zh:'火'},ruler:{en:'Mars',zh:'火星'},color:{en:'Crimson',zh:'炽红'},stone:{en:'Diamond',zh:'钻石'}},
-  {emoji:'♉',name:{en:'Taurus',zh:'金牛座'},date:'4/20–5/20',element:{en:'Earth',zh:'土'},ruler:{en:'Venus',zh:'金星'},color:{en:'Emerald',zh:'翠绿'},stone:{en:'Emerald',zh:'翡翠'}},
-  {emoji:'♊',name:{en:'Gemini',zh:'双子座'},date:'5/21–6/21',element:{en:'Air',zh:'风'},ruler:{en:'Mercury',zh:'水星'},color:{en:'Yellow',zh:'明黄'},stone:{en:'Agate',zh:'玛瑙'}},
-  {emoji:'♋',name:{en:'Cancer',zh:'巨蟹座'},date:'6/22–7/22',element:{en:'Water',zh:'水'},ruler:{en:'Moon',zh:'月亮'},color:{en:'Silver',zh:'月银'},stone:{en:'Pearl',zh:'珍珠'}},
-  {emoji:'♌',name:{en:'Leo',zh:'狮子座'},date:'7/23–8/22',element:{en:'Fire',zh:'火'},ruler:{en:'Sun',zh:'太阳'},color:{en:'Gold',zh:'鎏金'},stone:{en:'Ruby',zh:'红宝石'}},
-  {emoji:'♍',name:{en:'Virgo',zh:'处女座'},date:'8/23–9/22',element:{en:'Earth',zh:'土'},ruler:{en:'Mercury',zh:'水星'},color:{en:'Gray',zh:'烟灰'},stone:{en:'Sapphire',zh:'蓝宝石'}},
-  {emoji:'♎',name:{en:'Libra',zh:'天秤座'},date:'9/23–10/23',element:{en:'Air',zh:'风'},ruler:{en:'Venus',zh:'金星'},color:{en:'Pink',zh:'藕粉'},stone:{en:'Opal',zh:'蛋白石'}},
-  {emoji:'♏',name:{en:'Scorpio',zh:'天蝎座'},date:'10/24–11/22',element:{en:'Water',zh:'水'},ruler:{en:'Pluto',zh:'冥王星'},color:{en:'Crimson',zh:'深绯'},stone:{en:'Topaz',zh:'黄玉'}},
-  {emoji:'♐',name:{en:'Sagittarius',zh:'射手座'},date:'11/23–12/21',element:{en:'Fire',zh:'火'},ruler:{en:'Jupiter',zh:'木星'},color:{en:'Purple',zh:'绛紫'},stone:{en:'Amethyst',zh:'紫水晶'}},
-  {emoji:'♑',name:{en:'Capricorn',zh:'摩羯座'},date:'12/22–1/19',element:{en:'Earth',zh:'土'},ruler:{en:'Saturn',zh:'土星'},color:{en:'Brown',zh:'赭褐'},stone:{en:'Garnet',zh:'石榴石'}},
-  {emoji:'♒',name:{en:'Aquarius',zh:'水瓶座'},date:'1/20–2/18',element:{en:'Air',zh:'风'},ruler:{en:'Uranus',zh:'天王星'},color:{en:'Sky Blue',zh:'天蓝'},stone:{en:'Amethyst',zh:'紫水晶'}},
-  {emoji:'♓',name:{en:'Pisces',zh:'双鱼座'},date:'2/19–3/20',element:{en:'Water',zh:'水'},ruler:{en:'Neptune',zh:'海王星'},color:{en:'Sea Blue',zh:'海蓝'},stone:{en:'Moonstone',zh:'月光石'}},
-];
-
-// ═══════════════════════════════════════════════
-//  WU XING ENGINE
-// ═══════════════════════════════════════════════
-const wxData=[
-  {key:'fire',emoji:'🔥',name:{en:'Fire',zh:'火'},descKey:'wx-fire-desc',gen:'earth',ctrl:'metal',genBy:'wood',ctrlBy:'water',color:'#e8947a',angle:-90},
-  {key:'earth',emoji:'🏔️',name:{en:'Earth',zh:'土'},descKey:'wx-earth-desc',gen:'metal',ctrl:'water',genBy:'fire',ctrlBy:'wood',color:'#d4bc6a',angle:-18},
-  {key:'metal',emoji:'⚔️',name:{en:'Metal',zh:'金'},descKey:'wx-metal-desc',gen:'water',ctrl:'wood',genBy:'earth',ctrlBy:'fire',color:'#e0d8cc',angle:54},
-  {key:'water',emoji:'💧',name:{en:'Water',zh:'水'},descKey:'wx-water-desc',gen:'wood',ctrl:'fire',genBy:'metal',ctrlBy:'earth',color:'#8ac0e8',angle:126},
-  {key:'wood',emoji:'🌳',name:{en:'Wood',zh:'木'},descKey:'wx-wood-desc',gen:'fire',ctrl:'earth',genBy:'water',ctrlBy:'metal',color:'#90d090',angle:198},
-];
-
-function renderWuXing(){
-  const wheel=document.getElementById('elementWheel');
-  const cx=130,cy=130,r=95;
-  wheel.innerHTML='<div class="element-center">☯️</div>';
-  wxData.forEach(d=>{
-    const rad=d.angle*Math.PI/180;
-    const x=cx+Math.cos(rad)*r-35,y=cy+Math.sin(rad)*r-35;
-    const div=document.createElement('div');
-    div.className='element-node '+d.key;
-    div.style.left=x+'px';div.style.top=y+'px';
-    div.innerHTML=d.emoji+'<br><span style="font-size:0.75em">'+d.name[LANG]+'</span>';
-    div.onclick=()=>selectElement(d);
-    wheel.appendChild(div);
-  });
-}
-
-function selectElement(d){
-  const detail=document.getElementById('wuxingDetail');
-  const genWx=wxData.find(w=>w.key===d.gen);
-  const ctrlWx=wxData.find(w=>w.key===d.ctrl);
-  const genByWx=wxData.find(w=>w.key===d.genBy);
-  const ctrlByWx=wxData.find(w=>w.key===d.ctrlBy);
-  detail.innerHTML=`
-    <div style="font-size:2.5em;margin-bottom:6px;">${d.emoji}</div>
-    <div style="font-size:1.2em;color:${d.color};font-weight:600;">${d.name[LANG]}</div>
-    <p style="font-size:0.85em;color:var(--text-secondary);margin:10px 0;line-height:1.6;">${t(d.descKey)}</p>
-    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;font-size:0.78em;margin-top:8px;">
-      <span class="tag good">${t('wx-generates')}: ${genWx.emoji} ${genWx.name[LANG]}</span>
-      <span class="tag warn">${t('wx-controls')}: ${ctrlWx.emoji} ${ctrlWx.name[LANG]}</span>
-    </div>
-    <div style="font-size:0.72em;color:var(--text-muted);margin-top:6px;">
-      ${LANG==='zh'?'被生':'Generated by'} ${genByWx.emoji} ${genByWx.name[LANG]} · ${LANG==='zh'?'被克':'Controlled by'} ${ctrlByWx.emoji} ${ctrlByWx.name[LANG]}
-    </div>
-  `;
-  playChime();
-}
-
-// ═══════════════════════════════════════════════
-//  CE ZI ENGINE (Character Divination)
-// ═══════════════════════════════════════════════
-// Simplified character radical database
-const charDB={
-  '福':{strokes:13,element:'Water',radical:'示',fortune:{en:'Blessings are flowing toward you. A period of unexpected good fortune and family harmony awaits.',zh:'福星高照，祥瑞临门。近期将有意外之喜，家人和睦，诸事顺遂。'}},
-  '龙':{strokes:5,element:'Earth',radical:'龙',fortune:{en:'The dragon rises — an auspicious omen of power, success, and transformation. Your ambitions will find wings.',zh:'龙腾九天，大吉之兆。事业腾飞在即，贵人相助，化龙成凤。'}},
-  '安':{strokes:6,element:'Earth',radical:'宀',fortune:{en:'Peace and stability are your guiding stars. A calm harbor in turbulent times — protect your sanctuary.',zh:'安如磐石，心静则明。在动荡中守住内心的宁静，平安即是最大的福报。'}},
-  '心':{strokes:4,element:'Fire',radical:'心',fortune:{en:'Follow your heart — intuition is your compass now. Emotional clarity brings the answers you seek.',zh:'心之所向，素履以往。直觉比理性更可靠，听从内心的声音。'}},
-  '梦':{strokes:11,element:'Wood',radical:'夕',fortune:{en:'Dreams are the seeds of reality. This character carries the energy of vision and aspiration — pursue what haunts your imagination.',zh:'以梦为马，不负韶华。追逐心中的理想，梦境终将照进现实。'}},
-  '爱':{strokes:10,element:'Water',radical:'心',fortune:{en:'Love in all its forms surrounds you. A profound connection is either arriving or deepening. Open your heart fully.',zh:'爱如潮水，润物无声。一段深刻的情感正悄然而至，敞开心扉。'}},
-  '金':{strokes:8,element:'Metal',radical:'金',fortune:{en:'Wealth and abundance align with your path. Material prosperity meets spiritual richness. Stay grounded in gratitude.',zh:'金玉满堂，财运亨通。近期财运走强，但需戒骄戒躁，知足常乐。'}},
-  '山':{strokes:3,element:'Earth',radical:'山',fortune:{en:'Like a mountain, your strength lies in stillness. Stand firm amid chaos — the storm will pass and you will remain.',zh:'不动如山，厚德载物。以静制动，稳扎稳打，风雨过后便是晴天。'}},
-  '风':{strokes:4,element:'Wood',radical:'风',fortune:{en:'The wind carries change on its wings. Embrace the unpredictable — new opportunities arrive from unfamiliar directions.',zh:'风行万里，变化之始。新的机遇从意想不到的方向吹来，顺势而为。'}},
-  '水':{strokes:4,element:'Water',radical:'水',fortune:{en:'Flow like water — adaptable, persistent, powerful. What seems like a detour is the river finding its true course.',zh:'上善若水，以柔克刚。看似曲折的道路，正是命运为你选择的最佳路径。'}},
-  '火':{strokes:4,element:'Fire',radical:'火',fortune:{en:'A spark of inspiration ignites. Passion projects, creative breakthroughs, and warm connections are on the horizon.',zh:'星火燎原，热情澎湃。创意和激情正在燃烧，将照亮你前方的道路。'}},
-  '家':{strokes:10,element:'Wood',radical:'宀',fortune:{en:'Home and family take center stage. Nurture your roots — domestic harmony creates the foundation for all other success.',zh:'家和万事兴。家庭和睦是一切成功的基础，珍惜眼前人。'}},
-  '天':{strokes:4,element:'Metal',radical:'大',fortune:{en:'Heaven favors the bold. The universe aligns to support your highest path. Trust in divine timing.',zh:'天道酬勤，厚德载福。上天眷顾努力之人，保持正直和勤奋。'}},
-  '明':{strokes:8,element:'Fire',radical:'日',fortune:{en:'Clarity dawns. A fog of confusion lifts to reveal the truth you have been seeking. Enlightenment is near.',zh:'明心见性，豁然开朗。困惑即将散去，你将看清前行的方向。'}},
-  '友':{strokes:4,element:'Earth',radical:'又',fortune:{en:'Friendship and alliance are blessed. A meaningful connection — personal or professional — will prove invaluable soon.',zh:'友如珍宝，真情无价。一段珍贵的友谊将为你带来意想不到的支持。'}},
-  '春':{strokes:9,element:'Wood',radical:'日',fortune:{en:'Spring energy — rebirth, renewal, growth. Whatever was dormant awakens now. A season of new beginnings.',zh:'春暖花开，万物复苏。新的开始即将到来，过去的困境即将化解。'}},
-  '运':{strokes:7,element:'Water',radical:'辶',fortune:{en:'Fortune is in motion. The wheel of destiny turns in your favor. Be ready to catch the wave of luck approaching.',zh:'时来运转，否极泰来。运势正在向好的方向转变，把握时机。'}},
-  '道':{strokes:12,element:'Metal',radical:'辶',fortune:{en:'The Way reveals itself to those who walk it. Your path, though winding, is uniquely yours and perfectly timed.',zh:'大道至简，返璞归真。回归本心，去除繁杂，你会找到属于自己的道。'}},
-};
-
-const wxStrokeMap=['Wood','Wood','Fire','Fire','Earth','Earth','Metal','Metal','Water','Water'];
-
-function doCezi(){
-  const inp=document.getElementById('charInput').value.trim();
-  const res=document.getElementById('ceziResult');
-  if(!inp){
-    res.innerHTML='<p style="color:var(--rose-light);">'+(LANG==='zh'?'请输入一个汉字':'Please enter a Chinese character')+'</p>';
-    return;
-  }
-  playRevealSound();
-  const entry=charDB[inp];
-  let strokes,element,fortune;
-  if(entry){
-    strokes=entry.strokes;element=entry.element;fortune=entry.fortune[LANG];
-  }else{
-    // Use unicode-based fallback
-    const code=inp.codePointAt(0);
-    strokes=Math.min(30,Math.max(1,Math.floor(code%30)));
-    element=wxStrokeMap[code%10];
-    const fortunes=LANG==='zh'?[
-      '你选择的这个字蕴含着深刻的能量。当下保持耐心，宇宙正在为你安排最好的剧本。',
-      '此字带有强烈的开创气息。勇敢迈出第一步，机遇就在转角处等你。',
-      '这个字透露出一股沉稳之气。近期宜守不宜攻，静待良机。',
-      '此字的能量如春风化雨。与人合作将是你的幸运之道。',
-      '这个字显示出变革的信号。不要害怕改变，破茧方能成蝶。',
-    ]:[
-      'This character carries deep, resonant energy. Be patient — the universe is scripting your best chapter yet.',
-      'This character vibrates with pioneering spirit. Take that first bold step — opportunity awaits around the corner.',
-      'This character reveals a stabilizing force. Stay grounded and let opportunities come to you.',
-      'The energy of this character is like spring rain. Collaboration and partnership will be your lucky path.',
-      'This character signals transformation. Do not fear change — the butterfly must break the cocoon to fly.',
-    ];
-    fortune=fortunes[Math.floor(Math.random()*fortunes.length)];
-  }
-  const ele=LANG==='zh'?{'Wood':'木','Fire':'火','Earth':'土','Metal':'金','Water':'水'}[element]:element;
-  res.innerHTML=`
-    <div style="font-size:4em;color:var(--gold-glow);margin:8px 0;filter:drop-shadow(0 0 18px rgba(196,154,60,0.3));">${inp}</div>
-    <div class="char-decomp">
-      <span class="char-part">📝 <b>${strokes}</b> ${t('cezi-strokes')}</span>
-      <span class="char-part">☯ <b>${ele}</b> ${t('cezi-element')}</span>
-    </div>
-    <div class="fortune-box" style="margin-top:10px;">
-      <h4>🔮 ${t('cezi-fortune')}</h4>
-      <p>${fortune}</p>
-    </div>
-  `;
-  burstParticles(window.innerWidth/2,window.innerHeight/2,25);
-}
-
-// ═══════════════════════════════════════════════
-//  MIAN XIANG ENGINE (Face Reading Quiz)
-// ═══════════════════════════════════════════════
-const mxQuestions=[
-  {key:'forehead',qKey:'mx-q1',opts:['mx-fh1','mx-fh2','mx-fh3']},
-  {key:'eyebrows',qKey:'mx-q2',opts:['mx-eb1','mx-eb2','mx-eb3']},
-  {key:'eyes',qKey:'mx-q3',opts:['mx-ey1','mx-ey2','mx-ey3']},
-  {key:'nose',qKey:'mx-q4',opts:['mx-no1','mx-no2','mx-no3']},
-  {key:'cheekbones',qKey:'mx-q5',opts:['mx-cb1','mx-cb2','mx-cb3']},
-  {key:'chin',qKey:'mx-q6',opts:['mx-ch1','mx-ch2','mx-ch3']},
-];
-let mxStep=0,mxAnswers={};
-
-function resetMianxiang(){mxStep=0;mxAnswers={};showMxQuestion();playChime();}
-
-function showMxQuestion(){
-  const q=mxQuestions[mxStep];
-  document.getElementById('mxProgress').style.width=((mxStep/6)*100)+'%';
-  const progressText=t('mx-progress').replace('{n}',mxStep+1);
-  document.getElementById('mxQuestion').innerHTML=`<div style="font-size:0.72em;color:var(--text-muted);margin-bottom:6px;">${progressText}</div>${t(q.qKey)}`;
-  document.getElementById('mxOptions').innerHTML=q.opts.map(o=>`
-    <div class="face-opt" onclick="answerMx('${q.key}','${o}')">${t(o)}</div>
-  `).join('');
-  document.getElementById('mxResult').innerHTML='';
-}
-
-function answerMx(key,val){
-  mxAnswers[key]=val;playChime();
-  mxStep++;
-  if(mxStep>=mxQuestions.length){showMxResult();}
-  else{showMxQuestion();}
-}
-
-function showMxResult(){
-  document.getElementById('mxProgress').style.width='100%';
-  document.getElementById('mxQuestion').innerHTML='';
-  document.getElementById('mxOptions').innerHTML='';
-  const results={
-    en:['A noble forehead — a natural leader with clear vision and intellectual depth. Others naturally defer to your insight.','Balanced features suggest a harmonious personality. You navigate life with grace and emotional intelligence.','Strong, defined features reveal a determined and ambitious nature. You were born to leave a mark on the world.'],
-    zh:['天庭饱满，福泽深厚。你天生具有领袖气质，目光远大，智慧超群。','五官匀称，气韵平和。你性格温和，处事得体，左右逢源。','骨骼清奇，志向不凡。你意志坚定，注定要在世间留下印记。']
-  };
-  const idx=Math.floor(Math.random()*3);
-  document.getElementById('mxResult').innerHTML=`
-    <div class="glass-card" style="text-align:center;margin-top:10px;">
-      <div style="font-size:3em;">🔮</div>
-      <p style="font-size:0.95em;color:var(--text-primary);line-height:1.7;margin-top:8px;">${results[LANG][idx]}</p>
-    </div>
-  `;
-  playRevealSound();
-  burstParticles(window.innerWidth/2,window.innerHeight/2,30);
-}
-
-// Initialize Mianxiang
-function initMianxiang(){mxStep=0;mxAnswers={};showMxQuestion();}
-
-// ═══════════════════════════════════════════════
-//  SHOU XIANG (Palm Reading)
-// ═══════════════════════════════════════════════
-function initPalmLines(){
-  const lines=['life','head','heart','fate'];
-  lines.forEach(id=>{
-    document.getElementById('pl-'+id).onclick=function(e){
-      e.stopPropagation();
-      document.getElementById('sxDetail').innerHTML=`
-        <div class="fortune-box">
-          <h4>${t('pl-'+id)}</h4>
-          <p>${t('sx-'+id+'-desc')}</p>
-        </div>
-        <div style="text-align:center;margin-top:6px;">
-          <span class="tag">${LANG==='zh'?'吉':'Auspicious'}</span>
-        </div>
-      `;
-      playChime();
-      // Highlight selected line
-      document.querySelectorAll('.palm-line').forEach(l=>l.style.background='rgba(196,154,60,0.3)');
-      document.getElementById('pl-'+id).style.background='var(--gold-glow)';
+  initLoveSelects();
+  if (currentZodiacIdx >= 0) showZodiacDetail(currentZodiacIdx);
+  if (userInfo) updateBaziContent();
+  // Update static labels
+  document.querySelectorAll('[id^="t-"]').forEach(el => {
+    const keys = {
+      't-birth-label': { zh: '📅 出生日期', en: '📅 Birth Date' },
+      't-hour-label': { zh: '⏰ 出生时辰', en: '⏰ Birth Hour' },
+      't-gender-label': { zh: '⚤ 性别', en: '⚤ Gender' },
+      't-read-btn': { zh: '✦ 开始占卜 ✦', en: '✦ Reveal My Fortune ✦' },
+      't-zodiac-title': { zh: '生肖运势', en: 'Chinese Zodiac' },
+      't-zodiac-sub': { zh: '十二生肖今日运势详解', en: 'Daily fortune for all 12 signs' },
+      't-period-today': { zh: '今日', en: 'Today' },
+      't-period-week': { zh: '本周', en: 'This Week' },
+      't-period-month': { zh: '本月', en: 'This Month' },
+      't-bazi-empty': { zh: '请先在首页输入出生信息，<br>再回到这里查看你的命盘。', en: 'Return to Home and enter your birth info first,<br>then come back to view your full chart.' },
+      't-tarot-title': { zh: '塔罗占卜', en: 'Tarot Reading' },
+      't-tarot-sub': { zh: '抽一张牌，看你的命运启示', en: 'Single Card Draw · Destiny Revealed' },
+      't-tarot-desc': { zh: '心中默念你的问题，然后点击卡牌揭示答案', en: 'Focus on your question, then tap the card to reveal your answer' },
+      't-tarot-draw': { zh: '🔮 再抽一张', en: '🔮 Draw Again' },
+      't-love-title': { zh: '缘分测试', en: 'Love Match' },
+      't-love-sub': { zh: '看看你们的缘分指数有多高', en: 'Check your compatibility score' },
+      't-love-you': { zh: '💕 你的生肖', en: '💕 Your Sign' },
+      't-love-them': { zh: '💞 TA的生肖', en: '💞 Their Sign' },
+      't-love-check': { zh: '❤️ 测试缘分', en: '❤️ Check Compatibility' },
+      't-quick-form': { zh: '快速占卜', en: 'Quick Reading' },
+      't-quick-form-sub': { zh: '输入信息获取个性化运势', en: 'Enter your info for personal fortune' },
     };
-  });
-}
-
-// ═══════════════════════════════════════════════
-//  UI LOGIC
-// ═══════════════════════════════════════════════
-let userInfo=null,currentZodiac=null,currentScreen='home';
-
-document.querySelectorAll('.gender-opt').forEach(b=>{
-  b.onclick=()=>{document.querySelectorAll('.gender-opt').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');};
-});
-
-function getGender(){return document.querySelector('.gender-opt.selected')?.dataset.gender||'male';}
-
-function showScreen(name){
-  currentScreen=name;
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const target=document.getElementById('screen-'+name);
-  if(target)target.classList.add('active');
-  // Update bottom nav
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  const navIndex={home:0,bazi:1,wuxing:2,cezi:3,mianxiang:4,shouxiang:5};
-  const idx=navIndex[name];
-  if(idx!==undefined){
-    const navs=document.querySelectorAll('.nav-item');
-    if(navs[idx])navs[idx].classList.add('active');
-  }
-  // Initialize screen-specific content
-  if(name==='bazi'&&userInfo){document.getElementById('baziInfo').innerHTML=buildBaziDetail();}
-  else if(name==='bazi'&&!userInfo){document.getElementById('baziInfo').innerHTML='<p style="text-align:center;color:var(--text-muted);margin:40px 0;" id="t-bazi-first">'+t('bazi-first')+'</p>';}
-  if(name==='wuxing')renderWuXing();
-  if(name==='mianxiang')initMianxiang();
-  if(name==='shouxiang')initPalmLines();
-  if(name==='share')renderSharePreview();
-  if(name==='fortune'&&!isNaN(name)){} // handled by card flip
-}
-
-function goToZodiac(){
-  const dateVal=document.getElementById('birthDate').value;
-  if(!dateVal){alert(LANG==='zh'?'请先选择出生日期':'Please select your birth date first');return;}
-  const[y,m,d]=dateVal.split('-').map(Number);
-  let hour=parseInt(document.getElementById('birthHour').value);
-  if(hour<0)hour=12;
-  const birthPlace=document.getElementById('birthPlace').value.trim()||'Unknown';
-  const gender=getGender();
-  const lunar=solarToLunar(y,m,d);
-  const bazi=calculateBazi(y,m,d,hour);
-  const today=new Date();
-  const daySB=getDayStemBranch(today.getFullYear(),today.getMonth()+1,today.getDate());
-  const huangli=getDailyHuangli(daySB);
-  userInfo={birthDate:{y,m,d},birthHour:hour,birthPlace,gender,lunar,bazi,todayHuangli:huangli};
-  playChime();
-  showScreen('pick');
-}
-
-function backToInfo(){showScreen('home');}
-
-function renderZodiacGrid(){
-  document.getElementById('zodiacGrid').innerHTML=zodiacs.map((z,i)=>`
-    <div class="zodiac-item" onclick="selectZodiac(${i})">
-      <div class="zodiac-icon">${z.emoji}</div>
-      <div class="zodiac-label">${z.name[LANG]}</div>
-    </div>
-  `).join('');
-}
-
-function selectZodiac(idx){currentZodiac=zodiacs[idx];playChime();showScreen('fortune');resetCard();}
-function backToPick(){currentZodiac=null;showScreen('pick');}
-function resetCard(){document.getElementById('fortuneCard').classList.remove('flipped');}
-function flipAgain(){resetCard();}
-
-function buildBaziDetail(){
-  const b=userInfo.bazi,lunar=userInfo.lunar,h=userInfo.todayHuangli;
-  const baziHTML=['Year','Month','Day','Hour'].map((label,i)=>{
-    const p=[b.year,b.month,b.day,b.hour][i];
-    const extra=i===0?`<div class="pa">${b.year.animal}</div>`:i===2?`<div class="pa">${LANG==='zh'?'日主':'Master'} ${b.day.element}</div>`:'';
-    return `<div class="bazi-pillar"><div class="pl">${LANG==='zh'?['年','月','日','时'][i]:label} ${LANG==='zh'?'柱':'Pillar'}</div><div class="ps">${p.stem}</div><div class="pb">${p.branch}</div>${extra}</div>`;
-  }).join('');
-  return `
-    <div style="text-align:center;margin-bottom:8px;">
-      <div style="font-family:${LANG==='zh'?"'Ma Shan Zheng',cursive":"'Cinzel',serif"};font-size:1.15em;color:var(--gold-glow);letter-spacing:3px;margin-bottom:4px;">${t('bazi-detail-sub')}</div>
-    </div>
-    <div class="user-meta">
-      ${userInfo.gender==='male'?(LANG==='zh'?'♂ 阳':'♂ Yang'):(LANG==='zh'?'♀ 阴':'♀ Yin')} · ${userInfo.birthDate.y}/${userInfo.birthDate.m}/${userInfo.birthDate.d} · ${LANG==='zh'?'农历':'Lunar'} ${lunar.year} ${lunar.isLeap?(LANG==='zh'?'闰':'Leap '):''}${LANG==='zh'?'月':'Mo.'}${lunar.month}${LANG==='zh'?'日':'Day'}${lunar.day} · ${userInfo.birthPlace}
-    </div>
-    <div class="bazi-row">${baziHTML}</div>
-    <div class="tags-row">
-      <span class="tag">📅 ${h.dayStem}${h.dayBranch} ${LANG==='zh'?'日':'Day'}</span>
-      <span class="tag warn">⚡ ${t('clash')} ${h.clash.clashAnimal}</span>
-      <span class="tag good">🧭 ${t('good-direction')} ${h.goodDirection}</span>
-      <span class="tag">🎨 ${t('lucky-color')} ${h.luckyColor}</span>
-    </div>
-    <div class="tabs">
-      <div class="tab active" onclick="switchBzPeriod('today',this)">📌 ${t('period-today')}</div>
-      <div class="tab" onclick="switchBzPeriod('week',this)">📅 ${t('period-week')}</div>
-      <div class="tab" onclick="switchBzPeriod('month3',this)">🗓 ${t('period-3month')}</div>
-    </div>
-    ${['today','week','month3'].map((p,i)=>`
-      <div class="period-panel ${i===0?'active':''}" id="bz-period-${p}">
-        ${(()=>{
-          const f=generateFortune(b,h,null,p);
-          return `
-            <div class="fortune-box"><h4>✦ ${f.periodLabel} <span class="stars">${f.stars}</span></h4>
-            <p>${LANG==='zh'?'能量：':'Energy: '}${f.elementRelation}</p><p>${f.advice}</p></div>
-            <div class="advice-row">
-              <div class="advice-col do"><h5>✅ ${LANG==='zh'?'宜':'Auspicious'}</h5>${f.dos.map(d=>`<li>· ${d}</li>`).join('')}</div>
-              <div class="advice-col dont"><h5>❌ ${LANG==='zh'?'忌':'Avoid'}</h5>${f.donts.map(d=>`<li>· ${d}</li>`).join('')}</div>
-            </div>
-          `;
-        })()}
-      </div>
-    `).join('')}
-    <div class="lucky-bar">
-      🔢 ${t('lucky-num')}: <b>${Math.floor(Math.random()*36)+1}</b>　🎨 ${t('lucky-color')}: <b>${h.luckyColor}</b>　💎 ${t('stone')}: <b>${LANG==='zh'?zodiacs[0].stone:zodiacs[0].stone[LANG]}</b>
-    </div>
-  `;
-}
-
-function switchBzPeriod(period,el){
-  const container=el.closest('.glass-card');
-  container.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  container.querySelectorAll('.period-panel').forEach(c=>c.classList.remove('active'));
-  container.querySelector('#bz-period-'+period).classList.add('active');
-}
-
-function buildFortuneHTML(){
-  const b=userInfo.bazi,h=userInfo.todayHuangli,z=currentZodiac,lunar=userInfo.lunar;
-  const ft=generateFortune(b,h,z,'today');
-  const fw=generateFortune(b,h,z,'week');
-  const fm=generateFortune(b,h,z,'month3');
-  const luckyNum=Math.floor(Math.random()*36)+1;
-  const baziHTML=[LANG==='zh'?['年','月','日','时']:['Year','Month','Day','Hour']].map((labels,i)=>{
-    const p=[b.year,b.month,b.day,b.hour][i];
-    const extra=i===0?`<div class="pa">${b.year.animal}</div>`:i===2?`<div class="pa">${LANG==='zh'?'日主':'Master'} ${b.day.element}</div>`:'';
-    return `<div class="bazi-pillar"><div class="pl">${labels[i]}${LANG==='zh'?'柱':''}</div><div class="ps">${p.stem}</div><div class="pb">${p.branch}</div>${extra}</div>`;
-  }).join('');
-
-  return `
-    <div style="text-align:center;margin-bottom:6px;">
-      <div style="font-size:2.6em;filter:drop-shadow(0 0 14px rgba(196,154,60,0.4));">${z.emoji}</div>
-      <div style="font-family:${LANG==='zh'?"'Ma Shan Zheng',cursive":"'Cinzel',serif"};font-size:1.15em;color:var(--gold-glow);letter-spacing:3px;">${z.name[LANG]}</div>
-    </div>
-    <div class="user-meta">
-      ${userInfo.gender==='male'?(LANG==='zh'?'♂ 阳':'♂ Yang'):(LANG==='zh'?'♀ 阴':'♀ Yin')} · ${userInfo.birthDate.y}/${userInfo.birthDate.m}/${userInfo.birthDate.d} · ${LANG==='zh'?'农历':'Lunar'} ${lunar.year} ${lunar.isLeap?(LANG==='zh'?'闰':'(leap)')}${LANG==='zh'?'月':'M'}.${lunar.month} · ${userInfo.birthPlace}
-    </div>
-    <div class="bazi-row">${baziHTML}</div>
-    <div class="tags-row">
-      <span class="tag">📅 ${h.dayStem}${h.dayBranch} ${LANG==='zh'?'日':'Day'}</span>
-      <span class="tag warn">⚡ ${t('clash')} ${h.clash.clashAnimal}</span>
-      <span class="tag good">🧭 ${t('good-direction')} ${h.goodDirection}</span>
-      <span class="tag">🎨 ${h.luckyColor}</span>
-    </div>
-    <div class="tabs">
-      <div class="tab active" onclick="switchPeriod('today',this)">📌 ${t('period-today')}</div>
-      <div class="tab" onclick="switchPeriod('week',this)">📅 ${t('period-week')}</div>
-      <div class="tab" onclick="switchPeriod('month3',this)">🗓 ${t('period-3month')}</div>
-    </div>
-    <div class="period-panel active" id="period-today">
-      <div class="fortune-box"><h4>✦ ${ft.periodLabel} <span class="stars">${ft.stars}</span></h4><p>${LANG==='zh'?'能量：':'Energy: '}${ft.elementRelation}</p><p>${ft.advice}</p></div>
-      <div class="advice-row">
-        <div class="advice-col do"><h5>✅ ${LANG==='zh'?'宜':'Auspicious'}</h5>${ft.dos.map(d=>`<li>· ${stripHTMLs(d)}</li>`).join('')}</div>
-        <div class="advice-col dont"><h5>❌ ${LANG==='zh'?'忌':'Avoid'}</h5>${ft.donts.map(d=>`<li>· ${stripHTMLs(d)}</li>`).join('')}</div>
-      </div>
-      <div class="lucky-bar">🔢 ${t('lucky-num')}: <b>${luckyNum}</b>　🎨 ${t('lucky-color')}: <b>${h.luckyColor}</b>　💎 ${t('stone')}: <b>${z.stone[LANG]||z.stone}</b></div>
-    </div>
-    <div class="period-panel" id="period-week">
-      <div class="fortune-box"><h4>✦ ${fw.periodLabel} <span class="stars">${fw.stars}</span></h4><p>${fw.advice}</p></div>
-      <div class="advice-row">
-        <div class="advice-col do"><h5>✅ Focus</h5>${fw.dos.map(d=>`<li>· ${stripHTMLs(d)}</li>`).join('')}</div>
-        <div class="advice-col dont"><h5>❌ Avoid</h5>${fw.donts.map(d=>`<li>· ${stripHTMLs(d)}</li>`).join('')}</div>
-      </div>
-    </div>
-    <div class="period-panel" id="period-month3">
-      <div class="fortune-box"><h4>✦ ${fm.periodLabel} <span class="stars">${fm.stars}</span></h4><p>${fm.advice}</p></div>
-      <div class="advice-row">
-        <div class="advice-col do"><h5>✅ Focus</h5>${fm.dos.map(d=>`<li>· ${stripHTMLs(d)}</li>`).join('')}</div>
-        <div class="advice-col dont"><h5>❌ Avoid</h5>${fm.donts.map(d=>`<li>· ${stripHTMLs(d)}</li>`).join('')}</div>
-      </div>
-    </div>
-  `;
-}
-
-function switchPeriod(period,el){
-  el.closest('.tarot-front').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  el.closest('.tarot-front').querySelectorAll('.period-panel').forEach(c=>c.classList.remove('active'));
-  el.closest('.tarot-front').querySelector('#period-'+period).classList.add('active');
-}
-
-function stripHTMLs(s){const d=document.createElement('div');d.innerHTML=s;return d.textContent||'';}
-
-// Card flip
-document.getElementById('cardBack').addEventListener('click',(e)=>{
-  if(!currentZodiac||!userInfo)return;
-  const card=document.getElementById('fortuneCard');
-  if(card.classList.contains('flipped'))return;
-  document.getElementById('fortuneContent').innerHTML=buildFortuneHTML();
-  card.classList.add('flipped');
-  playRevealSound();
-  const rect=card.getBoundingClientRect();
-  burstParticles(rect.left+rect.width/2,rect.top+rect.height/2,40);
-});
-
-// ═══════════════════════════════════════════════
-//  SHARE ENGINE
-// ═══════════════════════════════════════════════
-function renderSharePreview(){
-  if(!currentZodiac||!userInfo){
-    document.getElementById('sharePreview').innerHTML='<div class="share-card"><p style="color:var(--text-muted);">'+(LANG==='zh'?'请先在首页完成占卜':'Complete your reading on Home first')+'</p></div>';
-    return;
-  }
-  const z=currentZodiac,b=userInfo.bazi,h=userInfo.todayHuangli;
-  const ft=generateFortune(b,h,z,'today');
-  const tags=t('share-tiktok-tags').replace(/#/g,'').split(' ').slice(0,5);
-  document.getElementById('sharePreview').innerHTML=`
-    <div class="share-card">
-      <div class="sc-icon">${z.emoji}</div>
-      <div class="sc-title">${z.name[LANG]}</div>
-      <div style="font-size:0.78em;color:var(--text-muted);">${z.element[LANG]} · ${z.ruler[LANG]} · ${z.date}</div>
-      <div class="sc-result">
-        ${ft.stars}<br>
-        <span style="font-size:0.85em;">${stripHTMLs(ft.advice).substring(0,100)}…</span>
-      </div>
-      <div>${tags.map(tag=>`<span class="sc-tag">#${tag}</span>`).join(' ')}</div>
-      <div class="sc-watermark">🔮 lalalin.xyz</div>
-    </div>
-  `;
-}
-
-async function shareTo(platform){
-  if(!currentZodiac||!userInfo)return;
-  const z=currentZodiac,b=userInfo.bazi;
-  const ft=generateFortune(b,userInfo.todayHuangli,z,'today');
-  if(platform==='tiktok'||platform==='download'){
-    // Generate vertical share card
-    const cvs=renderShareCard();
-    const blob=await new Promise(r=>cvs.toBlob(r,'image/png',1));
-    const file=new File([blob],'lalalin-fortune.png',{type:'image/png'});
-    if(platform==='tiktok'&&navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
-      try{await navigator.share({title:t('share-tiktok-title'),text:stripHTMLs(ft.advice).substring(0,80),files:[file]});return;}
-      catch(e){if(e.name==='AbortError')return;}
+    if (keys[el.id]) {
+      el.innerHTML = keys[el.id][LANG];
     }
-    const a=document.createElement('a');a.href=cvs.toDataURL('image/png');a.download='lalalin-fortune.png';a.click();
-  }else if(platform==='reddit'){
-    const text=t('share-reddit-title')+'\n\n'+t('share-reddit-body')+stripHTMLs(ft.advice)+'\n\n✨ '+z.emoji+' '+z.name[LANG]+' | '+ft.stars+'\n\n🔮 lalalin.xyz'+t('share-reddit-footer');
-    await navigator.clipboard.writeText(text);
-    alert(LANG==='zh'?'Reddit分享文本已复制！粘贴到Reddit发帖即可。':'Reddit text copied! Paste it into a Reddit post.');
-  }else if(platform==='copy'){
-    const text=z.emoji+' '+z.name[LANG]+' '+t('period-today')+': '+ft.stars+'\n'+stripHTMLs(ft.advice)+'\n\n🔮 lalalin.xyz';
-    await navigator.clipboard.writeText(text);
-    alert(LANG==='zh'?'已复制到剪贴板！':'Copied to clipboard!');
-  }
-}
-
-function renderShareCard(){
-  const W=750,H=1334;
-  const cvs=document.createElement('canvas');cvs.width=W;cvs.height=H;
-  const c=cvs.getContext('2d');
-  const bg=c.createLinearGradient(0,0,W,H);
-  bg.addColorStop(0,'#0f0a05');bg.addColorStop(0.5,'#1a1008');bg.addColorStop(1,'#261a0e');
-  c.fillStyle=bg;c.fillRect(0,0,W,H);
-  const glow=c.createRadialGradient(W/2,300,0,W/2,300,350);
-  glow.addColorStop(0,'rgba(196,154,60,0.12)');glow.addColorStop(1,'transparent');
-  c.fillStyle=glow;c.fillRect(0,0,W,H);
-  c.textAlign='center';
-  c.fillStyle='#e8c46a';c.font='bold 48px "Cinzel",serif';c.fillText('L A L A L I N',W/2,90);
-  c.font='20px serif';c.fillStyle='#8a7a5e';c.fillText('Mystic East Divination',W/2,125);
-  const z=currentZodiac;
-  c.font='90px serif';c.fillText(z.emoji,W/2,230);
-  c.font='bold 32px "Cinzel",serif';c.fillStyle='#f0e8d8';c.fillText(z.name[LANG],W/2,280);
-  c.font='20px serif';c.fillStyle='#b8946e';c.fillText(z.element[LANG]+' · '+z.ruler[LANG]+' · '+z.date,W/2,315);
-  c.strokeStyle='rgba(196,154,60,0.3)';c.lineWidth=1;
-  c.beginPath();c.moveTo(80,345);c.lineTo(W-80,345);c.stroke();
-  const b=userInfo.bazi,lunar=userInfo.lunar;
-  c.font='18px serif';c.fillStyle='#8a7a5e';
-  c.fillText(userInfo.birthDate.y+'/'+userInfo.birthDate.m+'/'+userInfo.birthDate.d+' · Lunar '+lunar.year+'.'+lunar.month+'.'+lunar.day,W/2,375);
-  const pillars=[['Yr',b.year],['Mo',b.month],['Da',b.day],['Hr',b.hour]];
-  const pw=110,gap=30,totalW=pillars.length*pw+(pillars.length-1)*gap;
-  const startX=(W-totalW)/2+pw/2;
-  pillars.forEach(([label,p],i)=>{
-    const x=startX+i*(pw+gap);
-    c.fillStyle='rgba(52,34,20,0.5)';roundRect2(c,x-pw/2,400,pw,95,10);c.fill();
-    c.strokeStyle='rgba(196,154,60,0.15)';c.lineWidth=1;roundRect2(c,x-pw/2,400,pw,95,10);c.stroke();
-    c.font='15px serif';c.fillStyle='#8a7a5e';c.fillText(label,x,428);
-    c.font='bold 28px serif';c.fillStyle='#e8c46a';c.fillText(p.stem,x,465);
-    c.font='24px serif';c.fillStyle='#f0e8d8';c.fillText(p.branch,x,495);
-    if(label==='Yr'){c.font='13px serif';c.fillStyle='rgba(200,180,160,0.5)';c.fillText(p.animal,x,515);}
-    if(label==='Da'){c.font='13px serif';c.fillStyle='rgba(200,180,160,0.5)';c.fillText('Master '+p.element,x,515);}
   });
-  const ft=generateFortune(b,userInfo.todayHuangli,z,'today');
-  const h=userInfo.todayHuangli;
-  const ly=555;
-  c.font='bold 26px "Cinzel",serif';c.fillStyle='#e8c46a';c.fillText('✦ '+t('period-today')+' ✦',W/2,ly);
-  c.font='28px serif';c.fillStyle='#e8c46a';c.fillText(ft.stars,W/2,ly+38);
-  c.font='18px serif';c.fillStyle='#c8b898';
-  wrapText2(c,stripHTMLs(ft.advice),W/2,ly+75,W-120,30);
-  const dosY=ly+180;
-  c.font='bold 18px serif';
-  c.fillStyle='#8ad098';c.textAlign='left';c.fillText('✅ Auspicious',80,dosY);
-  c.font='16px serif';c.fillStyle='#c8b898';
-  ft.dos.slice(0,3).forEach((d,i)=>c.fillText('· '+stripHTMLs(d).substring(0,28),80,dosY+28+i*26));
-  c.font='bold 18px serif';c.fillStyle='#d4958a';c.textAlign='right';c.fillText('❌ Avoid',W-80,dosY);
-  c.font='16px serif';c.fillStyle='#c8b898';
-  ft.donts.slice(0,3).forEach((d,i)=>c.fillText(stripHTMLs(d).substring(0,28)+' ·',W-80,dosY+28+i*26));
-  const luckyY=Math.max(dosY+28+ft.dos.slice(0,3).length*26,dosY+28+ft.donts.slice(0,3).length*26)+30;
-  c.textAlign='center';
-  c.font='18px serif';c.fillStyle='#c8b898';
-  const luckyNum=Math.floor(Math.random()*36)+1;
-  c.fillText('🔢 '+t('lucky-num')+' '+luckyNum+'    🎨 '+t('lucky-color')+' '+h.luckyColor+'    💎 '+t('stone')+' '+(z.stone[LANG]||z.stone),W/2,luckyY);
-  c.font='22px "Cinzel",serif';c.fillStyle='#c49a3c';c.fillText('🔮 lalalin.xyz',W/2,H-75);
-  c.font='16px serif';c.fillStyle='#8a7a5e';c.fillText('Discover your destiny',W/2,H-48);
-  c.strokeStyle='rgba(196,154,60,0.2)';c.lineWidth=2;roundRect2(c,30,30,W-60,H-60,20);c.stroke();
-  return cvs;
 }
 
-function roundRect2(ctx,x,y,w,h,r){
-  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
-  ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
-  ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
-}
-
-function wrapText2(ctx,text,x,y,maxW,lineH){
-  const chars=text.split('');let line='';
-  for(const ch of chars){
-    if(ch==='\n'||ctx.measureText(line+ch).width>maxW){ctx.fillText(line,x,y);line=ch;y+=lineH;}
-    else{line+=ch;}
+// ═══════════════════════════════════
+//  MUSIC (placeholder - Web Audio)
+// ═══════════════════════════════════
+function initAudioContext() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   }
-  ctx.fillText(line,x,y);
 }
 
-// ═══════════════════════════════════════════════
+function toggleMusic() {
+  initAudioContext();
+  musicOn = !musicOn;
+  document.getElementById('musicBtn').classList.toggle('on', musicOn);
+  if (musicOn) {
+    playAmbient();
+  } else {
+    stopAmbient();
+  }
+}
+
+function playAmbient() {
+  if (!audioCtx || !musicOn) return;
+  if (musicNode) { musicNode.stop(); musicNode.disconnect(); }
+  
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+  gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start();
+  musicNode = osc;
+  
+  // Gentle frequency modulation
+  setInterval(() => {
+    if (!musicOn || !osc) return;
+    const freq = 196 + Math.sin(Date.now() / 4000) * 30;
+    osc.frequency.setTargetAtTime(freq, audioCtx.currentTime, 0.5);
+  }, 2000);
+}
+
+function stopAmbient() {
+  if (musicNode) {
+    musicNode.stop();
+    musicNode.disconnect();
+    musicNode = null;
+  }
+}
+
+// ═══════════════════════════════════
 //  INIT
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════
+renderDailyFortune();
 renderZodiacGrid();
-renderWuXing();
-initPalmLines();
-const d=new Date();d.setFullYear(d.getFullYear()-25);
-document.getElementById('birthDate').value=d.toISOString().slice(0,10);
+initLoveSelects();
+const d = new Date();
+d.setFullYear(d.getFullYear() - 25);
+document.getElementById('birthDate').value = d.toISOString().slice(0, 10);
 
-// PWA Service Worker
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('/sw.js').catch(()=>{});
-}
+// First click to init audio on mobile
+document.addEventListener('click', function initAudio() {
+  initAudioContext();
+}, { once: true });
+
+// Keyboard nav for testing
+document.addEventListener('keydown', function(e) {
+  const tabs = ['home', 'zodiac', 'bazi', 'tarot', 'love'];
+  const idx = parseInt(e.key);
+  if (idx >= 1 && idx <= 5) switchTab(tabs[idx - 1]);
+});
 </script>
 </body>
 </html>
