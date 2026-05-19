@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nav Test</title>
+<style>
+body{background:#0a0806;color:#e8dfd0;font-family:sans-serif;margin:0;min-height:100vh;padding-bottom:80px;}
+.screen{display:none;padding:30px;text-align:center;}
+.screen.active{display:block;}
+#nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:rgba(10,8,6,0.95);border-top:1px solid rgba(196,154,60,0.2);z-index:50;}
+.nav-item{flex:1;padding:12px;text-align:center;cursor:pointer;color:#7a6e58;font-size:0.75em;transition:0.3s;}
+.nav-item.active{color:#e8c46a;}
+.nav-item:active{color:#c49a3c;}
+.ni{font-size:1.8em;display:block;margin-bottom:2px;}
+</style>
+</head>
+<body>
+<div class="screen active" id="tab-home"><h2>Tab 1 - HOME</h2><p>This is the home screen</p></div>
+<div class="screen" id="tab-tab2"><h2>Tab 2</h2><p>Tab 2 content</p></div>
+<div class="screen" id="tab-tab3"><h2>Tab 3</h2><p>Tab 3 content</p></div>
+<div class="screen" id="tab-tab4"><h2>Tab 4</h2><p>Tab 4 content</p></div>
+<div class="screen" id="tab-tab5"><h2>Tab 5</h2><p>Tab 5 content</p></div>
+
+<div id="nav">
+  <div class="nav-item active" data-tab="home"><span class="ni">A</span>Home</div>
+  <div class="nav-item" data-tab="tab2"><span class="ni">B</span>Tab2</div>
+  <div class="nav-item" data-tab="tab3"><span class="ni">C</span>Tab3</div>
+  <div class="nav-item" data-tab="tab4"><span class="ni">D</span>Tab4</div>
+  <div class="nav-item" data-tab="tab5"><span class="ni">E</span>Tab5</div>
+</div>
+
+<script>
+'use strict';
+function switchTab(name) {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  var t = document.getElementById('tab-' + name);
+  if (t) t.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+  var ni = document.querySelector('.nav-item[data-tab="' + name + '"]');
+  if (ni) ni.classList.add('active');
+}
+document.querySelectorAll('.nav-item').forEach(function(item) {
+  item.addEventListener('click', function() {
+    switchTab(this.getAttribute('data-tab'));
+  });
+});
+</script>
+</body>
+</html>
