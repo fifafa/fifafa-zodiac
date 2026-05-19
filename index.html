@@ -1,438 +1,377 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>🔮 星之密语 · 命理占卜</title>
+<title>馃敭 Lalalin 路 Mystic East Divination</title>
+<meta name="description" content="Ancient Chinese divination reimagined: BaZi astrology, Five Elements, Face & Palm Reading, Character Oracle. Discover your destiny.">
+<meta name="keywords" content="chinese astrology, bazi, five elements, face reading, palm reading, divination, feng shui, zodiac, mystic">
+<meta name="author" content="Lalalin">
+<meta name="theme-color" content="#c49a3c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Lalalin">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icon-192.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/icon-192.svg">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="馃敭 Lalalin 路 Chinese Divination">
+<meta property="og:description" content="Ancient wisdom meets modern design. BaZi astrology, Five Elements, face reading, palm reading, and more.">
+<meta property="og:url" content="https://lalalin.xyz/">
+<meta property="og:site_name" content="Lalalin">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://lalalin.xyz/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="馃敭 Lalalin 路 Chinese Divination">
+<meta name="twitter:description" content="Ancient Chinese divination reimagined. BaZi, Face Reading, Palm Reading, and more.">
+<meta name="twitter:image" content="https://lalalin.xyz/og-image.png">
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@300;400;600&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
 
-/* ═══════════════════════════════════════
-   DESIGN SYSTEM — Mystical Psychology
-   ═══════════════════════════════════════ */
 :root {
-  /* Warm mystical palette — amber, wine, bronze */
-  --void: #0f0a05;
-  --abyss: #1a1008;
-  --cosmos: #261a0e;
-  --nebula: #342214;
-  --twilight: #452e1a;
-  --amethyst: #8b5e3c;
-  --lavender: #b8946e;
-  --gold-dim: #7a5c28;
-  --gold: #c49a3c;
-  --gold-glow: #e8c46a;
-  --gold-bright: #f5dc90;
-  --rose: #b8655a;
-  --rose-light: #d4958a;
-  --text-primary: #f0e8d8;
-  --text-secondary: #c8b898;
-  --text-muted: #8a7a5e;
-  --glass-bg: rgba(38, 26, 14, 0.6);
-  --glass-border: rgba(196, 154, 60, 0.2);
-  --glass-border-active: rgba(196, 154, 60, 0.5);
-  --glow-gold: rgba(196, 154, 60, 0.3);
-  --glow-warm: rgba(180, 120, 60, 0.35);
-  --radius-sm: 10px;
-  --radius: 16px;
-  --radius-lg: 22px;
-  --radius-xl: 28px;
-  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --void:#0f0a05; --abyss:#1a1008; --cosmos:#261a0e; --nebula:#342214;
+  --twilight:#452e1a; --amethyst:#8b5e3c; --lavender:#b8946e;
+  --gold-dim:#7a5c28; --gold:#c49a3c; --gold-glow:#e8c46a; --gold-bright:#f5dc90;
+  --rose:#b8655a; --rose-light:#d4958a; --text-primary:#f0e8d8;
+  --text-secondary:#c8b898; --text-muted:#8a7a5e;
+  --glass-bg:rgba(38,26,14,0.6); --glass-border:rgba(196,154,60,0.2);
+  --glass-border-active:rgba(196,154,60,0.5); --glow-gold:rgba(196,154,60,0.3);
+  --glow-warm:rgba(180,120,60,0.35); --radius:16px; --radius-lg:22px;
+  --transition:0.35s cubic-bezier(0.4,0,0.2,1);
 }
 
-* { margin:0; padding:0; box-sizing:border-box; }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-body {
-  font-family: 'Noto Serif SC', 'ZCOOL XiaoWei', serif;
-  background: var(--void);
+body{
+  font-family:'Cormorant Garamond','Noto Serif SC',serif;
+  background:var(--void);
   background-image:
-    radial-gradient(ellipse at 20% 20%, rgba(180,120,60,0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 80%, rgba(196,154,60,0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(38,26,14,0.85) 0%, var(--void) 100%);
-  min-height:100vh; overflow-x:hidden;
-  color:var(--text-primary);
+    radial-gradient(ellipse at 20% 20%,rgba(180,120,60,0.1) 0%,transparent 50%),
+    radial-gradient(ellipse at 80% 80%,rgba(196,154,60,0.08) 0%,transparent 50%),
+    radial-gradient(ellipse at 50% 50%,rgba(38,26,14,0.85) 0%,var(--void) 100%);
+  min-height:100vh;overflow-x:hidden;color:var(--text-primary);
   -webkit-tap-highlight-color:transparent;
-  cursor:default;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width:4px; }
-::-webkit-scrollbar-track { background:transparent; }
-::-webkit-scrollbar-thumb { background:rgba(196,154,60,0.3); border-radius:2px; }
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(196,154,60,0.3);border-radius:2px;}
 
-/* ═══ Canvas ═══ */
-#starfield { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+#starfield{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+.vignette{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,rgba(15,10,5,0.75) 100%);}
 
-/* ═══ Vignette overlay ═══ */
-.vignette {
-  position:fixed; inset:0; z-index:0; pointer-events:none;
-  background: radial-gradient(ellipse at center, transparent 35%, rgba(15,10,5,0.75) 100%);
+/* 鈹€鈹€ Top Bar 鈹€鈹€ */
+#topbar{
+  position:fixed;top:0;left:0;right:0;z-index:30;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 16px;pointer-events:none;
 }
-
-/* ═══ App shell ═══ */
-#app {
-  position:relative; z-index:1; max-width:500px; margin:0 auto;
-  padding:20px 14px 36px; min-height:100vh;
-  display:flex; flex-direction:column; align-items:center;
-  justify-content:center;
-}
-
-/* ═══ Screen transitions ═══ */
-.screen {
-  width:100%; display:none; flex-direction:column; align-items:center;
-  animation:screenIn 0.7s ease-out;
-}
-.screen.active { display:flex; }
-@keyframes screenIn {
-  from { opacity:0; transform:translateY(24px) scale(0.97); filter:blur(4px); }
-  to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
-}
-
-/* ═══ Title ═══ */
-.title-block { text-align:center; margin-bottom:12px; }
-.title-main {
-  font-family:'Ma Shan Zheng', cursive;
-  font-size:3em;
-  background: linear-gradient(180deg,
-    var(--gold-bright) 0%, var(--gold) 35%, var(--gold-glow) 55%, var(--gold-dim) 100%);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  background-clip:text;
-  filter:drop-shadow(0 2px 14px rgba(196,154,60,0.4));
-  letter-spacing:8px; line-height:1.3;
-}
-.title-sub {
-  font-size:0.78em; color:var(--text-muted);
-  letter-spacing:8px; margin-top:4px;
-}
-
-/* ═══ Glass card base ═══ */
-.glass-card {
-  background:var(--glass-bg);
-  border:1px solid var(--glass-border);
-  border-radius:var(--radius-lg);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  padding:24px;
-  width:100%; max-width:420px;
-}
-
-/* ═══ Form Elements ═══ */
-.form-section { width:100%; max-width:420px; }
-.field { margin-bottom:18px; }
-.field-label {
-  font-size:0.8em; color:var(--text-muted);
-  letter-spacing:3px; margin-bottom:8px; display:flex; align-items:center;
-  gap:6px;
-}
-.field-label .icon { font-size:1.2em; }
-
-.input, .select {
-  width:100%; padding:15px 18px;
-  background:rgba(26,16,8,0.7);
-  border:1px solid var(--glass-border);
-  border-radius:var(--radius);
-  color:var(--text-primary); font-size:1em;
-  font-family:inherit; outline:none;
-  transition:var(--transition);
-}
-.input:focus, .select:focus {
-  border-color:var(--glass-border-active);
-  box-shadow:0 0 24px var(--glow-warm), inset 0 0 12px rgba(180,120,60,0.08);
-}
-.input::placeholder { color:var(--text-muted); opacity:0.6; }
-
-.select {
-  appearance:none; -webkit-appearance:none; cursor:pointer;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%23bf9b4a' d='M7 9L2 4h10z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat; background-position:right 14px center;
-  padding-right:38px;
-}
-
-.row { display:flex; gap:10px; }
-.row > * { flex:1; }
-
-/* Gender toggle */
-.gender-group { display:flex; gap:10px; }
-.gender-opt {
-  flex:1; padding:15px; border-radius:var(--radius); text-align:center;
-  cursor:pointer; border:1px solid var(--glass-border);
-  background:rgba(26,16,8,0.5); color:var(--text-muted);
-  font-family:inherit; font-size:1em;
-  transition:var(--transition);
-}
-.gender-opt.selected {
-  border-color:var(--gold); color:var(--gold-glow);
-  background:rgba(196,154,60,0.12);
-  box-shadow:0 0 24px var(--glow-gold);
-}
-.gender-opt:hover:not(.selected) {
-  border-color:rgba(196,154,60,0.35); color:var(--text-secondary);
-}
-
-/* ═══ Buttons ═══ */
-.btn {
-  padding:15px 36px; border-radius:30px; cursor:pointer;
-  font-family:inherit; font-size:0.95em; letter-spacing:3px;
-  transition:var(--transition); outline:none;
-  border:1px solid var(--glass-border);
-  background:rgba(38,26,14,0.6); color:var(--text-secondary);
-  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-}
-.btn:hover, .btn:active {
-  border-color:var(--glass-border-active);
-  box-shadow:0 4px 28px var(--glow-gold);
-  transform:translateY(-1px);
-}
-.btn-primary {
-  background:linear-gradient(135deg, rgba(196,154,60,0.22), rgba(139,94,60,0.3));
-  border-color:rgba(196,154,60,0.45); color:var(--gold-glow);
-  box-shadow:0 0 30px rgba(196,154,60,0.12);
-  font-size:1em; padding:15px 40px;
-}
-.btn-primary:hover {
-  background:linear-gradient(135deg, rgba(196,154,60,0.32), rgba(139,94,60,0.45));
-  box-shadow:0 0 45px rgba(196,154,60,0.3);
-}
-.btn-sm { padding:9px 22px; font-size:0.8em; letter-spacing:2px; }
-.btn-row { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:10px; }
-
-/* ═══ Zodiac Grid ═══ */
-.zodiac-grid {
-  display:grid; grid-template-columns:repeat(4,1fr);
-  gap:11px; width:100%; max-width:420px; margin:18px 0;
-}
-.zodiac-item {
-  aspect-ratio:1;
-  background:rgba(38,26,14,0.5);
-  border:1px solid var(--glass-border);
-  border-radius:var(--radius);
-  display:flex; flex-direction:column; align-items:center;
-  justify-content:center; cursor:pointer;
-  transition:var(--transition); position:relative;
-  overflow:hidden;
-}
-.zodiac-item::before {
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(circle at 50% 30%, rgba(196,154,60,0.15), transparent);
-  opacity:0; transition:opacity 0.4s;
-}
-.zodiac-item:hover, .zodiac-item:active {
-  transform:translateY(-3px) scale(1.04);
-  border-color:rgba(196,154,60,0.5);
-  box-shadow:0 8px 30px rgba(196,154,60,0.2);
-}
-.zodiac-item:hover::before { opacity:1; }
-.zodiac-icon { font-size:2.2em; position:relative; z-index:1; }
-.zodiac-label { font-size:0.75em; color:var(--text-secondary); position:relative; z-index:1; letter-spacing:2px; margin-top:4px; }
-
-/* ═══ Fortune Card (Tarot Style) ═══ */
-.tarot-stage {
-  perspective:1400px; width:100%; max-width:420px; min-height:560px;
-  margin:10px 0;
-}
-.tarot-card {
-  width:100%; min-height:560px; position:relative;
-  transform-style:preserve-3d;
-  transition:transform 1.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-.tarot-card.flipped { transform:rotateY(180deg); }
-
-.tarot-face {
-  position:absolute; inset:0; backface-visibility:hidden;
-  border-radius:var(--radius-xl);
-  display:flex; flex-direction:column; align-items:center;
-}
-
-/* Card Back */
-.tarot-back {
-  background:linear-gradient(160deg, #1a1008 0%, #261a0e 30%, #342214 60%, #261a0e 100%);
-  border:2px solid rgba(196,154,60,0.35);
-  box-shadow:
-    0 0 60px rgba(180,120,60,0.15),
-    inset 0 0 60px rgba(180,120,60,0.08);
-  cursor:pointer; justify-content:center; gap:22px;
-  position:relative;
-}
-.tarot-back::before {
-  content:''; position:absolute; inset:12px;
-  border:1px solid rgba(196,154,60,0.18); border-radius:18px;
-}
-.tarot-back::after {
-  content:''; position:absolute; inset:24px;
-  border:1px solid rgba(196,154,60,0.1); border-radius:12px;
-}
-.tarot-back-inner { text-align:center; position:relative; z-index:1; }
-.tarot-symbol {
-  font-size:5em; filter:drop-shadow(0 0 24px rgba(196,154,60,0.45));
-  animation:floatSymbol 4s ease-in-out infinite;
-}
-@keyframes floatSymbol {
-  0%,100% { transform:translateY(0) scale(1); }
-  30% { transform:translateY(-6px) scale(1.03); }
-  60% { transform:translateY(4px) scale(0.98); }
-}
-.tarot-back-title {
-  font-family:'Ma Shan Zheng', cursive; font-size:1.6em;
-  color:var(--gold-glow); letter-spacing:8px;
-}
-.tarot-back-hint {
-  font-size:0.8em; color:var(--text-muted); letter-spacing:3px;
-  animation:pulseHint 2.5s ease-in-out infinite;
-}
-@keyframes pulseHint {
-  0%,100% { opacity:0.25; }
-  50% { opacity:0.85; }
-}
-
-/* Card Front */
-.tarot-front {
-  background:linear-gradient(160deg, #1a1008 0%, #261a0e 25%, #342214 55%, #261a0e 100%);
-  border:2px solid rgba(196,154,60,0.4);
-  box-shadow:0 0 80px rgba(180,120,60,0.15);
-  transform:rotateY(180deg);
-  padding:24px 18px; overflow-y:auto; align-items:stretch;
-  gap:0; justify-content:flex-start;
-}
-
-/* ═══ Bazi Display ═══ */
-.bazi-row {
-  display:flex; justify-content:center; gap:7px;
-  margin-bottom:10px; flex-wrap:wrap;
-}
-.bazi-pillar {
-  text-align:center; padding:10px 8px 8px;
-  background:rgba(52,34,20,0.5); border-radius:var(--radius-sm);
-  border:1px solid rgba(196,154,60,0.12);
-  min-width:62px; backdrop-filter:blur(8px);
-}
-.bazi-pillar .pl { font-size:0.55em; color:var(--text-muted); letter-spacing:1px; }
-.bazi-pillar .ps { font-size:1.05em; color:var(--gold-glow); font-weight:600; }
-.bazi-pillar .pb { font-size:0.9em; color:var(--text-primary); }
-.bazi-pillar .pa { font-size:0.6em; color:rgba(200,180,160,0.45); }
-
-/* ═══ Huangli Tags ═══ */
-.tags-row {
-  display:flex; gap:7px; flex-wrap:wrap; justify-content:center;
-  margin-bottom:10px;
-}
-.tag {
-  padding:5px 12px; border-radius:20px; font-size:0.72em;
-  background:rgba(52,34,20,0.5); border:1px solid rgba(196,154,60,0.1);
-  color:var(--text-muted); letter-spacing:1px;
-  backdrop-filter:blur(8px);
-}
-.tag.warn { border-color:rgba(200,130,110,0.3); color:var(--rose-light); }
-.tag.good { border-color:rgba(130,190,140,0.25); color:#8ad098; }
-
-/* ═══ Period Tabs ═══ */
-.tabs {
-  display:flex; gap:2px; margin-bottom:10px;
-  border-radius:var(--radius-sm); overflow:hidden;
-  background:rgba(26,16,8,0.6); border:1px solid rgba(196,154,60,0.1);
-}
-.tab {
-  flex:1; padding:11px 0; text-align:center; cursor:pointer;
-  font-size:0.8em; color:var(--text-muted); letter-spacing:2px;
-  transition:var(--transition); font-family:inherit;
-}
-.tab.active {
-  background:rgba(196,154,60,0.15); color:var(--gold-glow);
-  box-shadow:inset 0 -1px 0 var(--gold);
-}
-
-/* ═══ Fortune Content ═══ */
-.period-panel { display:none; flex-direction:column; gap:9px; }
-.period-panel.active { display:flex; }
-
-.fortune-box {
-  background:rgba(52,34,20,0.35); border-radius:var(--radius-sm);
-  border:1px solid rgba(196,154,60,0.1); padding:12px 14px;
-  backdrop-filter:blur(8px);
-}
-.fortune-box h4 {
-  font-size:0.82em; color:var(--text-muted); letter-spacing:2px;
-  margin-bottom:6px; display:flex; align-items:center; gap:6px;
-  font-weight:400;
-}
-.fortune-box .stars { color:var(--gold); font-size:0.8em; letter-spacing:2px; }
-.fortune-box p { font-size:0.85em; color:var(--text-secondary); line-height:1.75; }
-.fortune-box .highlight { color:var(--gold-glow); }
-
-.advice-row { display:flex; gap:9px; }
-.advice-col {
-  flex:1; padding:12px 12px; border-radius:var(--radius-sm);
-  font-size:0.78em; backdrop-filter:blur(8px);
-}
-.advice-col.do {
-  background:rgba(130,190,140,0.07); border:1px solid rgba(130,190,140,0.18);
-}
-.advice-col.dont {
-  background:rgba(200,130,110,0.07); border:1px solid rgba(200,130,110,0.18);
-}
-.advice-col h5 { font-size:0.85em; margin-bottom:5px; font-weight:400; }
-.advice-col.do h5 { color:#8ad098; }
-.advice-col.dont h5 { color:var(--rose-light); }
-.advice-col li { color:var(--text-secondary); line-height:1.9; list-style:none; }
-
-.lucky-bar {
-  text-align:center; font-size:0.78em; color:var(--text-muted);
-  padding:10px 0; letter-spacing:1px;
-}
-.lucky-bar b { color:var(--gold-glow); }
-
-/* ═══ User info line ═══ */
-.user-meta {
-  text-align:center; font-size:0.72em; color:var(--text-muted);
-  margin-bottom:8px; letter-spacing:1px;
-}
-
-/* ═══ Particle burst ═══ */
-.particle {
-  position:fixed; pointer-events:none; z-index:5;
-  animation:particleFly 1.2s ease-out forwards;
-}
-@keyframes particleFly {
-  0% { opacity:1; transform:translate(0,0) scale(1); }
-  100% { opacity:0; transform:translate(var(--dx),var(--dy)) scale(0); }
-}
-
-/* ═══ Music toggle ═══ */
-.music-btn {
-  position:fixed; top:16px; right:16px; z-index:20;
-  width:44px; height:44px; border-radius:50%;
+#topbar>*{pointer-events:auto;}
+.lang-btn,.music-btn{
+  width:40px;height:40px;border-radius:50%;
   border:1px solid rgba(196,154,60,0.25);
-  background:rgba(26,16,8,0.7); color:var(--text-muted);
-  font-size:1.15em; cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  transition:var(--transition); backdrop-filter:blur(12px);
+  background:rgba(26,16,8,0.7);color:var(--text-muted);
+  font-size:0.85em;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:var(--transition);backdrop-filter:blur(12px);
+  font-family:'Cinzel','Noto Serif SC',serif;font-weight:600;
 }
-.music-btn:hover { border-color:var(--gold); color:var(--gold-glow); }
-.music-btn.on { border-color:var(--gold); color:var(--gold-glow); }
+.lang-btn:hover,.music-btn:hover{border-color:var(--gold);color:var(--gold-glow);}
+.music-btn.on{border-color:var(--gold);color:var(--gold-glow);}
 
-/* ═══ Shooting stars ═══ */
-.shooting {
-  position:fixed; pointer-events:none; z-index:0;
-  width:2px; height:80px;
-  background:linear-gradient(to bottom, rgba(255,255,255,0.9), transparent);
-  border-radius:1px;
-  animation:shoot 1.2s ease-out forwards; opacity:0;
-}
-@keyframes shoot {
-  0% { opacity:1; transform:translate(0,0); }
-  100% { opacity:0; transform:translate(200px,250px); }
+/* 鈹€鈹€ App Shell 鈹€鈹€ */
+#app{
+  position:relative;z-index:1;max-width:520px;margin:0 auto;
+  padding:60px 14px 100px;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
 }
 
-/* ═══ Responsive ═══ */
-@media (max-width:380px) {
-  .title-main { font-size:2.3em; }
-  .zodiac-grid { gap:8px; }
-  .zodiac-icon { font-size:1.8em; }
-  .tarot-symbol { font-size:3.8em; }
-  .tarot-stage { max-width:100%; min-height:500px; }
-  .tarot-card { min-height:500px; }
-  .bazi-pillar { min-width:52px; padding:8px 6px 6px; }
-  .bazi-pillar .ps { font-size:0.9em; }
-  #app { padding:16px 10px 28px; }
+/* 鈹€鈹€ Screen Transitions 鈹€鈹€ */
+.screen{width:100%;display:none;flex-direction:column;align-items:center;animation:scIn 0.6s ease-out;}
+.screen.active{display:flex;}
+@keyframes scIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* 鈹€鈹€ Title 鈹€鈹€ */
+.title-block{text-align:center;margin-bottom:16px;}
+.title-main{
+  font-family:'Cinzel','Ma Shan Zheng',serif;font-size:2.6em;font-weight:700;
+  background:linear-gradient(180deg,var(--gold-bright) 0%,var(--gold) 35%,var(--gold-glow) 55%,var(--gold-dim) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 2px 14px rgba(196,154,60,0.4));letter-spacing:6px;line-height:1.3;
+}
+.title-sub{font-size:0.85em;color:var(--text-muted);letter-spacing:6px;margin-top:4px;}
+
+/* 鈹€鈹€ Glass Card 鈹€鈹€ */
+.glass-card{
+  background:var(--glass-bg);border:1px solid var(--glass-border);
+  border-radius:var(--radius-lg);backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);padding:24px;width:100%;max-width:440px;
+}
+
+/* 鈹€鈹€ Form 鈹€鈹€ */
+.form-section{width:100%;max-width:440px;}
+.field{margin-bottom:16px;}
+.field-label{font-size:0.82em;color:var(--text-muted);letter-spacing:2px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.input,.select{
+  width:100%;padding:14px 16px;background:rgba(26,16,8,0.7);
+  border:1px solid var(--glass-border);border-radius:var(--radius);
+  color:var(--text-primary);font-size:1em;font-family:inherit;outline:none;
+  transition:var(--transition);
+}
+.input:focus,.select:focus{border-color:var(--glass-border-active);box-shadow:0 0 24px var(--glow-warm);}
+.input::placeholder{color:var(--text-muted);opacity:0.5;}
+.select{
+  appearance:none;-webkit-appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%23bf9b4a' d='M7 9L2 4h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;
+}
+
+.row{display:flex;gap:10px;}.row>*{flex:1;}
+
+.gender-group{display:flex;gap:10px;}
+.gender-opt{
+  flex:1;padding:14px;border-radius:var(--radius);text-align:center;cursor:pointer;
+  border:1px solid var(--glass-border);background:rgba(26,16,8,0.5);
+  color:var(--text-muted);font-family:inherit;font-size:1em;transition:var(--transition);
+}
+.gender-opt.selected{border-color:var(--gold);color:var(--gold-glow);background:rgba(196,154,60,0.12);box-shadow:0 0 24px var(--glow-gold);}
+
+/* 鈹€鈹€ Buttons 鈹€鈹€ */
+.btn{
+  padding:14px 32px;border-radius:28px;cursor:pointer;
+  font-family:inherit;font-size:0.92em;letter-spacing:2px;font-weight:600;
+  transition:var(--transition);outline:none;
+  border:1px solid var(--glass-border);background:rgba(38,26,14,0.6);
+  color:var(--text-secondary);backdrop-filter:blur(12px);
+}
+.btn:hover,.btn:active{border-color:var(--glass-border-active);box-shadow:0 4px 28px var(--glow-gold);transform:translateY(-1px);}
+.btn-primary{
+  background:linear-gradient(135deg,rgba(196,154,60,0.22),rgba(139,94,60,0.3));
+  border-color:rgba(196,154,60,0.45);color:var(--gold-glow);
+  box-shadow:0 0 30px rgba(196,154,60,0.12);font-size:1em;padding:15px 40px;
+}
+.btn-primary:hover{background:linear-gradient(135deg,rgba(196,154,60,0.32),rgba(139,94,60,0.45));box-shadow:0 0 45px rgba(196,154,60,0.3);}
+.btn-sm{padding:9px 20px;font-size:0.8em;letter-spacing:2px;}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:10px;}
+
+/* 鈹€鈹€ Bottom Nav 鈹€鈹€ */
+#bottomNav{
+  position:fixed;bottom:0;left:0;right:0;z-index:30;
+  display:flex;justify-content:space-around;
+  background:rgba(15,10,5,0.92);backdrop-filter:blur(20px);
+  border-top:1px solid rgba(196,154,60,0.12);
+  padding:6px 0 env(safe-area-inset-bottom,6px);
+}
+.nav-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  padding:8px 4px;cursor:pointer;transition:var(--transition);
+  color:var(--text-muted);font-size:0.65em;letter-spacing:1px;
+  font-family:'Cinzel','Noto Serif SC',serif;
+}
+.nav-item .ni{font-size:1.5em;margin-bottom:2px;}
+.nav-item.active{color:var(--gold-glow);}
+.nav-item:hover,.nav-item:active{color:var(--gold);}
+
+/* 鈹€鈹€ Zodiac Grid 鈹€鈹€ */
+.zodiac-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;width:100%;max-width:440px;margin:16px 0;}
+.zodiac-item{
+  aspect-ratio:1;background:rgba(38,26,14,0.5);border:1px solid var(--glass-border);
+  border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;
+  justify-content:center;cursor:pointer;transition:var(--transition);position:relative;overflow:hidden;
+}
+.zodiac-item::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 30%,rgba(196,154,60,0.15),transparent);
+  opacity:0;transition:opacity 0.4s;
+}
+.zodiac-item:hover,.zodiac-item:active{transform:translateY(-3px) scale(1.04);border-color:rgba(196,154,60,0.5);box-shadow:0 8px 30px rgba(196,154,60,0.2);}
+.zodiac-item:hover::before{opacity:1;}
+.zodiac-icon{font-size:2.2em;position:relative;z-index:1;}
+.zodiac-label{font-size:0.78em;color:var(--text-secondary);position:relative;z-index:1;letter-spacing:2px;margin-top:4px;}
+
+/* 鈹€鈹€ Tarot Card 鈹€鈹€ */
+.tarot-stage{perspective:1400px;width:100%;max-width:440px;min-height:520px;margin:12px 0;}
+.tarot-card{width:100%;min-height:520px;position:relative;transform-style:preserve-3d;transition:transform 1.4s cubic-bezier(0.23,1,0.32,1);}
+.tarot-card.flipped{transform:rotateY(180deg);}
+.tarot-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius-lg);display:flex;flex-direction:column;align-items:center;}
+.tarot-back{
+  background:linear-gradient(160deg,#1a1008 0%,#261a0e 30%,#342214 60%,#261a0e 100%);
+  border:2px solid rgba(196,154,60,0.35);
+  box-shadow:0 0 60px rgba(180,120,60,0.15),inset 0 0 60px rgba(180,120,60,0.08);
+  cursor:pointer;justify-content:center;gap:20px;position:relative;
+}
+.tarot-back::before{content:'';position:absolute;inset:12px;border:1px solid rgba(196,154,60,0.18);border-radius:18px;}
+.tarot-back::after{content:'';position:absolute;inset:24px;border:1px solid rgba(196,154,60,0.1);border-radius:12px;}
+.tarot-back-inner{text-align:center;position:relative;z-index:1;}
+.tarot-symbol{font-size:5em;filter:drop-shadow(0 0 24px rgba(196,154,60,0.45));animation:floatSym 4s ease-in-out infinite;}
+@keyframes floatSym{0%,100%{transform:translateY(0) scale(1);}30%{transform:translateY(-6px) scale(1.03);}60%{transform:translateY(4px) scale(0.98);}}
+.tarot-back-title{font-family:'Cinzel','Ma Shan Zheng',serif;font-size:1.5em;color:var(--gold-glow);letter-spacing:6px;}
+.tarot-back-hint{font-size:0.78em;color:var(--text-muted);letter-spacing:3px;animation:pulseH 2.5s ease-in-out infinite;}
+@keyframes pulseH{0%,100%{opacity:0.25;}50%{opacity:0.85;}}
+.tarot-front{
+  background:linear-gradient(160deg,#1a1008 0%,#261a0e 25%,#342214 55%,#261a0e 100%);
+  border:2px solid rgba(196,154,60,0.4);box-shadow:0 0 80px rgba(180,120,60,0.15);
+  transform:rotateY(180deg);padding:24px 18px;overflow-y:auto;align-items:stretch;gap:0;justify-content:flex-start;
+}
+
+/* 鈹€鈹€ BaZi / Fortune Display 鈹€鈹€ */
+.bazi-row{display:flex;justify-content:center;gap:7px;margin-bottom:10px;flex-wrap:wrap;}
+.bazi-pillar{
+  text-align:center;padding:10px 8px 8px;background:rgba(52,34,20,0.5);
+  border-radius:10px;border:1px solid rgba(196,154,60,0.12);
+  min-width:62px;backdrop-filter:blur(8px);
+}
+.bazi-pillar .pl{font-size:0.55em;color:var(--text-muted);letter-spacing:1px;}
+.bazi-pillar .ps{font-size:1.05em;color:var(--gold-glow);font-weight:600;}
+.bazi-pillar .pb{font-size:0.9em;color:var(--text-primary);}
+.bazi-pillar .pa{font-size:0.6em;color:rgba(200,180,160,0.45);}
+
+.tags-row{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:10px;}
+.tag{padding:5px 12px;border-radius:20px;font-size:0.72em;background:rgba(52,34,20,0.5);border:1px solid rgba(196,154,60,0.1);color:var(--text-muted);letter-spacing:1px;backdrop-filter:blur(8px);}
+.tag.warn{border-color:rgba(200,130,110,0.3);color:var(--rose-light);}
+.tag.good{border-color:rgba(130,190,140,0.25);color:#8ad098;}
+
+.tabs{display:flex;gap:2px;margin-bottom:10px;border-radius:10px;overflow:hidden;background:rgba(26,16,8,0.6);border:1px solid rgba(196,154,60,0.1);}
+.tab{flex:1;padding:11px 0;text-align:center;cursor:pointer;font-size:0.78em;color:var(--text-muted);letter-spacing:2px;transition:var(--transition);font-family:inherit;}
+.tab.active{background:rgba(196,154,60,0.15);color:var(--gold-glow);box-shadow:inset 0 -1px 0 var(--gold);}
+
+.period-panel{display:none;flex-direction:column;gap:9px;}
+.period-panel.active{display:flex;}
+
+.fortune-box{background:rgba(52,34,20,0.35);border-radius:10px;border:1px solid rgba(196,154,60,0.1);padding:12px 14px;backdrop-filter:blur(8px);}
+.fortune-box h4{font-size:0.85em;color:var(--text-muted);letter-spacing:2px;margin-bottom:6px;font-weight:400;}
+.fortune-box .stars{color:var(--gold);font-size:0.8em;letter-spacing:2px;}
+.fortune-box p{font-size:0.85em;color:var(--text-secondary);line-height:1.75;}
+.fortune-box .highlight{color:var(--gold-glow);}
+
+.advice-row{display:flex;gap:9px;}
+.advice-col{flex:1;padding:12px;border-radius:10px;font-size:0.78em;backdrop-filter:blur(8px);}
+.advice-col.do{background:rgba(130,190,140,0.07);border:1px solid rgba(130,190,140,0.18);}
+.advice-col.dont{background:rgba(200,130,110,0.07);border:1px solid rgba(200,130,110,0.18);}
+.advice-col h5{font-size:0.85em;margin-bottom:5px;font-weight:400;}
+.advice-col.do h5{color:#8ad098;}.advice-col.dont h5{color:var(--rose-light);}
+.advice-col li{color:var(--text-secondary);line-height:1.9;list-style:none;}
+
+.lucky-bar{text-align:center;font-size:0.78em;color:var(--text-muted);padding:10px 0;letter-spacing:1px;}
+.lucky-bar b{color:var(--gold-glow);}
+.user-meta{text-align:center;font-size:0.72em;color:var(--text-muted);margin-bottom:8px;letter-spacing:1px;}
+
+/* 鈹€鈹€ Wu Xing Element Wheel 鈹€鈹€ */
+.element-wheel{
+  position:relative;width:260px;height:260px;margin:16px auto;
+}
+.element-center{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:90px;height:90px;border-radius:50%;
+  background:rgba(26,16,8,0.8);border:2px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;z-index:2;font-size:2.2em;
+}
+.element-node{
+  position:absolute;width:70px;height:70px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  font-size:1.1em;z-index:1;transition:var(--transition);
+  border:2px solid rgba(196,154,60,0.2);
+  background:rgba(38,26,14,0.7);
+  color:var(--text-secondary);
+}
+.element-node:hover{transform:scale(1.15);border-color:var(--gold);box-shadow:0 0 30px var(--glow-gold);z-index:3;}
+.element-node.fire{background:rgba(200,80,60,0.15);border-color:rgba(200,100,80,0.4);color:#e8947a;}
+.element-node.earth{background:rgba(180,150,80,0.15);border-color:rgba(180,150,80,0.4);color:#d4bc6a;}
+.element-node.metal{background:rgba(200,190,180,0.15);border-color:rgba(200,190,180,0.4);color:#e0d8cc;}
+.element-node.water{background:rgba(60,120,180,0.15);border-color:rgba(80,140,200,0.4);color:#8ac0e8;}
+.element-node.wood{background:rgba(80,160,80,0.15);border-color:rgba(100,180,100,0.4);color:#90d090;}
+
+/* 鈹€鈹€ CeZi (Character Divination) 鈹€鈹€ */
+.char-input-wrap{text-align:center;margin:16px 0;}
+.char-input{
+  width:100px;height:100px;font-size:3em;text-align:center;
+  background:rgba(26,16,8,0.7);border:2px solid var(--glass-border);
+  border-radius:var(--radius);color:var(--gold-glow);
+  font-family:'Ma Shan Zheng','Noto Serif SC',serif;
+  outline:none;transition:var(--transition);
+}
+.char-input:focus{border-color:var(--gold);box-shadow:0 0 35px var(--glow-gold);}
+.char-decomp{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0;}
+.char-part{padding:8px 16px;background:rgba(52,34,20,0.5);border:1px solid rgba(196,154,60,0.15);border-radius:20px;font-size:1.2em;}
+
+/* 鈹€鈹€ Face Reading Quiz 鈹€鈹€ */
+.face-quiz{text-align:center;}
+.face-feature{margin:16px 0;}
+.face-options{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.face-opt{
+  padding:10px 18px;border-radius:20px;cursor:pointer;font-size:0.85em;
+  border:1px solid var(--glass-border);background:rgba(26,16,8,0.5);
+  color:var(--text-muted);transition:var(--transition);
+}
+.face-opt:hover,.face-opt.selected{border-color:var(--gold);color:var(--gold-glow);background:rgba(196,154,60,0.12);}
+.face-progress{height:4px;background:rgba(196,154,60,0.15);border-radius:2px;margin:16px 0;overflow:hidden;}
+.face-progress-bar{height:100%;background:var(--gold);border-radius:2px;transition:width 0.5s;}
+
+/* 鈹€鈹€ Palm Reading 鈹€鈹€ */
+.palm-diagram{
+  position:relative;width:200px;height:280px;margin:16px auto;
+  background:rgba(26,16,8,0.5);border:1px solid var(--glass-border);
+  border-radius:var(--radius-lg);overflow:hidden;
+}
+.palm-outline{
+  position:absolute;top:20px;left:35px;width:130px;height:240px;
+  border:2px solid rgba(196,154,60,0.25);border-radius:60px 60px 40px 40px;
+}
+.palm-line{
+  position:absolute;height:2px;background:rgba(196,154,60,0.3);
+  transform-origin:left center;border-radius:1px;
+}
+.palm-line:hover{background:var(--gold-glow);height:3px;z-index:2;}
+.palm-label{
+  position:absolute;font-size:0.6em;color:var(--text-muted);
+  white-space:nowrap;transform:rotate(-90deg);letter-spacing:1px;
+}
+
+/* 鈹€鈹€ Share Cards 鈹€鈹€ */
+.share-preview{
+  width:100%;max-width:360px;border-radius:var(--radius-lg);
+  overflow:hidden;border:2px solid var(--glass-border);
+  box-shadow:0 0 40px rgba(196,154,60,0.1);
+}
+.share-card{
+  width:100%;background:linear-gradient(160deg,#1a1008,#261a0e,#342214);
+  padding:24px;text-align:center;position:relative;
+}
+.share-card .sc-icon{font-size:3em;margin-bottom:8px;}
+.share-card .sc-title{font-family:'Cinzel',serif;font-size:1.3em;color:var(--gold-glow);letter-spacing:3px;}
+.share-card .sc-result{font-size:0.9em;color:var(--text-secondary);margin:10px 0;line-height:1.6;}
+.share-card .sc-tag{display:inline-block;padding:4px 12px;background:rgba(196,154,60,0.12);border-radius:12px;font-size:0.7em;color:var(--gold);margin:4px;}
+.share-card .sc-watermark{font-size:0.7em;color:var(--text-muted);margin-top:12px;}
+.share-platforms{display:flex;gap:10px;justify-content:center;margin-top:12px;}
+.sp-btn{
+  padding:10px 20px;border-radius:22px;cursor:pointer;font-size:0.82em;letter-spacing:1px;
+  border:1px solid var(--glass-border);background:rgba(26,16,8,0.6);color:var(--text-secondary);
+  transition:var(--transition);backdrop-filter:blur(8px);
+}
+.sp-btn:hover{border-color:var(--gold);color:var(--gold-glow);}
+.sp-btn.tiktok:hover{background:rgba(255,0,80,0.1);border-color:rgba(255,0,80,0.4);}
+.sp-btn.reddit:hover{background:rgba(255,69,0,0.1);border-color:rgba(255,69,0,0.4);}
+
+/* 鈹€鈹€ Particles 鈹€鈹€ */
+.particle{position:fixed;pointer-events:none;z-index:5;animation:partF 1.2s ease-out forwards;}
+@keyframes partF{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(0);}}
+.shooting{position:fixed;pointer-events:none;z-index:0;width:2px;height:80px;background:linear-gradient(to bottom,rgba(255,255,255,0.9),transparent);border-radius:1px;animation:shoot 1.2s ease-out forwards;opacity:0;}
+@keyframes shoot{0%{opacity:1;transform:translate(0,0);}100%{opacity:0;transform:translate(200px,250px);}}
+
+/* 鈹€鈹€ Responsive 鈹€鈹€ */
+@media(max-width:380px){
+  .title-main{font-size:2em;}.zodiac-grid{gap:7px;}.zodiac-icon{font-size:1.7em;}
+  .tarot-symbol{font-size:3.8em;}.tarot-stage{min-height:480px;}.tarot-card{min-height:480px;}
+  .element-wheel{width:230px;height:230px;}.element-node{width:58px;height:58px;font-size:0.95em;}
+  #app{padding:56px 10px 90px;}
 }
 </style>
 </head>
@@ -440,78 +379,84 @@ body {
 
 <canvas id="starfield"></canvas>
 <div class="vignette"></div>
-<button class="music-btn" id="musicBtn" title="宿命之音">♪</button>
 
+<!-- Top Bar -->
+<div id="topbar">
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">涓?/button>
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Music">鈾?/button>
+</div>
+
+<!-- Main App -->
 <div id="app">
-  <!-- ═══ Screen 1: User Info ═══ -->
-  <div class="screen active" id="screen-info">
-    <div class="title-block">
-      <div class="title-main">星 之 密 语</div>
-      <div class="title-sub">✦ 命 理 占 卜 ✦</div>
-    </div>
 
-    <div class="form-section">
+  <!-- 鈺愨晲鈺?SCREEN: HOME (Zodiac + Fortune) 鈺愨晲鈺?-->
+  <div class="screen active" id="screen-home">
+    <div class="title-block">
+      <div class="title-main" id="t-home-title">LALALIN</div>
+      <div class="title-sub" id="t-home-sub">鉁?Mystic East Divination 鉁?/div>
+    </div>
+    <div class="form-section" id="home-form">
       <div class="field">
-        <div class="field-label"><span class="icon">📅</span> 出生日期</div>
+        <div class="field-label" id="t-birth-label">馃搮 Birth Date</div>
         <input type="date" class="input" id="birthDate" min="1920-01-01" max="2020-12-31">
       </div>
       <div class="field">
-        <div class="field-label"><span class="icon">⏰</span> 出生时辰</div>
+        <div class="field-label" id="t-hour-label">鈴?Birth Hour (Chinese 2-hour periods)</div>
         <select class="select" id="birthHour">
-          <option value="-1">不指定（默认午时）</option>
-          <option value="0">子时 23:00 – 01:00</option>
-          <option value="1">丑时 01:00 – 03:00</option>
-          <option value="2">寅时 03:00 – 05:00</option>
-          <option value="3">卯时 05:00 – 07:00</option>
-          <option value="4">辰时 07:00 – 09:00</option>
-          <option value="5">巳时 09:00 – 11:00</option>
-          <option value="6" selected>午时 11:00 – 13:00</option>
-          <option value="7">未时 13:00 – 15:00</option>
-          <option value="8">申时 15:00 – 17:00</option>
-          <option value="9">酉时 17:00 – 19:00</option>
-          <option value="10">戌时 19:00 – 21:00</option>
-          <option value="11">亥时 21:00 – 23:00</option>
+          <option value="-1">Not specified (default noon)</option>
+          <option value="0">Zi 瀛?23:00鈥?1:00</option>
+          <option value="1">Chou 涓?01:00鈥?3:00</option>
+          <option value="2">Yin 瀵?03:00鈥?5:00</option>
+          <option value="3">Mao 鍗?05:00鈥?7:00</option>
+          <option value="4">Chen 杈?07:00鈥?9:00</option>
+          <option value="5">Si 宸?09:00鈥?1:00</option>
+          <option value="6" selected>Wu 鍗?11:00鈥?3:00</option>
+          <option value="7">Wei 鏈?13:00鈥?5:00</option>
+          <option value="8">Shen 鐢?15:00鈥?7:00</option>
+          <option value="9">You 閰?17:00鈥?9:00</option>
+          <option value="10">Xu 鎴?19:00鈥?1:00</option>
+          <option value="11">Hai 浜?21:00鈥?3:00</option>
         </select>
       </div>
       <div class="field">
-        <div class="field-label"><span class="icon">⚤</span> 性别</div>
+        <div class="field-label" id="t-gender-label">鈿?Gender</div>
         <div class="gender-group" id="genderToggle">
-          <div class="gender-opt selected" data-gender="male">♂ 阳</div>
-          <div class="gender-opt" data-gender="female">♀ 阴</div>
+          <div class="gender-opt selected" data-gender="male" id="g-male">鈾?Yang</div>
+          <div class="gender-opt" data-gender="female" id="g-female">鈾€ Yin</div>
         </div>
       </div>
       <div class="field">
-        <div class="field-label"><span class="icon">📍</span> 出生地 <span style="font-size:0.85em;opacity:0.5;">（选填）</span></div>
-        <input type="text" class="input" id="birthPlace" placeholder="如：北京、上海、成都…" maxlength="20">
+        <div class="field-label" id="t-place-label">馃搷 Birthplace <span style="font-size:0.85em;opacity:0.5;">(optional)</span></div>
+        <input type="text" class="input" id="birthPlace" placeholder="Beijing, Shanghai, London, NYC鈥? maxlength="20">
       </div>
       <div style="text-align:center;margin-top:8px;">
-        <button class="btn btn-primary" onclick="goToZodiac()">✦ 感应星命 ✦</button>
+        <button class="btn btn-primary" onclick="goToZodiac()" id="t-feel-btn">鉁?Feel Your Stars 鉁?/button>
       </div>
     </div>
   </div>
 
-  <!-- ═══ Screen 2: Zodiac ═══ -->
+  <!-- 鈺愨晲鈺?SCREEN: ZODIAC PICKER 鈺愨晲鈺?-->
   <div class="screen" id="screen-pick">
     <div class="title-block">
-      <div class="title-main" style="font-size:2em;">感 应 星 座</div>
-      <div class="title-sub">十二星宫 · 各司其命</div>
+      <div class="title-main" style="font-size:2em;" id="t-pick-title">Choose Your Sign</div>
+      <div class="title-sub" id="t-pick-sub">The Twelve Zodiac Houses</div>
     </div>
     <div class="zodiac-grid" id="zodiacGrid"></div>
-    <button class="btn btn-sm" onclick="backToInfo()" style="margin-top:4px;">↩ 返回修改</button>
+    <button class="btn btn-sm" onclick="backToInfo()" id="t-back-btn">鈫?Back</button>
   </div>
 
-  <!-- ═══ Screen 3: Fortune ═══ -->
+  <!-- 鈺愨晲鈺?SCREEN: FORTUNE CARD 鈺愨晲鈺?-->
   <div class="screen" id="screen-fortune">
     <div class="title-block">
-      <div class="title-main" style="font-size:2em;">命 运 之 牌</div>
+      <div class="title-main" style="font-size:2em;" id="t-fortune-title">Card of Destiny</div>
     </div>
     <div class="tarot-stage">
       <div class="tarot-card" id="fortuneCard">
         <div class="tarot-face tarot-back" id="cardBack">
           <div class="tarot-back-inner">
-            <div class="tarot-symbol">🔮</div>
-            <div class="tarot-back-title">触 碰 水 晶 球</div>
-            <div class="tarot-back-hint">星辰正在凝视你的命运</div>
+            <div class="tarot-symbol">馃敭</div>
+            <div class="tarot-back-title" id="t-touch-ball">TOUCH THE ORB</div>
+            <div class="tarot-back-hint" id="t-stars-gaze">The stars are gazing into your destiny</div>
           </div>
         </div>
         <div class="tarot-face tarot-front" id="cardFront">
@@ -520,304 +465,436 @@ body {
       </div>
     </div>
     <div class="btn-row">
-      <button class="btn btn-sm" onclick="backToPick()">↩ 重选星座</button>
-      <button class="btn btn-sm" onclick="flipAgain()">🔮 再次占卜</button>
+      <button class="btn btn-sm" onclick="backToPick()">鈫?Back</button>
+      <button class="btn btn-sm" onclick="flipAgain()" id="t-redo-btn">馃敭 Again</button>
+      <button class="btn btn-sm" onclick="showScreen('share')" id="t-share-btn" style="border-color:rgba(196,154,60,0.45);color:var(--gold-glow);">馃摳 Share</button>
     </div>
+  </div>
+
+  <!-- 鈺愨晲鈺?SCREEN: BAZI (Four Pillars) 鈺愨晲鈺?-->
+  <div class="screen" id="screen-bazi">
+    <div class="title-block">
+      <div class="title-main" style="font-size:2em;">Ba Zi</div>
+      <div class="title-sub" id="t-bazi-sub">Four Pillars of Destiny 路 鍏瓧</div>
+    </div>
+    <div class="glass-card" id="baziInfo">
+      <p style="text-align:center;color:var(--text-muted);margin:40px 0;" id="t-bazi-first">Enter your birth info on the Home screen first,<br>then revisit this page for your full chart.</p>
+    </div>
+  </div>
+
+  <!-- 鈺愨晲鈺?SCREEN: WU XING (Five Elements) 鈺愨晲鈺?-->
+  <div class="screen" id="screen-wuxing">
+    <div class="title-block">
+      <div class="title-main" style="font-size:2em;">Wu Xing</div>
+      <div class="title-sub" id="t-wuxing-sub">Five Elements 路 浜旇</div>
+    </div>
+    <div class="glass-card" style="text-align:center;">
+      <div class="element-wheel" id="elementWheel"></div>
+      <div style="margin-top:8px;font-size:0.85em;color:var(--text-secondary);" id="t-wuxing-prompt">Tap an element to discover your affinity</div>
+      <div id="wuxingDetail" style="margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <!-- 鈺愨晲鈺?SCREEN: CE ZI (Character Divination) 鈺愨晲鈺?-->
+  <div class="screen" id="screen-cezi">
+    <div class="title-block">
+      <div class="title-main" style="font-size:2em;">Ce Zi</div>
+      <div class="title-sub" id="t-cezi-sub">Character Oracle 路 娴嬪瓧</div>
+    </div>
+    <div class="glass-card" style="text-align:center;">
+      <p style="font-size:0.85em;color:var(--text-muted);margin-bottom:8px;" id="t-cezi-desc">
+        Type a single Chinese character to reveal its hidden message
+      </p>
+      <div class="char-input-wrap">
+        <input type="text" class="char-input" id="charInput" maxlength="1" placeholder="瀛? oninput="this.value=this.value.slice(-1)">
+      </div>
+      <button class="btn btn-primary" onclick="doCezi()" id="t-cezi-btn">鉁?Divine the Character 鉁?/button>
+      <div id="ceziResult" style="margin-top:16px;"></div>
+    </div>
+  </div>
+
+  <!-- 鈺愨晲鈺?SCREEN: MIAN XIANG (Face Reading) 鈺愨晲鈺?-->
+  <div class="screen" id="screen-mianxiang">
+    <div class="title-block">
+      <div class="title-main" style="font-size:2em;">Mian Xiang</div>
+      <div class="title-sub" id="t-mx-sub">Face Reading 路 闈㈢浉</div>
+    </div>
+    <div class="glass-card face-quiz">
+      <div class="face-progress"><div class="face-progress-bar" id="mxProgress" style="width:0%"></div></div>
+      <div id="mxQuestion" style="font-size:1.05em;color:var(--text-primary);margin:16px 0;"></div>
+      <div class="face-feature">
+        <div class="face-options" id="mxOptions"></div>
+      </div>
+      <div id="mxResult" style="margin-top:12px;"></div>
+    </div>
+    <button class="btn btn-sm" onclick="resetMianxiang()" style="margin-top:8px;" id="t-mx-reset">Restart Reading</button>
+  </div>
+
+  <!-- 鈺愨晲鈺?SCREEN: SHOU XIANG (Palm Reading) 鈺愨晲鈺?-->
+  <div class="screen" id="screen-shouxiang">
+    <div class="title-block">
+      <div class="title-main" style="font-size:2em;">Shou Xiang</div>
+      <div class="title-sub" id="t-sx-sub">Palm Reading 路 鎵嬬浉</div>
+    </div>
+    <div class="glass-card" style="text-align:center;">
+      <div class="palm-diagram" id="palmDiagram">
+        <div class="palm-outline"></div>
+        <!-- Life Line -->
+        <div class="palm-line" style="top:70px;left:55px;width:90px;transform:rotate(-55deg);" id="pl-life"></div>
+        <div class="palm-label" style="top:95px;left:50px;" id="t-pl-life">Life</div>
+        <!-- Head Line -->
+        <div class="palm-line" style="top:110px;left:50px;width:85px;transform:rotate(-20deg);" id="pl-head"></div>
+        <div class="palm-label" style="top:118px;left:46px;" id="t-pl-head">Head</div>
+        <!-- Heart Line -->
+        <div class="palm-line" style="top:85px;left:45px;width:95px;transform:rotate(-35deg);" id="pl-heart"></div>
+        <div class="palm-label" style="top:95px;left:40px;" id="t-pl-heart">Heart</div>
+        <!-- Fate Line -->
+        <div class="palm-line" style="top:40px;left:100px;width:3px;height:80px;transform:none;border-radius:0;" id="pl-fate"></div>
+        <div class="palm-label" style="top:70px;left:110px;" id="t-pl-fate">Fate</div>
+      </div>
+      <p style="font-size:0.78em;color:var(--text-muted);margin:8px 0;" id="t-sx-prompt">Tap each line on your palm for interpretation</p>
+      <div id="sxDetail" style="margin-top:8px;text-align:left;"></div>
+    </div>
+  </div>
+
+  <!-- 鈺愨晲鈺?SCREEN: SHARE 鈺愨晲鈺?-->
+  <div class="screen" id="screen-share">
+    <div class="title-block">
+      <div class="title-main" style="font-size:2em;" id="t-share-title">Share Your Fortune</div>
+      <div class="title-sub" id="t-share-sub">Let the world see your destiny</div>
+    </div>
+    <div class="share-preview" id="sharePreview"></div>
+    <div class="share-platforms">
+      <button class="sp-btn tiktok" onclick="shareTo('tiktok')">馃幍 TikTok</button>
+      <button class="sp-btn reddit" onclick="shareTo('reddit')">馃 Reddit</button>
+      <button class="sp-btn" onclick="shareTo('download')">馃摜 Download</button>
+      <button class="sp-btn" onclick="shareTo('copy')">馃搵 Copy Text</button>
+    </div>
+    <button class="btn btn-sm" onclick="showScreen('fortune')" style="margin-top:12px;">鈫?Back</button>
   </div>
 </div>
 
-<!-- Particle container -->
+<!-- Bottom Nav -->
+<div id="bottomNav">
+  <div class="nav-item active" onclick="showScreen('home')"><span class="ni">馃彔</span><span class="nt" id="nav-home">Home</span></div>
+  <div class="nav-item" onclick="showScreen('bazi')"><span class="ni">鈽笍</span><span class="nt" id="nav-bazi">BaZi</span></div>
+  <div class="nav-item" onclick="showScreen('wuxing')"><span class="ni">猸?/span><span class="nt" id="nav-wuxing">WuXing</span></div>
+  <div class="nav-item" onclick="showScreen('cezi')"><span class="ni">馃€?/span><span class="nt" id="nav-cezi">CeZi</span></div>
+  <div class="nav-item" onclick="showScreen('mianxiang')"><span class="ni">馃懁</span><span class="nt" id="nav-mx">Face</span></div>
+  <div class="nav-item" onclick="showScreen('shouxiang')"><span class="ni">鉁?/span><span class="nt" id="nav-sx">Palm</span></div>
+</div>
+
 <div id="particles"></div>
 
 <script>
-// ═══════════════════════════════════════════════
-//  1. STARFIELD (enhanced)
-// ═══════════════════════════════════════════════
-const canvas=document.getElementById('starfield'), ctx=canvas.getContext('2d');
-let stars=[], w, h;
-function resize(){ w=canvas.width=innerWidth; h=canvas.height=innerHeight; }
-resize(); window.addEventListener('resize',resize);
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  I18N SYSTEM
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?let LANG='en';
+const I18N={
+  en:{
+    'home-title':'LALALIN','home-sub':'鉁?Mystic East Divination 鉁?,
+    'birth-label':'馃搮 Birth Date','hour-label':'鈴?Birth Hour (Chinese 2-hour periods)',
+    'gender-label':'鈿?Gender','g-male':'鈾?Yang','g-female':'鈾€ Yin',
+    'place-label':'馃搷 Birthplace','feel-btn':'鉁?Feel Your Stars 鉁?,
+    'pick-title':'Choose Your Sign','pick-sub':'The Twelve Zodiac Houses','back-btn':'鈫?Back',
+    'fortune-title':'Card of Destiny','touch-ball':'TOUCH THE ORB',
+    'stars-gaze':'The stars are gazing into your destiny','redo-btn':'馃敭 Again',
+    'share-btn':'馃摳 Share',
+    'bazi-sub':'Four Pillars of Destiny 路 鍏瓧',
+    'bazi-first':'Enter your birth info on the Home screen first, then revisit this page for your full chart.',
+    'bazi-detail-sub':'Your Four Pillars Chart',
+    'wuxing-sub':'Five Elements 路 浜旇',
+    'wuxing-prompt':'Tap an element to discover your affinity',
+    'cezi-sub':'Character Oracle 路 娴嬪瓧',
+    'cezi-desc':'Type a single Chinese character to reveal its hidden message',
+    'cezi-btn':'鉁?Divine the Character 鉁?,
+    'mx-sub':'Face Reading 路 闈㈢浉','mx-reset':'Restart Reading',
+    'sx-sub':'Palm Reading 路 鎵嬬浉','sx-prompt':'Tap each line on your palm for interpretation',
+    'share-title':'Share Your Fortune','share-sub':'Let the world see your destiny',
+    'nav-home':'Home','nav-bazi':'BaZi','nav-wuxing':'WuXing','nav-cezi':'CeZi',
+    'nav-mx':'Face','nav-sx':'Palm',
+    // WuXing
+    'wx-fire':'Fire','wx-earth':'Earth','wx-metal':'Metal','wx-water':'Water','wx-wood':'Wood',
+    'wx-fire-desc':'Passionate, dynamic, charismatic. Fire people light up any room. Creative leaders who inspire others with vision and warmth.',
+    'wx-earth-desc':'Grounded, reliable, nurturing. Earth people are the foundation others lean on. Patient, practical, and deeply caring.',
+    'wx-metal-desc':'Disciplined, precise, principled. Metal people value order and excellence. Natural organizers with strong moral compass.',
+    'wx-water-desc':'Intuitive, wise, adaptable. Water people flow around obstacles with grace. Deep thinkers with powerful emotional intelligence.',
+    'wx-wood-desc':'Growth-minded, idealistic, flexible. Wood people are visionaries who expand horizons. Natural pioneers pushing boundaries.',
+    'wx-cycle':'Element Cycle','wx-generates':'Generates','wx-controls':'Controls',
+    // CeZi
+    'cezi-strokes':'strokes','cezi-element':'Element','cezi-fortune':'Fortune',
+    // Face Reading
+    'mx-q1':'How would you describe your forehead?',
+    'mx-q2':'What shape are your eyebrows?','mx-q3':'How would you describe your eyes?',
+    'mx-q4':'What best describes your nose?','mx-q5':'How are your cheekbones?',
+    'mx-q6':'What shape is your chin?',
+    'mx-fh1':'Wide & prominent','mx-fh2':'Narrow','mx-fh3':'Medium, smooth',
+    'mx-eb1':'Thick & bold','mx-eb2':'Thin & fine','mx-eb3':'Arched & elegant',
+    'mx-ey1':'Large & bright','mx-ey2':'Deep-set, intense','mx-ey3':'Almond-shaped, gentle',
+    'mx-no1':'Strong & prominent','mx-no2':'Small & refined','mx-no3':'Straight, balanced',
+    'mx-cb1':'High & defined','mx-cb2':'Soft, rounded','mx-cb3':'Not very noticeable',
+    'mx-ch1':'Strong, square jaw','mx-ch2':'Pointed, delicate','mx-ch3':'Rounded, full',
+    'mx-progress':'Question {n} of 6',
+    // Palm
+    'pl-life':'Life','pl-head':'Head','pl-heart':'Heart','pl-fate':'Fate',
+    'sx-life-desc':'Your Life Line suggests a journey of steady vitality and resilience. You possess deep reserves of energy that serve you well through challenges.',
+    'sx-head-desc':'Your Head Line reveals a sharp, analytical mind. You approach problems with logic and creativity 鈥?a rare combination.',
+    'sx-heart-desc':'Your Heart Line speaks of deep emotional capacity. You love intensely and form bonds that transcend the ordinary.',
+    'sx-fate-desc':'Your Fate Line indicates a path shaped by both destiny and personal choices. Major life changes often come from unexpected directions.',
+    // Share
+    'share-tiktok-title':'馃敭 My Chinese Fortune Reading',
+    'share-tiktok-tags':'#ChineseAstrology #BaZi #Divination #MysticEast #FortuneTelling',
+    'share-reddit-title':'[Divination] My Chinese Astrology Reading on Lalalin.xyz',
+    'share-reddit-body':'Just got my fortune read using ancient Chinese divination methods 鈥?BaZi (Four Pillars), Five Elements, and more. Here is what the stars revealed:\n\n',
+    'share-reddit-footer':'\n\nTry it yourself: https://lalalin.xyz\n\n*This is for entertainment purposes only.*',
+    // Misc
+    'period-today':'Today','period-week':'This Week','period-3month':'3 Months',
+    'lucky-color':'Lucky Color','lucky-num':'Lucky Number','stone':'Stone',
+    'good-direction':'Good Direction','clash':'Clash',
+  },
+  zh:{
+    'home-title':'鏄?涔?瀵?璇?,'home-sub':'鉁?涓滄柟鍛界悊鍗犲崪 鉁?,
+    'birth-label':'馃搮 鍑虹敓鏃ユ湡','hour-label':'鈴?鍑虹敓鏃惰景',
+    'gender-label':'鈿?鎬у埆','g-male':'鈾?闃?,'g-female':'鈾€ 闃?,
+    'place-label':'馃搷 鍑虹敓鍦?,'feel-btn':'鉁?鎰熷簲鏄熷懡 鉁?,
+    'pick-title':'鎰?搴?鏄?搴?,'pick-sub':'鍗佷簩鏄熷 路 鍚勫徃鍏跺懡','back-btn':'鈫?杩斿洖淇敼',
+    'fortune-title':'鍛?杩?涔?鐗?,'touch-ball':'瑙?纰?姘?鏅?鐞?,
+    'stars-gaze':'鏄熻景姝ｅ湪鍑濊浣犵殑鍛借繍','redo-btn':'馃敭 鍐嶆鍗犲崪',
+    'share-btn':'馃摳 鍒嗕韩缁撴灉',
+    'bazi-sub':'鍥涙煴鍏瓧 路 鍛界悊鎺ㄦ紨',
+    'bazi-first':'璇峰厛鍦ㄩ椤靛～鍐欏嚭鐢熶俊鎭紝<br>鍐嶈繑鍥炴澶勬煡鐪嬪畬鏁村懡鐩樸€?,
+    'bazi-detail-sub':'浣犵殑鍏瓧鍛界洏',
+    'wuxing-sub':'浜旇鐢熷厠 路 鐩哥敓鐩告垚',
+    'wuxing-prompt':'鐐瑰嚮鍏冪礌锛屾帰绱綘鐨勪簲琛屽睘鎬?,
+    'cezi-sub':'娴嬪瓧鍗犲崪 路 涓€瀛楃煡鍛?,
+    'cezi-desc':'杈撳叆涓€涓眽瀛楋紝鎻ず鍏朵腑闅愯棌鐨勫懡杩愪俊鎭?,
+    'cezi-btn':'鉁?娴嬪瓧鍗犲崪 鉁?,
+    'mx-sub':'闈㈢浉鍒嗘瀽 路 浜斿畼璁哄懡','mx-reset':'閲嶆柊娴嬭瘯',
+    'sx-sub':'鎵嬬浉瑙ｈ 路 鎺岀汗鐭ュ懡','sx-prompt':'鐐瑰嚮鎺岀汗绾挎潯鏌ョ湅瑙ｈ',
+    'share-title':'鍒嗕韩杩愬娍','share-sub':'璁╀笘鐣岀湅瑙佷綘鐨勫懡杩?,
+    'nav-home':'棣栭〉','nav-bazi':'鍏瓧','nav-wuxing':'浜旇','nav-cezi':'娴嬪瓧',
+    'nav-mx':'闈㈢浉','nav-sx':'鎵嬬浉',
+    'wx-fire':'鐏?,'wx-earth':'鍦?,'wx-metal':'閲?,'wx-water':'姘?,'wx-wood':'鏈?,
+    'wx-fire-desc':'鐑儏濂旀斁銆佸厖婊℃椿鍔涖€傜伀琛屼汉澶╃敓鍏锋湁棰嗚榄呭姏锛岃蛋鍒板摢閲岄兘鏄劍鐐广€傚垱閫犲姏寮猴紝瀵屾湁鎰熸煋鍔涖€?,
+    'wx-earth-desc':'绋抽噸鍙潬銆佸寘瀹瑰杽鑹€傚湡琛屼汉鏄ぇ瀹朵俊璧栫殑渚濋潬銆傝€愬績鍔″疄锛屽績鎬€澶х埍锛屾槸鍥㈤槦鐨勪腑娴佺牓鏌便€?,
+    'wx-metal-desc':'涓ヨ皑鑷緥銆佽拷姹傚崜瓒娿€傞噾琛屼汉閲嶈绉╁簭涓庡畬缇庯紝鏄ぉ鐢熺殑缁勭粐鑰呭拰鎵ц鑰咃紝鏈夌潃寮虹儓鐨勬涔夋劅銆?,
+    'wx-water-desc':'鐏垫€ф櫤鎱с€侀殢鏈哄簲鍙樸€傛按琛屼汉濡傛按鑸煍闊э紝閬囬樆鍒欑粫锛岄『鍔胯€屼负銆傜洿瑙夋晱閿愶紝鎯呮劅娣辨矇銆?,
+    'wx-wood-desc':'蹇楀悜杩滃ぇ銆佸杽浜庡紑鎷撱€傛湪琛屼汉鍏呮弧鐞嗘兂涓庢垚闀垮姩鍔涳紝鏄ぉ鐢熺殑鍒涙柊鑰呭拰鍏堥┍锛屼笉鏂獊鐮磋竟鐣屻€?,
+    'wx-cycle':'浜旇鐢熷厠','wx-generates':'鐩哥敓','wx-controls':'鐩稿厠',
+    'cezi-strokes':'鐢?,'cezi-element':'浜旇','cezi-fortune':'瀛楄繍',
+    'mx-q1':'浣犵殑棰濆ご鏄粈涔堢被鍨嬶紵','mx-q2':'浣犵殑鐪夋瘺鏄粈涔堝舰鐘讹紵','mx-q3':'濡備綍鎻忚堪浣犵殑鐪肩潧锛?,
+    'mx-q4':'浣犵殑榧诲瓙鏄€庢牱鐨勶紵','mx-q5':'浣犵殑棰ч濡備綍锛?,'mx-q6':'浣犵殑涓嬪反鏄粈涔堝舰鐘讹紵',
+    'mx-fh1':'瀹介様绐佸嚭','mx-fh2':'杈冪獎','mx-fh3':'涓瓑骞虫粦',
+    'mx-eb1':'娴撳瘑绮楃姺','mx-eb2':'缁嗛暱鏌旂編','mx-eb3':'寮у舰浼橀泤',
+    'mx-ey1':'澶ц€屾湁绁?,'mx-ey2':'娣遍們閿愬埄','mx-ey3':'鏉忕溂娓╂煍',
+    'mx-no1':'鎸烘嫈绐佸嚭','mx-no2':'灏忓阀绮捐嚧','mx-no3':'绔绗旂洿',
+    'mx-cb1':'楂樿€屾湁鍨?,'mx-cb2':'鏌斿拰鍦嗘鼎','mx-cb3':'涓嶅お鏄庢樉',
+    'mx-ch1':'鍒氭瘏鏂归','mx-ch2':'灏栫繕绮捐嚧','mx-ch3':'鍦嗘鼎楗辨弧',
+    'mx-progress':'绗?{n} / 6 棰?,
+    'pl-life':'鐢熷懡绾?,'pl-head':'鏅烘収绾?,'pl-heart':'鎰熸儏绾?,'pl-fate':'鍛借繍绾?,
+    'sx-life-desc':'浣犵殑鐢熷懡绾挎樉绀轰綘鎷ユ湁鎸佷箙鐨勬椿鍔涘拰闊ф€с€傞潰瀵规寫鎴樻椂锛屼綘鐨勫唴鍦ㄥ姏閲忔€昏兘鏀拺浣犳浮杩囬毦鍏炽€?,
+    'sx-head-desc':'浣犵殑鏅烘収绾挎彮绀轰簡涓€涓晱閿愯€屾湁鍒嗘瀽鍔涚殑澶磋剳銆備綘鍏煎叿鐞嗘€ф€濈淮涓庡垱閫犲姏锛岃繖鏄毦寰楃殑澶╄祴銆?,
+    'sx-heart-desc':'浣犵殑鎰熸儏绾胯瘔璇寸潃娣辨矇鐨勬儏鎰熻兘鍔涖€備綘鐖卞緱鐑儓鑰岀湡鎸氾紝寤虹珛鐨勬儏鎰熺航甯﹁秴瓒婂甯搞€?,
+    'sx-fate-desc':'浣犵殑鍛借繍绾挎樉绀猴紝浣犵殑閬撹矾鐢卞懡杩愬拰涓汉閫夋嫨鍏卞悓濉戦€犮€備汉鐢熺殑閲嶅ぇ杞姌寰€寰€鏉ヨ嚜鎰忔兂涓嶅埌鐨勬柟鍚戙€?,
+    'share-tiktok-title':'馃敭 鎴戠殑涓滄柟鍛界悊瑙ｈ',
+    'share-tiktok-tags':'#鍛界悊 #鍏瓧 #鍗犲崪 #涓滄柟鏂囧寲 #鍥藉',
+    'share-reddit-title':'[鍗犲崪] 鎴戠殑鍛界悊瑙ｈ 鈥?Lalalin.xyz',
+    'share-reddit-body':'鍒氶€氳繃涓滄柟浼犵粺鍛界悊瀛﹁繘琛屼簡鍗犲崪鈥斺€斿寘鎷叓瀛楀洓鏌便€佷簲琛岀敓鍏嬨€侀潰鐩告墜鐩哥瓑銆備互涓嬫槸鏄熻景鎻ず鐨勫懡杩愶細\n\n',
+    'share-reddit-footer':'\n\n浣犱篃鏉ヨ瘯璇曪細https://lalalin.xyz\n\n*浠呬緵濞变箰鍙傝€冦€?',
+    'period-today':'浠婃棩','period-week':'鏈潵涓€鍛?,'period-3month':'鏈潵涓夋湀',
+    'lucky-color':'骞歌繍鑹?,'lucky-num':'骞歌繍鏁板瓧','stone':'瀹堟姢鐭?,
+    'good-direction':'鍚夋柟','clash':'鍐茬厼',
+  }
+};
+
+function t(key){ return (I18N[LANG]&&I18N[LANG][key])||I18N['en'][key]||key; }
+function toggleLang(){
+  LANG=LANG==='en'?'zh':'en';
+  document.getElementById('langBtn').textContent=LANG==='en'?'涓?:'EN';
+  document.documentElement.lang=LANG==='en'?'en':'zh-CN';
+  refreshUI();
+}
+function refreshUI(){
+  // Update all elements with id="t-*"
+  document.querySelectorAll('[id^="t-"]').forEach(el=>{
+    const k=el.id.replace('t-','');
+    if(I18N[LANG]&&I18N[LANG][k]){
+      if(el.tagName==='INPUT'&&el.type==='button') el.value=I18N[LANG][k];
+      else if(el.tagName==='BUTTON'||el.tagName==='DIV'||el.tagName==='SPAN'||el.tagName==='P'||el.tagName==='LABEL') el.innerHTML=I18N[LANG][k];
+    }
+  });
+  // Update nav items
+  document.querySelectorAll('.nt').forEach(el=>{
+    const k='nav-'+el.parentElement.textContent.toLowerCase().replace(/[^a-z]/g,'');
+    const lookup={'nav-home':'nav-home','nav-bazi':'nav-bazi','nav-wuxing':'nav-wuxing','nav-cezi':'nav-cezi','nav-face':'nav-mx','nav-palm':'nav-sx'};
+    const mapped=lookup['nav-'+el.parentElement.querySelector('.ni')?.nextSibling?.textContent?.toLowerCase()];
+    if(mapped&&I18N[LANG]&&I18N[LANG][mapped]) el.textContent=I18N[LANG][mapped];
+  });
+  // Rebuild dynamic content
+  renderZodiacGrid();
+  renderWuXing();
+  if(document.getElementById('screen-fortune').classList.contains('active')&&currentZodiac&&userInfo){
+    document.getElementById('fortuneContent').innerHTML=buildFortuneHTML();
+  }
+  if(document.getElementById('screen-bazi').classList.contains('active')&&userInfo){
+    document.getElementById('baziInfo').innerHTML=buildBaziDetail();
+  }
+  if(document.getElementById('screen-share').classList.contains('active')) renderSharePreview();
+}
+
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  STARFIELD
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?const canvas=document.getElementById('starfield'),ctx=canvas.getContext('2d');
+let stars=[],W,H;
+function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;}
+resize();window.addEventListener('resize',resize);
 function initStars(n=180){
   stars=Array.from({length:n},()=>({
-    x:Math.random()*w, y:Math.random()*h,
-    r:Math.random()*2.2+.2,
-    twinkleSpeed:Math.random()*.015+.003,
-    twinkleOffset:Math.random()*Math.PI*2,
-    baseAlpha:Math.random()*.45+.3,
-    hue:Math.random()<.12 ? 38+Math.random()*18 : 250+Math.random()*50
+    x:Math.random()*W,y:Math.random()*H,r:Math.random()*2.2+.2,
+    twinkleSpeed:Math.random()*.015+.003,twinkleOffset:Math.random()*Math.PI*2,
+    baseAlpha:Math.random()*.45+.3,hue:Math.random()<.12?38+Math.random()*18:250+Math.random()*50
   }));
 }
 initStars();
 function draw(t){
-  ctx.clearRect(0,0,w,h);
+  ctx.clearRect(0,0,W,H);
   for(const s of stars){
     const a=s.baseAlpha+Math.sin(t*s.twinkleSpeed+s.twinkleOffset)*.25;
-    ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-    ctx.fillStyle=`hsla(${s.hue},55%,78%,${Math.min(1,a)})`; ctx.fill();
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`hsla(${s.hue},55%,78%,${Math.min(1,a)})`;ctx.fill();
     if(s.r>1.1){
       const grd=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*3);
-      grd.addColorStop(0,`hsla(${s.hue},55%,78%,${a*.2})`);
-      grd.addColorStop(1,'transparent');
-      ctx.beginPath(); ctx.arc(s.x,s.y,s.r*3,0,Math.PI*2);
-      ctx.fillStyle=grd; ctx.fill();
+      grd.addColorStop(0,`hsla(${s.hue},55%,78%,${a*.2})`);grd.addColorStop(1,'transparent');
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r*3,0,Math.PI*2);ctx.fillStyle=grd;ctx.fill();
     }
   }
   requestAnimationFrame(draw);
 }
 requestAnimationFrame(draw);
 
-// Shooting stars
 function spawnShooting(){
-  const el=document.createElement('div');
-  el.className='shooting';
-  el.style.left=Math.random()*75+'%';
-  el.style.top=Math.random()*30+'%';
+  const el=document.createElement('div');el.className='shooting';
+  el.style.left=Math.random()*75+'%';el.style.top=Math.random()*30+'%';
   el.style.transform=`rotate(${15+Math.random()*30}deg)`;
   el.style.animationDuration=(Math.random()*1+0.8)+'s';
-  document.body.appendChild(el);
-  setTimeout(()=>el.remove(),2000);
+  document.body.appendChild(el);setTimeout(()=>el.remove(),2000);
 }
-setInterval(()=>{ if(Math.random()<.25) spawnShooting(); },5000);
+setInterval(()=>{if(Math.random()<.25)spawnShooting();},5000);
 spawnShooting();
 
-// ═══════════════════════════════════════════════
-//  2. PARTICLE BURST on card flip
-// ═══════════════════════════════════════════════
-function burstParticles(x,y,count=30){
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  PARTICLES
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?function burstParticles(x,y,count=30){
   const colors=['#f5dc90','#e8c46a','#c49a3c','#d4958a','#b8946e','#e8b4a0'];
   const container=document.getElementById('particles');
   for(let i=0;i<count;i++){
-    const p=document.createElement('div');
-    p.className='particle';
-    const angle=Math.random()*Math.PI*2;
-    const dist=60+Math.random()*140;
-    p.style.cssText=`
-      left:${x}px; top:${y}px;
-      width:${2+Math.random()*4}px; height:${2+Math.random()*4}px;
-      background:${colors[Math.floor(Math.random()*colors.length)]};
-      border-radius:50%;
-      --dx:${Math.cos(angle)*dist}px; --dy:${Math.sin(angle)*dist}px;
-      animation-duration:${0.8+Math.random()*1}s;
-      box-shadow:0 0 ${4+Math.random()*8}px currentColor;
-    `;
-    container.appendChild(p);
-    setTimeout(()=>p.remove(),1500);
+    const p=document.createElement('div');p.className='particle';
+    const angle=Math.random()*Math.PI*2,dist=60+Math.random()*140;
+    p.style.cssText=`left:${x}px;top:${y}px;width:${2+Math.random()*4}px;height:${2+Math.random()*4}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:50%;--dx:${Math.cos(angle)*dist}px;--dy:${Math.sin(angle)*dist}px;animation-duration:${0.8+Math.random()*1}s;box-shadow:0 0 ${4+Math.random()*8}px currentColor;`;
+    container.appendChild(p);setTimeout(()=>p.remove(),1500);
   }
 }
 
-// ═══════════════════════════════════════════════
-//  3. FATE MUSIC ENGINE (宿命感生成式音乐)
-// ═══════════════════════════════════════════════
-let audioCtx=null, musicOn=false, musicNodes=null;
-
-function initAudioCtx(){
-  if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  MUSIC ENGINE (preserved)
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?let audioCtx=null,musicOn=false,musicNodes=null;
+function initAudioCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();}
+function toggleMusic(){
+  initAudioCtx();musicOn=!musicOn;const btn=document.getElementById('musicBtn');
+  if(musicOn){btn.classList.add('on');startMusic();}
+  else{btn.classList.remove('on');stopMusic();}
 }
-
-// Generative ambient — slow, fateful, evolving drone
 function startMusic(){
-  if(!audioCtx||musicNodes) return;
+  if(!audioCtx||musicNodes)return;
   const now=audioCtx.currentTime;
-  const masterGain=audioCtx.createGain();
-  masterGain.gain.setValueAtTime(0,now);
-  masterGain.gain.linearRampToValueAtTime(0.08,now+3);
-  masterGain.connect(audioCtx.destination);
-
-  // Deep sub drone — the "fate" underpinning
-  const sub=audioCtx.createOscillator();
-  sub.type='sine'; sub.frequency.setValueAtTime(55,now); // A1
-  const subGain=audioCtx.createGain();
-  subGain.gain.setValueAtTime(0.35,now);
-  sub.connect(subGain); subGain.connect(masterGain);
-  sub.start(now);
-
-  // Slow LFO for sub movement
-  const lfo=audioCtx.createOscillator();
-  lfo.type='sine'; lfo.frequency.setValueAtTime(0.03,now);
-  const lfoGain=audioCtx.createGain();
-  lfoGain.gain.setValueAtTime(4,now);
-  lfo.connect(lfoGain); lfoGain.connect(sub.frequency);
-  lfo.start(now);
-
-  // Ethereal pad layer 1
-  const pad1=audioCtx.createOscillator();
-  pad1.type='triangle'; pad1.frequency.setValueAtTime(220,now);
-  const pad1Gain=audioCtx.createGain();
-  pad1Gain.gain.setValueAtTime(0.12,now);
-  const pad1Filter=audioCtx.createBiquadFilter();
-  pad1Filter.type='lowpass'; pad1Filter.frequency.setValueAtTime(500,now);
-  pad1Filter.Q.setValueAtTime(0.5,now);
-  pad1.connect(pad1Filter); pad1Filter.connect(pad1Gain); pad1Gain.connect(masterGain);
-  pad1.start(now);
-
-  // Pad LFO for subtle detune
-  const padLFO=audioCtx.createOscillator();
-  padLFO.type='sine'; padLFO.frequency.setValueAtTime(0.07,now);
-  const padLFOGain=audioCtx.createGain();
-  padLFOGain.gain.setValueAtTime(3,now);
-  padLFO.connect(padLFOGain); padLFOGain.connect(pad1.frequency);
-  padLFO.start(now);
-
-  // High shimmer — "starlight"
-  const shimmer=audioCtx.createOscillator();
-  shimmer.type='sine'; shimmer.frequency.setValueAtTime(880,now);
-  const shimmerGain=audioCtx.createGain();
-  shimmerGain.gain.setValueAtTime(0,now);
-  // Pulse the shimmer
-  const shimmerPulse=audioCtx.createOscillator();
-  shimmerPulse.type='sine'; shimmerPulse.frequency.setValueAtTime(0.12,now);
-  const shimmerPulseGain=audioCtx.createGain();
-  shimmerPulseGain.gain.setValueAtTime(0.04,now);
-  shimmerPulse.connect(shimmerPulseGain); shimmerPulseGain.connect(shimmerGain.gain);
-  shimmerGain.gain.setValueAtTime(0.02,now);
-  shimmer.connect(shimmerGain); shimmerGain.connect(masterGain);
-  shimmer.start(now); shimmerPulse.start(now);
-
-  // Occasional chime
+  const masterGain=audioCtx.createGain();masterGain.gain.setValueAtTime(0,now);masterGain.gain.linearRampToValueAtTime(0.08,now+3);masterGain.connect(audioCtx.destination);
+  const sub=audioCtx.createOscillator();sub.type='sine';sub.frequency.setValueAtTime(55,now);
+  const subGain=audioCtx.createGain();subGain.gain.setValueAtTime(0.35,now);sub.connect(subGain);subGain.connect(masterGain);sub.start(now);
+  const lfo=audioCtx.createOscillator();lfo.type='sine';lfo.frequency.setValueAtTime(0.03,now);
+  const lfoGain=audioCtx.createGain();lfoGain.gain.setValueAtTime(4,now);lfo.connect(lfoGain);lfoGain.connect(sub.frequency);lfo.start(now);
+  const pad1=audioCtx.createOscillator();pad1.type='triangle';pad1.frequency.setValueAtTime(220,now);
+  const pad1Gain=audioCtx.createGain();pad1Gain.gain.setValueAtTime(0.12,now);
+  const pad1Filter=audioCtx.createBiquadFilter();pad1Filter.type='lowpass';pad1Filter.frequency.setValueAtTime(500,now);pad1Filter.Q.setValueAtTime(0.5,now);
+  pad1.connect(pad1Filter);pad1Filter.connect(pad1Gain);pad1Gain.connect(masterGain);pad1.start(now);
+  const padLFO=audioCtx.createOscillator();padLFO.type='sine';padLFO.frequency.setValueAtTime(0.07,now);
+  const padLFOGain=audioCtx.createGain();padLFOGain.gain.setValueAtTime(3,now);padLFO.connect(padLFOGain);padLFOGain.connect(pad1.frequency);padLFO.start(now);
+  const shimmer=audioCtx.createOscillator();shimmer.type='sine';shimmer.frequency.setValueAtTime(880,now);
+  const shimmerGain=audioCtx.createGain();shimmerGain.gain.setValueAtTime(0,now);
+  const shimmerPulse=audioCtx.createOscillator();shimmerPulse.type='sine';shimmerPulse.frequency.setValueAtTime(0.12,now);
+  const shimmerPulseGain=audioCtx.createGain();shimmerPulseGain.gain.setValueAtTime(0.04,now);shimmerPulse.connect(shimmerPulseGain);shimmerPulseGain.connect(shimmerGain.gain);
+  shimmerGain.gain.setValueAtTime(0.02,now);shimmer.connect(shimmerGain);shimmerGain.connect(masterGain);
+  shimmer.start(now);shimmerPulse.start(now);
   let chimeTimeout;
   function scheduleChime(){
-    const delay=8+Math.random()*14;
-    chimeTimeout=setTimeout(()=>{
-      if(!musicNodes) return;
-      playChimeNote();
-      scheduleChime();
-    },delay*1000);
+    chimeTimeout=setTimeout(()=>{if(!musicNodes)return;playChimeNote();scheduleChime();},(8+Math.random()*14)*1000);
   }
   function playChimeNote(){
-    const t=audioCtx.currentTime;
-    const freqs=[523.25,587.33,659.25,783.99,880,1046.5];
-    const f=freqs[Math.floor(Math.random()*freqs.length)];
-    const o=audioCtx.createOscillator();
-    o.type='sine';
-    const g=audioCtx.createGain();
-    g.gain.setValueAtTime(0.04,t);
-    g.gain.exponentialRampToValueAtTime(0.001,t+1.8);
-    o.frequency.setValueAtTime(f,t);
-    o.connect(g); g.connect(masterGain);
-    o.start(t); o.stop(t+2);
+    const t=audioCtx.currentTime;const freqs=[523.25,587.33,659.25,783.99,880,1046.5];const f=freqs[Math.floor(Math.random()*freqs.length)];
+    const o=audioCtx.createOscillator();o.type='sine';const g=audioCtx.createGain();
+    g.gain.setValueAtTime(0.04,t);g.gain.exponentialRampToValueAtTime(0.001,t+1.8);o.frequency.setValueAtTime(f,t);o.connect(g);g.connect(masterGain);o.start(t);o.stop(t+2);
   }
   scheduleChime();
-
   musicNodes={masterGain,sub,subGain,lfo,lfoGain,pad1,pad1Gain,pad1Filter,padLFO,padLFOGain,shimmer,shimmerGain,shimmerPulse,shimmerPulseGain,chimeTimeout};
 }
-
 function stopMusic(){
-  if(!musicNodes) return;
-  clearTimeout(musicNodes.chimeTimeout);
-  const now=audioCtx.currentTime;
-  musicNodes.masterGain.gain.linearRampToValueAtTime(0,now+2);
-  setTimeout(()=>{
-    try{musicNodes.sub.stop();}catch(e){}
-    try{musicNodes.lfo.stop();}catch(e){}
-    try{musicNodes.pad1.stop();}catch(e){}
-    try{musicNodes.padLFO.stop();}catch(e){}
-    try{musicNodes.shimmer.stop();}catch(e){}
-    try{musicNodes.shimmerPulse.stop();}catch(e){}
-    musicNodes=null;
-  },2200);
+  if(!musicNodes)return;clearTimeout(musicNodes.chimeTimeout);
+  const now=audioCtx.currentTime;musicNodes.masterGain.gain.linearRampToValueAtTime(0,now+2);
+  setTimeout(()=>{try{musicNodes.sub.stop();}catch(e){}try{musicNodes.lfo.stop();}catch(e){}try{musicNodes.pad1.stop();}catch(e){}try{musicNodes.padLFO.stop();}catch(e){}try{musicNodes.shimmer.stop();}catch(e){}try{musicNodes.shimmerPulse.stop();}catch(e){}musicNodes=null;},2200);
 }
+function playChime(){if(!audioCtx)return;const now=audioCtx.currentTime;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.setValueAtTime(880,now);o.frequency.exponentialRampToValueAtTime(1760,now+.08);o.frequency.exponentialRampToValueAtTime(880,now+.25);g.gain.setValueAtTime(.12,now);g.gain.exponentialRampToValueAtTime(.001,now+.4);o.connect(g);g.connect(audioCtx.destination);o.start(now);o.stop(now+.45);}
+function playRevealSound(){if(!audioCtx)return;const now=audioCtx.currentTime;[523.25,659.25,783.99,1046.5,1318.5].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.setValueAtTime(f,now+i*.1);g.gain.setValueAtTime(.1,now+i*.1);g.gain.exponentialRampToValueAtTime(.001,now+i*.1+.5);o.connect(g);g.connect(audioCtx.destination);o.start(now+i*.1);o.stop(now+i*.1+.55);});}
+document.addEventListener('click',()=>{if(!audioCtx){initAudioCtx();if(!musicOn){musicOn=true;document.getElementById('musicBtn').classList.add('on');startMusic();}}},{once:true});
 
-// Sound effects
-function playChime(){
-  if(!audioCtx) return;
-  const now=audioCtx.currentTime;
-  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-  o.type='sine';
-  o.frequency.setValueAtTime(880,now);
-  o.frequency.exponentialRampToValueAtTime(1760,now+.08);
-  o.frequency.exponentialRampToValueAtTime(880,now+.25);
-  g.gain.setValueAtTime(.12,now);
-  g.gain.exponentialRampToValueAtTime(.001,now+.4);
-  o.connect(g); g.connect(audioCtx.destination);
-  o.start(now); o.stop(now+.45);
-}
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  LUNAR & BAZI ENGINE (preserved)
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?const lunarInfo=[0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,0x06ca0,0x0b550,0x15355,0x04da0,0x0a5b0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x05ac0,0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c4,0x0aae0,0x0a2e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a4d0,0x0d150,0x0f252,0x0d520];
+const STEMS=['鐢?,'涔?,'涓?,'涓?,'鎴?,'宸?,'搴?,'杈?,'澹?,'鐧?];
+const BRANCHES=['瀛?,'涓?,'瀵?,'鍗?,'杈?,'宸?,'鍗?,'鏈?,'鐢?,'閰?,'鎴?,'浜?];
+const ANIMALS=['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
+const ANIMALS_ZH=['榧?,'鐗?,'铏?,'鍏?,'榫?,'铔?,'椹?,'缇?,'鐚?,'楦?,'鐙?,'鐚?];
+const ELEMENTS_WX=['Wood','Wood','Fire','Fire','Earth','Earth','Metal','Metal','Water','Water'];
+const ELEMENTS_ZH=['鏈?,'鏈?,'鐏?,'鐏?,'鍦?,'鍦?,'閲?,'閲?,'姘?,'姘?];
 
-function playRevealSound(){
-  if(!audioCtx) return;
-  const now=audioCtx.currentTime;
-  [523.25,659.25,783.99,1046.5,1318.5].forEach((f,i)=>{
-    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-    o.type='sine';
-    o.frequency.setValueAtTime(f,now+i*.1);
-    g.gain.setValueAtTime(.1,now+i*.1);
-    g.gain.exponentialRampToValueAtTime(.001,now+i*.1+.5);
-    o.connect(g); g.connect(audioCtx.destination);
-    o.start(now+i*.1); o.stop(now+i*.1+.55);
-  });
-}
-
-// Music toggle
-document.getElementById('musicBtn').addEventListener('click',()=>{
-  initAudioCtx();
-  musicOn=!musicOn;
-  const btn=document.getElementById('musicBtn');
-  if(musicOn){
-    btn.textContent='♪'; btn.classList.add('on');
-    startMusic();
-  }else{
-    btn.textContent='♪'; btn.classList.remove('on');
-    stopMusic();
-  }
-});
-// Start music on first interaction (user-friendly)
-document.addEventListener('click',()=>{ if(!audioCtx){ initAudioCtx(); if(!musicOn){ musicOn=true; document.getElementById('musicBtn').classList.add('on'); startMusic(); } } },{once:true});
-
-// ═══════════════════════════════════════════════
-//  4. LUNAR CALENDAR ENGINE
-// ═══════════════════════════════════════════════
-const lunarInfo=[0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,0x06ca0,0x0b550,0x15355,0x04da0,0x0a5b0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x05ac0,0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c4,0x0aae0,0x0a2e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a4d0,0x0d150,0x0f252,0x0d520];
-const STEMS=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
-const BRANCHES=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
-const ANIMALS=['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
-const ELEMENTS=['木','木','火','火','土','土','金','金','水','水'];
-
-function getLunarYearInfo(y){ return lunarInfo[y-1900]; }
-function solarDays(y){ return (y%4==0&&y%100!=0)||y%400==0?366:365; }
-function lunarYearDays(y){ let info=getLunarYearInfo(y),s=0; for(let i=0;i<12;i++) s+=(info>>(i+4))&1?30:29; return s+leapMonthDays(y); }
-function leapMonth(y){ return getLunarYearInfo(y)&0xf; }
-function leapMonthDays(y){ return leapMonth(y)?((getLunarYearInfo(y)>>16)&1?30:29):0; }
-function lunarMonthDays(y,m){ return (getLunarYearInfo(y)>>(m+3))&1?30:29; }
+function getLunarYearInfo(y){return lunarInfo[y-1900];}
+function solarDays(y){return(y%4==0&&y%100!=0)||y%400==0?366:365;}
+function lunarYearDays(y){let info=getLunarYearInfo(y),s=0;for(let i=0;i<12;i++)s+=(info>>(i+4))&1?30:29;return s+leapMonthDays(y);}
+function leapMonth(y){return getLunarYearInfo(y)&0xf;}
+function leapMonthDays(y){return leapMonth(y)?((getLunarYearInfo(y)>>16)&1?30:29):0;}
+function lunarMonthDays(y,m){return(getLunarYearInfo(y)>>(m+3))&1?30:29;}
 
 function solarToLunar(year,month,day){
   let offset=0;
-  for(let y=1900;y<year;y++) offset+=solarDays(y);
+  for(let y=1900;y<year;y++)offset+=solarDays(y);
   const md=[31,28,31,30,31,30,31,31,30,31,30,31];
-  if((year%4==0&&year%100!=0)||year%400==0) md[1]=29;
-  for(let m=1;m<month;m++) offset+=md[m-1];
+  if((year%4==0&&year%100!=0)||year%400==0)md[1]=29;
+  for(let m=1;m<month;m++)offset+=md[m-1];
   offset+=day-31;
   let ly=1900,lm=1,ld=1,days=lunarYearDays(1900);
-  while(offset>=days){ offset-=days; ly++; days=lunarYearDays(ly); }
-  const leap=leapMonth(ly); let isLeap=false;
+  while(offset>=days){offset-=days;ly++;days=lunarYearDays(ly);}
+  const leap=leapMonth(ly);let isLeap=false;
   for(lm=1;lm<=12;lm++){
-    let md=lunarMonthDays(ly,lm);
-    if(offset<md) break; offset-=md;
-    if(lm===leap){ md=leapMonthDays(ly); if(offset<md){ isLeap=true; break; } offset-=md; }
+    let d=lunarMonthDays(ly,lm);
+    if(offset<d)break;offset-=d;
+    if(lm===leap){d=leapMonthDays(ly);if(offset<d){isLeap=true;break;}offset-=d;}
   }
   ld=offset+1;
-  return {year:ly,month:lm,day:ld,isLeap};
+  return{year:ly,month:lm,day:ld,isLeap};
 }
 
 function getDayStemBranch(year,month,day){
   let days=0;
-  for(let y=1900;y<year;y++) days+=solarDays(y);
+  for(let y=1900;y<year;y++)days+=solarDays(y);
   const md=[31,28,31,30,31,30,31,31,30,31,30,31];
-  if((year%4==0&&year%100!=0)||year%400==0) md[1]=29;
-  for(let m=1;m<month;m++) days+=md[m-1];
+  if((year%4==0&&year%100!=0)||year%400==0)md[1]=29;
+  for(let m=1;m<month;m++)days+=md[m-1];
   days+=day-1;
-  const stem=days%10, branch=(days+10)%12;
-  return stem*12+branch;
+  return(days%10)*12+(days+10)%12;
 }
 
-function getYearStemBranch(year){ return (year-4)%60; }
-
+function getYearStemBranch(year){return(year-4)%60;}
 function getMonthStemBranch(year,month,day){
   const isLeap=(year%4==0&&year%100!=0)||year%400==0;
   const stOff=[0,31,59,90,120,151,181,212,243,273,304,334];
-  if(isLeap) for(let i=2;i<12;i++) stOff[i]++;
+  if(isLeap)for(let i=2;i<12;i++)stOff[i]++;
   const termDays=[5,19,4,19,5,21,6,22,7,23,7,23,7,23,7,23,7,23,7,23,7,22,7,22];
-  if(isLeap) for(let i=2;i<24;i++) termDays[i]++;
+  if(isLeap)for(let i=2;i<24;i++)termDays[i]++;
   let baziMonth=month;
-  if(day<termDays[(month-1)*2]) baziMonth=((month+10)%12)||12;
+  if(day<termDays[(month-1)*2])baziMonth=((month+10)%12)||12;
   const yStem=getYearStemBranch(year)%10;
   const monthStemBase=[2,4,6,8,0];
   const base=monthStemBase[Math.floor(yStem/2)];
@@ -839,123 +916,340 @@ function calculateBazi(year,month,day,hour){
   const mSB=getMonthStemBranch(year,month,day);
   const dSB=getDayStemBranch(year,month,day);
   const hSB=getHourStemBranch(dSB%10,hour);
-  return {
-    year:{stem:STEMS[ySB%10],branch:BRANCHES[ySB%12],animal:ANIMALS[ySB%12],element:ELEMENTS[ySB%10]},
-    month:{stem:STEMS[mSB%10],branch:BRANCHES[mSB%12],element:ELEMENTS[mSB%10]},
-    day:{stem:STEMS[dSB%10],branch:BRANCHES[dSB%12],element:ELEMENTS[dSB%10]},
-    hour:{stem:STEMS[hSB%10],branch:BRANCHES[hSB%12],element:ELEMENTS[hSB%10]},
+  const ani=LANG==='zh'?ANIMALS_ZH:ANIMALS;
+  const ele=LANG==='zh'?ELEMENTS_ZH:ELEMENTS_WX;
+  return{
+    year:{stem:STEMS[ySB%10],branch:BRANCHES[ySB%12],animal:ani[ySB%12],element:ele[ySB%10]},
+    month:{stem:STEMS[mSB%10],branch:BRANCHES[mSB%12],element:ele[mSB%10]},
+    day:{stem:STEMS[dSB%10],branch:BRANCHES[dSB%12],element:ele[dSB%10]},
+    hour:{stem:STEMS[hSB%10],branch:BRANCHES[hSB%12],element:ele[hSB%10]},
     raw:{ySB,mSB,dSB,hSB}
   };
 }
 
-// ═══════════════════════════════════════════════
-//  5. HUANGLI & FORTUNE
-// ═══════════════════════════════════════════════
-const AUSPICIOUS=['祭祀','祈福','出行','嫁娶','开市','交易','纳财','入宅','安床','修造','入学','会友','签约','求医','动土','栽种','开光','纳采'];
-const INAUSPICIOUS=['安葬','行丧','伐木','作灶','开渠','置产','词讼','远行','破土'];
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  HUANGLI & FORTUNE (preserved + bilingual)
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?const AUSPICIOUS_ZH=['绁','绁堢','鍑鸿','瀚佸ǘ','寮€甯?,'浜ゆ槗','绾宠储','鍏ュ畢','瀹夊簥','淇€?,'鍏ュ','浼氬弸','绛剧害','姹傚尰','鍔ㄥ湡','鏍界','寮€鍏?,'绾抽噰'];
+const INAUSPICIOUS_ZH=['瀹夎懍','琛屼抚','浼愭湪','浣滅伓','寮€娓?,'缃骇','璇嶈','杩滆','鐮村湡'];
+const AUSPICIOUS_EN=['Worship','Blessing','Travel','Marriage','Open Business','Trade','Collect Wealth','Move House','Set Bed','Renovation','Study','Meet Friends','Sign Contract','Seek Medical','Break Ground','Planting','Consecration','Engagement'];
+const INAUSPICIOUS_EN=['Funeral','Mourning','Logging','Kitchen Work','Digging','Property Purchase','Lawsuit','Long Journey','Earth Breaking'];
 
 function getDailyHuangli(daySB){
-  const dStem=daySB%10, dBranch=daySB%12;
-  const clashBranch=(dBranch+6)%12;
-  let r=dStem*12+dBranch;
-  const nextRand=()=>{ r=(r*1103515245+12345)&0x7fffffff; return r; };
-  const pool=[...AUSPICIOUS], pool2=[...INAUSPICIOUS];
-  const ausp=[], inausp=[];
-  for(let i=0;i<4+(nextRand()%3);i++){ const idx=nextRand()%pool.length; ausp.push(pool.splice(idx,1)[0]); }
-  for(let i=0;i<3+(nextRand()%2);i++){ const idx=nextRand()%pool2.length; inausp.push(pool2.splice(idx,1)[0]); }
-  return {
+  const dStem=daySB%10,dBranch=daySB%12;
+  const clashBranch=(dBranch+6)%12;let r=dStem*12+dBranch;
+  const nextRand=()=>{r=(r*1103515245+12345)&0x7fffffff;return r;};
+  const auspList=LANG==='zh'?AUSPICIOUS_ZH:AUSPICIOUS_EN;
+  const inauspList=LANG==='zh'?INAUSPICIOUS_ZH:INAUSPICIOUS_EN;
+  const pool=[...auspList],pool2=[...inauspList];
+  const ausp=[],inausp=[];
+  for(let i=0;i<4+(nextRand()%3);i++){const idx=nextRand()%pool.length;ausp.push(pool.splice(idx,1)[0]);}
+  for(let i=0;i<3+(nextRand()%2);i++){const idx=nextRand()%pool2.length;inausp.push(pool2.splice(idx,1)[0]);}
+  const dirs_EN=['East','South','West','North','Southeast','Southwest','Northeast','Northwest'];
+  const dirs_ZH=['涓滄柟','鍗楁柟','瑗挎柟','鍖楁柟','涓滃崡','瑗垮崡','涓滃寳','瑗垮寳'];
+  const cols_EN=['Gold','Purple','Red','Blue','Emerald','Moon White','Amber','Coral'];
+  const cols_ZH=['閲戣壊','绱壊','绾㈣壊','钃濊壊','缈犵豢','鏈堢櫧','鐞ョ弨','鐝婄憵'];
+  return{
     dayStem:STEMS[dStem],dayBranch:BRANCHES[dBranch],
-    clash:{clashBranch:BRANCHES[clashBranch],clashAnimal:ANIMALS[clashBranch]},
+    clash:{clashBranch:BRANCHES[clashBranch],clashAnimal:LANG==='zh'?ANIMALS_ZH[clashBranch]:ANIMALS[clashBranch]},
     auspicious:ausp,inauspicious:inausp,
-    goodDirection:['东方','南方','西方','北方','东南','西南','东北','西北'][nextRand()%8],
-    luckyColor:['金色','紫色','红色','蓝色','翠绿','月白','琥珀','珊瑚'][nextRand()%8]
+    goodDirection:LANG==='zh'?dirs_ZH[nextRand()%8]:dirs_EN[nextRand()%8],
+    luckyColor:LANG==='zh'?cols_ZH[nextRand()%8]:cols_EN[nextRand()%8]
   };
 }
 
 function generateFortune(bazi,huangli,zodiacInfo,period){
   const today=new Date();
   const daySB=getDayStemBranch(today.getFullYear(),today.getMonth()+1,today.getDate());
-  const dStem=daySB%10, userDayStem=bazi.raw.dSB%10;
+  const dStem=daySB%10,userDayStem=bazi.raw.dSB%10;
   const relation=(dStem-userDayStem+10)%10;
   const harmonyMap=[5,4,3,3,4,5,4,3,3,4];
   const baseLuck=harmonyMap[relation];
-  const periodMod={today:0,week:0.5,month3:1}[period];
+  const periodMod={today:0,week:0.5,month3:1}[period]||0;
   const luck=Math.min(5,Math.max(1,Math.round(baseLuck+periodMod+(Math.random()*2-1))));
-  const stars='★'.repeat(luck)+'☆'.repeat(5-luck);
+  const stars='鈽?.repeat(luck)+'鈽?.repeat(5-luck);
   const userElement=bazi.day.element;
-  const dayElement=ELEMENTS[dStem];
-  const elRel=userElement===dayElement?'比和相助，如鱼得水':({'木火':'木火相生，运势蒸腾','火土':'火土相济，根基稳固','土金':'土金相生，厚积薄发','金水':'金水相生，灵感涌现','水木':'水木相生，生机勃发','火木':'木助火势，能量充盈','土火':'火暖厚土，温暖前行','金土':'土生金石，贵人相助','水金':'金生丽水，财源暗涌','木水':'水润根木，滋养成长','木土':'木克土，注意人际摩擦','土水':'土挡水流，情绪需疏导','水金':'水泄金气，避免透支','金木':'金伐木，压力中成长','火金':'火炼金，磨砺出真知'})[userElement+dayElement]||'各有天命';
-  return {stars,luck,elementRelation:elRel,
+  const dayElement=(LANG==='zh'?ELEMENTS_ZH:ELEMENTS_WX)[dStem];
+  const elRel=(LANG==='zh'?
+    ({'鏈ㄧ伀':'鏈ㄧ伀鐩哥敓锛岃繍鍔胯捀鑵?,'鐏湡':'鐏湡鐩告祹锛屾牴鍩虹ǔ鍥?,'鍦熼噾':'鍦熼噾鐩哥敓锛屽帤绉杽鍙?,'閲戞按':'閲戞按鐩哥敓锛岀伒鎰熸秾鐜?,'姘存湪':'姘存湪鐩哥敓锛岀敓鏈哄媰鍙?,'鐏湪':'鏈ㄥ姪鐏娍锛岃兘閲忓厖鐩?,'鍦熺伀':'鐏殩鍘氬湡锛屾俯鏆栧墠琛?,'閲戝湡':'鍦熺敓閲戠煶锛岃吹浜虹浉鍔?,'姘撮噾':'閲戠敓涓芥按锛岃储婧愭殫娑?,'鏈ㄦ按':'姘存鼎鏍规湪锛屾粙鍏绘垚闀?,'鏈ㄥ湡':'鏈ㄥ厠鍦燂紝娉ㄦ剰浜洪檯鎽╂摝','鍦熸按':'鍦熸尅姘存祦锛屾儏缁渶鐤忓','閲戞按':'姘存硠閲戞皵锛岄伩鍏嶉€忔敮','閲戞湪':'閲戜紣鏈紝鍘嬪姏涓垚闀?,'鐏噾':'鐏偧閲戯紝纾ㄧ牶鍑虹湡鐭?})[userElement+dayElement]||'鍚勬湁澶╁懡'
+  ):(
+    {'WoodFire':'Wood feeds Fire 鈥?explosive creative energy','FireEarth':'Fire creates Earth 鈥?solid foundation forming','EarthMetal':'Earth bears Metal 鈥?wealth accumulating','MetalWater':'Metal produces Water 鈥?inspiration flowing','WaterWood':'Water nourishes Wood 鈥?growth flourishing','FireWood':'Wood fuels Fire 鈥?energy surging','EarthFire':'Fire warms Earth 鈥?steady progress','MetalEarth':'Earth yields Metal 鈥?noble support','WaterMetal':'Metal births Water 鈥?hidden wealth','WoodWater':'Water feeds Wood 鈥?deep nourishment','WoodEarth':'Wood restrains Earth 鈥?watch for friction','EarthWater':'Earth blocks Water 鈥?emotional flow needed','MetalWood':'Metal chops Wood 鈥?growth through pressure','FireMetal':'Fire melts Metal 鈥?forged in challenge','WaterFire':'Water douses Fire 鈥?conserve your flame'})[userElement+dayElement]||'Balance in all things'
+  );
+  return{stars,luck,elementRelation:elRel,
     ...(period==='today'?dailyAdvice(bazi,huangli,dStem):period==='week'?weekAdvice(bazi):month3Advice(bazi)),
-    periodLabel:{today:'今日',week:'未来一周',month3:'未来三月'}[period]};
+    periodLabel:t('period-'+period)};
 }
 
 function dailyAdvice(bazi,huangli,dStem){
   const dos=[],donts=[];
-  if(huangli.clash.clashAnimal===bazi.year.animal) donts.push('今日冲你生肖'+bazi.year.animal+'，大事缓行');
+  if(huangli.clash.clashAnimal===bazi.year.animal)donts.push(LANG==='zh'?('浠婃棩鍐蹭綘鐢熻倴'+bazi.year.animal+'锛屽ぇ浜嬬紦琛?):('Today clashes with your zodiac '+bazi.year.animal+', postpone major decisions'));
   const r=(dStem-bazi.raw.dSB%10+10)%10;
-  const rText=['和谐共振，万事顺遂','滋养生长，好运自来','推动前行，积极主动','耐心应对，以静制动','反思调整，内观自省','静观其变，顺势而为'];
-  if(r===0) dos.push('与日柱比和，社交谈判皆宜');
-  else if(r<3) dos.push('日柱生助，做事如有神助');
-  else dos.push('低调行事，积蓄力量');
-  dos.push('宜：'+huangli.auspicious.slice(0,2).join('、'));
-  donts.push('忌：'+huangli.inauspicious.slice(0,2).join('、'));
-  return {advice:'今日<span class="highlight">'+huangli.dayStem+huangli.dayBranch+'日</span>，与你的日柱<span class="highlight">'+bazi.day.stem+bazi.day.branch+'</span>能量互动：'+rText[r]+'。',dos,donts};
+  const rText=LANG==='zh'?['鍜岃皭鍏辨尟锛屼竾浜嬮『閬?,'婊嬪吇鐢熼暱锛屽ソ杩愯嚜鏉?,'鎺ㄥ姩鍓嶈锛岀Н鏋佷富鍔?,'鑰愬績搴斿锛屼互闈欏埗鍔?,'鍙嶆€濊皟鏁达紝鍐呰鑷渷','闈欒鍏跺彉锛岄『鍔胯€屼负']:['Harmonic resonance 鈥?all flows smoothly','Nurturing energy 鈥?fortune arrives naturally','Forward momentum 鈥?take initiative','Patience is power 鈥?stillness wins','Reflect and adjust 鈥?look within','Observe and adapt 鈥?go with the flow'];
+  if(r===0)dos.push(LANG==='zh'?'涓庢棩鏌辨瘮鍜岋紝绀句氦璋堝垽鐨嗗疁':'Day Pillar harmony 鈥?great for social & negotiation');
+  else if(r<3)dos.push(LANG==='zh'?'鏃ユ煴鐢熷姪锛屽仛浜嬪鏈夌鍔?:'Day Pillar support 鈥?blessed momentum');
+  else dos.push(LANG==='zh'?'浣庤皟琛屼簨锛岀Н钃勫姏閲?:'Keep a low profile, gather strength');
+  dos.push((LANG==='zh'?'瀹滐細':'Auspicious: ')+huangli.auspicious.slice(0,2).join('銆?));
+  donts.push((LANG==='zh'?'蹇岋細':'Avoid: ')+huangli.inauspicious.slice(0,2).join('銆?));
+  const dayLabel=LANG==='zh'?huangli.dayStem+huangli.dayBranch+'鏃?:'Day of '+huangli.dayStem+huangli.dayBranch;
+  return{advice:(LANG==='zh'?'浠婃棩':'Today')+' <span class="highlight">'+dayLabel+'</span>, '+(LANG==='zh'?'涓庝綘鐨勬棩鏌?:'with your Day Pillar')+' <span class="highlight">'+bazi.day.stem+bazi.day.branch+'</span> '+(LANG==='zh'?'鑳介噺浜掑姩':'energy interaction')+'锛?+rText[r]+'銆?,dos,donts};
 }
 
 function weekAdvice(bazi){
-  return {
-    advice:'本周<span class="highlight">'+bazi.day.stem+'</span>日主的能量在七日内有三日与天时相合。保持<span class="highlight">'+bazi.day.element+'</span>属性的觉知，顺势而为，不必强求。',
-    dos:['关注每日变化，灵活应对','利用前三日上升能量推进计划','周中适合做重要决策与沟通'],
-    donts:['避免在冲煞日做重大决定','不与负面情绪纠缠','减少无谓的社交消耗']
-  };
+  return{LANG==='zh'?{advice:'鏈懆<span class="highlight">'+bazi.day.stem+'</span>鏃ヤ富鐨勮兘閲忓湪涓冩棩鍐呮湁涓夋棩涓庡ぉ鏃剁浉鍚堛€備繚鎸?span class="highlight">'+bazi.day.element+'</span>灞炴€х殑瑙夌煡锛岄『鍔胯€屼负锛屼笉蹇呭己姹傘€?,dos:['鍏虫敞姣忔棩鍙樺寲锛岀伒娲诲簲瀵?,'鍒╃敤鍓嶄笁鏃ヤ笂鍗囪兘閲忔帹杩涜鍒?,'鍛ㄤ腑閫傚悎鍋氶噸瑕佸喅绛栦笌娌熼€?],donts:['閬垮厤鍦ㄥ啿鐓炴棩鍋氶噸澶у喅瀹?,'涓嶄笌璐熼潰鎯呯华绾犵紶','鍑忓皯鏃犺皳鐨勭ぞ浜ゆ秷鑰?]}:{advice:'This week, your <span class="highlight">'+bazi.day.stem+'</span> Day Master energy harmonizes with the cosmos on three days. Stay attuned to your <span class="highlight">'+bazi.day.element+'</span> nature and flow with the rhythm.',dos:['Watch daily shifts and stay flexible','Use the first 3 days of rising energy','Midweek is best for key decisions'],donts:['Avoid major decisions on clash days','Don\'t get tangled in negativity','Reduce draining social obligations']}}[LANG]};
 }
 
 function month3Advice(bazi){
-  const elMsg={木:'春生之气涌动，创意的种子正在萌芽，保持开放心态迎接新生。',火:'热情之火冉冉升起，表达自我、展现才华的黄金时段已至。',土:'根基正在加固，适合学习积累，厚积薄发静待花开。',金:'收获的季节悄然临近，过往的耕耘即将结出硕果。',水:'灵感的源泉潺潺流动，直觉比理性更加可靠。'};
-  return {
-    advice:'未来三个月，<span class="highlight">'+bazi.day.stem+bazi.day.branch+'</span>的能量将与季节共鸣。<span class="highlight">'+bazi.day.element+'</span>属性在此期间尤为重要——'+elMsg[bazi.day.element],
-    dos:['制定季度目标，分解为可行步骤','投资自我提升，学习新技能','拓展有意义的社交连接'],
-    donts:['避免冲动投资或重大财务决策','不要忽视身体发出的信号','减少消耗型的人际关系']
-  };
+  const elMsg=LANG==='zh'?{鏈?'鏄ョ敓涔嬫皵娑屽姩锛屽垱鎰忕殑绉嶅瓙姝ｅ湪钀岃娊锛屼繚鎸佸紑鏀惧績鎬佽繋鎺ユ柊鐢熴€?,鐏?'鐑儏涔嬬伀鍐夊唹鍗囪捣锛岃〃杈捐嚜鎴戙€佸睍鐜版墠鍗庣殑榛勯噾鏃舵宸茶嚦銆?,鍦?'鏍瑰熀姝ｅ湪鍔犲浐锛岄€傚悎瀛︿範绉疮锛屽帤绉杽鍙戦潤寰呰姳寮€銆?,閲?'鏀惰幏鐨勫鑺傛倓鐒朵复杩戯紝杩囧線鐨勮€曡€樺嵆灏嗙粨鍑虹鏋溿€?,姘?'鐏垫劅鐨勬簮娉夋胶娼烘祦鍔紝鐩磋姣旂悊鎬ф洿鍔犲彲闈犮€?}:{Wood:'Spring energy stirs 鈥?creative seeds are sprouting. Stay open to new beginnings.',Fire:'Passion rises 鈥?a golden time for self-expression and showcasing your talents.',Earth:'Foundations are strengthening 鈥?perfect for learning and steady accumulation.',Metal:'Harvest season approaches 鈥?past efforts will soon bear fruit.',Water:'Intuition flows like a spring 鈥?trust your instincts over logic now.'};
+  return{LANG==='zh'?{advice:'鏈潵涓変釜鏈堬紝<span class="highlight">'+bazi.day.stem+bazi.day.branch+'</span>鐨勮兘閲忓皢涓庡鑺傚叡楦ｃ€?span class="highlight">'+bazi.day.element+'</span>灞炴€у湪姝ゆ湡闂村挨涓洪噸瑕佲€斺€?+elMsg[bazi.day.element],dos:['鍒跺畾瀛ｅ害鐩爣锛屽垎瑙ｄ负鍙姝ラ','鎶曡祫鑷垜鎻愬崌锛屽涔犳柊鎶€鑳?,'鎷撳睍鏈夋剰涔夌殑绀句氦杩炴帴'],donts:['閬垮厤鍐插姩鎶曡祫鎴栭噸澶ц储鍔″喅绛?,'涓嶈蹇借韬綋鍙戝嚭鐨勪俊鍙?,'鍑忓皯娑堣€楀瀷鐨勪汉闄呭叧绯?]}:{advice:'Over the next 3 months, your <span class="highlight">'+bazi.day.stem+bazi.day.branch+'</span> energy resonates with the season. Your <span class="highlight">'+bazi.day.element+'</span> element is especially potent 鈥?'+elMsg[bazi.day.element],dos:['Set quarterly goals in achievable steps','Invest in self-improvement, learn new skills','Build meaningful social connections'],donts:['Avoid impulsive investments or major financial moves','Don\'t ignore your body\'s signals','Reduce draining relationships']}}[LANG];
 }
 
-// ═══════════════════════════════════════════════
-//  6. ZODIAC DATA
-// ═══════════════════════════════════════════════
-const zodiacs=[
-  {emoji:'♈',name:'白羊座',date:'3/21 – 4/19',element:'火',ruler:'火星',color:'炽红',stone:'钻石'},
-  {emoji:'♉',name:'金牛座',date:'4/20 – 5/20',element:'土',ruler:'金星',color:'翠绿',stone:'翡翠'},
-  {emoji:'♊',name:'双子座',date:'5/21 – 6/21',element:'风',ruler:'水星',color:'明黄',stone:'玛瑙'},
-  {emoji:'♋',name:'巨蟹座',date:'6/22 – 7/22',element:'水',ruler:'月亮',color:'月银',stone:'珍珠'},
-  {emoji:'♌',name:'狮子座',date:'7/23 – 8/22',element:'火',ruler:'太阳',color:'鎏金',stone:'红宝石'},
-  {emoji:'♍',name:'处女座',date:'8/23 – 9/22',element:'土',ruler:'水星',color:'烟灰',stone:'蓝宝石'},
-  {emoji:'♎',name:'天秤座',date:'9/23 – 10/23',element:'风',ruler:'金星',color:'藕粉',stone:'蛋白石'},
-  {emoji:'♏',name:'天蝎座',date:'10/24 – 11/22',element:'水',ruler:'冥王星',color:'深绯',stone:'黄玉'},
-  {emoji:'♐',name:'射手座',date:'11/23 – 12/21',element:'火',ruler:'木星',color:'绛紫',stone:'紫水晶'},
-  {emoji:'♑',name:'摩羯座',date:'12/22 – 1/19',element:'土',ruler:'土星',color:'赭褐',stone:'石榴石'},
-  {emoji:'♒',name:'水瓶座',date:'1/20 – 2/18',element:'风',ruler:'天王星',color:'天蓝',stone:'紫水晶'},
-  {emoji:'♓',name:'双鱼座',date:'2/19 – 3/20',element:'水',ruler:'海王星',color:'海蓝',stone:'月光石'},
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  ZODIAC DATA (bilingual)
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?const zodiacs=[
+  {emoji:'鈾?,name:{en:'Aries',zh:'鐧界緤搴?},date:'3/21鈥?/19',element:{en:'Fire',zh:'鐏?},ruler:{en:'Mars',zh:'鐏槦'},color:{en:'Crimson',zh:'鐐界孩'},stone:{en:'Diamond',zh:'閽荤煶'}},
+  {emoji:'鈾?,name:{en:'Taurus',zh:'閲戠墰搴?},date:'4/20鈥?/20',element:{en:'Earth',zh:'鍦?},ruler:{en:'Venus',zh:'閲戞槦'},color:{en:'Emerald',zh:'缈犵豢'},stone:{en:'Emerald',zh:'缈＄繝'}},
+  {emoji:'鈾?,name:{en:'Gemini',zh:'鍙屽瓙搴?},date:'5/21鈥?/21',element:{en:'Air',zh:'椋?},ruler:{en:'Mercury',zh:'姘存槦'},color:{en:'Yellow',zh:'鏄庨粍'},stone:{en:'Agate',zh:'鐜涚憴'}},
+  {emoji:'鈾?,name:{en:'Cancer',zh:'宸ㄨ煿搴?},date:'6/22鈥?/22',element:{en:'Water',zh:'姘?},ruler:{en:'Moon',zh:'鏈堜寒'},color:{en:'Silver',zh:'鏈堥摱'},stone:{en:'Pearl',zh:'鐝嶇彔'}},
+  {emoji:'鈾?,name:{en:'Leo',zh:'鐙瓙搴?},date:'7/23鈥?/22',element:{en:'Fire',zh:'鐏?},ruler:{en:'Sun',zh:'澶槼'},color:{en:'Gold',zh:'閹忛噾'},stone:{en:'Ruby',zh:'绾㈠疂鐭?}},
+  {emoji:'鈾?,name:{en:'Virgo',zh:'澶勫コ搴?},date:'8/23鈥?/22',element:{en:'Earth',zh:'鍦?},ruler:{en:'Mercury',zh:'姘存槦'},color:{en:'Gray',zh:'鐑熺伆'},stone:{en:'Sapphire',zh:'钃濆疂鐭?}},
+  {emoji:'鈾?,name:{en:'Libra',zh:'澶╃Г搴?},date:'9/23鈥?0/23',element:{en:'Air',zh:'椋?},ruler:{en:'Venus',zh:'閲戞槦'},color:{en:'Pink',zh:'钘曠矇'},stone:{en:'Opal',zh:'铔嬬櫧鐭?}},
+  {emoji:'鈾?,name:{en:'Scorpio',zh:'澶╄潕搴?},date:'10/24鈥?1/22',element:{en:'Water',zh:'姘?},ruler:{en:'Pluto',zh:'鍐ョ帇鏄?},color:{en:'Crimson',zh:'娣辩化'},stone:{en:'Topaz',zh:'榛勭帀'}},
+  {emoji:'鈾?,name:{en:'Sagittarius',zh:'灏勬墜搴?},date:'11/23鈥?2/21',element:{en:'Fire',zh:'鐏?},ruler:{en:'Jupiter',zh:'鏈ㄦ槦'},color:{en:'Purple',zh:'缁涚传'},stone:{en:'Amethyst',zh:'绱按鏅?}},
+  {emoji:'鈾?,name:{en:'Capricorn',zh:'鎽╃警搴?},date:'12/22鈥?/19',element:{en:'Earth',zh:'鍦?},ruler:{en:'Saturn',zh:'鍦熸槦'},color:{en:'Brown',zh:'璧'},stone:{en:'Garnet',zh:'鐭虫Υ鐭?}},
+  {emoji:'鈾?,name:{en:'Aquarius',zh:'姘寸摱搴?},date:'1/20鈥?/18',element:{en:'Air',zh:'椋?},ruler:{en:'Uranus',zh:'澶╃帇鏄?},color:{en:'Sky Blue',zh:'澶╄摑'},stone:{en:'Amethyst',zh:'绱按鏅?}},
+  {emoji:'鈾?,name:{en:'Pisces',zh:'鍙岄奔搴?},date:'2/19鈥?/20',element:{en:'Water',zh:'姘?},ruler:{en:'Neptune',zh:'娴风帇鏄?},color:{en:'Sea Blue',zh:'娴疯摑'},stone:{en:'Moonstone',zh:'鏈堝厜鐭?}},
 ];
 
-// ═══════════════════════════════════════════════
-//  7. UI LOGIC
-// ═══════════════════════════════════════════════
-let userInfo=null, currentZodiac=null;
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  WU XING ENGINE
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?const wxData=[
+  {key:'fire',emoji:'馃敟',name:{en:'Fire',zh:'鐏?},descKey:'wx-fire-desc',gen:'earth',ctrl:'metal',genBy:'wood',ctrlBy:'water',color:'#e8947a',angle:-90},
+  {key:'earth',emoji:'馃彅锔?,name:{en:'Earth',zh:'鍦?},descKey:'wx-earth-desc',gen:'metal',ctrl:'water',genBy:'fire',ctrlBy:'wood',color:'#d4bc6a',angle:-18},
+  {key:'metal',emoji:'鈿旓笍',name:{en:'Metal',zh:'閲?},descKey:'wx-metal-desc',gen:'water',ctrl:'wood',genBy:'earth',ctrlBy:'fire',color:'#e0d8cc',angle:54},
+  {key:'water',emoji:'馃挧',name:{en:'Water',zh:'姘?},descKey:'wx-water-desc',gen:'wood',ctrl:'fire',genBy:'metal',ctrlBy:'earth',color:'#8ac0e8',angle:126},
+  {key:'wood',emoji:'馃尦',name:{en:'Wood',zh:'鏈?},descKey:'wx-wood-desc',gen:'fire',ctrl:'earth',genBy:'water',ctrlBy:'metal',color:'#90d090',angle:198},
+];
+
+function renderWuXing(){
+  const wheel=document.getElementById('elementWheel');
+  const cx=130,cy=130,r=95;
+  wheel.innerHTML='<div class="element-center">鈽笍</div>';
+  wxData.forEach(d=>{
+    const rad=d.angle*Math.PI/180;
+    const x=cx+Math.cos(rad)*r-35,y=cy+Math.sin(rad)*r-35;
+    const div=document.createElement('div');
+    div.className='element-node '+d.key;
+    div.style.left=x+'px';div.style.top=y+'px';
+    div.innerHTML=d.emoji+'<br><span style="font-size:0.75em">'+d.name[LANG]+'</span>';
+    div.onclick=()=>selectElement(d);
+    wheel.appendChild(div);
+  });
+}
+
+function selectElement(d){
+  const detail=document.getElementById('wuxingDetail');
+  const genWx=wxData.find(w=>w.key===d.gen);
+  const ctrlWx=wxData.find(w=>w.key===d.ctrl);
+  const genByWx=wxData.find(w=>w.key===d.genBy);
+  const ctrlByWx=wxData.find(w=>w.key===d.ctrlBy);
+  detail.innerHTML=`
+    <div style="font-size:2.5em;margin-bottom:6px;">${d.emoji}</div>
+    <div style="font-size:1.2em;color:${d.color};font-weight:600;">${d.name[LANG]}</div>
+    <p style="font-size:0.85em;color:var(--text-secondary);margin:10px 0;line-height:1.6;">${t(d.descKey)}</p>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;font-size:0.78em;margin-top:8px;">
+      <span class="tag good">${t('wx-generates')}: ${genWx.emoji} ${genWx.name[LANG]}</span>
+      <span class="tag warn">${t('wx-controls')}: ${ctrlWx.emoji} ${ctrlWx.name[LANG]}</span>
+    </div>
+    <div style="font-size:0.72em;color:var(--text-muted);margin-top:6px;">
+      ${LANG==='zh'?'琚敓':'Generated by'} ${genByWx.emoji} ${genByWx.name[LANG]} 路 ${LANG==='zh'?'琚厠':'Controlled by'} ${ctrlByWx.emoji} ${ctrlByWx.name[LANG]}
+    </div>
+  `;
+  playChime();
+}
+
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  CE ZI ENGINE (Character Divination)
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?// Simplified character radical database
+const charDB={
+  '绂?:{strokes:13,element:'Water',radical:'绀?,fortune:{en:'Blessings are flowing toward you. A period of unexpected good fortune and family harmony awaits.',zh:'绂忔槦楂樼収锛岀ゥ鐟炰复闂ㄣ€傝繎鏈熷皢鏈夋剰澶栦箣鍠滐紝瀹朵汉鍜岀潶锛岃浜嬮『閬傘€?}},
+  '榫?:{strokes:5,element:'Earth',radical:'榫?,fortune:{en:'The dragon rises 鈥?an auspicious omen of power, success, and transformation. Your ambitions will find wings.',zh:'榫欒吘涔濆ぉ锛屽ぇ鍚変箣鍏嗐€備簨涓氳吘椋炲湪鍗筹紝璐典汉鐩稿姪锛屽寲榫欐垚鍑ゃ€?}},
+  '瀹?:{strokes:6,element:'Earth',radical:'瀹€',fortune:{en:'Peace and stability are your guiding stars. A calm harbor in turbulent times 鈥?protect your sanctuary.',zh:'瀹夊纾愮煶锛屽績闈欏垯鏄庛€傚湪鍔ㄨ崱涓畧浣忓唴蹇冪殑瀹侀潤锛屽钩瀹夊嵆鏄渶澶х殑绂忔姤銆?}},
+  '蹇?:{strokes:4,element:'Fire',radical:'蹇?,fortune:{en:'Follow your heart 鈥?intuition is your compass now. Emotional clarity brings the answers you seek.',zh:'蹇冧箣鎵€鍚戯紝绱犲饱浠ュ線銆傜洿瑙夋瘮鐞嗘€ф洿鍙潬锛屽惉浠庡唴蹇冪殑澹伴煶銆?}},
+  '姊?:{strokes:11,element:'Wood',radical:'澶?,fortune:{en:'Dreams are the seeds of reality. This character carries the energy of vision and aspiration 鈥?pursue what haunts your imagination.',zh:'浠ユⅵ涓洪┈锛屼笉璐熼煻鍗庛€傝拷閫愬績涓殑鐞嗘兂锛屾ⅵ澧冪粓灏嗙収杩涚幇瀹炪€?}},
+  '鐖?:{strokes:10,element:'Water',radical:'蹇?,fortune:{en:'Love in all its forms surrounds you. A profound connection is either arriving or deepening. Open your heart fully.',zh:'鐖卞娼按锛屾鼎鐗╂棤澹般€備竴娈垫繁鍒荤殑鎯呮劅姝ｆ倓鐒惰€岃嚦锛屾暈寮€蹇冩墘銆?}},
+  '閲?:{strokes:8,element:'Metal',radical:'閲?,fortune:{en:'Wealth and abundance align with your path. Material prosperity meets spiritual richness. Stay grounded in gratitude.',zh:'閲戠帀婊″爞锛岃储杩愪酣閫氥€傝繎鏈熻储杩愯蛋寮猴紝浣嗛渶鎴掗獎鎴掕簛锛岀煡瓒冲父涔愩€?}},
+  '灞?:{strokes:3,element:'Earth',radical:'灞?,fortune:{en:'Like a mountain, your strength lies in stillness. Stand firm amid chaos 鈥?the storm will pass and you will remain.',zh:'涓嶅姩濡傚北锛屽帤寰疯浇鐗┿€備互闈欏埗鍔紝绋虫墡绋虫墦锛岄闆ㄨ繃鍚庝究鏄櫞澶┿€?}},
+  '椋?:{strokes:4,element:'Wood',radical:'椋?,fortune:{en:'The wind carries change on its wings. Embrace the unpredictable 鈥?new opportunities arrive from unfamiliar directions.',zh:'椋庤涓囬噷锛屽彉鍖栦箣濮嬨€傛柊鐨勬満閬囦粠鎰忔兂涓嶅埌鐨勬柟鍚戝惞鏉ワ紝椤哄娍鑰屼负銆?}},
+  '姘?:{strokes:4,element:'Water',radical:'姘?,fortune:{en:'Flow like water 鈥?adaptable, persistent, powerful. What seems like a detour is the river finding its true course.',zh:'涓婂杽鑻ユ按锛屼互鏌斿厠鍒氥€傜湅浼兼洸鎶樼殑閬撹矾锛屾鏄懡杩愪负浣犻€夋嫨鐨勬渶浣宠矾寰勩€?}},
+  '鐏?:{strokes:4,element:'Fire',radical:'鐏?,fortune:{en:'A spark of inspiration ignites. Passion projects, creative breakthroughs, and warm connections are on the horizon.',zh:'鏄熺伀鐕庡師锛岀儹鎯呮編婀冦€傚垱鎰忓拰婵€鎯呮鍦ㄧ噧鐑э紝灏嗙収浜綘鍓嶆柟鐨勯亾璺€?}},
+  '瀹?:{strokes:10,element:'Wood',radical:'瀹€',fortune:{en:'Home and family take center stage. Nurture your roots 鈥?domestic harmony creates the foundation for all other success.',zh:'瀹跺拰涓囦簨鍏淬€傚搴拰鐫︽槸涓€鍒囨垚鍔熺殑鍩虹锛岀弽鎯滅溂鍓嶄汉銆?}},
+  '澶?:{strokes:4,element:'Metal',radical:'澶?,fortune:{en:'Heaven favors the bold. The universe aligns to support your highest path. Trust in divine timing.',zh:'澶╅亾閰嫟锛屽帤寰疯浇绂忋€備笂澶╃湻椤惧姫鍔涗箣浜猴紝淇濇寔姝ｇ洿鍜屽嫟濂嬨€?}},
+  '鏄?:{strokes:8,element:'Fire',radical:'鏃?,fortune:{en:'Clarity dawns. A fog of confusion lifts to reveal the truth you have been seeking. Enlightenment is near.',zh:'鏄庡績瑙佹€э紝璞佺劧寮€鏈椼€傚洶鎯戝嵆灏嗘暎鍘伙紝浣犲皢鐪嬫竻鍓嶈鐨勬柟鍚戙€?}},
+  '鍙?:{strokes:4,element:'Earth',radical:'鍙?,fortune:{en:'Friendship and alliance are blessed. A meaningful connection 鈥?personal or professional 鈥?will prove invaluable soon.',zh:'鍙嬪鐝嶅疂锛岀湡鎯呮棤浠枫€備竴娈电弽璐电殑鍙嬭皧灏嗕负浣犲甫鏉ユ剰鎯充笉鍒扮殑鏀寔銆?}},
+  '鏄?:{strokes:9,element:'Wood',radical:'鏃?,fortune:{en:'Spring energy 鈥?rebirth, renewal, growth. Whatever was dormant awakens now. A season of new beginnings.',zh:'鏄ユ殩鑺卞紑锛屼竾鐗╁鑻忋€傛柊鐨勫紑濮嬪嵆灏嗗埌鏉ワ紝杩囧幓鐨勫洶澧冨嵆灏嗗寲瑙ｃ€?}},
+  '杩?:{strokes:7,element:'Water',radical:'杈?,fortune:{en:'Fortune is in motion. The wheel of destiny turns in your favor. Be ready to catch the wave of luck approaching.',zh:'鏃舵潵杩愯浆锛屽惁鏋佹嘲鏉ャ€傝繍鍔挎鍦ㄥ悜濂界殑鏂瑰悜杞彉锛屾妸鎻℃椂鏈恒€?}},
+  '閬?:{strokes:12,element:'Metal',radical:'杈?,fortune:{en:'The Way reveals itself to those who walk it. Your path, though winding, is uniquely yours and perfectly timed.',zh:'澶ч亾鑷崇畝锛岃繑鐠炲綊鐪熴€傚洖褰掓湰蹇冿紝鍘婚櫎绻佹潅锛屼綘浼氭壘鍒板睘浜庤嚜宸辩殑閬撱€?}},
+};
+
+const wxStrokeMap=['Wood','Wood','Fire','Fire','Earth','Earth','Metal','Metal','Water','Water'];
+
+function doCezi(){
+  const inp=document.getElementById('charInput').value.trim();
+  const res=document.getElementById('ceziResult');
+  if(!inp){
+    res.innerHTML='<p style="color:var(--rose-light);">'+(LANG==='zh'?'璇疯緭鍏ヤ竴涓眽瀛?:'Please enter a Chinese character')+'</p>';
+    return;
+  }
+  playRevealSound();
+  const entry=charDB[inp];
+  let strokes,element,fortune;
+  if(entry){
+    strokes=entry.strokes;element=entry.element;fortune=entry.fortune[LANG];
+  }else{
+    // Use unicode-based fallback
+    const code=inp.codePointAt(0);
+    strokes=Math.min(30,Math.max(1,Math.floor(code%30)));
+    element=wxStrokeMap[code%10];
+    const fortunes=LANG==='zh'?[
+      '浣犻€夋嫨鐨勮繖涓瓧钑村惈鐫€娣卞埢鐨勮兘閲忋€傚綋涓嬩繚鎸佽€愬績锛屽畤瀹欐鍦ㄤ负浣犲畨鎺掓渶濂界殑鍓ф湰銆?,
+      '姝ゅ瓧甯︽湁寮虹儓鐨勫紑鍒涙皵鎭€傚媷鏁㈣繄鍑虹涓€姝ワ紝鏈洪亣灏卞湪杞澶勭瓑浣犮€?,
+      '杩欎釜瀛楅€忛湶鍑轰竴鑲℃矇绋充箣姘斻€傝繎鏈熷疁瀹堜笉瀹滄敾锛岄潤寰呰壇鏈恒€?,
+      '姝ゅ瓧鐨勮兘閲忓鏄ラ鍖栭洦銆備笌浜哄悎浣滃皢鏄綘鐨勫垢杩愪箣閬撱€?,
+      '杩欎釜瀛楁樉绀哄嚭鍙橀潻鐨勪俊鍙枫€備笉瑕佸鎬曟敼鍙橈紝鐮磋導鏂硅兘鎴愯澏銆?,
+    ]:[
+      'This character carries deep, resonant energy. Be patient 鈥?the universe is scripting your best chapter yet.',
+      'This character vibrates with pioneering spirit. Take that first bold step 鈥?opportunity awaits around the corner.',
+      'This character reveals a stabilizing force. Stay grounded and let opportunities come to you.',
+      'The energy of this character is like spring rain. Collaboration and partnership will be your lucky path.',
+      'This character signals transformation. Do not fear change 鈥?the butterfly must break the cocoon to fly.',
+    ];
+    fortune=fortunes[Math.floor(Math.random()*fortunes.length)];
+  }
+  const ele=LANG==='zh'?{'Wood':'鏈?,'Fire':'鐏?,'Earth':'鍦?,'Metal':'閲?,'Water':'姘?}[element]:element;
+  res.innerHTML=`
+    <div style="font-size:4em;color:var(--gold-glow);margin:8px 0;filter:drop-shadow(0 0 18px rgba(196,154,60,0.3));">${inp}</div>
+    <div class="char-decomp">
+      <span class="char-part">馃摑 <b>${strokes}</b> ${t('cezi-strokes')}</span>
+      <span class="char-part">鈽?<b>${ele}</b> ${t('cezi-element')}</span>
+    </div>
+    <div class="fortune-box" style="margin-top:10px;">
+      <h4>馃敭 ${t('cezi-fortune')}</h4>
+      <p>${fortune}</p>
+    </div>
+  `;
+  burstParticles(window.innerWidth/2,window.innerHeight/2,25);
+}
+
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  MIAN XIANG ENGINE (Face Reading Quiz)
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?const mxQuestions=[
+  {key:'forehead',qKey:'mx-q1',opts:['mx-fh1','mx-fh2','mx-fh3']},
+  {key:'eyebrows',qKey:'mx-q2',opts:['mx-eb1','mx-eb2','mx-eb3']},
+  {key:'eyes',qKey:'mx-q3',opts:['mx-ey1','mx-ey2','mx-ey3']},
+  {key:'nose',qKey:'mx-q4',opts:['mx-no1','mx-no2','mx-no3']},
+  {key:'cheekbones',qKey:'mx-q5',opts:['mx-cb1','mx-cb2','mx-cb3']},
+  {key:'chin',qKey:'mx-q6',opts:['mx-ch1','mx-ch2','mx-ch3']},
+];
+let mxStep=0,mxAnswers={};
+
+function resetMianxiang(){mxStep=0;mxAnswers={};showMxQuestion();playChime();}
+
+function showMxQuestion(){
+  const q=mxQuestions[mxStep];
+  document.getElementById('mxProgress').style.width=((mxStep/6)*100)+'%';
+  const progressText=t('mx-progress').replace('{n}',mxStep+1);
+  document.getElementById('mxQuestion').innerHTML=`<div style="font-size:0.72em;color:var(--text-muted);margin-bottom:6px;">${progressText}</div>${t(q.qKey)}`;
+  document.getElementById('mxOptions').innerHTML=q.opts.map(o=>`
+    <div class="face-opt" onclick="answerMx('${q.key}','${o}')">${t(o)}</div>
+  `).join('');
+  document.getElementById('mxResult').innerHTML='';
+}
+
+function answerMx(key,val){
+  mxAnswers[key]=val;playChime();
+  mxStep++;
+  if(mxStep>=mxQuestions.length){showMxResult();}
+  else{showMxQuestion();}
+}
+
+function showMxResult(){
+  document.getElementById('mxProgress').style.width='100%';
+  document.getElementById('mxQuestion').innerHTML='';
+  document.getElementById('mxOptions').innerHTML='';
+  const results={
+    en:['A noble forehead 鈥?a natural leader with clear vision and intellectual depth. Others naturally defer to your insight.','Balanced features suggest a harmonious personality. You navigate life with grace and emotional intelligence.','Strong, defined features reveal a determined and ambitious nature. You were born to leave a mark on the world.'],
+    zh:['澶╁涵楗辨弧锛岀娉芥繁鍘氥€備綘澶╃敓鍏锋湁棰嗚姘旇川锛岀洰鍏夎繙澶э紝鏅烘収瓒呯兢銆?,'浜斿畼鍖€绉帮紝姘旈煹骞冲拰銆備綘鎬ф牸娓╁拰锛屽浜嬪緱浣擄紝宸﹀彸閫㈡簮銆?,'楠ㄩ娓呭锛屽織鍚戜笉鍑°€備綘鎰忓織鍧氬畾锛屾敞瀹氳鍦ㄤ笘闂寸暀涓嬪嵃璁般€?]
+  };
+  const idx=Math.floor(Math.random()*3);
+  document.getElementById('mxResult').innerHTML=`
+    <div class="glass-card" style="text-align:center;margin-top:10px;">
+      <div style="font-size:3em;">馃敭</div>
+      <p style="font-size:0.95em;color:var(--text-primary);line-height:1.7;margin-top:8px;">${results[LANG][idx]}</p>
+    </div>
+  `;
+  playRevealSound();
+  burstParticles(window.innerWidth/2,window.innerHeight/2,30);
+}
+
+// Initialize Mianxiang
+function initMianxiang(){mxStep=0;mxAnswers={};showMxQuestion();}
+
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  SHOU XIANG (Palm Reading)
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?function initPalmLines(){
+  const lines=['life','head','heart','fate'];
+  lines.forEach(id=>{
+    document.getElementById('pl-'+id).onclick=function(e){
+      e.stopPropagation();
+      document.getElementById('sxDetail').innerHTML=`
+        <div class="fortune-box">
+          <h4>${t('pl-'+id)}</h4>
+          <p>${t('sx-'+id+'-desc')}</p>
+        </div>
+        <div style="text-align:center;margin-top:6px;">
+          <span class="tag">${LANG==='zh'?'鍚?:'Auspicious'}</span>
+        </div>
+      `;
+      playChime();
+      // Highlight selected line
+      document.querySelectorAll('.palm-line').forEach(l=>l.style.background='rgba(196,154,60,0.3)');
+      document.getElementById('pl-'+id).style.background='var(--gold-glow)';
+    };
+  });
+}
+
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  UI LOGIC
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?let userInfo=null,currentZodiac=null,currentScreen='home';
 
 document.querySelectorAll('.gender-opt').forEach(b=>{
-  b.onclick=()=>{ document.querySelectorAll('.gender-opt').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); };
+  b.onclick=()=>{document.querySelectorAll('.gender-opt').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');};
 });
 
-function getGender(){ return document.querySelector('.gender-opt.selected')?.dataset.gender||'male'; }
+function getGender(){return document.querySelector('.gender-opt.selected')?.dataset.gender||'male';}
+
+function showScreen(name){
+  currentScreen=name;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const target=document.getElementById('screen-'+name);
+  if(target)target.classList.add('active');
+  // Update bottom nav
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const navIndex={home:0,bazi:1,wuxing:2,cezi:3,mianxiang:4,shouxiang:5};
+  const idx=navIndex[name];
+  if(idx!==undefined){
+    const navs=document.querySelectorAll('.nav-item');
+    if(navs[idx])navs[idx].classList.add('active');
+  }
+  // Initialize screen-specific content
+  if(name==='bazi'&&userInfo){document.getElementById('baziInfo').innerHTML=buildBaziDetail();}
+  else if(name==='bazi'&&!userInfo){document.getElementById('baziInfo').innerHTML='<p style="text-align:center;color:var(--text-muted);margin:40px 0;" id="t-bazi-first">'+t('bazi-first')+'</p>';}
+  if(name==='wuxing')renderWuXing();
+  if(name==='mianxiang')initMianxiang();
+  if(name==='shouxiang')initPalmLines();
+  if(name==='share')renderSharePreview();
+  if(name==='fortune'&&!isNaN(name)){} // handled by card flip
+}
 
 function goToZodiac(){
   const dateVal=document.getElementById('birthDate').value;
-  if(!dateVal){ alert('请先选择出生日期'); return; }
-  const [y,m,d]=dateVal.split('-').map(Number);
+  if(!dateVal){alert(LANG==='zh'?'璇峰厛閫夋嫨鍑虹敓鏃ユ湡':'Please select your birth date first');return;}
+  const[y,m,d]=dateVal.split('-').map(Number);
   let hour=parseInt(document.getElementById('birthHour').value);
-  if(hour<0) hour=12;
-  const birthPlace=document.getElementById('birthPlace').value.trim()||'未知';
+  if(hour<0)hour=12;
+  const birthPlace=document.getElementById('birthPlace').value.trim()||'Unknown';
   const gender=getGender();
   const lunar=solarToLunar(y,m,d);
   const bazi=calculateBazi(y,m,d,hour);
@@ -967,120 +1261,291 @@ function goToZodiac(){
   showScreen('pick');
 }
 
-function backToInfo(){ showScreen('info'); }
-function showScreen(name){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('screen-'+name).classList.add('active');
-}
+function backToInfo(){showScreen('home');}
 
 function renderZodiacGrid(){
   document.getElementById('zodiacGrid').innerHTML=zodiacs.map((z,i)=>`
     <div class="zodiac-item" onclick="selectZodiac(${i})">
       <div class="zodiac-icon">${z.emoji}</div>
-      <div class="zodiac-label">${z.name}</div>
+      <div class="zodiac-label">${z.name[LANG]}</div>
     </div>
   `).join('');
 }
 
-function selectZodiac(idx){ currentZodiac=zodiacs[idx]; playChime(); showScreen('fortune'); resetCard(); }
-function backToPick(){ currentZodiac=null; showScreen('pick'); }
-function resetCard(){ document.getElementById('fortuneCard').classList.remove('flipped'); }
-function flipAgain(){ resetCard(); }
+function selectZodiac(idx){currentZodiac=zodiacs[idx];playChime();showScreen('fortune');resetCard();}
+function backToPick(){currentZodiac=null;showScreen('pick');}
+function resetCard(){document.getElementById('fortuneCard').classList.remove('flipped');}
+function flipAgain(){resetCard();}
+
+function buildBaziDetail(){
+  const b=userInfo.bazi,lunar=userInfo.lunar,h=userInfo.todayHuangli;
+  const baziHTML=['Year','Month','Day','Hour'].map((label,i)=>{
+    const p=[b.year,b.month,b.day,b.hour][i];
+    const extra=i===0?`<div class="pa">${b.year.animal}</div>`:i===2?`<div class="pa">${LANG==='zh'?'鏃ヤ富':'Master'} ${b.day.element}</div>`:'';
+    return `<div class="bazi-pillar"><div class="pl">${LANG==='zh'?['骞?,'鏈?,'鏃?,'鏃?][i]:label} ${LANG==='zh'?'鏌?:'Pillar'}</div><div class="ps">${p.stem}</div><div class="pb">${p.branch}</div>${extra}</div>`;
+  }).join('');
+  return `
+    <div style="text-align:center;margin-bottom:8px;">
+      <div style="font-family:${LANG==='zh'?"'Ma Shan Zheng',cursive":"'Cinzel',serif"};font-size:1.15em;color:var(--gold-glow);letter-spacing:3px;margin-bottom:4px;">${t('bazi-detail-sub')}</div>
+    </div>
+    <div class="user-meta">
+      ${userInfo.gender==='male'?(LANG==='zh'?'鈾?闃?:'鈾?Yang'):(LANG==='zh'?'鈾€ 闃?:'鈾€ Yin')} 路 ${userInfo.birthDate.y}/${userInfo.birthDate.m}/${userInfo.birthDate.d} 路 ${LANG==='zh'?'鍐滃巻':'Lunar'} ${lunar.year} ${lunar.isLeap?(LANG==='zh'?'闂?:'Leap '):''}${LANG==='zh'?'鏈?:'Mo.'}${lunar.month}${LANG==='zh'?'鏃?:'Day'}${lunar.day} 路 ${userInfo.birthPlace}
+    </div>
+    <div class="bazi-row">${baziHTML}</div>
+    <div class="tags-row">
+      <span class="tag">馃搮 ${h.dayStem}${h.dayBranch} ${LANG==='zh'?'鏃?:'Day'}</span>
+      <span class="tag warn">鈿?${t('clash')} ${h.clash.clashAnimal}</span>
+      <span class="tag good">馃Л ${t('good-direction')} ${h.goodDirection}</span>
+      <span class="tag">馃帹 ${t('lucky-color')} ${h.luckyColor}</span>
+    </div>
+    <div class="tabs">
+      <div class="tab active" onclick="switchBzPeriod('today',this)">馃搶 ${t('period-today')}</div>
+      <div class="tab" onclick="switchBzPeriod('week',this)">馃搮 ${t('period-week')}</div>
+      <div class="tab" onclick="switchBzPeriod('month3',this)">馃棑 ${t('period-3month')}</div>
+    </div>
+    ${['today','week','month3'].map((p,i)=>`
+      <div class="period-panel ${i===0?'active':''}" id="bz-period-${p}">
+        ${(()=>{
+          const f=generateFortune(b,h,null,p);
+          return `
+            <div class="fortune-box"><h4>鉁?${f.periodLabel} <span class="stars">${f.stars}</span></h4>
+            <p>${LANG==='zh'?'鑳介噺锛?:'Energy: '}${f.elementRelation}</p><p>${f.advice}</p></div>
+            <div class="advice-row">
+              <div class="advice-col do"><h5>鉁?${LANG==='zh'?'瀹?:'Auspicious'}</h5>${f.dos.map(d=>`<li>路 ${d}</li>`).join('')}</div>
+              <div class="advice-col dont"><h5>鉂?${LANG==='zh'?'蹇?:'Avoid'}</h5>${f.donts.map(d=>`<li>路 ${d}</li>`).join('')}</div>
+            </div>
+          `;
+        })()}
+      </div>
+    `).join('')}
+    <div class="lucky-bar">
+      馃敘 ${t('lucky-num')}: <b>${Math.floor(Math.random()*36)+1}</b>銆€馃帹 ${t('lucky-color')}: <b>${h.luckyColor}</b>銆€馃拵 ${t('stone')}: <b>${LANG==='zh'?zodiacs[0].stone:zodiacs[0].stone[LANG]}</b>
+    </div>
+  `;
+}
+
+function switchBzPeriod(period,el){
+  const container=el.closest('.glass-card');
+  container.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  container.querySelectorAll('.period-panel').forEach(c=>c.classList.remove('active'));
+  container.querySelector('#bz-period-'+period).classList.add('active');
+}
 
 function buildFortuneHTML(){
-  const b=userInfo.bazi, h=userInfo.todayHuangli, z=currentZodiac, lunar=userInfo.lunar;
+  const b=userInfo.bazi,h=userInfo.todayHuangli,z=currentZodiac,lunar=userInfo.lunar;
   const ft=generateFortune(b,h,z,'today');
   const fw=generateFortune(b,h,z,'week');
   const fm=generateFortune(b,h,z,'month3');
   const luckyNum=Math.floor(Math.random()*36)+1;
-
-  const baziHTML=['年','月','日','时'].map((label,i)=>{
+  const baziHTML=[LANG==='zh'?['骞?,'鏈?,'鏃?,'鏃?]:['Year','Month','Day','Hour']].map((labels,i)=>{
     const p=[b.year,b.month,b.day,b.hour][i];
-    const extra=i===0?`<div class="pa">${b.year.animal}</div>`:i===2?`<div class="pa">日主${b.day.element}</div>`:'';
-    return `<div class="bazi-pillar"><div class="pl">${label}柱</div><div class="ps">${p.stem}</div><div class="pb">${p.branch}</div>${extra}</div>`;
+    const extra=i===0?`<div class="pa">${b.year.animal}</div>`:i===2?`<div class="pa">${LANG==='zh'?'鏃ヤ富':'Master'} ${b.day.element}</div>`:'';
+    return `<div class="bazi-pillar"><div class="pl">${labels[i]}${LANG==='zh'?'鏌?:''}</div><div class="ps">${p.stem}</div><div class="pb">${p.branch}</div>${extra}</div>`;
   }).join('');
 
   return `
     <div style="text-align:center;margin-bottom:6px;">
       <div style="font-size:2.6em;filter:drop-shadow(0 0 14px rgba(196,154,60,0.4));">${z.emoji}</div>
-      <div style="font-family:'Ma Shan Zheng',cursive;font-size:1.15em;color:var(--gold-glow);letter-spacing:3px;">${z.name}</div>
+      <div style="font-family:${LANG==='zh'?"'Ma Shan Zheng',cursive":"'Cinzel',serif"};font-size:1.15em;color:var(--gold-glow);letter-spacing:3px;">${z.name[LANG]}</div>
     </div>
     <div class="user-meta">
-      ${userInfo.gender==='male'?'♂ 阳':'♀ 阴'} · ${userInfo.birthDate.y}年${userInfo.birthDate.m}月${userInfo.birthDate.d}日 · 农历${lunar.year}年${lunar.isLeap?'闰':''}${lunar.month}月${lunar.day}日 · ${userInfo.birthPlace}
+      ${userInfo.gender==='male'?(LANG==='zh'?'鈾?闃?:'鈾?Yang'):(LANG==='zh'?'鈾€ 闃?:'鈾€ Yin')} 路 ${userInfo.birthDate.y}/${userInfo.birthDate.m}/${userInfo.birthDate.d} 路 ${LANG==='zh'?'鍐滃巻':'Lunar'} ${lunar.year} ${lunar.isLeap?(LANG==='zh'?'闂?:'(leap)')}${LANG==='zh'?'鏈?:'M'}.${lunar.month} 路 ${userInfo.birthPlace}
     </div>
     <div class="bazi-row">${baziHTML}</div>
     <div class="tags-row">
-      <span class="tag">📅 ${h.dayStem}${h.dayBranch}日</span>
-      <span class="tag warn">⚡ 冲${h.clash.clashAnimal}</span>
-      <span class="tag good">🧭 吉方${h.goodDirection}</span>
-      <span class="tag">🎨 ${h.luckyColor}</span>
+      <span class="tag">馃搮 ${h.dayStem}${h.dayBranch} ${LANG==='zh'?'鏃?:'Day'}</span>
+      <span class="tag warn">鈿?${t('clash')} ${h.clash.clashAnimal}</span>
+      <span class="tag good">馃Л ${t('good-direction')} ${h.goodDirection}</span>
+      <span class="tag">馃帹 ${h.luckyColor}</span>
     </div>
     <div class="tabs">
-      <div class="tab active" onclick="switchPeriod('today',this)">📌 今日</div>
-      <div class="tab" onclick="switchPeriod('week',this)">📅 一周</div>
-      <div class="tab" onclick="switchPeriod('month3',this)">🗓 三月</div>
+      <div class="tab active" onclick="switchPeriod('today',this)">馃搶 ${t('period-today')}</div>
+      <div class="tab" onclick="switchPeriod('week',this)">馃搮 ${t('period-week')}</div>
+      <div class="tab" onclick="switchPeriod('month3',this)">馃棑 ${t('period-3month')}</div>
     </div>
     <div class="period-panel active" id="period-today">
-      <div class="fortune-box">
-        <h4>✦ 今日运势 <span class="stars">${ft.stars}</span></h4>
-        <p>能量：${ft.elementRelation}</p>
-        <p>${ft.advice}</p>
-      </div>
+      <div class="fortune-box"><h4>鉁?${ft.periodLabel} <span class="stars">${ft.stars}</span></h4><p>${LANG==='zh'?'鑳介噺锛?:'Energy: '}${ft.elementRelation}</p><p>${ft.advice}</p></div>
       <div class="advice-row">
-        <div class="advice-col do"><h5>✅ 宜</h5>${ft.dos.map(d=>`<li>· ${d}</li>`).join('')}</div>
-        <div class="advice-col dont"><h5>❌ 忌</h5>${ft.donts.map(d=>`<li>· ${d}</li>`).join('')}</div>
+        <div class="advice-col do"><h5>鉁?${LANG==='zh'?'瀹?:'Auspicious'}</h5>${ft.dos.map(d=>`<li>路 ${stripHTMLs(d)}</li>`).join('')}</div>
+        <div class="advice-col dont"><h5>鉂?${LANG==='zh'?'蹇?:'Avoid'}</h5>${ft.donts.map(d=>`<li>路 ${stripHTMLs(d)}</li>`).join('')}</div>
       </div>
-      <div class="lucky-bar">🔢 幸运数字：<b>${luckyNum}</b>　🎨 幸运色：<b>${h.luckyColor}</b>　💎 守护石：<b>${z.stone}</b></div>
+      <div class="lucky-bar">馃敘 ${t('lucky-num')}: <b>${luckyNum}</b>銆€馃帹 ${t('lucky-color')}: <b>${h.luckyColor}</b>銆€馃拵 ${t('stone')}: <b>${z.stone[LANG]||z.stone}</b></div>
     </div>
     <div class="period-panel" id="period-week">
-      <div class="fortune-box">
-        <h4>✦ 一周运势 <span class="stars">${fw.stars}</span></h4>
-        <p>${fw.advice}</p>
-      </div>
+      <div class="fortune-box"><h4>鉁?${fw.periodLabel} <span class="stars">${fw.stars}</span></h4><p>${fw.advice}</p></div>
       <div class="advice-row">
-        <div class="advice-col do"><h5>✅ 应当加强</h5>${fw.dos.map(d=>`<li>· ${d}</li>`).join('')}</div>
-        <div class="advice-col dont"><h5>❌ 需要避忌</h5>${fw.donts.map(d=>`<li>· ${d}</li>`).join('')}</div>
+        <div class="advice-col do"><h5>鉁?Focus</h5>${fw.dos.map(d=>`<li>路 ${stripHTMLs(d)}</li>`).join('')}</div>
+        <div class="advice-col dont"><h5>鉂?Avoid</h5>${fw.donts.map(d=>`<li>路 ${stripHTMLs(d)}</li>`).join('')}</div>
       </div>
     </div>
     <div class="period-panel" id="period-month3">
-      <div class="fortune-box">
-        <h4>✦ 三月运势 <span class="stars">${fm.stars}</span></h4>
-        <p>${fm.advice}</p>
-      </div>
+      <div class="fortune-box"><h4>鉁?${fm.periodLabel} <span class="stars">${fm.stars}</span></h4><p>${fm.advice}</p></div>
       <div class="advice-row">
-        <div class="advice-col do"><h5>✅ 应当加强</h5>${fm.dos.map(d=>`<li>· ${d}</li>`).join('')}</div>
-        <div class="advice-col dont"><h5>❌ 需要避忌</h5>${fm.donts.map(d=>`<li>· ${d}</li>`).join('')}</div>
+        <div class="advice-col do"><h5>鉁?Focus</h5>${fm.dos.map(d=>`<li>路 ${stripHTMLs(d)}</li>`).join('')}</div>
+        <div class="advice-col dont"><h5>鉂?Avoid</h5>${fm.donts.map(d=>`<li>路 ${stripHTMLs(d)}</li>`).join('')}</div>
       </div>
     </div>
   `;
 }
 
 function switchPeriod(period,el){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.closest('.tarot-front').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
-  document.querySelectorAll('.period-panel').forEach(c=>c.classList.remove('active'));
-  document.getElementById('period-'+period).classList.add('active');
+  el.closest('.tarot-front').querySelectorAll('.period-panel').forEach(c=>c.classList.remove('active'));
+  el.closest('.tarot-front').querySelector('#period-'+period).classList.add('active');
 }
 
-// Card flip + particles
+function stripHTMLs(s){const d=document.createElement('div');d.innerHTML=s;return d.textContent||'';}
+
+// Card flip
 document.getElementById('cardBack').addEventListener('click',(e)=>{
-  if(!currentZodiac||!userInfo) return;
+  if(!currentZodiac||!userInfo)return;
   const card=document.getElementById('fortuneCard');
-  if(card.classList.contains('flipped')) return;
+  if(card.classList.contains('flipped'))return;
   document.getElementById('fortuneContent').innerHTML=buildFortuneHTML();
   card.classList.add('flipped');
   playRevealSound();
-  // Particle burst at click position
   const rect=card.getBoundingClientRect();
-  burstParticles(rect.left+rect.width/2, rect.top+rect.height/2, 40);
+  burstParticles(rect.left+rect.width/2,rect.top+rect.height/2,40);
 });
 
-// ═══════════════════════════════════════════════
-//  INIT
-// ═══════════════════════════════════════════════
-renderZodiacGrid();
-const d=new Date(); d.setFullYear(d.getFullYear()-25);
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  SHARE ENGINE
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?function renderSharePreview(){
+  if(!currentZodiac||!userInfo){
+    document.getElementById('sharePreview').innerHTML='<div class="share-card"><p style="color:var(--text-muted);">'+(LANG==='zh'?'璇峰厛鍦ㄩ椤靛畬鎴愬崰鍗?:'Complete your reading on Home first')+'</p></div>';
+    return;
+  }
+  const z=currentZodiac,b=userInfo.bazi,h=userInfo.todayHuangli;
+  const ft=generateFortune(b,h,z,'today');
+  const tags=t('share-tiktok-tags').replace(/#/g,'').split(' ').slice(0,5);
+  document.getElementById('sharePreview').innerHTML=`
+    <div class="share-card">
+      <div class="sc-icon">${z.emoji}</div>
+      <div class="sc-title">${z.name[LANG]}</div>
+      <div style="font-size:0.78em;color:var(--text-muted);">${z.element[LANG]} 路 ${z.ruler[LANG]} 路 ${z.date}</div>
+      <div class="sc-result">
+        ${ft.stars}<br>
+        <span style="font-size:0.85em;">${stripHTMLs(ft.advice).substring(0,100)}鈥?/span>
+      </div>
+      <div>${tags.map(tag=>`<span class="sc-tag">#${tag}</span>`).join(' ')}</div>
+      <div class="sc-watermark">馃敭 lalalin.xyz</div>
+    </div>
+  `;
+}
+
+async function shareTo(platform){
+  if(!currentZodiac||!userInfo)return;
+  const z=currentZodiac,b=userInfo.bazi;
+  const ft=generateFortune(b,userInfo.todayHuangli,z,'today');
+  if(platform==='tiktok'||platform==='download'){
+    // Generate vertical share card
+    const cvs=renderShareCard();
+    const blob=await new Promise(r=>cvs.toBlob(r,'image/png',1));
+    const file=new File([blob],'lalalin-fortune.png',{type:'image/png'});
+    if(platform==='tiktok'&&navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+      try{await navigator.share({title:t('share-tiktok-title'),text:stripHTMLs(ft.advice).substring(0,80),files:[file]});return;}
+      catch(e){if(e.name==='AbortError')return;}
+    }
+    const a=document.createElement('a');a.href=cvs.toDataURL('image/png');a.download='lalalin-fortune.png';a.click();
+  }else if(platform==='reddit'){
+    const text=t('share-reddit-title')+'\n\n'+t('share-reddit-body')+stripHTMLs(ft.advice)+'\n\n鉁?'+z.emoji+' '+z.name[LANG]+' | '+ft.stars+'\n\n馃敭 lalalin.xyz'+t('share-reddit-footer');
+    await navigator.clipboard.writeText(text);
+    alert(LANG==='zh'?'Reddit鍒嗕韩鏂囨湰宸插鍒讹紒绮樿创鍒癛eddit鍙戝笘鍗冲彲銆?:'Reddit text copied! Paste it into a Reddit post.');
+  }else if(platform==='copy'){
+    const text=z.emoji+' '+z.name[LANG]+' '+t('period-today')+': '+ft.stars+'\n'+stripHTMLs(ft.advice)+'\n\n馃敭 lalalin.xyz';
+    await navigator.clipboard.writeText(text);
+    alert(LANG==='zh'?'宸插鍒跺埌鍓创鏉匡紒':'Copied to clipboard!');
+  }
+}
+
+function renderShareCard(){
+  const W=750,H=1334;
+  const cvs=document.createElement('canvas');cvs.width=W;cvs.height=H;
+  const c=cvs.getContext('2d');
+  const bg=c.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0,'#0f0a05');bg.addColorStop(0.5,'#1a1008');bg.addColorStop(1,'#261a0e');
+  c.fillStyle=bg;c.fillRect(0,0,W,H);
+  const glow=c.createRadialGradient(W/2,300,0,W/2,300,350);
+  glow.addColorStop(0,'rgba(196,154,60,0.12)');glow.addColorStop(1,'transparent');
+  c.fillStyle=glow;c.fillRect(0,0,W,H);
+  c.textAlign='center';
+  c.fillStyle='#e8c46a';c.font='bold 48px "Cinzel",serif';c.fillText('L A L A L I N',W/2,90);
+  c.font='20px serif';c.fillStyle='#8a7a5e';c.fillText('Mystic East Divination',W/2,125);
+  const z=currentZodiac;
+  c.font='90px serif';c.fillText(z.emoji,W/2,230);
+  c.font='bold 32px "Cinzel",serif';c.fillStyle='#f0e8d8';c.fillText(z.name[LANG],W/2,280);
+  c.font='20px serif';c.fillStyle='#b8946e';c.fillText(z.element[LANG]+' 路 '+z.ruler[LANG]+' 路 '+z.date,W/2,315);
+  c.strokeStyle='rgba(196,154,60,0.3)';c.lineWidth=1;
+  c.beginPath();c.moveTo(80,345);c.lineTo(W-80,345);c.stroke();
+  const b=userInfo.bazi,lunar=userInfo.lunar;
+  c.font='18px serif';c.fillStyle='#8a7a5e';
+  c.fillText(userInfo.birthDate.y+'/'+userInfo.birthDate.m+'/'+userInfo.birthDate.d+' 路 Lunar '+lunar.year+'.'+lunar.month+'.'+lunar.day,W/2,375);
+  const pillars=[['Yr',b.year],['Mo',b.month],['Da',b.day],['Hr',b.hour]];
+  const pw=110,gap=30,totalW=pillars.length*pw+(pillars.length-1)*gap;
+  const startX=(W-totalW)/2+pw/2;
+  pillars.forEach(([label,p],i)=>{
+    const x=startX+i*(pw+gap);
+    c.fillStyle='rgba(52,34,20,0.5)';roundRect2(c,x-pw/2,400,pw,95,10);c.fill();
+    c.strokeStyle='rgba(196,154,60,0.15)';c.lineWidth=1;roundRect2(c,x-pw/2,400,pw,95,10);c.stroke();
+    c.font='15px serif';c.fillStyle='#8a7a5e';c.fillText(label,x,428);
+    c.font='bold 28px serif';c.fillStyle='#e8c46a';c.fillText(p.stem,x,465);
+    c.font='24px serif';c.fillStyle='#f0e8d8';c.fillText(p.branch,x,495);
+    if(label==='Yr'){c.font='13px serif';c.fillStyle='rgba(200,180,160,0.5)';c.fillText(p.animal,x,515);}
+    if(label==='Da'){c.font='13px serif';c.fillStyle='rgba(200,180,160,0.5)';c.fillText('Master '+p.element,x,515);}
+  });
+  const ft=generateFortune(b,userInfo.todayHuangli,z,'today');
+  const h=userInfo.todayHuangli;
+  const ly=555;
+  c.font='bold 26px "Cinzel",serif';c.fillStyle='#e8c46a';c.fillText('鉁?'+t('period-today')+' 鉁?,W/2,ly);
+  c.font='28px serif';c.fillStyle='#e8c46a';c.fillText(ft.stars,W/2,ly+38);
+  c.font='18px serif';c.fillStyle='#c8b898';
+  wrapText2(c,stripHTMLs(ft.advice),W/2,ly+75,W-120,30);
+  const dosY=ly+180;
+  c.font='bold 18px serif';
+  c.fillStyle='#8ad098';c.textAlign='left';c.fillText('鉁?Auspicious',80,dosY);
+  c.font='16px serif';c.fillStyle='#c8b898';
+  ft.dos.slice(0,3).forEach((d,i)=>c.fillText('路 '+stripHTMLs(d).substring(0,28),80,dosY+28+i*26));
+  c.font='bold 18px serif';c.fillStyle='#d4958a';c.textAlign='right';c.fillText('鉂?Avoid',W-80,dosY);
+  c.font='16px serif';c.fillStyle='#c8b898';
+  ft.donts.slice(0,3).forEach((d,i)=>c.fillText(stripHTMLs(d).substring(0,28)+' 路',W-80,dosY+28+i*26));
+  const luckyY=Math.max(dosY+28+ft.dos.slice(0,3).length*26,dosY+28+ft.donts.slice(0,3).length*26)+30;
+  c.textAlign='center';
+  c.font='18px serif';c.fillStyle='#c8b898';
+  const luckyNum=Math.floor(Math.random()*36)+1;
+  c.fillText('馃敘 '+t('lucky-num')+' '+luckyNum+'    馃帹 '+t('lucky-color')+' '+h.luckyColor+'    馃拵 '+t('stone')+' '+(z.stone[LANG]||z.stone),W/2,luckyY);
+  c.font='22px "Cinzel",serif';c.fillStyle='#c49a3c';c.fillText('馃敭 lalalin.xyz',W/2,H-75);
+  c.font='16px serif';c.fillStyle='#8a7a5e';c.fillText('Discover your destiny',W/2,H-48);
+  c.strokeStyle='rgba(196,154,60,0.2)';c.lineWidth=2;roundRect2(c,30,30,W-60,H-60,20);c.stroke();
+  return cvs;
+}
+
+function roundRect2(ctx,x,y,w,h,r){
+  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
+}
+
+function wrapText2(ctx,text,x,y,maxW,lineH){
+  const chars=text.split('');let line='';
+  for(const ch of chars){
+    if(ch==='\n'||ctx.measureText(line+ch).width>maxW){ctx.fillText(line,x,y);line=ch;y+=lineH;}
+    else{line+=ch;}
+  }
+  ctx.fillText(line,x,y);
+}
+
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?//  INIT
+// 鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺愨晲鈺?renderZodiacGrid();
+renderWuXing();
+initPalmLines();
+const d=new Date();d.setFullYear(d.getFullYear()-25);
 document.getElementById('birthDate').value=d.toISOString().slice(0,10);
+
+// PWA Service Worker
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/sw.js').catch(()=>{});
+}
 </script>
 </body>
 </html>
