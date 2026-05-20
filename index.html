@@ -73,9 +73,20 @@ body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--tx)
 .lbi{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gd),var(--g2));transition:width 1s ease-out}
 #bn{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;justify-content:space-around;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);border-top:1px solid var(--bd);padding:6px 0 env(safe-area-inset-bottom,8px)}
 .ni{flex:1;display:flex;flex-direction:column;align-items:center;padding:6px 2px;cursor:pointer;transition:0.3s;color:var(--t3);font-size:0.62em;letter-spacing:1px}
-.ni .nii{font-size:1.6em;margin-bottom:2px}
+.ni .nii{font-size:1.6em;margin-bottom:2px;display:inline-block}
 .ni.on{color:var(--g2)}
 .ni:active{color:var(--gold)}
+/* Taoist animated icons */
+@keyframes yinYang{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes trigFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes dragonPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+@keyframes starGlow{0%,100%{opacity:0.6;text-shadow:0 0 4px var(--gold)}50%{opacity:1;text-shadow:0 0 12px var(--g3),0 0 20px var(--gold)}}
+@keyframes heartBeat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}45%{transform:scale(1.15)}60%{transform:scale(1)}}
+.ni-icon-yy{animation:yinYang 8s linear infinite}
+.ni-icon-tg{animation:trigFloat 2.5s ease-in-out infinite}
+.ni-icon-dr{animation:dragonPulse 3s ease-in-out infinite}
+.ni-icon-st{animation:starGlow 2s ease-in-out infinite}
+.ni-icon-ht{animation:heartBeat 1.8s ease-in-out infinite}
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(196,154,60,0.9);color:#000;padding:10px 24px;border-radius:25px;font-size:0.85em;z-index:100;animation:ti 0.3s ease-out,to 0.3s ease-out 1.7s forwards}
 @keyframes ti{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 @keyframes to{from{opacity:1}to{opacity:0}}
@@ -136,11 +147,11 @@ body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--tx)
 </div>
 
 <div id="bn">
-<div class="ni on" onclick="goTab('home')"><span class="nii" id="ni-home-i">H</span><span id="ni-home-t">首页</span></div>
-<div class="ni" onclick="goTab('zodiac')"><span class="nii" id="ni-z-i">Z</span><span id="ni-z-t">生肖</span></div>
-<div class="ni" onclick="goTab('bazi')"><span class="nii" id="ni-b-i">B</span><span id="ni-b-t">八字</span></div>
-<div class="ni" onclick="goTab('tarot')"><span class="nii" id="ni-t-i">T</span><span id="ni-t-t">塔罗</span></div>
-<div class="ni" onclick="goTab('love')"><span class="nii" id="ni-l-i">L</span><span id="ni-l-t">缘分</span></div>
+<div class="ni on" onclick="goTab('home')"><span class="nii ni-icon-yy" id="ni-home-i">☯</span><span id="ni-home-t">首页</span></div>
+<div class="ni" onclick="goTab('zodiac')"><span class="nii ni-icon-dr" id="ni-z-i">龍</span><span id="ni-z-t">生肖</span></div>
+<div class="ni" onclick="goTab('bazi')"><span class="nii ni-icon-tg" id="ni-b-i">☰</span><span id="ni-b-t">八字</span></div>
+<div class="ni" onclick="goTab('tarot')"><span class="nii ni-icon-st" id="ni-t-i">✧</span><span id="ni-t-t">塔罗</span></div>
+<div class="ni" onclick="goTab('love')"><span class="nii ni-icon-ht" id="ni-l-i">♥</span><span id="ni-l-t">缘分</span></div>
 </div>
 
 <script>
