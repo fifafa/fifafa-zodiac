@@ -313,8 +313,8 @@ body{
 /* ZIWEI */
 .zw-chart{max-width:420px;margin:0 auto}
 .zw-header{text-align:center;padding:8px;color:var(--gold);font-size:.8em;letter-spacing:.06em}
-.zw-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:4px;aspect-ratio:1;max-width:340px;margin:0 auto}
-.zw-cell{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:6px 4px;cursor:pointer;transition:.25s;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;min-height:0}
+.zw-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:4px;aspect-ratio:1;width:100%;max-width:340px;margin:0 auto;min-height:340px}
+.zw-cell{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:6px 4px;cursor:pointer;transition:.25s;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;min-height:60px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;-webkit-user-select:none}
 .zw-cell:active{border-color:var(--gold);background:rgba(200,166,74,0.04)}
 .zw-ming{border-color:var(--gold);box-shadow:0 0 8px rgba(200,166,74,0.15)}
 .zw-shen{border-color:var(--green)}
@@ -597,7 +597,7 @@ body{
 
 <!-- Face Zone Popup -->
 <div class="popup-overlay" id="popOverlay" style="display:none" onclick="closeFacePopup()"></div>
-<div class="popup" id="zonePopup" style="display:none"></div>
+<div class="popup" id="zonePopup" style="display:none"><div style="position:absolute;top:10px;right:14px;font-size:1.2em;color:var(--moon3);cursor:pointer;z-index:10;width:32px;height:32px;display:flex;align-items:center;justify-content:center" onclick="closeFacePopup()">✕</div></div>
 
 <script>
 // ====== CONSTELLATION BACKGROUND ======
