@@ -3,8 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
-<title>拉拉林·星之密语 | AI东方命理 · 八字 · 塔罗 · 面相</title>
+<title>拉拉林 · 星之密语 | AI东方命理 · 八字 · 塔罗 · 面相</title>
 <meta name="description" content="拉拉林——你的AI东方命理师。八字命盘、塔罗占卜、生肖运势、面相手相、缘分配对。探索你的星图。">
+<meta name="theme-color" content="#070510">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="星之密语">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/svg+xml" href="/icon-192.svg">
+<link rel="apple-touch-icon" href="/icon-192.svg">
+<meta property="og:title" content="拉拉林 · 星之密语">
+<meta property="og:description" content="AI东方命理师。八字·塔罗·生肖·面相·手相">
+<meta property="og:image" content="https://lalalin.xyz/og-image.png">
+<meta property="og:type" content="website">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
 <style>
 /* V16 PRODUCTION */
 :root{
@@ -959,6 +972,9 @@ function updateTrustCount(){
   localStorage.setItem('ll_readings',c);
   var el=document.getElementById('trustCount');if(el)el.textContent=(base+Math.floor(c/3)).toLocaleString();
 }
+
+// PWA Service Worker
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){})}
 </script>
 </body>
 </html>
