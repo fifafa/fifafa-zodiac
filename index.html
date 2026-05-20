@@ -702,11 +702,38 @@ function doBazi(){
   var parts=d.split('-'),y=parseInt(parts[0]),m=parseInt(parts[1]),dd=parseInt(parts[2]),h=parseInt(document.getElementById('baziHour').value),g=document.querySelector('#baziGender .go.sel').dataset.g;
   USER={y:y,m:m,d:dd,h:h<0?12:h,g:g,z:zi(y)};
   ZIDX=USER.z;
-  var z=zodiacs[USER.z],ty=tg(y),td=(ty+dd)%10;
-  var el=z.el,virtueMap={Wood:'仁',Fire:'礼',Earth:'信',Metal:'义',Water:'智'};
-  var interp='你属'+zCh[USER.z]+'，为'+el+'命之人。五行中'+el+'主「'+virtueMap[el]+'」。日主为「'+stemsZh[td]+'」，是你一生运势的关键。';
+  // -- 年柱 --
+  var yrStem=(y-4)%10;if(yrStem<0)yrStem+=10;
+  var yrBranch=(y-4)%12;if(yrBranch<0)yrBranch+=12;
+  // -- 月柱(五虎遁) --
+  var yearStemStart=[2,4,6,8,0]; // 甲→丙(2),乙→戊(4),丙→庚(6),丁→壬(8),戊→癸(0)
+  var moStart=yearStemStart[yrStem%5];
+  var moBranch=(m+1)%12; // 寅=2 for month 2
+  var moOff=(moBranch-2+12)%12;
+  var moStem=(moStart+moOff)%10;
+  // -- 日柱 --
+  // 1900-01-01 = 甲戌日 (sexagenary index 10)
+  var baseDate=new Date(1900,0,1),targetDate=new Date(y,m-1,dd);
+  var daysDiff=Math.floor((targetDate-baseDate)/86400000);
+  var daySI=((10+daysDiff)%60+60)%60;
+  var dyStem=daySI%10,dyBranch=daySI%12;
+  // -- 时柱(五鼠遁) --
+  var dayStemStartH=[0,2,4,6,8]; // 甲→甲(0),乙→丙(2),丙→戊(4),丁→庚(6),戊→壬(8)
+  var hrStart=dayStemStartH[dyStem%5];
+  var hrBranch=Math.floor(((h+1)%24)/2)%12;
+  var hrStem=(hrStart+hrBranch)%10;
+  // -- 纳音 --
+  var nayin=['海中金','炉中火','大林木','路旁土','剑锋金','山头火','涧下水','城头土','白蜡金','杨柳木','泉中水','屋上土','霹雳火','松柏木','长流水','砂石金','山下火','平地木','壁上土','金箔金','覆灯火','天河水','大驿土','钗钏金','桑柘木','大溪水','沙中土','天上火','石榴木','大海水'];
+  var yrSexagenary=(yrStem*12+yrBranch-((yrStem%2===0)?0:12))%60;
+  if(yrSexagenary<0)yrSexagenary+=60;
+  var nl=nayin[Math.floor(yrSexagenary/2)]||'不详';
+  // -- 日主五行 --
+  var dyEl=['木','木','火','火','土','土','金','金','水','水'][dyStem];
+  var virtueMap={木:'仁',火:'礼',土:'信',金:'义',水:'智'};
+  var z=zodiacs[USER.z];
+  var interp='你属'+zCh[USER.z]+'，日主為「'+stemsZh[dyStem]+dyEl+'」。'+dyEl+'命之人，五行主「'+virtueMap[dyEl]+'」。生于'+y+'年'+m+'月'+dd+'日，纳音「'+nl+'」，一生运势与'+nl+'之性相应。';
   document.getElementById('baziResult').style.display='block';
-  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+zCh[USER.z]+' · '+el+'</div><div style="font-size:.7em;color:var(--moon3)">'+y+'年'+m+'月'+dd+'日 · '+(g==='male'?'男':'女')+'</div></div><div class="pillars"><div class="pillar"><div class="pl">年柱</div><div class="ps">'+stemsZh[ty]+'</div><div class="pb">'+branchZh[zi(y)]+'</div></div><div class="pillar"><div class="pl">月柱</div><div class="ps">'+stemsZh[(ty+2)%10]+'</div><div class="pb">'+branchZh[m] +'</div></div><div class="pillar"><div class="pl">日柱</div><div class="ps">'+stemsZh[td]+'</div><div class="pb">'+branchZh[(USER.z+dd)%12]+'</div></div><div class="pillar"><div class="pl">时柱</div><div class="ps">'+stemsZh[(ty+5)%10]+'</div><div class="pb">'+branchZh[Math.floor(h/12)]+'</div></div></div><div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div>';
+  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">纳音 · '+zCh[USER.z]+'年</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">日主 · '+stemsZh[dyStem]+' · '+dyEl+'命</div><div style="font-size:.62em;color:var(--moon3)">'+y+'年'+m+'月'+dd+'日 · '+(g==='male'?'男':'女')+'</div></div><div class="pillars"><div class="pillar"><div class="pl">年柱</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div></div><div class="pillar"><div class="pl">月柱</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div></div><div class="pillar"><div class="pl">日柱</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div></div><div class="pillar"><div class="pl">时柱</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div></div></div><div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div>';
   document.getElementById('baziResult').scrollIntoView({behavior:'smooth'});
 }
 
