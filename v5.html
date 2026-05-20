@@ -2,152 +2,239 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Lalalin | Mystic East Divination</title>
-<meta name="description" content="Lalalin - Divination | Chinese Astrology | Bazi | Tarot | Love Match">
-<meta name="theme-color" content="#0f0a05">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>拉拉林·星之密语 | 在线八字算命 免费塔罗占卜 生肖配对 2026运势</title>
+<meta name="description" content="拉拉林·星之密语 — 免费在线八字命理、塔罗占卜、十二生肖运势、缘分配对。每日运势推送，AI智能解读，探索东方玄学秘境。">
+<meta name="keywords" content="在线八字算命,免费塔罗占卜,生肖配对,2026运势,每日运势,命理解读,缘分测试,在线占卜">
+<meta name="theme-color" content="#0a0014">
+<link rel="canonical" href="https://lalalin.xyz/">
 <style>
-:root{--bg:#0a0806;--bg2:#14100c;--bg3:#1e1914;--gold:#c49a3c;--g2:#e8c46a;--g3:#f5dc90;--gd:#7a5c28;--tx:#e8dfd0;--t2:#b8a88a;--t3:#7a6e58;--bd:rgba(196,154,60,0.15);--bd2:rgba(196,154,60,0.3);--r:14px;--r2:20px}
+:root{
+  --bg:#070510;--bg2:#0e0820;--bg3:#1a0d30;--bg4:#241540;
+  --gold:#d4a843;--gold2:#e8c97a;--gold3:#f5dfa5;
+  --gd:#8b6914;--tx:#e4dcc8;--t2:#a89878;--t3:#6e6048;
+  --bd:rgba(212,168,67,0.12);--bd2:rgba(212,168,67,0.25);
+  --r:14px;--r2:20px;--purple:#7b3fa3;--lotus:#e8a0c8;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent;background-image:radial-gradient(ellipse at 30% 20%,rgba(196,154,60,0.06) 0%,transparent 50%),radial-gradient(ellipse at 70% 80%,rgba(180,120,60,0.05) 0%,transparent 50%)}
-#app{position:relative;z-index:1;max-width:480px;margin:0 auto;min-height:100vh;padding:0 0 90px}
-#topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(10,8,6,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd)}
-.tb{width:36px;height:36px;border-radius:50%;border:1px solid var(--bd2);background:rgba(20,16,12,0.7);color:var(--t3);font-size:0.8em;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:0.3s;font-weight:700}
-.tb:active{color:var(--g2);border-color:var(--gold)}
-#ttl{font-size:1.2em;font-weight:700;color:var(--gold);letter-spacing:4px}
-.sc{display:none;padding:20px 16px;animation:fu 0.35s ease-out}
+body{font-family:Arial,Helvetica,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent;background-image:radial-gradient(ellipse at 40% 10%,rgba(140,80,180,0.08) 0%,transparent 60%),radial-gradient(ellipse at 60% 60%,rgba(180,140,60,0.06) 0%,transparent 50%),radial-gradient(ellipse at 20% 80%,rgba(120,60,160,0.05) 0%,transparent 50%)}
+#app{position:relative;z-index:1;max-width:480px;margin:0 auto;min-height:100vh;padding:0 0 100px}
+
+/* Top bar */
+#topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:rgba(7,5,16,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--bd)}
+.tb{width:36px;height:36px;border-radius:50%;border:1px solid var(--bd2);background:rgba(14,8,32,0.8);color:var(--t3);font-size:0.75em;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:0.3s;font-weight:700}
+.tb:active{color:var(--gold2);border-color:var(--gold);background:rgba(212,168,67,0.15)}
+#ttl{font-size:1.15em;font-weight:700;color:var(--gold);letter-spacing:3px;background:linear-gradient(135deg,var(--gold3),var(--gold),var(--gd));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+#subttl{display:block;font-size:0.55em;color:var(--t2);letter-spacing:2px;margin-top:-2px;-webkit-text-fill-color:var(--t2)}
+
+/* Screens */
+.sc{display:none;padding:20px 16px;animation:fu 0.4s ease-out}
 .sc.on{display:block}
-@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .st{text-align:center;margin-bottom:20px}
-.st h2{font-size:1.6em;color:var(--g2);letter-spacing:3px;margin-bottom:4px}
-.st p{font-size:0.85em;color:var(--t3)}
-.cd{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:20px;margin-bottom:16px;box-shadow:0 4px 24px rgba(0,0,0,0.4)}
-.dc{text-align:center;padding:30px 20px;background:linear-gradient(135deg,var(--bg2) 0%,rgba(30,25,20,0.9) 100%);border:1px solid var(--bd2)}
-.dc .dt{font-size:0.85em;color:var(--t3);margin-bottom:12px}
-.dc .fi{font-size:3.5em;margin-bottom:8px;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-.dc .ft{font-size:1.8em;color:var(--gold);margin-bottom:8px}
-.dc .fd{font-size:1em;color:var(--t2);line-height:1.6;margin-bottom:8px}
-.dc .fs{color:var(--g2);font-size:1.4em;letter-spacing:4px;margin-bottom:16px}
-.lt{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:12px}
-.lk{padding:6px 14px;border-radius:20px;background:rgba(196,154,60,0.1);border:1px solid var(--bd2);font-size:0.82em;color:var(--t2)}
+.st h1{font-size:1.5em;color:var(--gold2);letter-spacing:4px;margin-bottom:6px}
+.st h2{font-size:1.3em;color:var(--gold2);letter-spacing:3px;margin-bottom:4px}
+.st p{font-size:0.82em;color:var(--t3)}
+
+/* Cards */
+.cd{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:20px;margin-bottom:14px;box-shadow:0 4px 30px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.02)}
+.dc{text-align:center;padding:28px 20px;background:linear-gradient(160deg,var(--bg2) 0%,var(--bg3) 60%,rgba(26,13,48,0.7) 100%);border:1px solid var(--bd2);position:relative;overflow:hidden}
+.dc::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 20%,rgba(212,168,67,0.06) 0%,transparent 40%),radial-gradient(circle at 70% 80%,rgba(140,80,180,0.04) 0%,transparent 40%);pointer-events:none;animation:dcShift 12s ease-in-out infinite}
+@keyframes dcShift{0%,100%{transform:translate(0,0)}50%{transform:translate(2%,1%)}}
+.dc .dt{font-size:0.8em;color:var(--t3);margin-bottom:12px;position:relative;z-index:1}
+.dc .fi{font-size:3em;margin-bottom:8px;position:relative;z-index:1;animation:dailyPulse 2.5s ease-in-out infinite}
+@keyframes dailyPulse{0%,100%{transform:scale(1);opacity:0.8}50%{transform:scale(1.06);opacity:1}}
+.dc .ft{font-size:1.7em;font-weight:700;background:linear-gradient(135deg,var(--gold3),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;position:relative;z-index:1}
+.dc .fd{font-size:0.95em;color:var(--t2);line-height:1.65;margin-bottom:8px;position:relative;z-index:1}
+.dc .fs{color:var(--gold2);font-size:1.3em;letter-spacing:4px;margin-bottom:16px;position:relative;z-index:1}
+.lt{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:12px;position:relative;z-index:1}
+.lk{padding:6px 14px;border-radius:20px;background:rgba(212,168,67,0.08);border:1px solid var(--bd2);font-size:0.78em;color:var(--t2)}
 .lk b{color:var(--gold);font-weight:600}
-.btn{display:inline-block;padding:10px 28px;border-radius:25px;border:1px solid var(--gd);background:transparent;color:var(--g2);font-size:0.95em;cursor:pointer;transition:0.3s;letter-spacing:1px}
-.btn:active{background:rgba(196,154,60,0.15);border-color:var(--gold);color:var(--g3)}
-.btn1{background:linear-gradient(135deg,rgba(196,154,60,0.2),rgba(139,94,60,0.25));border-color:var(--gold);color:var(--g3);font-weight:600}
+
+/* Buttons */
+.btn{display:inline-block;padding:10px 28px;border-radius:25px;border:1px solid var(--gd);background:transparent;color:var(--gold2);font-size:0.9em;cursor:pointer;transition:0.3s;letter-spacing:1px}
+.btn:active{background:rgba(212,168,67,0.12);border-color:var(--gold);color:var(--gold3);transform:scale(0.97)}
+.btn1{background:linear-gradient(135deg,rgba(212,168,67,0.2),rgba(139,105,20,0.3));border-color:var(--gold);color:var(--gold3);font-weight:600;padding:14px 40px;font-size:1.05em}
+.btn1:active{background:linear-gradient(135deg,rgba(212,168,67,0.3),rgba(139,105,20,0.4))}
+.btn-share{padding:8px 18px;border-radius:20px;border:1px solid rgba(123,63,163,0.4);background:rgba(123,63,163,0.1);color:var(--lotus);font-size:0.78em;cursor:pointer;margin-left:8px}
+
+/* Zodiac Grid */
 .zg{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
-@keyframes sealGlow{0%,100%{box-shadow:0 0 4px rgba(196,154,60,0.2),inset 0 0 8px rgba(196,154,60,0.05);border-color:rgba(196,154,60,0.25)}50%{box-shadow:0 0 16px rgba(196,154,60,0.45),0 0 30px rgba(196,154,60,0.15),inset 0 0 14px rgba(196,154,60,0.1);border-color:rgba(196,154,60,0.6)}}
-.zi{aspect-ratio:1;background:radial-gradient(circle,rgba(30,22,16,0.9) 0%,rgba(20,16,12,0.7) 60%,rgba(10,8,6,0.5) 100%);border:2px solid rgba(196,154,60,0.25);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;overflow:hidden;animation:sealGlow 4s ease-in-out infinite;position:relative}
-.zi:nth-child(odd){animation-delay:0s}
-.zi:nth-child(even){animation-delay:2s}
-.zi::before{content:'';position:absolute;inset:4px;border-radius:50%;border:1px dashed rgba(196,154,60,0.2);pointer-events:none}
-.zi:active{border-color:var(--gold);transform:scale(0.95);animation:none;box-shadow:0 0 24px rgba(196,154,60,0.5),0 0 40px rgba(196,154,60,0.2)}
-.zie{font-size:1.8em;font-weight:700;color:var(--gold);text-shadow:0 0 8px rgba(196,154,60,0.3);z-index:1}
-.zin{font-size:0.65em;color:var(--t3);margin-top:2px;letter-spacing:2px;z-index:1}
+@keyframes sealGlow{0%,100%{box-shadow:0 0 6px rgba(212,168,67,0.15),inset 0 0 8px rgba(212,168,67,0.04);border-color:rgba(212,168,67,0.2)}50%{box-shadow:0 0 18px rgba(212,168,67,0.4),0 0 30px rgba(212,168,67,0.12),inset 0 0 16px rgba(212,168,67,0.08);border-color:rgba(212,168,67,0.5)}}
+.zi{aspect-ratio:1;background:radial-gradient(circle,rgba(26,13,48,0.9) 0%,rgba(14,8,32,0.7) 60%,rgba(7,5,16,0.5) 100%);border:2px solid rgba(212,168,67,0.2);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;overflow:hidden;animation:sealGlow 5s ease-in-out infinite;position:relative}
+.zi::before{content:'';position:absolute;inset:4px;border-radius:50%;border:1px dashed rgba(212,168,67,0.15);pointer-events:none}
+.zi:active{border-color:var(--gold);transform:scale(0.94);animation:none;box-shadow:0 0 28px rgba(212,168,67,0.5),0 0 50px rgba(212,168,67,0.15)}
+.zie{font-size:1.7em;font-weight:700;color:var(--gold);text-shadow:0 0 10px rgba(212,168,67,0.35);z-index:1}
+.zin{font-size:0.62em;color:var(--t3);margin-top:2px;letter-spacing:2px;z-index:1}
+
+/* Form */
 .fd2{margin-bottom:14px}
-.fd2 label{display:block;font-size:0.82em;color:var(--t3);margin-bottom:6px}
-.inp{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--bd);background:rgba(20,16,12,0.6);color:var(--tx);font-size:0.95em;outline:none;transition:0.3s}
-.inp:focus{border-color:var(--gd);background:rgba(30,25,20,0.8)}
-.sel{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--bd);background:rgba(20,16,12,0.6);color:var(--tx);font-size:0.95em;outline:none;transition:0.3s;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23c49a3c' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
-.sel:focus{border-color:var(--gd);background:rgba(30,25,20,0.8)}
+.fd2 label{display:block;font-size:0.78em;color:var(--t3);margin-bottom:6px;letter-spacing:1px}
+.inp{width:100%;padding:13px 14px;border-radius:10px;border:1px solid var(--bd);background:var(--bg3);color:var(--tx);font-size:0.95em;outline:none;transition:0.3s}
+.inp:focus{border-color:var(--gd);background:var(--bg4)}
+.sel{width:100%;padding:13px 14px;border-radius:10px;border:1px solid var(--bd);background:var(--bg3);color:var(--tx);font-size:0.9em;outline:none;transition:0.3s;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23d4a843' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.sel:focus{border-color:var(--gd);background:var(--bg4)}
 .grp{display:flex;gap:10px}
-.go{flex:1;padding:10px;text-align:center;border-radius:10px;border:1px solid var(--bd);background:rgba(20,16,12,0.6);cursor:pointer;transition:0.3s;font-size:0.9em;color:var(--t2)}
-.go.sel{border-color:var(--gold);background:rgba(196,154,60,0.12);color:var(--g2)}
+.go{flex:1;padding:11px;text-align:center;border-radius:10px;border:1px solid var(--bd);background:var(--bg3);cursor:pointer;transition:0.3s;font-size:0.88em;color:var(--t2)}
+.go.sel{border-color:var(--gold);background:rgba(212,168,67,0.1);color:var(--gold2)}
+
+/* Period tabs */
 .pt{display:flex;gap:6px;margin-bottom:14px}
-.ptb{flex:1;padding:8px;text-align:center;border-radius:8px;border:1px solid var(--bd);cursor:pointer;font-size:0.8em;color:var(--t3);transition:0.3s}
-.ptb.on{border-color:var(--gold);background:rgba(196,154,60,0.1);color:var(--g2)}
+.ptb{flex:1;padding:9px;text-align:center;border-radius:8px;border:1px solid var(--bd);cursor:pointer;font-size:0.8em;color:var(--t3);transition:0.3s}
+.ptb.on{border-color:var(--gold);background:rgba(212,168,67,0.08);color:var(--gold2)}
+
+/* Sub-tabs for zodiac detail */
+.stb{display:flex;gap:4px;margin:12px 0}
+.stbi{flex:1;padding:7px;text-align:center;border-radius:6px;border:1px solid transparent;cursor:pointer;font-size:0.75em;color:var(--t3);transition:0.3s}
+.stbi.on{border-color:var(--gd);background:rgba(212,168,67,0.06);color:var(--gold)}
+.sdwrap{padding:14px;background:rgba(14,8,32,0.6);border-radius:10px;margin-top:8px;font-size:0.88em;line-height:1.7;color:var(--t2)}
+
+/* BaZi */
 .bzr{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:16px 0}
 .bzp{padding:14px 18px;border-radius:var(--r);background:var(--bg3);border:1px solid var(--bd);text-align:center;min-width:70px}
-.bzp .bl{font-size:0.7em;color:var(--t3);margin-bottom:4px}
-.bzp .bs{font-size:1.4em;color:var(--gold)}
-.bzp .bb{font-size:1.1em;color:var(--tx)}
+.bzp .bl{font-size:0.65em;color:var(--t3);margin-bottom:4px;letter-spacing:2px}
+.bzp .bs{font-size:1.3em;color:var(--gold)}
+.bzp .bb{font-size:1em;color:var(--tx)}
+
+/* Tarot */
 .tstage{display:flex;flex-direction:column;align-items:center;margin:20px 0}
-.tcrd{width:200px;height:300px;perspective:800px;cursor:pointer}
+.tcrd{width:180px;height:270px;perspective:800px;cursor:pointer}
 .tin{position:relative;width:100%;height:100%;transition:transform 0.8s cubic-bezier(0.4,0,0.2,1);transform-style:preserve-3d}
 .tcrd.flip .tin{transform:rotateY(180deg)}
 .tf{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:var(--r2);display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid var(--bd2);box-shadow:0 8px 40px rgba(0,0,0,0.5)}
-.tback{background:linear-gradient(135deg,#1a1008 0%,#2a1a0e 50%,#1a1008 100%)}
-.tback .tbi{font-size:3em;margin-bottom:12px}
-.tback .tbt{color:var(--gold);letter-spacing:4px;font-size:0.9em}
-.tfront{background:var(--bg2);transform:rotateY(180deg);padding:24px 18px;text-align:center;overflow-y:auto}
-.tfront .tfn{font-size:1.3em;color:var(--g2);margin-bottom:8px}
-.tfront .tfm{font-size:0.92em;color:var(--t2);line-height:1.6}
-.ls{font-size:3em;color:var(--gold);margin:12px 0}
-.lb{height:8px;border-radius:4px;background:rgba(196,154,60,0.2);margin:8px 0 16px}
-.lbi{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gd),var(--g2));transition:width 1s ease-out}
-#bn{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;justify-content:space-around;background:rgba(10,8,6,0.95);backdrop-filter:blur(20px);border-top:1px solid var(--bd);padding:6px 0 env(safe-area-inset-bottom,8px)}
-.ni{flex:1;display:flex;flex-direction:column;align-items:center;padding:6px 2px;cursor:pointer;transition:0.3s;color:var(--t3);font-size:0.62em;letter-spacing:1px}
-.ni .nii{font-size:1.6em;margin-bottom:2px;display:inline-block}
-.ni.on{color:var(--g2)}
+.tback{background:linear-gradient(135deg,#0d0420 0%,#1d0a38 50%,#0d0420 100%)}
+.tback .tbi{font-size:2.5em;margin-bottom:12px;animation:orbFloat 3s ease-in-out infinite}
+@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.tback .tbt{color:var(--gold);letter-spacing:4px;font-size:0.85em}
+.tfront{background:var(--bg2);transform:rotateY(180deg);padding:22px 16px;text-align:center;overflow-y:auto}
+.tfront .tfn{font-size:1.2em;color:var(--gold2);margin-bottom:8px}
+.tfront .tfm{font-size:0.88em;color:var(--t2);line-height:1.65}
+
+/* Spread indicator */
+.spread-sel{display:flex;gap:6px;justify-content:center;margin-bottom:10px}
+.spread-opt{padding:5px 12px;border-radius:14px;border:1px solid var(--bd);font-size:0.72em;color:var(--t3);cursor:pointer;transition:0.3s}
+.spread-opt.on{border-color:var(--gold);background:rgba(212,168,67,0.08);color:var(--gold)}
+
+/* History */
+.hist-item{padding:10px 14px;background:var(--bg3);border-radius:8px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.hist-del{color:var(--t3);cursor:pointer;font-size:0.8em;padding:4px 8px}
+
+/* Love */
+.ls{font-size:2.8em;color:var(--gold);margin:12px 0}
+.lb{height:8px;border-radius:4px;background:rgba(212,168,67,0.15);margin:8px 0 16px}
+.lbi{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gd),var(--gold2));transition:width 1.2s ease-out}
+
+/* Bottom nav */
+#bn{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;justify-content:space-around;background:rgba(7,5,16,0.94);backdrop-filter:blur(24px);border-top:1px solid var(--bd);padding:5px 0 env(safe-area-inset-bottom,8px)}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;padding:5px 2px;cursor:pointer;transition:0.3s;color:var(--t3);font-size:0.58em;letter-spacing:1px}
+.ni svg{width:24px;height:24px;margin-bottom:2px}
+.ni.on{color:var(--gold2)}
 .ni:active{color:var(--gold)}
-/* Taoist animated SVG icons */
-.ni .nii svg{width:28px;height:28px;vertical-align:middle}
 @keyframes trigLines{0%,100%{opacity:0.6}33%{opacity:1}66%{opacity:0.8}}
-.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(196,154,60,0.9);color:#000;padding:10px 24px;border-radius:25px;font-size:0.85em;z-index:100;animation:ti 0.3s ease-out,to 0.3s ease-out 1.7s forwards}
+
+/* Toast */
+.toast{position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:rgba(212,168,67,0.9);color:#0a0014;padding:10px 24px;border-radius:25px;font-size:0.82em;z-index:100;font-weight:600;animation:ti 0.3s ease-out,to 0.3s ease-out 1.7s forwards}
 @keyframes ti{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 @keyframes to{from{opacity:1}to{opacity:0}}
-@media(max-width:360px){.zg{grid-template-columns:repeat(3,1fr)}.ni{font-size:0.58em}}
+
+/* Lotus floating decoration */
+#lotus{position:fixed;bottom:120px;right:10px;z-index:0;opacity:0.15;pointer-events:none}
+#lotus svg{width:80px;height:80px;animation:lotusFloat 8s ease-in-out infinite}
+@keyframes lotusFloat{0%,100%{transform:translateY(0) rotate(0deg)}25%{transform:translateY(-10px) rotate(3deg)}75%{transform:translateY(-5px) rotate(-2deg)}}
+
+@media(max-width:360px){
+  .zg{grid-template-columns:repeat(3,1fr)}
+  .ni{font-size:0.54em}.ni svg{width:22px;height:22px}
+  .btn1{padding:12px 30px;font-size:0.95em}
+}
 </style>
 </head>
 <body>
+
 <canvas id="stars" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0"></canvas>
+
+<!-- Floating lotus -->
+<div id="lotus"><svg viewBox="0 0 60 60"><path d="M30 10C20 14 10 24 10 30C10 36 20 44 30 44C40 44 50 36 50 30C50 24 40 14 30 10Z" fill="none" stroke="#e8a0c8" stroke-width="0.8" opacity="0.6"/><path d="M30 18C24 20 18 26 18 30C18 34 24 38 30 38C36 38 42 34 42 30C42 26 36 20 30 18Z" fill="none" stroke="#e8a0c8" stroke-width="0.8" opacity="0.8"/><path d="M30 24C27 25 24 27 24 30C24 33 27 34 30 34C33 34 36 33 36 30C36 27 33 25 30 24Z" fill="none" stroke="#e8a0c8" stroke-width="0.8"/><circle cx="30" cy="30" r="2" fill="#e8a0c8" opacity="0.5"/></svg></div>
 
 <div id="app">
 <div id="topbar">
+<button class="tb" onclick="goTab('history')" title="历史" style="font-size:0.7em">📋</button>
+<div style="text-align:center"><div id="ttl">拉拉林·星之密语</div><span id="subttl">LALALIN · MYSTIC EAST</span></div>
 <button class="tb" id="langBtn" onclick="toggleLang()">中</button>
-<div id="ttl">LALALIN</div>
-<button class="tb" id="musicBtn" onclick="toggleMusic()" style="font-size:0.7em">|</button>
 </div>
 
+<!-- HOME -->
 <div class="sc on" id="tab-home">
+<div class="st"><h1>✦ 拉拉林·星之密语 ✦</h1><p>探索你的命运星图</p></div>
 <div class="cd dc" id="dailyBox"></div>
 <div class="cd">
 <div class="st"><h2 id="l-home-title">快速占卜</h2><p id="l-home-sub">输入信息获取个性化运势</p></div>
-<div class="fd2"><label id="l-birth">出生日期</label><input type="date" class="inp" id="birthDate" min="1920-01-01" max="2020-12-31"></div>
-<div class="fd2"><label id="l-hour">出生时辰</label><select class="sel" id="birthHour">
+<div class="fd2"><label id="l-birth">✦ 出生日期</label><input type="date" class="inp" id="birthDate" min="1920-01-01" max="2020-12-31"></div>
+<div class="fd2"><label id="l-hour">✦ 出生时辰</label><select class="sel" id="birthHour">
 <option value="-1" id="l-hr-na">未指定</option>
-<option value="0">子 Zi 23-01</option><option value="1">丑 Chou 01-03</option><option value="2">寅 Yin 03-05</option><option value="3">卯 Mao 05-07</option><option value="4">辰 Chen 07-09</option><option value="5">巳 Si 09-11</option><option value="6" selected>午 Wu 11-13</option><option value="7">未 Wei 13-15</option><option value="8">申 Shen 15-17</option><option value="9">酉 You 17-19</option><option value="10">戌 Xu 19-21</option><option value="11">亥 Hai 21-23</option></select></div>
-<div class="fd2"><label id="l-gender">性别</label><div class="grp"><div class="go sel" data-g="male" onclick="pickGender(this)" id="l-male">男 Yang</div><div class="go" data-g="female" onclick="pickGender(this)" id="l-female">女 Yin</div></div></div>
-<div style="text-align:center;margin-top:14px"><button class="btn btn1" onclick="doRead()" style="font-size:1.05em;padding:12px 36px" id="l-btn-go">✦ 开始占卜 ✦</button></div>
+<option value="0">子时 Zi 23:00-01:00</option><option value="1">丑时 Chou 01:00-03:00</option>
+<option value="2">寅时 Yin 03:00-05:00</option><option value="3">卯时 Mao 05:00-07:00</option>
+<option value="4">辰时 Chen 07:00-09:00</option><option value="5">巳时 Si 09:00-11:00</option>
+<option value="6" selected>午时 Wu 11:00-13:00</option><option value="7">未时 Wei 13:00-15:00</option>
+<option value="8">申时 Shen 15:00-17:00</option><option value="9">酉时 You 17:00-19:00</option>
+<option value="10">戌时 Xu 19:00-21:00</option><option value="11">亥时 Hai 21:00-23:00</option></select></div>
+<div class="fd2"><label id="l-gender">✦ 性别</label><div class="grp"><div class="go sel" data-g="male" onclick="pickGender(this)" id="l-male">⚦ 男 Yang</div><div class="go" data-g="female" onclick="pickGender(this)" id="l-female">⚥ 女 Yin</div></div></div>
+<div style="text-align:center;margin-top:16px"><button class="btn btn1" onclick="doRead()" id="l-btn-go">✦ 开启命盘 ✦</button></div>
 </div>
 </div>
 
+<!-- ZODIAC -->
 <div class="sc" id="tab-zodiac">
-<div class="st"><h2 id="l-z-title">生肖</h2><p id="l-z-sub">十二生肖运势详解</p></div>
+<div class="st"><h2 id="l-z-title">十二生肖</h2><p id="l-z-sub">每日运势 事业感情财运详解</p></div>
 <div class="pt"><div class="ptb on" onclick="pickPeriod('today',this)" id="l-z-today">今日</div><div class="ptb" onclick="pickPeriod('week',this)" id="l-z-week">本周</div><div class="ptb" onclick="pickPeriod('month',this)" id="l-z-month">本月</div></div>
 <div class="zg" id="zodiacGrid"></div>
 <div class="cd" id="zodiacDetail" style="text-align:center;display:none"></div>
 </div>
 
+<!-- BAZI -->
 <div class="sc" id="tab-bazi">
-<div class="st"><h2 id="l-b-title">八字</h2><p id="l-b-sub">四柱八字 命理推演</p></div>
-<div class="cd" id="baziBox"><p style="text-align:center;color:var(--t3);padding:30px 0" id="l-b-empty">请先在首页输入出生信息，<br>再回到这里查看你的完整命盘</p></div>
+<div class="st"><h2 id="l-b-title">八字命理</h2><p id="l-b-sub">四柱八字 命理推演</p></div>
+<div class="cd" id="baziBox"><p style="text-align:center;color:var(--t3);padding:30px 0;line-height:1.8" id="l-b-empty">请先在首页输入出生信息，<br>再回到这里查看你的完整命盘</p></div>
 </div>
 
+<!-- TAROT -->
 <div class="sc" id="tab-tarot">
-<div class="st"><h2 id="l-t-title">塔罗</h2><p id="l-t-sub">塔罗牌占卜 单张牌阵</p></div>
-<div class="cd" style="text-align:center"><p style="color:var(--t3);margin-bottom:12px" id="l-t-desc">心中默念你的问题，然后点击卡牌揭示答案</p>
-<div class="tstage"><div class="tcrd" id="tarotCard" onclick="flipTarot()"><div class="tin"><div class="tf tback"><div class="tbi">O</div><div class="tbt" id="l-t-touch">触碰水晶球</div></div><div class="tf tfront" id="tarotFront"></div></div></div></div>
-<button class="btn" onclick="drawTarot()" style="margin-top:8px" id="l-t-again">再抽一张</button></div>
+<div class="st"><h2 id="l-t-title">塔罗占卜</h2><p id="l-t-sub">塔罗牌阵 揭示命运</p></div>
+<div class="cd" style="text-align:center">
+<div class="spread-sel"><div class="spread-opt on" onclick="setSpread(1,this)">单张牌</div><div class="spread-opt" onclick="setSpread(3,this)">三张牌阵</div></div>
+<p style="color:var(--t3);margin-bottom:12px;font-size:0.82em" id="l-t-desc">心中默念你的问题，点击揭示答案</p>
+<div class="tstage"><div class="tcrd" id="tarotCard" onclick="flipTarot()"><div class="tin"><div class="tf tback"><div class="tbi">🔮</div><div class="tbt" id="l-t-touch">触碰水晶球</div></div><div class="tf tfront" id="tarotFront"></div></div></div></div>
+<button class="btn" onclick="drawTarot()" id="l-t-again" style="margin-top:8px">再抽一组</button>
+<button class="btn-share" onclick="shareContent('tarot')" style="margin-top:8px">📤 分享结果</button>
+<div style="margin-top:12px;font-size:0.75em;color:var(--t3)" id="tarotHistory"></div>
+</div>
 </div>
 
+<!-- LOVE -->
 <div class="sc" id="tab-love">
-<div class="st"><h2 id="l-love-title">缘分</h2><p id="l-love-sub">生肖配对 缘分测试</p></div>
+<div class="st"><h2 id="l-love-title">缘分配对</h2><p id="l-love-sub">生肖合婚 缘分测试</p></div>
 <div class="cd">
-<div class="fd2"><label id="l-love-u">你的生肖</label><select class="sel" id="loveA"></select></div>
-<div class="fd2"><label id="l-love-t">TA的生肖</label><select class="sel" id="loveB"></select></div>
-<div style="text-align:center"><button class="btn btn1" onclick="checkLove()" id="l-love-check">测试缘分</button></div>
+<div class="fd2"><label id="l-love-u">✦ 你的生肖</label><select class="sel" id="loveA"></select></div>
+<div class="fd2"><label id="l-love-t">✦ TA的生肖</label><select class="sel" id="loveB"></select></div>
+<div style="text-align:center"><button class="btn btn1" onclick="checkLove()" id="l-love-check">✦ 测试缘分 ✦</button></div>
 <div id="loveRes" style="display:none;text-align:center;padding:20px"></div>
 </div>
 </div>
+
+<!-- HISTORY -->
+<div class="sc" id="tab-history">
+<div class="st"><h2>我的命盘</h2><p>历史占卜记录</p></div>
+<div class="cd" id="historyList"><p style="text-align:center;color:var(--t3);padding:20px 0">暂无记录<br><span style="font-size:0.8em">完成占卜后将自动保存</span></p></div>
+</div>
 </div>
 
+<!-- BOTTOM NAV -->
 <div id="bn">
-<div class="ni on" onclick="goTab('home')"><span class="nii" id="ni-home-i"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 2A18 18 0 0 1 20 38A18 18 0 0 0 20 2Z" fill="currentColor" opacity=".7"><animateTransform attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="6s" repeatCount="indefinite"/></path><circle cx="20" cy="11" r="4" fill="currentColor"/><circle cx="20" cy="29" r="4" fill="currentColor" opacity=".7"/></svg></span><span id="ni-home-t">首页</span></div>
-<div class="ni" onclick="goTab('zodiac')"><span class="nii" id="ni-z-i"><svg viewBox="0 0 40 40"><text x="20" y="30" text-anchor="middle" font-size="28" font-weight="bold" fill="currentColor">龍<animate attributeName="opacity" values="0.7;1;0.7" dur="2.5s" repeatCount="indefinite"/></text><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3"><animateTransform attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="12s" repeatCount="indefinite"/></circle></svg></span><span id="ni-z-t">生肖</span></div>
-<div class="ni" onclick="goTab('bazi')"><span class="nii" id="ni-b-i"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="2"/><line x1="8" y1="14" x2="32" y2="14" stroke="currentColor" stroke-width="2.5"><animate attributeName="opacity" values="0.5;1;1;0.5" dur="1.8s" repeatCount="indefinite"/></line><line x1="8" y1="20" x2="26" y2="20" stroke="currentColor" stroke-width="2.5"><animate attributeName="opacity" values="1;0.5;0.5;1" dur="1.8s" repeatCount="indefinite"/></line><line x1="8" y1="26" x2="20" y2="26" stroke="currentColor" stroke-width="2.5"><animate attributeName="opacity" values="0.8;1;0.6;0.8" dur="1.8s" repeatCount="indefinite"/></line></svg></span><span id="ni-b-t">八字</span></div>
-<div class="ni" onclick="goTab('tarot')"><span class="nii" id="ni-t-i"><svg viewBox="0 0 40 40"><polygon points="20,4 24,15 36,15 26,22 30,34 20,27 10,34 14,22 4,15 16,15" fill="none" stroke="currentColor" stroke-width="1.8"><animateTransform attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="20s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/></polygon><circle cx="20" cy="19" r="2" fill="currentColor"><animate attributeName="r" values="1;3;1" dur="1.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite"/></circle></svg></span><span id="ni-t-t">塔罗</span></div>
-<div class="ni" onclick="goTab('love')"><span class="nii" id="ni-l-i"><svg viewBox="0 0 40 40"><path d="M20 34C10 26 4 20 4 14C4 9 8 5 13 5C16 5 19 7 20 9C21 7 24 5 27 5C32 5 36 9 36 14C36 20 30 26 20 34Z" fill="none" stroke="currentColor" stroke-width="2"><animateTransform attributeName="transform" type="scale" values="1;1.2;1;1.1;1" dur="1.6s" repeatCount="indefinite" additive="sum"/><animateTransform attributeName="transform" type="translate" values="0 0;-2 -3;0 0;1 -1;0 0" dur="1.6s" repeatCount="indefinite" additive="sum"/></path></svg></span><span id="ni-l-t">缘分</span></div>
+<div class="ni on" onclick="goTab('home')"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 2A18 18 0 0 1 20 38A18 18 0 0 0 20 2Z" fill="currentColor" opacity=".7"><animateTransform attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="6s" repeatCount="indefinite"/></path><circle cx="20" cy="11" r="4" fill="currentColor"/><circle cx="20" cy="29" r="4" fill="currentColor" opacity=".7"/></svg><span>首页</span></div>
+<div class="ni" onclick="goTab('zodiac')"><svg viewBox="0 0 40 40"><text x="20" y="31" text-anchor="middle" font-size="30" font-weight="bold" fill="currentColor">辰<animate attributeName="opacity" values="0.7;1;0.7" dur="2.5s" repeatCount="indefinite"/></text><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 3"><animateTransform attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="14s" repeatCount="indefinite"/></circle></svg><span>生肖</span></div>
+<div class="ni" onclick="goTab('bazi')"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="2"/><line x1="8" y1="14" x2="32" y2="14" stroke="currentColor" stroke-width="3"><animate attributeName="opacity" values="0.5;1;1;0.5" dur="1.8s" repeatCount="indefinite"/></line><line x1="8" y1="20" x2="26" y2="20" stroke="currentColor" stroke-width="3"><animate attributeName="opacity" values="1;0.5;0.5;1" dur="1.8s" repeatCount="indefinite"/></line><line x1="8" y1="26" x2="20" y2="26" stroke="currentColor" stroke-width="3"><animate attributeName="opacity" values="0.8;1;0.6;0.8" dur="1.8s" repeatCount="indefinite"/></line></svg><span>八字</span></div>
+<div class="ni" onclick="goTab('tarot')"><svg viewBox="0 0 40 40"><polygon points="20,4 24,15 36,15 26,22 30,34 20,27 10,34 14,22 4,15 16,15" fill="none" stroke="currentColor" stroke-width="1.8"><animateTransform attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="20s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/></polygon><circle cx="20" cy="19" r="2" fill="currentColor"><animate attributeName="r" values="1;3;1" dur="1.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite"/></circle></svg><span>塔罗</span></div>
+<div class="ni" onclick="goTab('love')"><svg viewBox="0 0 40 40"><path d="M20 34C10 26 4 20 4 14C4 9 8 5 13 5C16 5 19 7 20 9C21 7 24 5 27 5C32 5 36 9 36 14C36 20 30 26 20 34Z" fill="none" stroke="currentColor" stroke-width="2"><animateTransform attributeName="transform" type="scale" values="1;1.2;1;1.1;1" dur="1.6s" repeatCount="indefinite" additive="sum"/><animateTransform attributeName="transform" type="translate" values="0 0;-2 -3;0 0;1 -1;0 0" dur="1.6s" repeatCount="indefinite" additive="sum"/></path></svg><span>缘分</span></div>
 </div>
 
 <script>
@@ -156,58 +243,50 @@ var LANG='zh';
 var USER=null;
 var ZIDX=-1;
 var PERIOD='today';
-var audioCtx=null;
-var musicOn=false;
-var musicNode=null;
+var TSPREAD=1;
+var CUR_TAROT=null;
+var ZD_TAB='overview';
+var ZD_CACHE=null;
 
-// ============ i18n dictionary ============
+// ============ i18n ============
 var D={
-// Nav
 'nav-home':['首页','Home'],'nav-zodiac':['生肖','Zodiac'],'nav-bazi':['八字','BaZi'],'nav-tarot':['塔罗','Tarot'],'nav-love':['缘分','Love'],
-// Home
 'home-title':['快速占卜','Quick Reading'],'home-sub':['输入信息获取个性化运势','Enter your info for personal fortune'],
-'birth':['出生日期','Birth Date'],'hour':['出生时辰','Birth Hour'],'gender':['性别','Gender'],
-'male':['男 Yang','Male Yang'],'female':['女 Yin','Female Yin'],
+'birth':['✦ 出生日期','+ Birth Date'],'hour':['✦ 出生时辰','+ Birth Hour'],'gender':['✦ 性别','+ Gender'],
+'male':['⚦ 男 Yang','Male Yang'],'female':['⚥ 女 Yin','Female Yin'],
 'hr-na':['未指定','Not specified'],
-'btn-go':['✦ 开始占卜 ✦','✦ Reveal My Fortune ✦'],
+'btn-go':['✦ 开启命盘 ✦','+ Reveal My Fortune'],
 'toast-date':['请选择出生日期','Please select your birth date'],
-'toast-chart':['命盘已生成！切换标签查看','Chart generated! Switch tabs to explore'],
-// Zodiac
-'z-title':['生肖','Zodiac'],'z-sub':['十二生肖运势详解','Daily fortune for all 12 signs'],
+'toast-chart':['命盘已生成！切换标签查看','Chart generated! Switch tabs'],
+'z-title':['十二生肖','Zodiac'],'z-sub':['每日运势 事业感情财运详解','Daily fortune & life aspects'],
 'z-today':['今日','Today'],'z-week':['本周','Week'],'z-month':['本月','Month'],
+'z-overview':['总览','Overview'],'z-career':['事业','Career'],'z-love':['感情','Love'],'z-wealth':['财运','Wealth'],
 'z-fav':['宜','Favorable'],'z-avoid':['忌','Avoid'],
 'z-lucky':['幸运','Lucky'],'z-color':['颜色','Color'],'z-stone':['宝石','Stone'],
-// BaZi
-'b-title':['八字','Ba Zi'],'b-sub':['四柱八字 命理推演','Four Pillars of Destiny'],
+'b-title':['八字命理','Ba Zi'],'b-sub':['四柱八字 命理推演','Four Pillars of Destiny'],
 'b-empty':['请先在首页输入出生信息，<br>再回到这里查看你的完整命盘','Enter your birth info on Home first,<br>then come back to view your chart.'],
 'b-year':['年柱','Year'],'b-month':['月柱','Month'],'b-day':['日柱','Day'],'b-hour':['时柱','Hour'],
 'b-interp':['命理解读','Interpretation'],
-'b-interp-text':['你属{0}，{1}命之人。{1}主{2}，性格特质与你的人生息息相关。日主{3}，代表你内心真正的自我，也是你一生运势的关键所在。',
-  '{1} governs your nature. Day master {3} represents your true self and the key to your destiny.'],
 'b-lucky':['幸运','Lucky'],'b-color':['颜色','Color'],'b-stone':['宝石','Stone'],
-// Tarot
-'t-title':['塔罗','Tarot'],'t-sub':['塔罗牌占卜 单张牌阵','Single Card Tarot Draw'],
-'t-desc':['心中默念你的问题，然后点击卡牌揭示答案','Focus on your question, then tap the card to reveal'],
+'t-title':['塔罗占卜','Tarot'],'t-sub':['塔罗牌阵 揭示命运','Divine your destiny'],
+'t-desc':['心中默念你的问题，然后点击揭示答案','Focus on your question, tap to reveal'],
 't-touch':['触碰水晶球','TOUCH THE ORB'],
-'t-again':['再抽一张','Draw Again'],
-// Love
-'love-title':['缘分','Love Match'],'love-sub':['生肖配对 缘分测试','Compatibility Check'],
-'love-u':['你的生肖','Your Sign'],'love-t':['TA的生肖','Their Sign'],
-'love-check':['测试缘分','Check Compatibility'],
-// Daily fortune
-'d-today':['今日运势','Daily Fortune'],
-// Elements
+'t-again':['再抽一组','Draw Again'],
+'love-title':['缘分配对','Love Match'],'love-sub':['生肖合婚 缘分测试','Compatibility Check'],
+'love-u':['✦ 你的生肖','+ Your Sign'],'love-t':['✦ TA的生肖','+ Their Sign'],
+'love-check':['✦ 测试缘分 ✦','+ Check Compatibility'],
 'el-Wood':['木','Wood'],'el-Fire':['火','Fire'],'el-Earth':['土','Earth'],'el-Metal':['金','Metal'],'el-Water':['水','Water'],
-// Zodiac names
 'zr-Rat':['鼠','Rat'],'zr-Ox':['牛','Ox'],'zr-Tiger':['虎','Tiger'],'zr-Rabbit':['兔','Rabbit'],
 'zr-Dragon':['龙','Dragon'],'zr-Snake':['蛇','Snake'],'zr-Horse':['马','Horse'],'zr-Goat':['羊','Goat'],
 'zr-Monkey':['猴','Monkey'],'zr-Rooster':['鸡','Rooster'],'zr-Dog':['狗','Dog'],'zr-Pig':['猪','Pig'],
-// Gender
-'g-male':['男','Male'],'g-female':['女','Female']
+'g-male':['男','Male'],'g-female':['女','Female'],
+'hist-title':['我的命盘','My History'],'hist-sub':['历史占卜记录','Past readings'],
+'hist-empty':['暂无记录','No records yet']
 };
-
 function T(k){var v=D[k];return v?v[LANG==='zh'?0:1]:k}
 
+// ============ Data ============
+var zCh=['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
 var zodiacs=[
   {k:'Rat',el:'Water',st_zh:'石榴石',st_en:'Garnet',ln:[2,3],cl_zh:'蓝色/金色',cl_en:'Blue/Gold'},
   {k:'Ox',el:'Earth',st_zh:'翡翠',st_en:'Jade',ln:[1,4],cl_zh:'黄色/绿色',cl_en:'Yellow/Green'},
@@ -222,47 +301,63 @@ var zodiacs=[
   {k:'Dog',el:'Earth',st_zh:'虎眼石',st_en:'TigerEye',ln:[3,4,9],cl_zh:'绿色/红色',cl_en:'Green/Red'},
   {k:'Pig',el:'Water',st_zh:'红宝石',st_en:'Ruby',ln:[2,5,8],cl_zh:'黄色/灰色',cl_en:'Yellow/Gray'}
 ];
-
 var stems_zh=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
 var stems_en=['Jia','Yi','Bing','Ding','Wu','Ji','Geng','Xin','Ren','Gui'];
 var branch_zh=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
 var branch_en=['Zi','Chou','Yin','Mao','Chen','Si','Wu','Wei','Shen','You','Xu','Hai'];
-
-var tarotDeck=[
-  {n_zh:'愚者',n_en:'The Fool',e:'*',m_zh:'新的开始，大胆前行。冒险的旅程即将展开，相信你的直觉。',m_en:'A new beginning. Take the leap of faith. An adventure awaits.'},
-  {n_zh:'魔术师',n_en:'The Magician',e:'!',m_zh:'你拥有所需的一切力量。现在正是行动的最佳时机。',m_en:'You have all the tools you need. Now is the time to act.'},
-  {n_zh:'女祭司',n_en:'The High Priestess',e:'@',m_zh:'倾听内心的声音。答案已经在你心中，相信你的直觉。',m_en:'Listen to your inner voice. The answers lie within.'},
-  {n_zh:'女皇',n_en:'The Empress',e:'#',m_zh:'丰收与富饶。创造力爆发，善待自己，享受生活。',m_en:'Abundance and creativity. Nurture yourself and others.'},
-  {n_zh:'皇帝',n_en:'The Emperor',e:'$',m_zh:'秩序与权威。掌控局面，建立稳定的基础。',m_en:'Authority and structure. Take control and build solid foundations.'},
-  {n_zh:'恋人',n_en:'The Lovers',e:'%',m_zh:'重要的选择在前方。信任你的心，跟随真爱。',m_en:'A significant choice ahead. Follow your heart to true love.'},
-  {n_zh:'力量',n_en:'Strength',e:'^',m_zh:'内心的力量无穷大。以温柔和耐心克服一切困难。',m_en:'Inner strength prevails. Overcome with patience and compassion.'},
-  {n_zh:'命运之轮',n_en:'Wheel of Fortune',e:'&',m_zh:'命运正在转动。好运即将来临，准备好迎接改变。',m_en:'Destiny is turning. Good fortune approaches. Embrace change.'},
-  {n_zh:'星星',n_en:'The Star',e:'+',m_zh:'希望与灵感闪耀。保持信念，你的愿望终将实现。',m_en:'Hope and inspiration shine bright. Your wishes come true.'},
-  {n_zh:'太阳',n_en:'The Sun',e:'~',m_zh:'快乐与成功。阳光普照，尽情享受这美好的时光。',m_en:'Joy and success. Bask in the warmth of this wonderful time.'},
-  {n_zh:'世界',n_en:'The World',e:'=',m_zh:'圆满与完成。一个阶段即将完美收官，新的循环在等待。',m_en:'Completion and fulfillment. A cycle ends, a new one begins.'},
-  {n_zh:'隐士',n_en:'The Hermit',e:'?',m_zh:'向内探索的时刻。独处让你找到真正的智慧和方向。',m_en:'Time for inner reflection. Solitude brings wisdom and clarity.'}
-];
-
 var eleMap={'木':'Wood','火':'Fire','土':'Earth','金':'Metal','水':'Water',
   'Wood':'仁','Fire':'礼','Earth':'信','Metal':'义','Water':'智',
   '仁':'benevolence','礼':'propriety','信':'trust','义':'righteousness','智':'wisdom'};
+var tarotDeck=[
+  {n_zh:'愚者',n_en:'The Fool',e:'*',m_zh:'新的开始，大胆前行。信任你的直觉，冒险的旅程即将展开。',m_en:'A new beginning. Take the leap of faith.'},
+  {n_zh:'魔术师',n_en:'The Magician',e:'!',m_zh:'你拥有所需的一切力量。现在正是行动的最佳时机，天时地利人和。',m_en:'You have all the tools you need. Now is the time.'},
+  {n_zh:'女祭司',n_en:'The High Priestess',e:'@',m_zh:'倾听内心的声音。答案已在你心中，相信直觉，等待时机成熟。',m_en:'Listen to your inner voice. Answers lie within.'},
+  {n_zh:'女皇',n_en:'The Empress',e:'#',m_zh:'丰收与富饶。创造力爆发，善待自己，享受生活的美好馈赠。',m_en:'Abundance and creativity. Nurture yourself.'},
+  {n_zh:'皇帝',n_en:'The Emperor',e:'$',m_zh:'秩序与权威。掌控局面，建立稳定基础，领导力彰显的时刻。',m_en:'Authority and structure. Take control.'},
+  {n_zh:'恋人',n_en:'The Lovers',e:'%',m_zh:'重要的选择在前方。信任你的心，跟随真爱，灵魂的连接。',m_en:'A significant choice. Follow your heart.'},
+  {n_zh:'力量',n_en:'Strength',e:'^',m_zh:'内心的力量无穷大。以温柔和耐心克服一切困难，你是不可战胜的。',m_en:'Inner strength prevails. Overcome with patience.'},
+  {n_zh:'命运之轮',n_en:'Wheel of Fortune',e:'&',m_zh:'命运正在转动。好运即将来临，准备好迎接改变和机遇。',m_en:'Destiny is turning. Good fortune approaches.'},
+  {n_zh:'星星',n_en:'The Star',e:'+',m_zh:'希望与灵感闪耀。保持信念，你的愿望终将实现，未来光明。',m_en:'Hope shines bright. Your wishes come true.'},
+  {n_zh:'太阳',n_en:'The Sun',e:'~',m_zh:'快乐与成功。阳光普照，尽情享受这美好的时光，一切顺利。',m_en:'Joy and success. Bask in the warmth.'},
+  {n_zh:'世界',n_en:'The World',e:'=',m_zh:'圆满与完成。一个阶段完美收官，新的循环在等待着你。',m_en:'Completion and fulfillment. A new cycle begins.'},
+  {n_zh:'隐士',n_en:'The Hermit',e:'?',m_zh:'向内探索的时刻。独处让你找到真正的智慧和方向，静能生慧。',m_en:'Time for inner reflection. Solitude brings wisdom.'}
+];
 
+// ============ Helpers ============
 function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
 function zi(y){return((y-4)%12+12)%12}
 function tg(y){return((y-4)%10+10)%10}
 function dz(y){return((y-4)%12+12)%12}
-
 function toast(m){var e=document.createElement('div');e.className='toast';e.textContent=m;document.body.appendChild(e);setTimeout(function(){e.remove()},2000)}
-
 function goTab(name){
-  var screens=document.querySelectorAll('.sc');for(var i=0;i<screens.length;i++)screens[i].classList.remove('on');
+  document.querySelectorAll('.sc').forEach(function(s){s.classList.remove('on')});
   var t=document.getElementById('tab-'+name);if(t)t.classList.add('on');
-  var navs=document.querySelectorAll('.ni');for(var j=0;j<navs.length;j++)navs[j].classList.remove('on');
+  document.querySelectorAll('.ni').forEach(function(n){n.classList.remove('on')});
   var ni=document.querySelector('.ni[onclick*="'+name+'"]');if(ni)ni.classList.add('on');
   window.scrollTo(0,0);
   if(name==='bazi'&&USER)showBazi();
+  if(name==='history')renderHistory();
 }
 
+// ============ History ============
+function saveHistory(type,data){
+  try{var h=JSON.parse(localStorage.getItem('lalalin_hist')||'[]');h.unshift({type:type,data:data,ts:Date.now()});if(h.length>20)h=h.slice(0,20);localStorage.setItem('lalalin_hist',JSON.stringify(h))}catch(e){}
+}
+function renderHistory(){
+  var h=JSON.parse(localStorage.getItem('lalalin_hist')||'[]');
+  var el=document.getElementById('historyList');
+  if(!h.length){el.innerHTML='<p style="text-align:center;color:var(--t3);padding:20px 0">'+T('hist-empty')+'<br><span style="font-size:0.8em">完成占卜后将自动保存</span></p>';return}
+  var html='';h.forEach(function(item,i){
+    var d=new Date(item.ts);var ds=d.getMonth()+1+'/'+d.getDate()+' '+d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');
+    var label=item.type==='bazi'?'八字命盘':item.type==='tarot'?'塔罗占卜':item.type==='love'?'缘分测试':'生肖运势';
+    var sub=item.type==='bazi'?item.data.y+'/'+item.data.m+'/'+item.data.d:item.type==='tarot'?(item.data.card||'')+'':item.data||'';
+    html+='<div class="hist-item"><div><div style="font-size:0.85em;color:var(--gold)">'+label+'</div><div style="font-size:0.72em;color:var(--t3)">'+ds+' · '+sub+'</div></div><span class="hist-del" onclick="delHist('+i+')">✕</span></div>';
+  });
+  el.innerHTML=html||'<p style="text-align:center;color:var(--t3);padding:20px 0">暂无记录</p>';
+}
+function delHist(i){try{var h=JSON.parse(localStorage.getItem('lalalin_hist')||'[]');h.splice(i,1);localStorage.setItem('lalalin_hist',JSON.stringify(h));renderHistory()}catch(e){}}
+
+// ============ HOME ============
 function pickGender(el){document.querySelectorAll('.go').forEach(function(b){b.classList.remove('sel')});el.classList.add('sel')}
 
 function doRead(){
@@ -273,46 +368,38 @@ function doRead(){
   var g=document.querySelector('.go.sel')?document.querySelector('.go.sel').dataset.g:'male';
   var idx=zi(y);ZIDX=idx;
   USER={y:y,m:m,d:dd,h:h<0?12:h,g:g,z:idx};
+  saveHistory('bazi',{y:y,m:m,d:dd,g:g});
   toast(T('toast-chart'));
   goTab('bazi');showBazi();
+  setTimeout(function(){renderHistory()},500);
 }
 
-function showBazi(){
-  if(!USER)return;
-  var u=USER,z=zodiacs[u.z];
-  var s_zh=stems_zh,s_en=stems_en,b_zh=branch_zh,b_en=branch_en;
-  var el=T('el-'+z.el),elZh=T('el-'+z.el).replace('_','');
-  var ty=tg(u.y),td=(ty+u.d)%10;
-  var st=LANG==='zh'?s_zh[ty]:s_en[ty];
-  var br=LANG==='zh'?b_zh[dz(u.y)]:b_en[dz(u.y)];
-  var stDay=LANG==='zh'?s_zh[td]:s_en[td];
-  var brDay=LANG==='zh'?b_zh[(u.z+u.d)%12]:b_en[(u.z+u.d)%12];
-  var nameZh=T('zr-'+z.k),nameEn=z.k;
-  var nm=LANG==='zh'?nameZh:nameEn;
-  var animal=LANG==='zh'?nameZh:nameEn;
-  var g=LANG==='zh'?T('g-'+u.g):u.g;
-  var yr=LANG==='zh'?T('b-year'):'Year',mo=LANG==='zh'?T('b-month'):'Month',da=LANG==='zh'?T('b-day'):'Day',ho=LANG==='zh'?T('b-hour'):'Hour';
-  var interp=LANG==='zh'?
-    '你属'+animal+'，'+el+'命之人。'+el+'主'+eleMap[eleMap[z.el]]+'，性格特质与你的人生息息相关。日主'+stDay+'，代表你内心真正的自我，也是你一生运势的关键所在。':
-    z.el+' governs your nature. Day master '+stDay+' represents your true self and destiny key.';
-  var lucky=LANG==='zh'?T('b-lucky'):'Lucky',color=LANG==='zh'?T('b-color'):'Color',stone=LANG==='zh'?T('b-stone'):'Stone';
-  var cs=LANG==='zh'?z.cl_zh:z.cl_en;
-  var sts=LANG==='zh'?z.st_zh:z.st_en;
-  document.getElementById('baziBox').innerHTML=
-  '<div style="text-align:center;margin-bottom:16px"><div style="font-size:0.85em;color:var(--t3)">'+u.y+'/'+u.m+'/'+u.d+' - '+g+'</div><div style="font-size:1.4em;color:var(--gold);margin:6px 0">'+st+' '+br+' '+animal+'</div></div>'+
-  '<div class="bzr">'+
-  '<div class="bzp"><div class="bl">'+yr+'</div><div class="bs">'+st+'</div><div class="bb">'+br+'</div></div>'+
-  '<div class="bzp"><div class="bl">'+mo+'</div><div class="bs">'+(LANG==='zh'?s_zh[(ty+2)%10]:s_en[(ty+2)%10])+'</div><div class="bb">'+(LANG==='zh'?b_zh[u.m]:b_en[u.m])+'</div></div>'+
-  '<div class="bzp"><div class="bl">'+da+'</div><div class="bs">'+stDay+'</div><div class="bb">'+brDay+'</div></div>'+
-  '<div class="bzp"><div class="bl">'+ho+'</div><div class="bs">'+(LANG==='zh'?s_zh[(ty+5)%10]:s_en[(ty+5)%10])+'</div><div class="bb">'+(LANG==='zh'?b_zh[Math.floor(u.h/2)]:b_en[Math.floor(u.h/2)])+'</div></div>'+
-  '</div>'+
-  '<div style="background:rgba(196,154,60,0.08);border-radius:12px;padding:16px;margin-top:12px">'+
-  '<div style="font-weight:600;color:var(--g2);margin-bottom:8px">'+T('b-interp')+'</div>'+
-  '<p style="font-size:0.9em;color:var(--t2);line-height:1.6">'+interp+'</p></div>'+
-  '<div class="lt"><div class="lk">'+lucky+' <b>'+z.ln.join(',')+'</b></div><div class="lk">'+color+' <b>'+cs+'</b></div><div class="lk">'+stone+' <b>'+sts+'</b></div></div>';
+// ============ DAILY CARD ============
+function dailyCard(){
+  var now=new Date();var sd=now.getFullYear()*10000+(now.getMonth()+1)*100+now.getDate();
+  var rn=function(n){return Math.abs(Math.sin(sd*127.1+n*311.7)*10000)%100};
+  var s=Math.floor(rn(1)/20)+1;var sr='';for(var i=0;i<Math.min(s,5);i++)sr+='✦';
+  var fzh=[{t:'紫气东来',d:'今日贵人运旺盛，适合社交与拓展人脉。工作上迎来新突破机会，大胆表达你的想法。',dos:'社交聚会,谈判签约,户外运动',donts:'宅家不动,与人争执,大额消费'},
+  {t:'稳中求进',d:'看似平淡的一天，实则在酝酿重要转机。保持耐心，细节决定成败，静待花开。',dos:'整理规划,学习进修,家庭聚餐',donts:'冒险投资,冲动决策,熬夜加班'},
+  {t:'桃花盛开',d:'今日桃花运势上升，单身者有望邂逅心仪之人。已有伴侣者感情甜蜜升华。',dos:'约会表白,艺术创作,朋友聚会',donts:'冷战赌气,犹豫不决,过度理性'},
+  {t:'财运亨通',d:'偏财运不错的一天，可能会有意外之财。但要记得见好就收，切莫贪心。',dos:'理财规划,小额投资,慈善捐赠',donts:'赌博投机,借贷担保,奢侈消费'},
+  {t:'贵人相助',d:'贵人星入命，长辈或上司会成为你的贵人。虚心请教，获得宝贵指点。',dos:'请教长辈,进修学习,善行积德',donts:'骄傲自负,拒绝帮助,投机取巧'}];
+  var fen=[{t:'Fortune Smiles',d:'The stars align in your favor. New opportunities in career and relationships.',dos:'Social events,Networking,Creativity',donts:'Isolation,Arguments,Big spending'},
+  {t:'Steady Progress',d:'A quiet but significant turning point. Patience reveals hidden chances.',dos:'Planning,Studying,Family time',donts:'Risky moves,Rash decisions,Overwork'},
+  {t:'Love Blossoms',d:'Romantic energy peaks. Singles may meet someone special.',dos:'Dating,Art,Gatherings',donts:'Cold silence,Indecision,Overthinking'},
+  {t:'Prosperity',d:'Favorable day for finances. Unexpected gains possible.',dos:'Budgeting,Investments,Giving',donts:'Gambling,Co-signing,Splurging'},
+  {t:'Noble Support',d:'A mentor figure appears. Their guidance opens doors.',dos:'Seek advice,Learn humbly,Good deeds',donts:'Arrogance,Refuse help,Shortcuts'}];
+  var ff=LANG==='zh'?fzh:fen;
+  var f=ff[Math.floor(rn(0)/20)];
+  var cs_zh=['金色','玫瑰色','绿色','紫色','蓝色'],cs_en=['Gold','Rose','Green','Purple','Blue'];
+  var cc=(LANG==='zh'?cs_zh:cs_en)[Math.floor(rn(3)/20)];
+  var ns=[Math.floor(rn(4)/10)+1,Math.floor(rn(5)/10)+1];
+  var dt=LANG==='zh'?'今日运势':'Daily Fortune';
+  var dk=LANG==='zh'?'幸运':'Lucky',ck=LANG==='zh'?'颜色':'Color',dok=LANG==='zh'?'宜':'Do',dntk=LANG==='zh'?'忌':'Avoid';
+  document.getElementById('dailyBox').innerHTML='<div class="dt">'+dt+' · '+now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate()+'</div><div class="fi">🔮</div><div class="fs">'+sr+'</div><div class="ft">'+f.t+'</div><div class="fd">'+f.d+'</div><div class="lt"><div class="lk">'+dk+' <b>'+ns.join(',')+'</b></div><div class="lk">'+ck+' <b>'+cc+'</b></div><div class="lk">'+dok+' <b>'+f.dos.split(',')[0]+'</b></div><div class="lk">'+dntk+' <b>'+f.donts.split(',')[0]+'</b></div></div>';
 }
 
-var zCh=['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
+// ============ ZODIAC ============
 function renderZodiacs(){
   document.getElementById('zodiacGrid').innerHTML=zodiacs.map(function(z,i){
     var n=LANG==='zh'?T('zr-'+z.k):z.k;
@@ -321,9 +408,65 @@ function renderZodiacs(){
   }).join('');
 }
 
+var zDetails={
+  Rat:{ov_zh:'属鼠之人机智灵敏，善于观察，适应力极强。今日思维活跃，适合学习新知和社交活动。',ov_en:'Quick-witted and adaptable. A great day for learning and social connections.',
+       cr_zh:'事业上今日适合主动出击。你的敏锐洞察力能发现别人忽略的机会。保持灵活，随机应变。',cr_en:'Take the initiative at work. Your sharp instincts spot hidden opportunities.',
+       lv_zh:'感情方面温暖和谐。单身的你今天魅力四射，已婚者与伴侣沟通顺畅。',lv_en:'Warm harmony in love. Singles radiate charm today.',
+       we_zh:'财运平稳，适合小额理财。避免高风险投资，以稳健为主。',we_en:'Stable finances. Favor conservative approaches today.'},
+  Ox:{ov_zh:'属牛之人踏实稳重，责任心强。今日运势稳步上升，之前的努力开始见到回报。',ov_en:'Steadfast and reliable. Past efforts begin to yield results.',
+      cr_zh:'事业上升期，领导对你有信任。适合承担更多责任，展示你的可靠性。',cr_en:'Career rising. Leadership trusts you. Take on more responsibility.',
+      lv_zh:'感情需多些浪漫。不妨为伴侣准备小惊喜，让关系升温。',lv_en:'Add more romance. A small surprise goes a long way.',
+      we_zh:'正财运好，薪资或奖金方面有利好消息。',we_en:'Good income news. Salary or bonus improvements ahead.'},
+  Tiger:{ov_zh:'属虎之人勇敢果断，充满魄力。今日精力充沛，适合开启新项目和新冒险。',ov_en:'Bold and courageous. Perfect day to start new ventures.',
+         cr_zh:'事业机遇来临，大胆争取。你的领导力会在关键时刻展现。',cr_en:'Career opportunities arise. Be bold and claim them.',
+         lv_zh:'感情方面热情似火。勇敢表达你的心意，不要留下遗憾。',lv_en:'Passion burns bright. Express your feelings boldly.',
+         we_zh:'偏财运不错，可能有意外收获。但大额投资仍需谨慎。',we_en:'Luck with windfalls. But caution on big investments.'},
+  Rabbit:{ov_zh:'属兔之人温和聪慧，人缘极佳。今日适合社交和建立人脉，他人乐于帮助你。',ov_en:'Gentle and wise. Great for networking and making connections.',
+          cr_zh:'通过人脉获得事业机会。保持谦逊温和的态度，贵人自然出现。',cr_en:'Opportunities through connections. Stay humble and approachable.',
+          lv_zh:'桃花运旺盛的一天。温柔体贴的你会吸引到欣赏你的人。',lv_en:'Romance blooms. Your gentle nature attracts admirers.',
+          we_zh:'财运尚可，不宜大动作。守成为主，等待更好时机。',we_en:'Moderate finances. Hold steady, better times ahead.'},
+  Dragon:{ov_zh:'属龙之人气宇轩昂，天生领袖。今日运势如日中天，是展示自我的好时机。',ov_en:'Charismatic and natural-born leader. A day to shine.',
+          cr_zh:'事业上光芒四射。你独到的见解和魄力令人印象深刻，有望获得晋升。',cr_en:'Career shines bright. Your vision impresses. Promotion possible.',
+          lv_zh:'感情运佳。你的自信魅力无人能挡，单身者桃花不断。',lv_en:'Love luck strong. Your confidence is irresistible.',
+          we_zh:'财运旺盛。适合投资和理财规划，长期布局。',we_en:'Excellent finances. Good time for long-term planning.'},
+  Snake:{ov_zh:'属蛇之人智慧深邃，直觉敏锐。今日宜静不宜动，深思熟虑后再做决定。',ov_en:'Deep wisdom, sharp intuition. Think before you act today.',
+         cr_zh:'事业上需要策略。不急于一时的胜负，长期布局更为重要。',cr_en:'Strategy over speed. Long-term planning wins.',
+         lv_zh:'感情需要深度交流。不要浮于表面，真诚沟通能解决很多问题。',lv_en:'Deep connection needed. Honest communication heals.',
+         we_zh:'财运谨慎为上。避免冲动消费，多存少花。',we_en:'Exercise caution. Save more, spend less today.'},
+  Horse:{ov_zh:'属马之人热情奔放，自由不羁。今日精力充沛，适合运动和户外活动。',ov_en:'Energetic and free-spirited. Great for outdoor activities.',
+         cr_zh:'事业上需要耐心。保持热情但不要急躁，一步一个脚印。',cr_en:'Patience needed. Stay passionate but don\'t rush.',
+         lv_zh:'感情上给对方更多空间。自由是爱的基础，不要过度束缚。',lv_en:'Give space in love. Freedom strengthens bonds.',
+         we_zh:'财运一般，旅游或娱乐开支可能较多。适当控制。',we_en:'Moderate wealth. Watch entertainment spending.'},
+  Goat:{ov_zh:'属羊之人温柔善良，艺术气质。今日创造力爆发，适合艺术创作和美学相关事务。',ov_en:'Gentle and artistic. Creativity peaks today.',
+        cr_zh:'事业上发挥你的创造力。独特的审美和想法是你最大的优势。',cr_en:'Leverage creativity at work. Your unique eye is your strength.',
+        lv_zh:'感情温馨甜蜜。你的柔情让伴侣感到幸福温暖。',lv_en:'Sweet romance. Your tenderness brings warmth.',
+        we_zh:'财运温和上升，创意相关收入可观。',we_en:'Modest financial rise. Creative income possible.'},
+  Monkey:{ov_zh:'属猴之人聪明机灵，反应迅速。今日适合解决问题，你的机智会带来转机。',ov_en:'Clever and quick. Your wit solves problems today.',
+          cr_zh:'事业上随机应变。遇到困难时换个角度思考，问题迎刃而解。',cr_en:'Adapt quickly. New perspectives solve old problems.',
+          lv_zh:'感情需要幽默感。用轻松有趣的方式增进亲密关系。',lv_en:'Humor helps love. Keep things light and fun.',
+          we_zh:'财运灵活。短线机会较多，但不要贪心。',we_en:'Flexible finances. Short-term chances, don\'t be greedy.'},
+  Rooster:{ov_zh:'属鸡之人勤奋细致，追求完美。今日效率极高，是清理待办事项的好日子。',ov_en:'Diligent and meticulous. A highly productive day.',
+           cr_zh:'事业上细致取胜。你的认真态度会被上司注意，获得认可。',cr_en:'Detail wins. Your thoroughness gets noticed.',
+           lv_zh:'感情需要更多关注。花时间陪陪重要的人，不要只顾工作。',lv_en:'Give more attention to love. Don\'t just work.',
+           we_zh:'理财能力发挥。适合做预算规划和财务整理。',we_en:'Financial skills shine. Perfect for budget planning.'},
+  Dog:{ov_zh:'属狗之人忠诚可靠，正义感强。今日适合帮助他人，付出终有回报。',ov_en:'Loyal and just. Helping others brings rewards.',
+       cr_zh:'事业上团队协作顺利。你的可靠性让团队更加凝聚。',cr_en:'Teamwork flows. Your reliability strengthens the team.',
+       lv_zh:'感情忠诚可贵。你的专一让伴侣无比安心。',lv_en:'Loyalty shines. Your devotion gives peace of mind.',
+       we_zh:'财运稳定。没有大起大落，稳步积累。',we_en:'Stable finances. Steady accumulation.'},
+  Pig:{ov_zh:'属猪之人豁达乐观，福气深厚。今日好运连连，是享受生活的美好日子。',ov_en:'Optimistic and fortunate. A day full of good luck.',
+       cr_zh:'事业上有贵人相助。保持开放心态，好机会自然来。',cr_en:'Noble support at work. Stay open, opportunities arrive.',
+       lv_zh:'感情甜蜜幸福。珍惜眼前人，感恩拥有的美好。',lv_en:'Blissful love. Cherish what you have.',
+       we_zh:'财运亨通。可能会有意外之财，投资眼光准。',we_en:'Fortune flows. Unexpected gains possible.'}
+};
+
 function showZ(idx){
-  ZIDX=idx;var z=zodiacs[idx];
-  var s=rnd(1,5),sr='';for(var i=0;i<s;i++)sr+='*';
+  ZIDX=idx;var z=zodiacs[idx];ZD_TAB='overview';ZD_CACHE=z;
+  var dts=zDetails[z.k];if(!dts)return;
+  renderZDetail(idx,dts);
+}
+
+function renderZDetail(idx,dts){
+  var z=zodiacs[idx];var s=rnd(1,5);var sr='';for(var i=0;i<s;i++)sr+='✦';
   var nm=LANG==='zh'?T('zr-'+z.k):z.k;
   var el=T('el-'+z.el);
   var advs_zh=[
@@ -334,41 +477,118 @@ function showZ(idx){
     {dos:'慈善捐赠,拜访长辈,水边散步',donts:'冲动辞职,借钱他人,深夜独行'}
   ];
   var advs_en=[
-    {dos:'Social events,Learning new skills,Planning & organizing',donts:'Impulse buying,Arguments,Late nights'},
-    {dos:'Investing wisely,Travel & explore,Creative projects',donts:'Co-signing loans,Overwork,Overeating'},
-    {dos:'Dating & romance,Family dinner,Exercise & fitness',donts:'Cold silence,Procrastination,Empty promises'},
-    {dos:'Negotiate deals,Further study,Mountain hiking',donts:'Gambling,Drunk driving,Gossip'},
-    {dos:'Charity & giving,Visit elders,Waterside walks',donts:'Impulsive quitting,Lending money,Walking alone at night'}
+    {dos:'Social events,Learning,Planning',donts:'Impulse buying,Arguments,Late nights'},
+    {dos:'Investing,Travel,Creative work',donts:'Co-signing loans,Overwork,Eating out'},
+    {dos:'Dating,Family dinner,Exercise',donts:'Silent treatment,Doubt,Empty talk'},
+    {dos:'Negotiate,Study further,Hiking',donts:'Gambling,Drunk driving,Gossip'},
+    {dos:'Charity,Visit elders,Walk by water',donts:'Quit impulsively,Lend money,Walking alone'}
   ];
   var adv=LANG==='zh'?advs_zh[idx%5]:advs_en[idx%5];
   var fav=LANG==='zh'?T('z-fav'):'Favorable',avd=LANG==='zh'?T('z-avoid'):'Avoid';
-  var lk=LANG==='zh'?T('z-lucky'):'Lucky',st=LANG==='zh'?T('z-stone'):'Stone';
-  var sts=LANG==='zh'?z.st_zh:z.st_en;
-  var cs=LANG==='zh'?z.cl_zh:z.cl_en;
+  var lk=LANG==='zh'?T('z-lucky'):'Lucky',st=LANG==='zh'?T('z-stone'):'Stone',cs=LANG==='zh'?z.cl_zh:z.cl_en,sts=LANG==='zh'?z.st_zh:z.st_en;
+  var det=(LANG==='zh'?[dts.ov_zh,dts.cr_zh,dts.lv_zh,dts.we_zh]:[dts.ov_en,dts.cr_en,dts.lv_en,dts.we_en]);
+  var ov=LANG==='zh'?T('z-overview'):'Overview',cr=LANG==='zh'?T('z-career'):'Career',lv=LANG==='zh'?T('z-love'):'Love',we=LANG==='zh'?T('z-wealth'):'Wealth';
   document.getElementById('zodiacDetail').style.display='block';
-  document.getElementById('zodiacDetail').innerHTML='<div style="font-size:3em;margin-bottom:8px">'+z.k.charAt(0)+'</div><div style="font-size:1.5em;color:var(--gold)">'+nm+'</div><div style="color:var(--t3);font-size:0.85em">'+el+'</div>'+
-  '<div class="fs" style="margin:10px 0">'+sr+'</div>'+
-  '<div style="display:flex;gap:10px;margin:12px 0"><div style="flex:1;text-align:left;padding:12px;background:rgba(100,180,120,0.08);border-radius:10px"><div style="color:#8ad098;font-weight:600;margin-bottom:4px">'+fav+'</div>'+adv.dos.split(',').map(function(d){return'<div style="font-size:0.82em;color:var(--t2)">- '+d+'</div>'}).join('')+'</div>'+
-  '<div style="flex:1;text-align:left;padding:12px;background:rgba(200,80,60,0.08);border-radius:10px"><div style="color:#d4958a;font-weight:600;margin-bottom:4px">'+avd+'</div>'+adv.donts.split(',').map(function(d){return'<div style="font-size:0.82em;color:var(--t2)">- '+d+'</div>'}).join('')+'</div></div>'+
-  '<div class="lt"><div class="lk">'+lk+' <b>'+z.ln.join(',')+'</b></div><div class="lk">'+st+' <b>'+sts+'</b></div></div>';
+  document.getElementById('zodiacDetail').innerHTML=
+  '<div style="font-size:2.5em;margin-bottom:4px">'+zCh[idx]+'</div><div style="font-size:1.3em;color:var(--gold)">'+nm+'</div><div style="color:var(--t3);font-size:0.8em">'+el+'</div>'+
+  '<div style="color:var(--gold2);font-size:1.2em;letter-spacing:4px;margin:8px 0">'+sr+'</div>'+
+  '<div class="stb"><div class="stbi on" onclick="switchZTab(\'overview\',this)">'+ov+'</div><div class="stbi" onclick="switchZTab(\'career\',this)">'+cr+'</div><div class="stbi" onclick="switchZTab(\'love\',this)">'+lv+'</div><div class="stbi" onclick="switchZTab(\'wealth\',this)">'+we+'</div></div>'+
+  '<div class="sdwrap" id="zdContent">'+det[0]+'</div>'+
+  '<div class="lt" style="margin-top:12px"><div class="lk">'+lk+' <b>'+z.ln.join(',')+'</b></div><div class="lk">'+st+' <b>'+sts+'</b></div></div>'+
+  '<div style="display:flex;gap:8px;margin-top:10px"><div style="flex:1;text-align:left;padding:10px;background:rgba(100,180,120,0.06);border-radius:8px"><div style="color:#8ad098;font-weight:600;font-size:0.78em;margin-bottom:4px">'+fav+'</div>'+adv.dos.split(',').map(function(d){return'<div style="font-size:0.72em;color:var(--t2)">• '+d+'</div>'}).join('')+'</div><div style="flex:1;text-align:left;padding:10px;background:rgba(200,80,60,0.06);border-radius:8px"><div style="color:#d4958a;font-weight:600;font-size:0.78em;margin-bottom:4px">'+avd+'</div>'+adv.donts.split(',').map(function(d){return'<div style="font-size:0.72em;color:var(--t2)">• '+d+'</div>'}).join('')+'</div></div>'+
+  '<button class="btn-share" onclick="shareContent(\'zodiac\',\''+nm+'\',\''+sr+'\')" style="margin-top:10px">📤 分享运势</button>';
   document.getElementById('zodiacDetail').scrollIntoView({behavior:'smooth'});
 }
 
-function pickPeriod(p,el){PERIOD=p;document.querySelectorAll('.ptb').forEach(function(t){t.classList.remove('on')});el.classList.add('on');if(ZIDX>=0)showZ(ZIDX)}
+function switchZTab(tab,el){
+  ZD_TAB=tab;
+  document.querySelectorAll('.stbi').forEach(function(b){b.classList.remove('on')});el.classList.add('on');
+  if(!ZD_CACHE)return;
+  var dts=zDetails[ZD_CACHE.k];if(!dts)return;
+  var det=LANG==='zh'?{overview:dts.ov_zh,career:dts.cr_zh,love:dts.lv_zh,wealth:dts.we_zh}:{overview:dts.ov_en,career:dts.cr_en,love:dts.lv_en,wealth:dts.we_en};
+  document.getElementById('zdContent').textContent=det[tab]||det.overview;
+}
+
+function pickPeriod(p,el){
+  PERIOD=p;
+  document.querySelectorAll('.ptb').forEach(function(t){t.classList.remove('on')});el.classList.add('on');
+  if(ZIDX>=0&&ZD_CACHE)renderZDetail(ZIDX,zDetails[ZD_CACHE.k]);
+}
+
+// ============ BAZI ============
+function showBazi(){
+  if(!USER)return;
+  var u=USER,z=zodiacs[u.z];
+  var s_zh=stems_zh,s_en=stems_en,b_zh=branch_zh,b_en=branch_en;
+  var el=T('el-'+z.el);
+  var ty=tg(u.y),td=(ty+u.d)%10;
+  var st=LANG==='zh'?s_zh[ty]:s_en[ty];
+  var br=LANG==='zh'?b_zh[dz(u.y)]:b_en[dz(u.y)];
+  var stDay=LANG==='zh'?s_zh[td]:s_en[td];
+  var brDay=LANG==='zh'?b_zh[(u.z+u.d)%12]:b_en[(u.z+u.d)%12];
+  var nameZh=T('zr-'+z.k),animal=LANG==='zh'?nameZh:z.k;
+  var gname=LANG==='zh'?T('g-'+u.g):u.g;
+  var yr=LANG==='zh'?T('b-year'):'Year',mo=LANG==='zh'?T('b-month'):'Month',da=LANG==='zh'?T('b-day'):'Day',ho=LANG==='zh'?T('b-hour'):'Hour';
+  var virtue=eleMap[eleMap[z.el]];
+  var interp=LANG==='zh'?
+    '你属'+animal+'，为'+el+'命之人。五行中'+el+'主「'+virtue+'」，'+virtue+'者'+({'仁':'仁慈宽厚，心怀天下','礼':'彬彬有礼，重义守节','信':'诚实守信，言行一致','义':'重情重义，刚正不阿','智':'聪慧明智，深谋远虑'})[virtue]+'。日主为「'+stDay+'」，代表你内心真正的自我，是你一生运势的关键所在。':
+    z.el+' governs your nature. Day master '+stDay+' represents your true self and destiny key.';
+  var clk=LANG==='zh'?'幸运':'Lucky',cok=LANG==='zh'?'颜色':'Color',stk=LANG==='zh'?'宝石':'Stone';
+  var cs=LANG==='zh'?z.cl_zh:z.cl_en,sts=LANG==='zh'?z.st_zh:z.st_en;
+  document.getElementById('baziBox').innerHTML=
+  '<div style="text-align:center;margin-bottom:16px"><div style="font-size:0.8em;color:var(--t3)">'+u.y+'年'+u.m+'月'+u.d+'日 · '+gname+' · '+animal+'</div><div style="font-size:1.2em;color:var(--gold);margin:8px 0;letter-spacing:2px">'+T('zr-'+z.k)+' · '+el+' · '+st+' '+br+'</div></div>'+
+  '<div class="bzr">'+
+  '<div class="bzp"><div class="bl">'+yr+'</div><div class="bs">'+st+'</div><div class="bb">'+br+'</div></div>'+
+  '<div class="bzp"><div class="bl">'+mo+'</div><div class="bs">'+(LANG==='zh'?s_zh[(ty+2)%10]:s_en[(ty+2)%10])+'</div><div class="bb">'+(LANG==='zh'?b_zh[u.m]:b_en[u.m])+'</div></div>'+
+  '<div class="bzp"><div class="bl">'+da+'</div><div class="bs">'+stDay+'</div><div class="bb">'+brDay+'</div></div>'+
+  '<div class="bzp"><div class="bl">'+ho+'</div><div class="bs">'+(LANG==='zh'?s_zh[(ty+5)%10]:s_en[(ty+5)%10])+'</div><div class="bb">'+(LANG==='zh'?b_zh[Math.floor(u.h/2)]:b_en[Math.floor(u.h/2)])+'</div></div>'+
+  '</div>'+
+  '<div style="background:rgba(212,168,67,0.06);border-radius:12px;padding:16px;margin-top:12px;border-left:3px solid var(--gold)">'+
+  '<div style="font-weight:600;color:var(--gold2);margin-bottom:8px">'+T('b-interp')+'</div>'+
+  '<p style="font-size:0.88em;color:var(--t2);line-height:1.75">'+interp+'</p></div>'+
+  '<div class="lt"><div class="lk">'+clk+' <b>'+z.ln.join(',')+'</b></div><div class="lk">'+cok+' <b>'+cs+'</b></div><div class="lk">'+stk+' <b>'+sts+'</b></div></div>';
+}
+
+// ============ TAROT ============
+function setSpread(n,el){TSPREAD=n;document.querySelectorAll('.spread-opt').forEach(function(o){o.classList.remove('on')});el.classList.add('on')}
 
 function drawTarot(){
-  var c=tarotDeck[rnd(0,tarotDeck.length-1)];
-  var n=LANG==='zh'?c.n_zh:c.n_en;
-  var m=LANG==='zh'?c.m_zh:c.m_en;
-  document.getElementById('tarotFront').innerHTML='<div style="font-size:3em">'+c.e+'</div><div class="tfn">'+n+'</div><div class="tfm">'+m+'</div>';
+  var cards=[];var used={};
+  for(var i=0;i<TSPREAD;i++){
+    var idx;do{idx=rnd(0,tarotDeck.length-1)}while(used[idx]&&TSPREAD<=tarotDeck.length);
+    used[idx]=1;cards.push(tarotDeck[idx]);
+  }
+  CUR_TAROT=cards;
+  var labels_zh=['过去','现在','未来'],labels_en=['Past','Present','Future'];
+  var html='';
+  if(cards.length===1){
+    var c=cards[0];
+    html='<div style="font-size:2.5em">'+c.e+'</div><div class="tfn">'+(LANG==='zh'?c.n_zh:c.n_en)+'</div><div class="tfm">'+(LANG==='zh'?c.m_zh:c.m_en)+'</div>';
+  }else{
+    html+='<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">';
+    cards.forEach(function(c,i){
+      var lb=LANG==='zh'?labels_zh[i]:labels_en[i];
+      html+='<div style="flex:1;min-width:80px;text-align:center;background:rgba(20,10,40,0.5);border-radius:10px;padding:10px 6px"><div style="font-size:0.65em;color:var(--t3);margin-bottom:4px">'+lb+'</div><div style="font-size:2em">'+c.e+'</div><div style="font-size:0.75em;color:var(--gold)">'+(LANG==='zh'?c.n_zh:c.n_en)+'</div><div style="font-size:0.65em;color:var(--t2);margin-top:4px;line-height:1.4">'+(LANG==='zh'?c.m_zh:c.m_en)+'</div></div>';
+    });
+    html+='</div>';
+  }
+  document.getElementById('tarotFront').innerHTML=html;
   document.querySelector('.tcrd').classList.remove('flip');
   setTimeout(function(){document.querySelector('.tcrd').classList.add('flip')},100);
+  // save to history
+  var cardNames=cards.map(function(c){return LANG==='zh'?c.n_zh:c.n_en}).join(' + ');
+  saveHistory('tarot',{card:cardNames,spread:TSPREAD});
+  // show in tarot history
+  var now=new Date();
+  document.getElementById('tarotHistory').textContent='最近：'+cardNames+' ('+now.getHours()+':'+String(now.getMinutes()).padStart(2,'0')+')';
 }
-function flipTarot(){var el=document.querySelector('.tcrd');if(!el.classList.contains('flip'))drawTarot()}
+function flipTarot(){if(!CUR_TAROT||document.querySelector('.tcrd').classList.contains('flip'))drawTarot()}
 
+// ============ LOVE ============
 function initLove(){
-  var s=document.getElementById('loveA'),s2=document.getElementById('loveB');
-  [s,s2].forEach(function(sel){sel.innerHTML=zodiacs.map(function(z,i){var n=LANG==='zh'?T('zr-'+z.k):z.k;var el=T('el-'+z.el);return'<option value="'+i+'">'+z.k.charAt(0)+' '+n+' ('+el+')</option>'}).join('');});
+  [document.getElementById('loveA'),document.getElementById('loveB')].forEach(function(sel){
+    sel.innerHTML=zodiacs.map(function(z,i){var n=LANG==='zh'?T('zr-'+z.k):z.k;var el=T('el-'+z.el);return'<option value="'+i+'">'+zCh[i]+' '+n+' ('+el+')</option>'}).join('');
+  });
 }
 
 function checkLove(){
@@ -377,111 +597,80 @@ function checkLove(){
   var d=Math.abs(a-b);
   var scores=[85,72,78,65,90,55,70,60,82,58,75,68];
   var sc=Math.min(Math.max(scores[d]+rnd(-8,8),30),98);
-  var msgs_zh=[sc>=90?'天作之合！你们简直是命中注定的一对。':sc>=75?'非常匹配！你们有很多共同点，关系会很甜蜜。':sc>=60?'还不错！需要多一点耐心和理解，未来可期。':sc>=45?'需要磨合。性格差异较大，但互补也能擦出火花。':'挑战较大。但如果真心相爱，没有跨不过的坎。'];
-  var msgs_en=[sc>=90?'A match made in heaven!':sc>=75?'Great match! Sweet relationship ahead.':sc>=60?'Not bad! Patience will go a long way.':sc>=45?'Needs work. Opposites can attract.':'Challenging. But true love overcomes all.'];
+  var msgs_zh=[sc>=90?'天作之合！你们简直是命中注定的一对，五行相生，相得益彰。':sc>=75?'非常匹配！你们有很多共同点，关系会很甜蜜幸福。':sc>=60?'还不错！需要多一点耐心和理解，未来可期。':sc>=45?'需要磨合。性格差异较大，但互补也能擦出火花。相克相生，皆有定数。':'挑战较大。但如果真心相爱，没有跨不过的坎。五行相克亦可转为相生。'];
+  var msgs_en=[sc>=90?'A match made in heaven!':sc>=75?'Great match! Sweet relationship ahead.':sc>=60?'Not bad! Patience will help.':sc>=45?'Needs work. Opposites attract.':'Challenging. But true love conquers all.'];
   var msg=LANG==='zh'?msgs_zh[0]:msgs_en[0];
   var na=LANG==='zh'?T('zr-'+zodiacs[a].k):zodiacs[a].k;
   var nb=LANG==='zh'?T('zr-'+zodiacs[b].k):zodiacs[b].k;
   var ea=T('el-'+zodiacs[a].el),eb=T('el-'+zodiacs[b].el);
   document.getElementById('loveRes').style.display='block';
-  document.getElementById('loveRes').innerHTML='<div style="font-size:2em;margin:8px 0">'+zodiacs[a].k.charAt(0)+' + '+zodiacs[b].k.charAt(0)+'</div><div class="ls">'+sc+'%</div><div class="lb"><div class="lbi" style="width:'+sc+'%"></div></div><p style="color:var(--t2);font-size:1em;line-height:1.6">'+msg+'</p><div style="color:var(--t3);font-size:0.82em">'+na+'('+ea+') & '+nb+'('+eb+')</div>';
+  document.getElementById('loveRes').innerHTML='<div style="font-size:2em;margin:8px 0">'+zCh[a]+' + '+zCh[b]+'</div><div class="ls">'+sc+'%</div><div class="lb"><div class="lbi" style="width:'+sc+'%"></div></div><p style="color:var(--t2);font-size:0.95em;line-height:1.7">'+msg+'</p><div style="color:var(--t3);font-size:0.78em">'+na+'('+ea+') & '+nb+'('+eb+')</div>';
   document.getElementById('loveRes').scrollIntoView({behavior:'smooth'});
+  saveHistory('love',na+' + '+nb+' = '+sc+'%');
 }
 
-function dailyCard(){
-  var now=new Date();var sd=now.getFullYear()*10000+(now.getMonth()+1)*100+now.getDate();
-  var rn=function(n){return Math.abs(Math.sin(sd*127.1+n*311.7)*10000)%100};
-  var s=Math.floor(rn(1)/20)+1;var sr='';for(var i=0;i<Math.min(s,5);i++)sr+='*';
-  var fzh=[
-    {t:'紫气东来',d:'今日贵人运旺盛，适合社交与拓展人脉。工作上迎来新突破机会，大胆表达你的想法。',dos:'社交聚会,谈判签约,户外运动',donts:'宅家不动,与人争执,大额消费'},
-    {t:'稳中求进',d:'看似平淡的一天，实则在酝酿重要转机。保持耐心，细节决定成败。',dos:'整理规划,学习进修,家庭聚餐',donts:'冒险投资,冲动决策,熬夜加班'},
-    {t:'桃花盛开',d:'今日桃花运势上升，单身者有望邂逅心仪之人。已有伴侣者感情甜蜜升华。',dos:'约会表白,艺术创作,朋友聚会',donts:'冷战赌气,犹豫不决,过度理性'},
-    {t:'财运亨通',d:'偏财运不错的一天，可能会有意外之财。但要记得见好就收，切莫贪心。',dos:'理财规划,小额投资,慈善捐赠',donts:'赌博投机,借贷担保,奢侈消费'},
-    {t:'贵人相助',d:'贵人星入命，长辈或上司会成为你的贵人。虚心请教，获得宝贵指点。',dos:'请教长辈,进修学习,善行积德',donts:'骄傲自负,拒绝帮助,投机取巧'}
-  ];
-  var fen=[
-    {t:'Fortune Smiles',d:'The stars align in your favor. New opportunities in career and relationships.',dos:'Social events,Networking,Creativity',donts:'Isolation,Arguments,Big spending'},
-    {t:'Steady Progress',d:'A quiet but significant turning point. Patience reveals hidden chances.',dos:'Planning,Studying,Family time',donts:'Risky moves,Rash decisions,Overwork'},
-    {t:'Love Blossoms',d:'Romantic energy peaks. Singles may meet someone special.',dos:'Dating,Art,Gatherings',donts:'Cold silence,Indecision,Overthinking'},
-    {t:'Prosperity Flow',d:'Favorable day for finances. Unexpected gains possible.',dos:'Budgeting,Small investments,Giving',donts:'Gambling,Co-signing,Splurging'},
-    {t:'Noble Support',d:'A mentor figure appears. Their guidance opens unexpected doors.',dos:'Seek advice,Learn humbly,Good deeds',donts:'Arrogance,Refuse help,Shortcuts'}
-  ];
-  var ff=LANG==='zh'?fzh:fen;
-  var f=ff[Math.floor(rn(0)/20)];
-  var cs_zh=['金色','玫瑰色','绿色','紫色','蓝色'],cs_en=['Gold','Rose','Green','Purple','Blue'];
-  var cc=(LANG==='zh'?cs_zh:cs_en)[Math.floor(rn(3)/20)];
-  var dt=LANG==='zh'?'今日运势':'Daily Fortune';
-  var dtxt=LANG==='zh'?'幸运':'Lucky',ctxt=LANG==='zh'?'颜色':'Color',dotxt=LANG==='zh'?'宜':'Do',dontxt=LANG==='zh'?'忌':'Avoid';
-  var nums=[Math.floor(rn(4)/10)+1,Math.floor(rn(5)/10)+1];
-  document.getElementById('dailyBox').innerHTML='<div class="dt">'+dt+' - '+now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate()+'</div><div class="fi">O</div><div class="fs">'+sr+'</div><div class="ft">'+f.t+'</div><div class="fd">'+f.d+'</div><div class="lt"><div class="lk">'+dtxt+' <b>'+nums.join(',')+'</b></div><div class="lk">'+ctxt+' <b>'+cc+'</b></div><div class="lk">'+dotxt+' <b>'+f.dos.split(',')[0]+'</b></div><div class="lk">'+dontxt+' <b>'+f.donts.split(',')[0]+'</b></div></div>';
+// ============ SHARE ============
+function shareContent(type,name,stars){
+  var text='';
+  if(type==='tarot'&&CUR_TAROT){
+    var cn=CUR_TAROT.map(function(c){return LANG==='zh'?c.n_zh:c.n_en}).join(' + ');
+    text='🔮 塔罗占卜：'+cn+'\n\n在「拉拉林·星之密语」探索你的命运星图 → lalalin.xyz';
+  }else if(type==='zodiac'&&name){
+    text='🐉 '+name+'运势 '+stars+'\n\n每日运势·事业·感情·财运\n在「拉拉林·星之密语」查看 → lalalin.xyz';
+  }else{
+    text='✨ 拉拉林·星之密语 ✨\n在线八字·塔罗占卜·生肖运势·缘分配对\n→ lalalin.xyz';
+  }
+  // Try Web Share API, fallback to clipboard
+  if(navigator.share){navigator.share({title:'拉拉林·星之密语',text:text}).catch(function(){copyText(text)})}
+  else{copyText(text)}
+}
+function copyText(text){
+  if(navigator.clipboard){navigator.clipboard.writeText(text).then(function(){toast('已复制分享文案！')}).catch(function(){toast(text.substring(0,50)+'...')})}
+  else{var ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;left:-9999px';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('已复制分享文案！')}
 }
 
+// ============ LANG ============
 function refreshLabels(){
-  // Update all labeled elements
-  document.getElementById('l-home-title').textContent=T('home-title');
-  document.getElementById('l-home-sub').textContent=T('home-sub');
-  document.getElementById('l-birth').textContent=T('birth');
-  document.getElementById('l-hour').textContent=T('hour');
-  document.getElementById('l-gender').textContent=T('gender');
-  document.getElementById('l-male').textContent=T('male');
-  document.getElementById('l-female').textContent=T('female');
-  document.getElementById('l-hr-na').textContent=T('hr-na');
-  document.getElementById('l-btn-go').textContent=T('btn-go');
-  document.getElementById('l-z-title').textContent=T('z-title');
-  document.getElementById('l-z-sub').textContent=T('z-sub');
-  document.getElementById('l-z-today').textContent=T('z-today');
-  document.getElementById('l-z-week').textContent=T('z-week');
-  document.getElementById('l-z-month').textContent=T('z-month');
-  document.getElementById('l-b-title').textContent=T('b-title');
-  document.getElementById('l-b-sub').textContent=T('b-sub');
-  document.getElementById('l-b-empty').innerHTML=T('b-empty');
-  document.getElementById('l-t-title').textContent=T('t-title');
-  document.getElementById('l-t-sub').textContent=T('t-sub');
-  document.getElementById('l-t-desc').textContent=T('t-desc');
-  document.getElementById('l-t-touch').textContent=T('t-touch');
-  document.getElementById('l-t-again').textContent=T('t-again');
-  document.getElementById('l-love-title').textContent=T('love-title');
-  document.getElementById('l-love-sub').textContent=T('love-sub');
-  document.getElementById('l-love-u').textContent=T('love-u');
-  document.getElementById('l-love-t').textContent=T('love-t');
-  document.getElementById('l-love-check').textContent=T('love-check');
-  // Nav icons
-  document.getElementById('ni-home-t').textContent=T('nav-home');
-  document.getElementById('ni-z-t').textContent=T('nav-zodiac');
-  document.getElementById('ni-b-t').textContent=T('nav-bazi');
-  document.getElementById('ni-t-t').textContent=T('nav-tarot');
-  document.getElementById('ni-l-t').textContent=T('nav-love');
+  var ids=['l-home-title','l-home-sub','l-birth','l-hour','l-gender','l-male','l-female','l-hr-na','l-btn-go',
+    'l-z-title','l-z-sub','l-z-today','l-z-week','l-z-month',
+    'l-b-title','l-b-sub','l-b-empty',
+    'l-t-title','l-t-sub','l-t-desc','l-t-touch','l-t-again',
+    'l-love-title','l-love-sub','l-love-u','l-love-t','l-love-check'];
+  ids.forEach(function(id){var el=document.getElementById(id);if(el){if(el.tagName==='P')el.innerHTML=T(id.replace('l-',''));else el.textContent=T(id.replace('l-',''))}});
+  // Nav
+  document.querySelectorAll('#bn .ni span:last-child').forEach(function(s,i){
+    var keys=['nav-home','nav-zodiac','nav-bazi','nav-tarot','nav-love'];
+    s.textContent=T(keys[i]);
+  });
 }
 
 function toggleLang(){
   LANG=LANG==='zh'?'en':'zh';
   document.getElementById('langBtn').textContent=LANG==='zh'?'中':'EN';
+  document.getElementById('subttl').textContent=LANG==='zh'?'LALALIN · MYSTIC EAST':'拉拉林 · 东方秘境';
   refreshLabels();
   dailyCard();
   renderZodiacs();
   initLove();
-  if(ZIDX>=0)showZ(ZIDX);
+  if(ZIDX>=0&&ZD_CACHE)renderZDetail(ZIDX,zDetails[ZD_CACHE.k]);
   if(USER)showBazi();
+  document.getElementById('tarotHistory').textContent='';
+  CUR_TAROT=null;
 }
 
-function toggleMusic(){
-  if(!audioCtx)try{audioCtx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){return}
-  musicOn=!musicOn;document.getElementById('musicBtn').style.color=musicOn?'var(--g2)':'';
-  if(musicOn){
-    if(musicNode){musicNode.stop();musicNode.disconnect()}
-    try{var o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=220;g.gain.value=0.03;o.connect(g);g.connect(audioCtx.destination);o.start();musicNode=o}catch(e){}
-  }else{if(musicNode){musicNode.stop();musicNode.disconnect();musicNode=null}}
-}
-
-// Stars
+// ============ STARS BG ============
 (function(){
   var c=document.getElementById('stars'),ctx=c.getContext('2d'),pts=[];
   function rs(){c.width=window.innerWidth;c.height=window.innerHeight}rs();window.addEventListener('resize',rs);
-  for(var i=0;i<60;i++)pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.2+0.3,a:Math.random()*1.5});
-  function dr(){ctx.clearRect(0,0,c.width,c.height);pts.forEach(function(p){ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fillStyle='rgba(200,180,150,'+(0.2+Math.abs(Math.sin(p.a+=0.005))*0.4)+')';ctx.fill()});requestAnimationFrame(dr)}dr();
+  for(var i=0;i<80;i++)pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.3+0.2,a:Math.random()*2,sp:0.003+Math.random()*0.01});
+  function dr(){ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach(function(p){ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);
+      var alpha=0.15+Math.abs(Math.sin(p.a+=p.sp))*0.35;
+      ctx.fillStyle='rgba(220,190,160,'+alpha+')';ctx.fill()});
+    requestAnimationFrame(dr)}dr();
 })();
 
-// Init
+// ============ INIT ============
 dailyCard();renderZodiacs();initLove();
 var d=new Date();d.setFullYear(d.getFullYear()-25);
 document.getElementById('birthDate').value=d.toISOString().slice(0,10);
