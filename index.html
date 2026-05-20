@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>拉拉林·星之密语 | 在线八字算命 免费塔罗占卜 生肖配对 2026运势</title>
 <meta name="description" content="拉拉林——你的AI东方命理师。免费在线八字命理、塔罗占卜、十二生肖运势、缘分配对。每日运势推送，探索东方玄学秘境。">
-<meta name="keywords" content="在线八字算命,免费塔罗占卜,生肖配对,2026运势,每日运势,命理解读,缘分测试,在线占卜">
+<meta name="keywords" content="在线八字算命,免费塔罗占卜,生肖配对,2026运势,每日运势,命理解读,缘分测试,在线占卜,在线面相,在线手相,在线看相">
 <meta name="theme-color" content="#0a0014">
 <link rel="canonical" href="https://lalalin.xyz/">
 <style>
@@ -204,6 +204,28 @@ body{font-family:Arial,Helvetica,'PingFang SC','Microsoft YaHei',sans-serif;back
 <div class="disclaimer">* 以上内容仅供传统文化娱乐参考。命运掌握在自己手中，请理性看待。</div>
 </div>
 
+<div class="sc" id="tab-mianxiang">
+<div class="st"><h2 id="l-mx-title">面相</h2><p id="l-mx-sub">观相识人 洞悉性格命运</p></div>
+<div class="cd" style="text-align:center">
+<p style="color:var(--t3);margin-bottom:12px;font-size:0.82em" id="l-mx-desc">选择与你最相近的面部特征，揭示你的命格</p>
+<div id="mxForm"></div>
+<div id="mxResult" style="display:none;text-align:center;padding:20px"></div>
+</div>
+<div class="bottom-cta"><button class="btn" onclick="goTab('shouxiang')" style="color:var(--gold2);border-color:var(--gold)">手相解读 →</button></div>
+<div class="disclaimer">* 以上内容仅供传统文化娱乐参考。命运掌握在自己手中，请理性看待。</div>
+</div>
+
+<div class="sc" id="tab-shouxiang">
+<div class="st"><h2 id="l-sx-title">手相</h2><p id="l-sx-sub">掌中乾坤 看生命事业姻缘</p></div>
+<div class="cd" style="text-align:center">
+<p style="color:var(--t3);margin-bottom:12px;font-size:0.82em" id="l-sx-desc">选择与你最相似的手相特征，解读掌中奥秘</p>
+<div id="sxForm"></div>
+<div id="sxResult" style="display:none;text-align:center;padding:20px"></div>
+</div>
+<div class="bottom-cta"><button class="btn" onclick="goTab('mianxiang')" style="color:var(--gold2);border-color:var(--lotus)">面相解读 →</button></div>
+<div class="disclaimer">* 以上内容仅供传统文化娱乐参考。命运掌握在自己手中，请理性看待。</div>
+</div>
+
 <div class="sc" id="tab-history">
 <div class="st"><h2>我的命盘</h2><p>历史占卜记录</p></div>
 <div class="cd" id="historyList"><p style="text-align:center;color:var(--t3);padding:20px 0">暂无记录<br><span style="font-size:0.8em">完成占卜后将自动保存</span></p></div>
@@ -216,6 +238,8 @@ body{font-family:Arial,Helvetica,'PingFang SC','Microsoft YaHei',sans-serif;back
 <div class="ni" onclick="goTab('bazi')"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="2"/><line x1="8" y1="14" x2="32" y2="14" stroke="currentColor" stroke-width="3"><animate attributeName="opacity" values="0.5;1;1;0.5" dur="1.8s" repeatCount="indefinite"/></line><line x1="8" y1="20" x2="26" y2="20" stroke="currentColor" stroke-width="3"><animate attributeName="opacity" values="1;0.5;0.5;1" dur="1.8s" repeatCount="indefinite"/></line><line x1="8" y1="26" x2="20" y2="26" stroke="currentColor" stroke-width="3"><animate attributeName="opacity" values="0.8;1;0.6;0.8" dur="1.8s" repeatCount="indefinite"/></line></svg><span>八字</span></div>
 <div class="ni" onclick="goTab('tarot')"><svg viewBox="0 0 40 40"><polygon points="20,4 24,15 36,15 26,22 30,34 20,27 10,34 14,22 4,15 16,15" fill="none" stroke="currentColor" stroke-width="1.8"><animateTransform attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="20s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/></polygon><circle cx="20" cy="19" r="2" fill="currentColor"><animate attributeName="r" values="1;3;1" dur="1.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite"/></circle></svg><span>塔罗</span></div>
 <div class="ni" onclick="goTab('love')"><svg viewBox="0 0 40 40"><path d="M20 34C10 26 4 20 4 14C4 9 8 5 13 5C16 5 19 7 20 9C21 7 24 5 27 5C32 5 36 9 36 14C36 20 30 26 20 34Z" fill="none" stroke="currentColor" stroke-width="2"><animateTransform attributeName="transform" type="scale" values="1;1.2;1;1.1;1" dur="1.6s" repeatCount="indefinite" additive="sum"/><animateTransform attributeName="transform" type="translate" values="0 0;-2 -3;0 0;1 -1;0 0" dur="1.6s" repeatCount="indefinite" additive="sum"/></path></svg><span>缘分</span></div>
+<div class="ni" onclick="goTab('mianxiang')"><svg viewBox="0 0 40 40"><circle cx="20" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="15" cy="13" r="1.8" fill="currentColor"><animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/></circle><circle cx="25" cy="13" r="1.8" fill="currentColor"><animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/></circle><path d="M14 22 Q20 28 26 22" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="20" y1="26" x2="20" y2="30" stroke="currentColor" stroke-width="1.5"/></svg><span>面相</span></div>
+<div class="ni" onclick="goTab('shouxiang')"><svg viewBox="0 0 40 40"><rect x="7" y="5" width="26" height="32" rx="6" fill="none" stroke="currentColor" stroke-width="2"/><line x1="14" y1="14" x2="26" y2="14" stroke="currentColor" stroke-width="1.2" opacity="0.6"><animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/></line><line x1="12" y1="20" x2="28" y2="20" stroke="currentColor" stroke-width="1.2" opacity="0.8"><animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.5s" repeatCount="indefinite"/></line><line x1="11" y1="26" x2="29" y2="26" stroke="currentColor" stroke-width="1.2" opacity="0.6"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" repeatCount="indefinite"/></line></svg><span>手相</span></div>
 </div>
 
 <script>
@@ -223,7 +247,7 @@ body{font-family:Arial,Helvetica,'PingFang SC','Microsoft YaHei',sans-serif;back
 var LANG='zh',USER=null,ZIDX=-1,PERIOD='today',TSPREAD=1,CUR_TAROT=null,ZD_TAB='overview',ZD_CACHE=null;
 // i18n
 var D={
-'nav-home':['首页','Home'],'nav-zodiac':['生肖','Zodiac'],'nav-bazi':['八字','BaZi'],'nav-tarot':['塔罗','Tarot'],'nav-love':['缘分','Love'],
+'nav-home':['首页','Home'],'nav-zodiac':['生肖','Zodiac'],'nav-bazi':['八字','BaZi'],'nav-tarot':['塔罗','Tarot'],'nav-love':['缘分','Love'],'nav-mx':['面相','Face'],'nav-sx':['手相','Palm'],
 'home-title':['快速占卜','Quick Reading'],'home-sub':['输入信息获取个性化运势','Enter your info for personal fortune'],
 'birth':['✦ 出生日期','+ Birth Date'],'hour':['✦ 出生时辰','+ Birth Hour'],'gender':['✦ 性别','+ Gender'],
 'male':['⚦ 男','Male'],'female':['⚥ 女','Female'],'hr-na':['未指定','Not specified'],
@@ -247,7 +271,13 @@ var D={
 'zr-Rat':['鼠','Rat'],'zr-Ox':['牛','Ox'],'zr-Tiger':['虎','Tiger'],'zr-Rabbit':['兔','Rabbit'],
 'zr-Dragon':['龙','Dragon'],'zr-Snake':['蛇','Snake'],'zr-Horse':['马','Horse'],'zr-Goat':['羊','Goat'],
 'zr-Monkey':['猴','Monkey'],'zr-Rooster':['鸡','Rooster'],'zr-Dog':['狗','Dog'],'zr-Pig':['猪','Pig'],
-'g-male':['男','Male'],'g-female':['女','Female']
+'g-male':['男','Male'],'g-female':['女','Female'],
+'mx-title':['面相','Face Reading'],'mx-sub':['观相识人 洞悉性格命运','Read faces, reveal destiny'],'mx-desc':['选择与你最相近的面部特征，揭示你的命格','Pick your facial features, unlock your fate'],
+'mx-step1':['✦ 你的脸型？','+ Face shape?'],'mx-step2':['✦ 你的眉形？','+ Eyebrow shape?'],'mx-step3':['✦ 你的眼型？','+ Eye shape?'],'mx-step4':['✦ 你的鼻型？','+ Nose shape?'],'mx-step5':['✦ 你的唇形？','+ Lip shape?'],
+'mx-btn':['✦ 解读面相 ✦','+ Read My Face'],
+'sx-title':['手相','Palm Reading'],'sx-sub':['掌中乾坤 看生命事业姻缘','Read palms, see fate'],'sx-desc':['选择与你最相似的手相特征，解读掌中奥秘','Pick your palm features, unlock secrets'],
+'sx-q1':['✦ 生命线（环绕拇指的弧线）','+ Life Line (arc around thumb)'],'sx-q2':['✦ 智慧线（横贯掌心）','+ Head Line (across palm)'],'sx-q3':['✦ 感情线（靠近手指的横线）','+ Heart Line (near fingers)'],'sx-q4':['✦ 手掌质感','+ Palm texture'],
+'sx-btn':['✦ 解读手相 ✦','+ Read My Palm']
 };
 function T(k){var v=D[k];return v?v[LANG==='zh'?0:1]:k}
 // Data
@@ -537,6 +567,12 @@ function shareContent(type){
   var text='';
   if(type==='tarot'&&CUR_TAROT){var cn=CUR_TAROT.map(function(c){return LANG==='zh'?c.n_zh:c.n_en}).join(' + ');text='🔮 塔罗占卜：'+cn+'\n\n你的AI东方命理师 → lalalin.xyz'}
   else if(type==='zodiac'&&ZIDX>=0){text='🐉 '+zCh[ZIDX]+'运势 ✦\n每日·事业·感情·财运\n→ lalalin.xyz'}
+  else if(type==='mianxiang'){text='👁️ 面相解读
+我的面相命格已揭开
+→ lalalin.xyz'}
+  else if(type==='shouxiang'){text='✋ 手相解读
+我的手掌已揭示命运
+→ lalalin.xyz'}
   else{text='✨ 拉拉林·星之密语 ✦ 你的AI东方命理师\n在线八字·塔罗占卜·生肖运势·缘分配对\n→ lalalin.xyz'}
   if(navigator.share){navigator.share({title:'拉拉林·星之密语',text:text}).catch(function(){copyText(text)})}
   else{copyText(text)}
@@ -545,23 +581,33 @@ function copyText(t){if(navigator.clipboard){navigator.clipboard.writeText(t).th
 
 // Lang
 function refreshLabels(){
-  var ids=['l-home-title','l-home-sub','l-birth','l-hour','l-gender','l-male','l-female','l-hr-na','l-btn-go','l-z-title','l-z-sub','l-z-today','l-z-week','l-z-month','l-b-title','l-b-sub','l-b-empty','l-t-title','l-t-sub','l-t-desc','l-t-touch','l-t-again','l-love-title','l-love-sub','l-love-u','l-love-t','l-love-check'];
+  var ids=['l-home-title','l-home-sub','l-birth','l-hour','l-gender','l-male','l-female','l-hr-na','l-btn-go','l-z-title','l-z-sub','l-z-today','l-z-week','l-z-month','l-b-title','l-b-sub','l-b-empty','l-t-title','l-t-sub','l-t-desc','l-t-touch','l-t-again','l-love-title','l-love-sub','l-love-u','l-love-t','l-love-check','l-mx-title','l-mx-sub','l-mx-desc','l-mx-step1','l-mx-step2','l-mx-step3','l-mx-step4','l-mx-step5','l-mx-btn','l-sx-title','l-sx-sub','l-sx-desc','l-sx-q1','l-sx-q2','l-sx-q3','l-sx-q4','l-sx-btn'];
   ids.forEach(function(id){var el=document.getElementById(id);if(el){if(el.tagName==='P')el.innerHTML=T(id.replace('l-',''));else el.textContent=T(id.replace('l-',''))}});
-  document.querySelectorAll('#bn .ni span:last-child').forEach(function(s,i){s.textContent=T(['nav-home','nav-zodiac','nav-bazi','nav-tarot','nav-love'][i])});
+  document.querySelectorAll('#bn .ni span:last-child').forEach(function(s,i){s.textContent=T(['nav-home','nav-zodiac','nav-bazi','nav-tarot','nav-love','nav-mx','nav-sx'][i])});
 }
 function toggleLang(){
   LANG=LANG==='zh'?'en':'zh';document.getElementById('langBtn').textContent=LANG==='zh'?'中':'EN';
   document.getElementById('subttl').textContent=LANG==='zh'?'你的AI东方命理师':'Your AI Eastern Oracle';
-  refreshLabels();dailyCard();renderZodiacs();initLove();
+  refreshLabels();dailyCard();renderZodiacs();initLove();initMianXiang();initShouXiang();
   if(ZIDX>=0)renderZDetail(ZIDX);if(USER)showBazi();
   document.getElementById('tarotHistory').textContent='';CUR_TAROT=null;
 }
+
+// ============ MianXiang ============
+var mxOptions=[{q:'mx-step1',opts_zh:['圆脸 圆润饱满','方脸 棱角分明','长脸 额头宽阔','瓜子脸 下巴尖翘','鹅蛋脸 均匀对称'],opts_en:['Round face','Square face','Long face','Heart-shaped','Oval face']},{q:'mx-step2',opts_zh:['浓眉 粗黑有势','细眉 清淡纤细','柳叶眉 弯如柳叶','一字眉 平直齐整','剑眉 眉尾上扬'],opts_en:['Thick bold','Thin light','Willow leaf','Straight flat','Sword upslanted']},{q:'mx-step3',opts_zh:['大眼 明亮有神','丹凤眼 细长上挑','桃花眼 含情带笑','三角眼 凌厉尖锐','细眼 和善温润'],opts_en:['Big bright','Phoenix eye','Peach blossom','Triangle sharp','Slit gentle']},{q:'mx-step4',opts_zh:['高鼻 挺拔如山','塌鼻 低矮平缓','蒜头鼻 鼻头圆大','鹰钩鼻 鼻尖下弯','直鼻 端正挺直'],opts_en:['High prominent','Flat low','Garlic round','Hawk hooked','Straight upright']},{q:'mx-step5',opts_zh:['厚唇 丰满性感','薄唇 线条分明','樱桃小口 精致小巧','阔口 嘴大唇薄','弓形唇 唇峰明显'],opts_en:['Full thick','Thin defined','Cherry small','Wide thin','Bow-shaped']}];
+var mxAnswers={};
+function initMianXiang(){var h='';mxOptions.forEach(function(q,i){h+='<div class="fd2"><label id="l-'+q.q+'">'+T(q.q)+'</label><select class="sel" id="mxQ'+i+'">';var o=LANG==='zh'?q.opts_zh:q.opts_en;o.forEach(function(v,j){h+='<option value="'+j+'">'+v+'</option>'});h+='</select></div>'});h+='<button class="btn btn1" onclick="readMianXiang()" id="l-mx-btn" style="margin-top:8px">'+T('mx-btn')+'</button>';document.getElementById('mxForm').innerHTML=h}
+function readMianXiang(){mxOptions.forEach(function(q,i){mxAnswers[i]=parseInt(document.getElementById('mxQ'+i).value)});var sum=mxAnswers[0]+mxAnswers[1]+mxAnswers[2]+mxAnswers[3]+mxAnswers[4];var r=[{t_zh:'富贵之相',t_en:'Fortune Face',d_zh:'五官端正，分布均衡。此相主贵，一生多遇贵人，事业发展顺遂。待人诚信，人缘极佳。',d_en:'Balanced features. Noble character, destined for success.'},{t_zh:'才艺之相',t_en:'Artistic Face',d_zh:'五官灵动，充满灵气。此相主才，艺术天赋突出，思维敏捷，口才了得。',d_en:'Expressive features. Creative, witty, artistic talent.'},{t_zh:'刚毅之相',t_en:'Resolute Face',d_zh:'棱角分明，眉目有威。此相主刚，做事果断，不畏艰难。适合领导岗位。',d_en:'Sharp features. Decisive leader, needs balance with softness.'},{t_zh:'福寿之相',t_en:'Longevity Face',d_zh:'面如满月，气色红润。此相主福，一生衣食无忧，家庭和睦，晚年福泽绵长。',d_en:'Full moon face. Blessed with comfort, family, and long life.'},{t_zh:'智慧之相',t_en:'Wisdom Face',d_zh:'天庭饱满，目光深邃。此相主智，思维缜密，洞察力强，适合学术与策略。',d_en:'Broad forehead, deep eyes. Sharp mind for research and strategy.'}][sum%5];var sc=60+Math.floor(Math.random()*35);document.getElementById('mxResult').style.display='block';document.getElementById('mxResult').innerHTML='<div style="font-size:2.5em;margin-bottom:8px">👁️</div><div style="font-size:1.4em;color:var(--gold2)">'+(LANG==='zh'?r.t_zh:r.t_en)+'</div><div style="font-size:1.2em;color:var(--gold);margin:4px 0">匹配度 '+sc+'%</div><p style="color:var(--t2);font-size:0.92em;line-height:1.75;margin-top:12px">'+(LANG==='zh'?r.d_zh:r.d_en)+'</p><button class="btn" onclick="shareContent(\'mianxiang\')" style="margin-top:10px;color:var(--gold)">S 分享面相</button>';document.getElementById('mxResult').scrollIntoView({behavior:'smooth'});saveHistory('面相解读',(LANG==='zh'?r.t_zh:r.t_en))}
+
+// ============ ShouXiang ============
+function initShouXiang(){var q1_zh=['长而清晰 绕拇指深弧','中等长度 弧线圆润','较短但连续不断','分叉或链条状','浅淡隐约可见'];var q1_en=['Long clear deep arc','Medium round arc','Short but continuous','Forked or chained','Faint barely visible'];var q2_zh=['长直贯穿掌心','弧线下弯 想象力强','短而平直 实际理性','分叉 多才多艺','波浪形 创造力强'];var q2_en=['Long straight across','Curved down imaginative','Short flat practical','Forked versatile','Wavy creative'];var q3_zh=['长而清晰 感情丰富','短直 理性克制','链状 敏感多情','分叉 热情浪漫','弧线上弯 乐观开朗'];var q3_en=['Long clear loving','Short straight reserved','Chained sensitive','Forked romantic','Upward happy optimistic'];var q4_zh=['柔软红润 气血旺盛','硬实有弹性 精力充沛','干枯粗糙 操劳过度','温润细腻 福气深厚','厚实有力 实干踏实'];var q4_en=['Soft rosy vital','Firm elastic energetic','Dry rough overworked','Moist fine fortunate','Thick strong practical'];var qs=[{l:'sx-q1',z:q1_zh,e:q1_en},{l:'sx-q2',z:q2_zh,e:q2_en},{l:'sx-q3',z:q3_zh,e:q3_en},{l:'sx-q4',z:q4_zh,e:q4_en}];var h='';qs.forEach(function(q,i){h+='<div class="fd2"><label id="l-'+q.l+'">'+T(q.l)+'</label><select class="sel" id="sxQ'+i+'">';var o=LANG==='zh'?q.z:q.e;o.forEach(function(v,j){h+='<option value="'+j+'">'+v+'</option>'});h+='</select></div>'});h+='<button class="btn btn1" onclick="readShouXiang()" id="l-sx-btn">'+T('sx-btn')+'</button>';document.getElementById('sxForm').innerHTML=h}
+function readShouXiang(){var a=parseInt(document.getElementById('sxQ0').value),b=parseInt(document.getElementById('sxQ1').value),c=parseInt(document.getElementById('sxQ2').value),d=parseInt(document.getElementById('sxQ3').value),sum=a+b+c+d;var r=[{t_zh:'富贵掌',t_en:'Fortune Palm',d_zh:'生命线清晰深长，掌色红润。此手相主富贵，事业顺遂，财运亨通。',d_en:'Clear life line. Destined for wealth and smooth career.'},{t_zh:'智慧掌',t_en:'Wisdom Palm',d_zh:'智慧线深长笔直，头脑清晰。此手相主智，学术有成，善于思考。',d_en:'Straight head line. Sharp mind, academic success.'},{t_zh:'情缘掌',t_en:'Romance Palm',d_zh:'感情线绵长红润，桃花旺盛。此手相主情，感情生活丰富多彩。',d_en:'Long heart line. Rich love life, charming personality.'},{t_zh:'事业掌',t_en:'Career Palm',d_zh:'掌纹清晰有力，事业线明显。此手相主事业，中年之后事业腾飞。',d_en:'Strong clear lines. Hard worker, career peaks mid-life.'},{t_zh:'福寿掌',t_en:'Longevity Palm',d_zh:'掌厚肉实，纹路清晰。此手相主寿，身体健康，家庭幸福，晚景安逸。',d_en:'Thick solid palm. Health, family happiness, peaceful old age.'}][sum%5];var sc=60+Math.floor(Math.random()*35);document.getElementById('sxResult').style.display='block';document.getElementById('sxResult').innerHTML='<div style="font-size:2.5em;margin-bottom:8px">✋</div><div style="font-size:1.4em;color:var(--gold2)">'+(LANG==='zh'?r.t_zh:r.t_en)+'</div><div style="font-size:1.2em;color:var(--gold);margin:4px 0">匹配度 '+sc+'%</div><p style="color:var(--t2);font-size:0.92em;line-height:1.75;margin-top:12px">'+(LANG==='zh'?r.d_zh:r.d_en)+'</p><button class="btn" onclick="shareContent(\'shouxiang\')" style="margin-top:10px;color:var(--gold)">S 分享手相</button>';document.getElementById('sxResult').scrollIntoView({behavior:'smooth'});saveHistory('手相解读',(LANG==='zh'?r.t_zh:r.t_en))}
 
 // Stars
 (function(){var c=document.getElementById('stars'),ctx=c.getContext('2d'),pts=[];function rs(){c.width=window.innerWidth;c.height=window.innerHeight}rs();window.addEventListener('resize',rs);for(var i=0;i<80;i++)pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.3+0.2,a:Math.random()*2,sp:0.003+Math.random()*0.01});function dr(){ctx.clearRect(0,0,c.width,c.height);pts.forEach(function(p){ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fillStyle='rgba(220,190,160,'+(0.15+Math.abs(Math.sin(p.a+=p.sp))*0.35)+')';ctx.fill()});requestAnimationFrame(dr)}dr()})();
 
 // Init
-dailyCard();renderZodiacs();initLove();
+dailyCard();renderZodiacs();initLove();initMianXiang();initShouXiang();
 var d=new Date();d.setFullYear(d.getFullYear()-25);document.getElementById('birthDate').value=d.toISOString().slice(0,10);
 initOnboard();
 </script>
