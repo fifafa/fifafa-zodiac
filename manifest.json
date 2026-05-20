@@ -1,0 +1,28 @@
+{
+  "name": "星之密语",
+  "short_name": "星之密语",
+  "description": "输入生辰八字，解读命理运势",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f0a05",
+  "theme_color": "#c49a3c",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "entertainment"],
+  "screenshots": [],
+  "prefer_related_applications": false
+}
