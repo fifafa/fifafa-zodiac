@@ -35,11 +35,15 @@ body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--tx)
 .btn{display:inline-block;padding:10px 28px;border-radius:25px;border:1px solid var(--gd);background:transparent;color:var(--g2);font-size:0.95em;cursor:pointer;transition:0.3s;letter-spacing:1px}
 .btn:active{background:rgba(196,154,60,0.15);border-color:var(--gold);color:var(--g3)}
 .btn1{background:linear-gradient(135deg,rgba(196,154,60,0.2),rgba(139,94,60,0.25));border-color:var(--gold);color:var(--g3);font-weight:600}
-.zg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
-.zi{aspect-ratio:1;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;overflow:hidden}
-.zi:active{border-color:var(--gold);background:rgba(196,154,60,0.1)}
-.zie{font-size:2em}
-.zin{font-size:0.72em;color:var(--t2);margin-top:4px;letter-spacing:1px}
+.zg{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+@keyframes sealGlow{0%,100%{box-shadow:0 0 4px rgba(196,154,60,0.2),inset 0 0 8px rgba(196,154,60,0.05);border-color:rgba(196,154,60,0.25)}50%{box-shadow:0 0 16px rgba(196,154,60,0.45),0 0 30px rgba(196,154,60,0.15),inset 0 0 14px rgba(196,154,60,0.1);border-color:rgba(196,154,60,0.6)}}
+.zi{aspect-ratio:1;background:radial-gradient(circle,rgba(30,22,16,0.9) 0%,rgba(20,16,12,0.7) 60%,rgba(10,8,6,0.5) 100%);border:2px solid rgba(196,154,60,0.25);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;overflow:hidden;animation:sealGlow 4s ease-in-out infinite;position:relative}
+.zi:nth-child(odd){animation-delay:0s}
+.zi:nth-child(even){animation-delay:2s}
+.zi::before{content:'';position:absolute;inset:4px;border-radius:50%;border:1px dashed rgba(196,154,60,0.2);pointer-events:none}
+.zi:active{border-color:var(--gold);transform:scale(0.95);animation:none;box-shadow:0 0 24px rgba(196,154,60,0.5),0 0 40px rgba(196,154,60,0.2)}
+.zie{font-size:1.8em;font-weight:700;color:var(--gold);text-shadow:0 0 8px rgba(196,154,60,0.3);z-index:1}
+.zin{font-size:0.65em;color:var(--t3);margin-top:2px;letter-spacing:2px;z-index:1}
 .fd2{margin-bottom:14px}
 .fd2 label{display:block;font-size:0.82em;color:var(--t3);margin-bottom:6px}
 .inp{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--bd);background:rgba(20,16,12,0.6);color:var(--tx);font-size:0.95em;outline:none;transition:0.3s}
@@ -316,10 +320,12 @@ function showBazi(){
   '<div class="lt"><div class="lk">'+lucky+' <b>'+z.ln.join(',')+'</b></div><div class="lk">'+color+' <b>'+cs+'</b></div><div class="lk">'+stone+' <b>'+sts+'</b></div></div>';
 }
 
+var zCh=['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
 function renderZodiacs(){
   document.getElementById('zodiacGrid').innerHTML=zodiacs.map(function(z,i){
     var n=LANG==='zh'?T('zr-'+z.k):z.k;
-    return'<div class="zi" onclick="showZ('+i+')"><div class="zie">'+z.k.charAt(0)+'</div><div class="zin">'+n+'</div></div>'
+    var icon=LANG==='zh'?zCh[i]:z.k.charAt(0);
+    return'<div class="zi" onclick="showZ('+i+')" style="animation-delay:'+(i*0.35)+'s"><div class="zie">'+icon+'</div><div class="zin">'+n+'</div></div>'
   }).join('');
 }
 
