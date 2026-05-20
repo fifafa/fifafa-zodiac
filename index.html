@@ -664,10 +664,14 @@ function initServiceGrid(){
 // ====== DAILY CARD ======
 function dailyCard(){
   var now=new Date(),sd=now.getFullYear()*10000+(now.getMonth()+1)*100+now.getDate(),rn=function(n){return Math.abs(Math.sin(sd*127.1+n*311.7)*10000)%100},s=Math.floor(rn(1)/20)+1,sr='';for(var i=0;i<Math.min(s,5);i++)sr+='✦';
-  var fz=[{t:'紫气东来',d:'贵人运旺盛，适合社交与拓展人脉。',do:'社交聚会',dont:'大额消费'},{t:'稳中求进',d:'看似平淡，实则在酝酿转机。',do:'整理规划',dont:'冒险投资'},{t:'桃花盛开',d:'桃花运势上升，单身者有望邂逅。',do:'约会表白',dont:'冷战赌气'},{t:'财运亨通',d:'偏财运不错，可能有意外之财。',do:'理财规划',dont:'借贷担保'},{t:'贵人相助',d:'长辈或上司是你的贵人。',do:'进修学习',dont:'骄傲自负'}];
+  var fz=[{t:'紫气东来',d:'贵人运旺，社交拓展人脉良机。',do:'社交聚会',dont:'大额消费'},{t:'稳中求进',d:'看似平淡，酝酿重大转机。',do:'整理规划',dont:'冒险投资'},{t:'桃花盛开',d:'桃花运上升，单身有望邂逅。',do:'约会表白',dont:'冷战赌气'},{t:'财运亨通',d:'偏财运不错，意外之财将至。',do:'理财规划',dont:'借贷担保'},{t:'贵人相助',d:'长辈上司是你今日贵人。',do:'进修学习',dont:'骄傲自负'},{t:'慧眼识珠',d:'直觉敏锐，能洞察先机。适合决策。',do:'把握灵感',dont:'犹豫不决'},{t:'牛气冲天',d:'勤恳耕耘将获回报，事业有突破。',do:'坚持努力',dont:'半途而废'},{t:'虎虎生威',d:'活力四射，行动力超强。冲出舒适区。',do:'勇往直前',dont:'鲁莽行事'},{t:'温柔以待',d:'人缘极佳，团队合作事半功倍。',do:'协作沟通',dont:'独断专行'},{t:'龙腾四海',d:'运势高涨，事业财运皆顺。把握住。',do:'大胆拓展',dont:'固步自封'},{t:'深思熟虑',d:'智慧闪光，复杂问题迎刃而解。',do:'冷静分析',dont:'冲动决策'},{t:'自由驰骋',d:'创造力爆棚，适合开启新项目。',do:'尝试新事',dont:'自我设限'},{t:'温顺有福',d:'平和安逸，小惊喜不断的一天。',do:'享受生活',dont:'杞人忧天'},{t:'机智过人',d:'思维敏捷反应快，谈判合作有利。',do:'沟通洽谈',dont:'轻信他人'},{t:'精准发力',d:'细节决定成败，专注能出成果。',do:'精益求精',dont:'粗心大意'},{t:'忠诚有报',d:'信用与承诺是今日财富。可信赖。',do:'履行承诺',dont:'言而无信'},{t:'福气临门',d:'慵懒中亦有收获，财运感情皆暖。',do:'放松身心',dont:'懒散拖延'},{t:'和气生财',d:'以和为贵，人际关系是今日王牌。',do:'微笑待人',dont:'冲突争执'},{t:'步步为营',d:'根基稳固方能建高楼，宜夯实基础。',do:'巩固积累',dont:'盲目扩张'},{t:'威猛果敢',d:'魄力是关键，大胆决策有惊喜回报。',do:'果断行动',dont:'瞻前顾后'},{t:'温柔锋芒',d:'以柔克刚，你的魅力无人能挡。',do:'展现温柔',dont:'强势压人'},{t:'龙潜深渊',d:'韬光养晦，积蓄力量等待时机。',do:'充电学习',dont:'急于表现'},{t:'静水流深',d:'暗藏玄机，表面平静下有宝藏。',do:'深度思考',dont:'表面浮躁'},{t:'奔腾不息',d:'精力充沛马力全开，适合体育竞赛。',do:'运动释放',dont:'久坐不动'},{t:'仁心仁术',d:'助人为乐，善举带来意外好运。',do:'帮助他人',dont:'冷漠自私'},{t:'灵光一现',d:'创意灵感源源不断，才华展露时机。',do:'创作表达',dont:'压抑才华'},{t:'金光闪闪',d:'财务好运，投资理财皆有收获。',do:'审慎投资',dont:'铺张浪费'},{t:'忠诚护主',d:'为人可靠，朋友信任度爆表。',do:'守护承诺',dont:'失信于人'},{t:'福缘深厚',d:'意外惊喜连连，心情明媚灿烂。',do:'感恩珍惜',dont:'贪得无厌'},{t:'日进斗金',d:'正财偏财皆旺，财富稳步增长。',do:'储蓄理财',dont:'投机取巧'},{t:'傲骨铮铮',d:'原则与底线是今日护身符，守住。',do:'坚持原则',dont:'委曲求全'},{t:'韬略在胸',d:'运筹帷幄决胜千里，领导力爆表。',do:'统筹全局',dont:'细节迷失'},{t:'柔情似水',d:'爱情运势佳，亲密关系升温日。',do:'表达爱意',dont:'冷漠敷衍'},{t:'龙翔九天',d:'事业飞跃，升职加薪机会在眼前。',do:'勇于表现',dont:'低调退缩'},{t:'灵蛇出洞',d:'暗中布局将收网，成果即将揭晓。',do:'耐心等待',dont:'急躁泄露'},{t:'马到成功',d:'旗开得胜，手头项目会有好消息。',do:'冲刺完成',dont:'半途而废'},{t:'温良恭俭',d:'谦逊温和的态度为你积累好人缘。',do:'谦和待人',dont:'傲慢无礼'},{t:'灵动活泼',d:'社交运旺盛，聚会中有意外惊喜。',do:'积极参与',dont:'闭门不出'},{t:'金鸡报晓',d:'早起有好事，今天优先完成重要事。',do:'早做安排',dont:'拖延赖床'},{t:'忠义千秋',d:'为朋友两肋插刀，友谊是今日财富。',do:'联络老友',dont:'疏远朋友'},{t:'憨福自来',d:'傻人有傻福，知足常乐。简单最美。',do:'享受小确幸',dont:'过度复杂'},{t:'福泽绵长',d:'家庭运势佳，与家人共度温馨时光。',do:'陪伴家人',dont:'忽视亲情'},{t:'灵气逼人',d:'第六感极准，相信直觉能避险趋吉。',do:'听从直觉',dont:'忽略警示'},{t:'百折不挠',d:'逆风中也能前行，困境是成长契机。',do:'突破舒适区',dont:'轻言放弃'},{t:'与人为善',d:'宽容心态化解矛盾，今日宜修复关系。',do:'主动和解',dont:'记仇计较'},{t:'虎变龙蒸',d:'快速应变能力超群，乱中取静。',do:'拥抱变化',dont:'固执不变'},{t:'厚积薄发',d:'前期的积累即将兑现，收获在望。',do:'耐心沉淀',dont:'急功近利'},{t:'从容不迫',d:'以不变应万变，心境决定运势高低。',do:'冥想内观',dont:'焦虑不安'}];
   var fe=[{t:'Fortune Smiles',d:'Stars align in your favor.',do:'Social events',dont:'Arguments'},{t:'Steady Progress',d:'A quiet turning point ahead.',do:'Planning',dont:'Rushing'},{t:'Love Blossoms',d:'Romantic energy peaks today.',do:'Express feelings',dont:'Silence'},{t:'Prosperity',d:'Favorable for finances.',do:'Budgeting',dont:'Gambling'},{t:'Noble Support',d:'A mentor appears.',do:'Learn & grow',dont:'Ego'}];
-  var f=LANG==='zh'?fz[Math.floor(rn(0)/20)]:fe[Math.floor(rn(0)/20)];
-  document.getElementById('dailyBox').innerHTML='<div class="ddate">'+now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日 · 今日运程</div><div class="dicon">🔮</div><div class="dstars">'+sr+'</div><div class="dtitle">'+f.t+'</div><div class="ddesc">'+f.d+'</div><div class="dadvice"><span class="do-tag do">宜 '+f.do+'</span><span class="do-tag dont">忌 '+f.dont+'</span></div>';
+  var zi=USER&&USER.z>=0?USER.z:Math.floor(rn(1)/10);
+  var dvar=Math.floor(now.getFullYear()*now.getDate()/3)%4;
+  var fidx=Math.min(fz.length-1,zi*4+dvar);
+  var f=LANG==='zh'?fz[fidx]:fe[Math.floor(rn(0)/20)];
+  var zlabel=USER&&USER.z>=0?' · '+zCh[USER.z]:'';
+  document.getElementById('dailyBox').innerHTML='<div class="ddate">'+now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日'+zlabel+' · 今日运程</div><div class="dicon">🔮</div><div class="dstars">'+sr+'</div><div class="dtitle">'+f.t+'</div><div class="ddesc">'+f.d+'</div><div class="dadvice"><span class="do-tag do">宜 '+f.do+'</span><span class="do-tag dont">忌 '+f.dont+'</span></div>';
 }
 
 // ====== ZODIAC ======
@@ -734,6 +738,9 @@ function doBazi(){
   var virtueMap={木:'仁',火:'礼',土:'信',金:'义',水:'智'};
   var z=zodiacs[USER.z];
   var interp='你属'+zCh[USER.z]+'，日主為「'+stemsZh[dyStem]+dyEl+'」。'+dyEl+'命之人，五行主「'+virtueMap[dyEl]+'」。生于'+y+'年'+m+'月'+dd+'日，纳音「'+nl+'」，一生运势与'+nl+'之性相应。';
+  // -- 十神 --
+  var shiShen=[['比肩','劫财','食神','伤官','偏财','正财','七杀','正官','偏印','正印'],['劫财','比肩','伤官','食神','正财','偏财','正官','七杀','正印','偏印'],['偏印','正印','比肩','劫财','食神','伤官','偏财','正财','七杀','正官'],['正印','偏印','劫财','比肩','伤官','食神','正财','偏财','正官','七杀'],['七杀','正官','偏印','正印','比肩','劫财','食神','伤官','偏财','正财'],['正官','七杀','正印','偏印','劫财','比肩','伤官','食神','正财','偏财'],['偏财','正财','七杀','正官','偏印','正印','比肩','劫财','食神','伤官'],['正财','偏财','正官','七杀','正印','偏印','劫财','比肩','伤官','食神'],['食神','伤官','偏财','正财','七杀','正官','偏印','正印','比肩','劫财'],['伤官','食神','正财','偏财','正官','七杀','正印','偏印','劫财','比肩']];
+  var yrSS=shiShen[dyStem][yrStem],moSS=shiShen[dyStem][moStem],hrSS=shiShen[dyStem][hrStem];
   document.getElementById('baziResult').style.display='block';
   // -- 深度分析 --
   var stemElI=[0,0,1,1,2,2,3,3,4,4];var wuname=['木','火','土','金','水'];
@@ -746,7 +753,7 @@ function doBazi(){
   var wuDesc=wuname.map(function(c,i){return c+':'+wuCount[i]}).join(' / ');
   var guides=['✦ 宜接触'+xiNm+'属性的行业，补益运势','✦ 流年遇'+jiNm+'旺时宜保守，忌冒险投资','✦ '+dyEl+'命主「'+virtueMap[dyEl]+'」，注意'+(dong===0?'优柔寡断':dong===1?'急躁冲动':dong===2?'固执己见':dong===3?'刚愎自用':'感情用事')+'的倾向','✦ '+(shenWang?'身旺可担财官，'+xiNm+'运年大有可为':'身弱需印比帮扶，'+xiNm+'年得贵人助缘'),'✦ 关键运势在20-30岁，月令'+stemsZh[moStem]+branchZh[moBranch]+'有力，中年后'+branchZh[(yrBranch+2)%12]+'运上升'];
   var interp='你属'+zCh[USER.z]+'，日柱「'+stemsZh[dyStem]+branchZh[dyBranch]+'」日主'+dyEl+'。命格纳音「'+nl+'」，五行 '+wuDesc+'。'+(shenWang?'身旺':'身弱')+'，喜'+xiNm+'，忌'+jiNm+'。'+dyEl+'命主「'+virtueMap[dyEl]+'」，'+stemsZh[moStem]+branchZh[moBranch]+'月令'+(moStem%2===0?'比劫':'财官')+'相随。';
-  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">纳音 · '+zCh[USER.z]+'年 · '+(g==='male'?'乾造':'坤造')+'</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">日主 · '+stemsZh[dyStem]+' · '+dyEl+'命</div><div style="font-size:.62em;color:var(--moon3)">'+y+'年'+m+'月'+dd+'日 · '+h+'时'+(g==='male'?'男':'女')+'</div></div><div class="pillars"><div class="pillar"><div class="pl">年柱</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div></div><div class="pillar"><div class="pl">月柱</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div></div><div class="pillar"><div class="pl">日柱</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div></div><div class="pillar"><div class="pl">时柱</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div></div></div><div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div><div class="reading"><h3>用神喜忌</h3><p>身'+(shenWang?'旺':'弱')+'，喜'+xiNm+'，忌'+jiNm+'。</p></div><div class="reading"><h3>五行分布</h3><p style="font-size:.85em">'+wuDesc+' · 同类'+sameCount+'/'+(8-sameCount)+'异</p></div><div class="reading"><h3>指导意见</h3>'+guides.join('</p><p>')+'</div><div class="disclaimer">以上分析仅供传统文化娱乐参考</div>';
+  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">纳音 · '+zCh[USER.z]+'年 · '+(g==='male'?'乾造':'坤造')+'</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">日主 · '+stemsZh[dyStem]+' · '+dyEl+'命</div><div style="font-size:.62em;color:var(--moon3)">'+y+'年'+m+'月'+dd+'日 · '+h+'时'+(g==='male'?'男':'女')+'</div></div><div class="pillars"><div class="pillar"><div class="pl">年柱</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+yrSS+'</div></div><div class="pillar"><div class="pl">月柱</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+moSS+'</div></div><div class="pillar"><div class="pl">日柱</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--moon);font-size:.55em">日主</div></div><div class="pillar"><div class="pl">时柱</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+hrSS+'</div></div></div><div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div><div class="reading"><h3>用神喜忌</h3><p>身'+(shenWang?'旺':'弱')+'，喜'+xiNm+'，忌'+jiNm+'。</p></div><div class="reading"><h3>五行分布</h3><p style="font-size:.85em">'+wuDesc+' · 同类'+sameCount+'/'+(8-sameCount)+'异</p></div><div class="reading"><h3>指导意见</h3>'+guides.join('</p><p>')+'</div><div class="disclaimer">以上分析仅供传统文化娱乐参考</div>';
   document.getElementById('baziResult').scrollIntoView({behavior:'smooth'});
 }
 
@@ -764,10 +771,13 @@ function drawTarot(){
   var cards=[],used={};
   for(var i=0;i<TSPREAD;i++){var idx;do{idx=rnd(0,tarotDeck.length-1)}while(used[idx]&&TSPREAD<=tarotDeck.length);used[idx]=1;cards.push({deck:tarotDeck[idx],svg:tarotSvg[idx],idx:idx})}
   CUR_TAROT=cards;
-  var labelsZ=['过去','现在','未来'],labelsE=['Past','Present','Future'],html='';
+  var labelsZ=['过去','现在','未来'],labelsE=['Past','Present','Future'];
+  var posZ=[['回溯过往，','这份经历塑造了今天的你。'],['驻足当下，','这是你眼前的真实处境。'],['展望未来，','这是宇宙给你的指引方向。']];
+  var html='';
   cards.forEach(function(c,i){
     var lb=TSPREAD>1?(LANG==='zh'?labelsZ[i]:labelsE[i]):'';
-    html+='<div style="text-align:center;padding:4px 2px"><div style="font-size:.5em;color:var(--moon3);margin-bottom:2px">'+lb+'</div><div style="width:72px;height:108px;margin:4px auto">'+c.svg+'</div><div style="font-size:.7em;color:var(--gold);margin-top:4px">'+(LANG==='zh'?c.deck.z:c.deck.e)+'</div><div style="font-size:.6em;color:var(--moon2);margin-top:3px;line-height:1.5">'+(LANG==='zh'?c.deck.mz:c.deck.me)+'</div></div>';
+    var posPre=TSPREAD>1?(LANG==='zh'?posZ[i][0]:''):'',posSuf=TSPREAD>1?(LANG==='zh'?posZ[i][1]:''):'';
+    html+='<div style="text-align:center;padding:4px 2px"><div style="font-size:.5em;color:var(--moon3);margin-bottom:2px">'+lb+'</div><div style="width:72px;height:108px;margin:4px auto">'+c.svg+'</div><div style="font-size:.7em;color:var(--gold);margin-top:4px">'+(LANG==='zh'?c.deck.z:c.deck.e)+'</div><div style="font-size:.58em;color:var(--moon2);margin-top:3px;line-height:1.5">'+posPre+(LANG==='zh'?c.deck.mz:c.deck.me)+'</div><div style="font-size:.52em;color:var(--moon3);margin-top:2px;line-height:1.4">'+posSuf+'</div></div>';
   });
   document.getElementById('tarotFront').innerHTML=html;
   document.getElementById('tarotCard').classList.remove('flipped');
@@ -788,10 +798,23 @@ function initLove(){
   });
 }
 function checkLove(){
-  var a=parseInt(document.getElementById('loveA').value),b=parseInt(document.getElementById('loveB').value),sc=Math.min(99,Math.max(30,55+rnd(-10,35)));
-  var msg=sc>=90?'天作之合！':sc>=75?'非常匹配！':sc>=60?'相合不错。':sc>=45?'需要磨合。':'缘分尚需经营。';
+  var a=parseInt(document.getElementById('loveA').value),b=parseInt(document.getElementById('loveB').value);
+  var liuhe=[[0,1],[2,11],[3,10],[4,9],[5,8],[6,7]];
+  var sanhe=[[0,4,8],[1,5,9],[2,6,10],[3,7,11]];
+  var chong=[[0,6],[1,7],[2,8],[3,9],[4,10],[5,11]];
+  var xing=[[0,0],[1,1],[2,2],[4,4],[8,8],[9,9],[0,10],[10,0],[2,7],[7,2],[3,6],[6,3]];
+  var base=62,rel='平和之缘',tip='循序渐进，日久生情';
+  var isLH=liuhe.some(function(p){return(p[0]==a&&p[1]==b)||(p[1]==a&&p[0]==b)});
+  var isSH=sanhe.some(function(t){return t.indexOf(a)>=0&&t.indexOf(b)>=0});
+  var isCC=chong.some(function(p){return(p[0]==a&&p[1]==b)||(p[1]==a&&p[0]==b)});
+  var isXG=xing.some(function(p){return p[0]==a&&p[1]==b});
+  if(isLH){base=93;rel='六合之喜';tip='最佳配对，阴阳互补，天作之合。'+zCh[a]+zCh[b]+'天生默契。'}
+  else if(isSH){base=82;rel='三合之缘';tip='五行生助，事业财运互相成就，珠联璧合。'}
+  else if(isCC){base=35;rel='六冲之局';tip='性情迥异，需多包容忍让。但冲中亦有生机。'}
+  else if(isXG){base=42;rel='相刑之象';tip='相处多波折，沟通是关键。相爱相杀也动人。'}
+  var sc=Math.min(99,Math.max(30,base+rnd(-3,4)));
   document.getElementById('loveRes').style.display='block';
-  document.getElementById('loveRes').innerHTML='<div style="font-size:1.8em">'+zCh[a]+' + '+zCh[b]+'</div><div class="love-score">'+sc+'%</div><div class="love-bar"><div class="love-bar-fill" style="width:'+sc+'%"></div></div><p style="color:var(--moon2);font-size:.85em">'+msg+'</p>';
+  document.getElementById('loveRes').innerHTML='<div style="font-size:1.8em">'+zCh[a]+' + '+zCh[b]+'</div><div class="love-score">'+sc+'%</div><div class="love-bar"><div class="love-bar-fill" style="width:'+sc+'%"></div></div><div style="color:var(--gold);font-size:.85em;margin:6px 0">'+rel+'</div><p style="color:var(--moon2);font-size:.78em">'+tip+'</p>';
   document.getElementById('loveRes').scrollIntoView({behavior:'smooth'});
 }
 
