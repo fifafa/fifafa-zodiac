@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
+<title>拉拉林·星之密语 | AI东方命理 · 八字 · 塔罗 · 面相</title>
+<meta name="description" content="拉拉林——你的AI东方命理师。八字命盘、塔罗占卜、生肖运势、面相手相、缘分配对。探索你的星图。">
+<style>
+/* ===== DESIGN SYSTEM v16 — Creative Director Approved ===== */
+:root{
+  --ink:#08061A;        /* 夜空底色 */
+  --ink2:#100C28;       /* 卡片底色 */
+  --ink3:#1A143A;       /* 悬浮底色 */
+  --moon:#EBE4D5;       /* 月白主文字 */
+  --moon2:#C4B99A;      /* 次级文字 */
+  --moon3:#8A7E6B;      /* 辅助文字 */
+  --cinnabar:#D4453A;   /* 朱砂 — 能量/强调 */
+  --jade:#3D8B6B;       /* 青玉 — 正面/吉 */
+  --gold:#C4A24A;       /* 鎏金 — 点缀 */
+  --gold2:#A08436;      /* 暗金 */
+  --stardust:#6B5B8A;   /* 星尘 — 次级色 */
+  --stardust2:#4A3D6B;  /* 星尘暗 */
+  --r:12px;--r2:20px;--r3:28px;
+  --shadow:0 4px 32px rgba(0,0,0,0.5);
+  --glass:rgba(16,12,40,0.85);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--ink);
+  color:var(--moon);
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+::selection{background:rgba(196,162,74,0.3);color:var(--moon)}
+
+/* ===== TYPOGRAPHY ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap');
+.serif{font-family:'Noto Serif SC',Georgia,'Songti SC',serif}
+h1{font-family:'Noto Serif SC',Georgia,serif;font-size:1.5em;color:var(--moon);letter-spacing:.08em;line-height:1.4}
+h2{font-family:'Noto Serif SC',Georgia,serif;font-size:1.2em;color:var(--gold);letter-spacing:.06em}
+h3{font-family:'Noto Serif SC',Georgia,serif;font-size:1em;color:var(--moon2);letter-spacing:.04em}
+.subtle{font-size:.72em;color:var(--moon3);letter-spacing:.08em}
+
+/* ===== CONSTELLATION CANVAS ===== */
+#cosmos{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+
+/* ===== APP SHELL ===== */
+#app{position:relative;z-index:1;max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:100px}
+
+/* ===== TOP BAR ===== */
+#topbar{
+  position:sticky;top:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 18px;
+  background:rgba(8,6,26,0.9);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(196,162,74,0.08);
+}
+#logo{
+  font-family:'Noto Serif SC',Georgia,serif;
+  font-size:1.05em;font-weight:700;letter-spacing:.1em;
+  background:linear-gradient(135deg,var(--moon),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.top-btn{
+  width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(196,162,74,0.12);background:rgba(16,12,40,0.6);
+  color:var(--moon3);font-size:.7em;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:.3s;
+}
+.top-btn:active{color:var(--gold);border-color:var(--gold);background:rgba(196,162,74,0.1)}
+
+/* ===== BOTTOM NAV ===== */
+#bn{
+  position:fixed;bottom:0;left:0;right:0;z-index:50;
+  display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  background:rgba(8,6,26,0.94);backdrop-filter:blur(20px);
+  border-top:1px solid rgba(196,162,74,0.06);
+  padding:6px 0 env(safe-area-inset-bottom,8px);
+  scrollbar-width:none;
+}
+#bn::-webkit-scrollbar{display:none}
+.ni{
+  flex:none;min-width:52px;display:flex;flex-direction:column;align-items:center;
+  padding:6px 4px;cursor:pointer;transition:.3s;color:var(--moon3);
+  font-size:.55em;letter-spacing:.08em;
+}
+.ni svg{width:22px;height:22px;margin-bottom:2px}
+.ni.on{color:var(--gold)}
+.ni.on svg{filter:drop-shadow(0 0 4px rgba(196,162,74,0.4))}
+
+/* ===== SECTIONS ===== */
+.sc{display:none;padding:0 16px;animation:fu .45s ease-out}
+.sc.on{display:block}
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== STAR CURTAIN (HERO) ===== */
+.hero{
+  text-align:center;padding:48px 20px 32px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:50%;left:50%;
+  width:260px;height:260px;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(107,91,138,0.15) 0%,transparent 70%);
+  pointer-events:none;animation:heroPulse 4s ease-in-out infinite;
+}
+@keyframes heroPulse{0%,100%{opacity:.4;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}}
+.hero-icon{font-size:3em;margin-bottom:12px;position:relative;z-index:1}
+.hero h1{font-size:1.6em;margin-bottom:6px;position:relative;z-index:1}
+.hero .tagline{font-size:.8em;color:var(--moon3);letter-spacing:.12em;position:relative;z-index:1}
+
+/* ===== HOOK ROTATOR ===== */
+.hook-rotate{text-align:center;height:28px;overflow:hidden;margin:12px 0;position:relative}
+.hook-item{position:absolute;width:100%;color:var(--gold);font-size:.88em;letter-spacing:.06em;transition:opacity .5s,transform .5s;opacity:0;transform:translateY(8px)}
+.hook-item.on{opacity:1;transform:translateY(0)}
+
+/* ===== CARDS ===== */
+.card{
+  background:var(--ink2);border:1px solid rgba(196,162,74,0.06);
+  border-radius:var(--r2);padding:20px;margin-bottom:14px;
+  box-shadow:var(--shadow);
+  transition:transform .2s,border-color .2s;
+}
+.card-act{cursor:pointer}.card-act:active{transform:scale(.98);border-color:rgba(196,162,74,0.2)}
+.card-hl{border-color:rgba(196,162,74,0.15);background:linear-gradient(160deg,var(--ink2),rgba(26,20,58,0.8))}
+
+/* ===== DAILY CARD ===== */
+.daily-card{
+  text-align:center;padding:28px 20px;
+  background:linear-gradient(160deg,rgba(16,12,40,0.9),rgba(26,20,58,0.8));
+  border:1px solid rgba(196,162,74,0.1);border-radius:var(--r3);
+  margin-bottom:18px;position:relative;overflow:hidden;
+}
+.daily-card::after{
+  content:'';position:absolute;top:-30%;left:-30%;width:160%;height:160%;
+  background:radial-gradient(ellipse at 30% 20%,rgba(212,69,58,0.06) 0%,transparent 50%),
+             radial-gradient(ellipse at 70% 80%,rgba(61,139,107,0.04) 0%,transparent 50%);
+  pointer-events:none;animation:dailyShift 10s ease-in-out infinite;
+}
+@keyframes dailyShift{0%,100%{transform:translate(0,0)}50%{transform:translate(1%,-1%)}}
+.daily-card .ddate{font-size:.68em;color:var(--moon3);letter-spacing:.1em;margin-bottom:10px;position:relative;z-index:1}
+.daily-card .dicon{font-size:2.8em;margin-bottom:8px;position:relative;z-index:1;animation:dfloat 3s ease-in-out infinite}
+@keyframes dfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.daily-card .dtitle{font-size:1.5em;font-weight:700;color:var(--gold);letter-spacing:.04em;margin-bottom:6px;position:relative;z-index:1;font-family:'Noto Serif SC',Georgia,serif}
+.daily-card .ddesc{font-size:.85em;color:var(--moon2);line-height:1.65;margin-bottom:10px;position:relative;z-index:1}
+.daily-card .dstars{color:var(--gold);font-size:1.1em;letter-spacing:2px;margin-bottom:14px;position:relative;z-index:1}
+.daily-card .dadvice{display:flex;justify-content:center;gap:10px;position:relative;z-index:1}
+.do-tag{padding:6px 14px;border-radius:16px;font-size:.7em;letter-spacing:.04em}
+.do-tag.do{background:rgba(61,139,107,0.1);border:1px solid rgba(61,139,107,0.25);color:var(--jade)}
+.do-tag.dont{background:rgba(212,69,58,0.08);border:1px solid rgba(212,69,58,0.2);color:var(--cinnabar)}
+
+/* ===== SERVICE GRID ===== */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.svc-card{
+  padding:16px 10px;background:var(--ink3);border-radius:var(--r);
+  border:1px solid rgba(196,162,74,0.06);text-align:center;cursor:pointer;transition:.3s;
+}
+.svc-card:active{background:rgba(196,162,74,0.06);border-color:rgba(196,162,74,0.2);transform:scale(.97)}
+.svc-card .si{width:40px;height:40px;margin:0 auto 6px}
+.svc-card .sn{font-size:.7em;color:var(--moon2);font-weight:600;letter-spacing:.04em}
+.svc-card .ss{font-size:.58em;color:var(--moon3);margin-top:2px}
+
+/* ===== TRUST BAR ===== */
+.trust-bar{display:flex;justify-content:center;gap:20px;padding:14px 0;margin-bottom:14px;border-top:1px solid rgba(196,162,74,0.06);border-bottom:1px solid rgba(196,162,74,0.06)}
+.trust-i{text-align:center}.trust-i .tv{font-size:1.1em;color:var(--gold);font-weight:700}.trust-i .tl{font-size:.58em;color:var(--moon3);margin-top:2px;letter-spacing:.04em}
+
+/* ===== TESTIMONIALS ===== */
+.testi{margin-bottom:14px}
+.testi-card{background:var(--ink3);border:1px solid rgba(196,162,74,0.05);border-radius:var(--r);padding:16px;margin-bottom:8px;position:relative}
+.testi-card::before{content:'"';position:absolute;top:2px;left:10px;font-size:1.6em;color:var(--gold);opacity:.2;font-family:Georgia,serif}
+.testi-card .tq{font-size:.78em;color:var(--moon2);line-height:1.65;padding-left:16px}
+.testi-card .ta{font-size:.62em;color:var(--moon3);margin-top:8px;text-align:right}
+
+/* ===== STEPS ===== */
+.steps{display:flex;gap:10px;margin-bottom:14px}
+.step{flex:1;text-align:center;padding:14px 8px;background:var(--ink3);border-radius:var(--r);border:1px solid rgba(196,162,74,0.05)}
+.step .sn{font-size:1.3em;margin-bottom:4px}.step .st{font-size:.68em;color:var(--gold);margin-bottom:2px}.step .sd{font-size:.58em;color:var(--moon3)}
+
+/* ===== BUTTONS ===== */
+.btn{
+  display:inline-block;padding:10px 24px;border-radius:24px;
+  border:1px solid rgba(196,162,74,0.2);background:transparent;
+  color:var(--gold);font-size:.82em;cursor:pointer;transition:.3s;
+  letter-spacing:.04em;font-family:inherit;
+}
+.btn:active{background:rgba(196,162,74,0.1);border-color:var(--gold);color:var(--moon);transform:scale(.97)}
+.btn-primary{
+  background:linear-gradient(135deg,rgba(196,162,74,0.15),rgba(160,132,54,0.2));
+  border-color:var(--gold);color:var(--moon);font-weight:600;
+  padding:14px 32px;font-size:.92em;letter-spacing:.06em;
+}
+.btn-primary:active{background:linear-gradient(135deg,rgba(196,162,74,0.25),rgba(160,132,54,0.3))}
+.btn-wide{width:100%;text-align:center}
+
+/* ===== FORM INPUTS ===== */
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:.72em;color:var(--moon3);margin-bottom:6px;letter-spacing:.06em}
+.inp,.sel{
+  width:100%;padding:14px 16px;border-radius:var(--r);border:1px solid rgba(196,162,74,0.1);
+  background:var(--ink3);color:var(--moon);font-size:.88em;outline:none;transition:.3s;
+  font-family:inherit;
+}
+.inp:focus,.sel:focus{border-color:var(--gold);background:rgba(26,20,58,0.9)}
+.sel{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%23C4A24A' d='M5 6L0 0h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:36px}
+.grp{display:flex;gap:10px}
+.go{flex:1;padding:13px;text-align:center;border-radius:var(--r);border:1px solid rgba(196,162,74,0.1);background:var(--ink3);cursor:pointer;transition:.3s;font-size:.84em;color:var(--moon3)}
+.go.sel{border-color:var(--gold);background:rgba(196,162,74,0.08);color:var(--gold)}
+
+/* ===== ZODIAC GRID ===== */
+.zg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.zi{
+  aspect-ratio:1;border:2px solid rgba(196,162,74,0.12);border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;transition:.3s;position:relative;
+  background:radial-gradient(circle,var(--ink3),var(--ink2));
+}
+.zi::before{content:'';position:absolute;inset:4px;border-radius:50%;border:1px dashed rgba(196,162,74,0.08);pointer-events:none}
+.zi:active{border-color:var(--gold);transform:scale(.93);box-shadow:0 0 24px rgba(196,162,74,0.3)}
+.zi .zie{font-size:1.5em;font-weight:700;color:var(--gold);z-index:1}
+.zi .zin{font-size:.55em;color:var(--moon3);margin-top:2px;letter-spacing:.06em}
+
+/* ===== TAROT ===== */
+.tarot-stage{display:flex;flex-direction:column;align-items:center;margin:20px 0}
+.tarot-card{width:170px;height:260px;perspective:800px;cursor:pointer}
+.tarot-inner{position:relative;width:100%;height:100%;transition:transform .8s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+.tarot-card.flipped .tarot-inner{transform:rotateY(180deg)}
+.tarot-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:var(--r2);display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(196,162,74,0.1);box-shadow:var(--shadow)}
+.tarot-back{background:linear-gradient(135deg,#0a0822,#1c1038,#0a0822)}
+.tarot-back .ti{font-size:2.2em;margin-bottom:10px;animation:orbFloat 3s ease-in-out infinite}
+.tarot-back .tt{color:var(--gold);letter-spacing:.1em;font-size:.8em}
+@keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.tarot-front{background:var(--ink2);transform:rotateY(180deg);padding:22px 16px;text-align:center;overflow-y:auto}
+.spread-pick{display:flex;gap:6px;justify-content:center;margin-bottom:10px}
+.spread-pick .sp{font-size:.68em;padding:5px 12px;border-radius:14px;border:1px solid rgba(196,162,74,0.1);color:var(--moon3);cursor:pointer;transition:.3s}
+.spread-pick .sp.on{border-color:var(--gold);background:rgba(196,162,74,0.06);color:var(--gold)}
+
+/* ===== BAZI PILLARS ===== */
+.pillars{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:16px 0}
+.pillar{padding:16px 18px;border-radius:var(--r);background:var(--ink3);border:1px solid rgba(196,162,74,0.06);text-align:center;min-width:68px}
+.pillar .pl{font-size:.6em;color:var(--moon3);margin-bottom:4px;letter-spacing:.08em}
+.pillar .ps{font-size:1.3em;color:var(--gold)}
+.pillar .pb{font-size:.95em;color:var(--moon)}
+
+/* ===== FACE SVG ===== */
+.face-svg{width:100%;max-width:280px;margin:0 auto;display:block}
+.face-zone{cursor:pointer;transition:.3s;fill:transparent;stroke:rgba(196,162,74,0.1);stroke-width:1}
+.face-zone.picked{fill:rgba(196,162,74,0.15);stroke:var(--gold);stroke-width:1.5}
+.face-zone.mole{fill:var(--cinnabar);stroke:var(--cinnabar);stroke-width:0;r:2.5;opacity:.7}
+.face-label{fill:var(--moon3);font-size:9px;pointer-events:none;text-anchor:middle}
+.face-mole-label{fill:var(--cinnabar);font-size:7px;pointer-events:none}
+.mole-toggle{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:16px;border:1px solid rgba(212,69,58,0.2);background:rgba(212,69,58,0.05);color:var(--cinnabar);font-size:.7em;cursor:pointer;transition:.3s}
+.mole-toggle.on{background:rgba(212,69,58,0.12);border-color:var(--cinnabar)}
+
+/* ===== PALM SVG ===== */
+.palm-svg{width:100%;max-width:280px;margin:0 auto;display:block}
+.palm-line{fill:none;stroke:rgba(196,162,74,0.15);stroke-width:1.5;transition:all .6s ease}
+.palm-line.lit{stroke:var(--gold);stroke-width:2.5;filter:drop-shadow(0 0 4px rgba(196,162,74,0.4))}
+.line-group{margin-bottom:16px;text-align:center}
+.line-group .lg{font-size:.7em;color:var(--moon3);margin-bottom:8px;letter-spacing:.06em}
+.line-opt{display:inline-block;padding:8px 14px;margin:3px;border-radius:16px;border:1px solid rgba(196,162,74,0.08);background:var(--ink3);color:var(--moon3);font-size:.72em;cursor:pointer;transition:.3s}
+.line-opt.sel{border-color:var(--gold);background:rgba(196,162,74,0.08);color:var(--gold)}
+
+/* ===== CHAPTER NAV ===== */
+.chapter-nav{display:flex;justify-content:space-between;align-items:center;padding:14px 0;margin-top:8px}
+.chapter-nav .cn-btn{font-size:.72em;color:var(--moon3);cursor:pointer;transition:.3s;display:flex;align-items:center;gap:4px}
+.chapter-nav .cn-btn:active{color:var(--gold)}
+.chapter-nav .cn-title{font-size:.65em;color:var(--moon3);letter-spacing:.06em}
+
+/* ===== TOAST ===== */
+.toast{
+  position:fixed;bottom:110px;left:50%;transform:translateX(-50%);
+  background:rgba(196,162,74,0.9);color:var(--ink);padding:10px 24px;
+  border-radius:24px;font-size:.78em;z-index:100;font-weight:600;
+  animation:ti .3s ease-out,to .3s ease-out 1.7s forwards
+}
+@keyframes ti{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes to{from{opacity:1}to{opacity:0}}
+
+/* ===== DISCLAIMER ===== */
+.disc{text-align:center;padding:18px 16px 8px;font-size:.6em;color:var(--moon3);line-height:1.7;opacity:.5}
+
+/* ===== READING RESULT ===== */
+.reading{background:linear-gradient(160deg,rgba(196,162,74,0.04),rgba(107,91,138,0.03));border-radius:var(--r2);padding:20px;margin-top:16px;border:1px solid rgba(196,162,74,0.08)}
+.reading h3{color:var(--gold);margin-bottom:8px;font-size:.95em}
+.reading p{color:var(--moon2);font-size:.82em;line-height:1.75}
+.reading .score{font-size:1.1em;color:var(--gold);margin:8px 0}
+
+/* ===== LOVE ===== */
+.love-score{font-size:2.6em;color:var(--gold);margin:12px 0}
+.love-bar{height:8px;border-radius:4px;background:rgba(196,162,74,0.1);margin:8px 0 16px}
+.love-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold2),var(--gold),#e8c97a);transition:width 1.2s ease-out}
+
+/* ===== POPUP ===== */
+.popup-overlay{position:fixed;inset:0;z-index:299;background:rgba(0,0,0,0.55)}
+.popup{position:fixed;bottom:0;left:0;right:0;z-index:300;background:rgba(16,12,40,0.98);backdrop-filter:blur(20px);border-radius:20px 20px 0 0;padding:20px 16px 30px;border-top:2px solid rgba(196,162,74,0.1);animation:popUp .3s ease-out;max-height:55vh;overflow-y:auto}
+@keyframes popUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.popup .ptitle{text-align:center;color:var(--gold);font-size:1.05em;margin-bottom:14px;letter-spacing:.06em;font-family:'Noto Serif SC',Georgia,serif}
+.popup .popt{display:block;width:100%;padding:14px;margin-bottom:8px;border-radius:var(--r);border:1px solid rgba(196,162,74,0.08);background:var(--ink3);color:var(--moon);font-size:.84em;cursor:pointer;text-align:center;transition:.3s}
+.popup .popt:active,.popup .popt.sel{background:rgba(196,162,74,0.08);border-color:var(--gold);color:var(--gold)}
+
+/* ===== SHARE FAB ===== */
+.share-fab{position:fixed;bottom:90px;right:14px;z-index:45;display:flex;flex-direction:column;gap:6px}
+.share-fab .fab{width:38px;height:38px;border-radius:50%;background:rgba(196,162,74,0.1);border:1px solid rgba(196,162,74,0.15);color:var(--gold);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9em;transition:.3s}
+.share-fab .fab:active{background:rgba(196,162,74,0.25);transform:scale(.9)}
+
+/* ===== 三停标注 ===== */
+.santing-legend{display:flex;justify-content:center;gap:16px;margin:8px 0 16px;font-size:.6em;color:var(--moon3)}
+.santing-legend .st-item{text-align:center}.santing-legend .st-age{color:var(--gold)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:360px){.svc-grid{grid-template-columns:repeat(3,1fr);gap:6px}.svc-card{padding:12px 6px}.zg{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<canvas id="cosmos"></canvas>
+
+<!-- Share FAB -->
+<div class="share-fab">
+  <div class="fab" onclick="shareGeneral()" title="分享">✧</div>
+</div>
+
+<div id="app">
+  <!-- TOP BAR -->
+  <div id="topbar">
+    <div class="top-btn" onclick="goCh('star-curtain')">☰</div>
+    <div id="logo">拉拉林</div>
+    <div class="top-btn" id="langBtn" onclick="toggleLang()">中</div>
+  </div>
+
+  <!-- ====== STAR CURTAIN ====== -->
+  <div class="sc on" id="ch-star-curtain">
+    <div class="hero">
+      <div class="hero-icon">
+        <svg width="64" height="64" viewBox="0 0 64 64">
+          <circle cx="32" cy="32" r="30" fill="none" stroke="var(--gold)" stroke-width="0.5" opacity="0.3"/>
+          <circle cx="32" cy="32" r="22" fill="none" stroke="var(--gold)" stroke-width="0.5" opacity="0.2" stroke-dasharray="3 5"/>
+          <circle cx="32" cy="32" r="14" fill="none" stroke="var(--gold)" stroke-width="0.8" opacity="0.4"/>
+          <circle cx="32" cy="32" r="3" fill="var(--gold)" opacity="0.8">
+            <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <line x1="32" y1="32" x2="42" y2="18" stroke="var(--stardust)" stroke-width="0.3" opacity="0.4"/>
+          <line x1="32" y1="32" x2="22" y2="20" stroke="var(--stardust)" stroke-width="0.3" opacity="0.3"/>
+          <line x1="32" y1="32" x2="44" y2="36" stroke="var(--stardust)" stroke-width="0.3" opacity="0.3"/>
+          <line x1="32" y1="32" x2="20" y2="40" stroke="var(--stardust)" stroke-width="0.3" opacity="0.4"/>
+          <circle cx="42" cy="18" r="1.5" fill="var(--gold)" opacity="0.5"/>
+          <circle cx="22" cy="20" r="1.5" fill="var(--gold)" opacity="0.4"/>
+          <circle cx="44" cy="36" r="1.5" fill="var(--gold)" opacity="0.4"/>
+          <circle cx="20" cy="40" r="1.5" fill="var(--gold)" opacity="0.5"/>
+        </svg>
+      </div>
+      <h1>星之密语</h1>
+      <div class="tagline">探索你的命运星图</div>
+    </div>
+
+    <div class="hook-rotate" id="hookRotate"></div>
+
+    <!-- Daily Card -->
+    <div class="daily-card" id="dailyBox"></div>
+
+    <!-- Service Grid -->
+    <div class="card">
+      <h2 style="text-align:center;margin-bottom:14px">✦ 命理服务</h2>
+      <div class="svc-grid" id="svcGrid"></div>
+    </div>
+
+    <!-- Trust Bar -->
+    <div class="trust-bar">
+      <div class="trust-i"><div class="tv" id="trustCount">19,203</div><div class="tl">已完成解读</div></div>
+      <div class="trust-i"><div class="tv">24/7</div><div class="tl">AI命理师在线</div></div>
+      <div class="trust-i"><div class="tv">✦ 东方</div><div class="tl">千年传统智慧</div></div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="testi">
+      <div class="testi-card"><div class="tq">八字命盘分析跟我找大师算的结果惊人一致，现在每天都来看生肖运势。</div><div class="ta">— 小雨 · 已使用3周</div></div>
+      <div class="testi-card"><div class="tq">塔罗占卜帮我做了重要决定，免费还这么准，已经推荐给全家人。</div><div class="ta">— 星辰大海 · 已使用2个月</div></div>
+    </div>
+
+    <!-- 3 Steps -->
+    <div class="card">
+      <h2 style="text-align:center;margin-bottom:14px">✦ 三步开启命盘</h2>
+      <div class="steps">
+        <div class="step"><div class="sn">☯</div><div class="st">输入出生</div><div class="sd">日期+时辰</div></div>
+        <div class="step"><div class="sn">✦</div><div class="st">选择服务</div><div class="sd">八字/塔罗/面相</div></div>
+        <div class="step"><div class="sn">◈</div><div class="st">获得解读</div><div class="sd">即时AI命理报告</div></div>
+      </div>
+      <button class="btn btn-primary btn-wide" onclick="goCh('bazi')">✦ 开启你的命盘 ✦</button>
+    </div>
+    <div class="disc">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
+  </div>
+
+  <!-- ====== BAZI ====== -->
+  <div class="sc" id="ch-bazi">
+    <h2 style="text-align:center;margin:20px 0 6px">八字命理</h2>
+    <p class="subtle" style="text-align:center;margin-bottom:16px">四柱八字 · 命理推演</p>
+
+    <div class="card" id="baziForm">
+      <div class="fg"><label>✦ 出生日期</label><input type="date" class="inp" id="baziDate" min="1920-01-01" max="2020-12-31"></div>
+      <div class="fg"><label>✦ 出生时辰</label><select class="sel" id="baziHour">
+        <option value="-1">未指定</option>
+        <option value="0">子时 23:00-01:00</option><option value="1">丑时 01:00-03:00</option>
+        <option value="2">寅时 03:00-05:00</option><option value="3">卯时 05:00-07:00</option>
+        <option value="4">辰时 07:00-09:00</option><option value="5">巳时 09:00-11:00</option>
+        <option value="6" selected>午时 11:00-13:00</option><option value="7">未时 13:00-15:00</option>
+        <option value="8">申时 15:00-17:00</option><option value="9">酉时 17:00-19:00</option>
+        <option value="10">戌时 19:00-21:00</option><option value="11">亥时 21:00-23:00</option>
+      </select></div>
+      <div class="fg"><label>✦ 性别</label><div class="grp" id="baziGender">
+        <div class="go sel" data-g="male" onclick="pickGender(this,'baziGender')">♂ 男</div>
+        <div class="go" data-g="female" onclick="pickGender(this,'baziGender')">♀ 女</div>
+      </div></div>
+      <button class="btn btn-primary btn-wide" onclick="doBazi()">✦ 推演命盘 ✦</button>
+    </div>
+
+    <div class="card" id="baziResult" style="display:none"></div>
+    <div class="chapter-nav">
+      <div class="cn-btn" onclick="goCh('star-curtain')">← 返回星盘</div>
+      <div class="cn-title">命理篇章</div>
+      <div class="cn-btn" onclick="goCh('zodiac')">生肖运势 →</div>
+    </div>
+    <div class="disc">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
+  </div>
+
+  <!-- ====== ZODIAC ====== -->
+  <div class="sc" id="ch-zodiac">
+    <h2 style="text-align:center;margin:20px 0 6px">十二生肖</h2>
+    <p class="subtle" style="text-align:center;margin-bottom:16px">每日运势 · 事业感情财运</p>
+    <div class="zg" id="zodiacGrid"></div>
+    <div class="card" id="zodiacDetail" style="text-align:center;display:none"></div>
+    <div class="chapter-nav">
+      <div class="cn-btn" onclick="goCh('bazi')">← 八字命理</div>
+      <div class="cn-title">生肖篇章</div>
+      <div class="cn-btn" onclick="goCh('tarot')">塔罗占卜 →</div>
+    </div>
+    <div class="disc">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
+  </div>
+
+  <!-- ====== TAROT ====== -->
+  <div class="sc" id="ch-tarot">
+    <h2 style="text-align:center;margin:20px 0 6px">塔罗占卜</h2>
+    <p class="subtle" style="text-align:center;margin-bottom:16px">22张大阿卡那 · 揭示命运</p>
+    <div class="card" style="text-align:center">
+      <div class="spread-pick"><div class="sp on" onclick="setSpread(1,this)">单张牌</div><div class="sp" onclick="setSpread(3,this)">三张牌阵</div></div>
+      <p style="color:var(--moon3);margin-bottom:14px;font-size:.78em">心中默念问题，触碰水晶球</p>
+      <div class="tarot-stage">
+        <div class="tarot-card" id="tarotCard" onclick="flipTarot()">
+          <div class="tarot-inner"><div class="tarot-face tarot-back"><div class="ti">◈</div><div class="tt">触碰水晶球</div></div><div class="tarot-face tarot-front" id="tarotFront"></div></div>
+        </div>
+      </div>
+      <button class="btn" onclick="drawTarot()" style="margin-top:8px">再抽一组</button>
+      <div style="margin-top:10px;font-size:.7em;color:var(--moon3)" id="tarotHistory"></div>
+    </div>
+    <div class="chapter-nav">
+      <div class="cn-btn" onclick="goCh('zodiac')">← 生肖运势</div>
+      <div class="cn-title">塔罗篇章</div>
+      <div class="cn-btn" onclick="goCh('love')">缘分配对 →</div>
+    </div>
+    <div class="disc">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
+  </div>
+
+  <!-- ====== LOVE ====== -->
+  <div class="sc" id="ch-love">
+    <h2 style="text-align:center;margin:20px 0 6px">缘分配对</h2>
+    <p class="subtle" style="text-align:center;margin-bottom:16px">六合三合 · 传统生肖合婚</p>
+    <div class="card">
+      <div class="fg"><label>✦ 你的生肖</label><select class="sel" id="loveA"></select></div>
+      <div class="fg"><label>✦ TA的生肖</label><select class="sel" id="loveB"></select></div>
+      <button class="btn btn-primary btn-wide" onclick="checkLove()">✦ 测试缘分 ✦</button>
+      <div id="loveRes" style="display:none;text-align:center;padding:20px 0"></div>
+    </div>
+    <div class="chapter-nav">
+      <div class="cn-btn" onclick="goCh('tarot')">← 塔罗占卜</div>
+      <div class="cn-title">缘分篇章</div>
+      <div class="cn-btn" onclick="goCh('mianxiang')">面相十二宫 →</div>
+    </div>
+    <div class="disc">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
+  </div>
+
+  <!-- ====== MIANXIANG ====== -->
+  <div class="sc" id="ch-mianxiang">
+    <h2 style="text-align:center;margin:20px 0 6px">面相十二宫</h2>
+    <p class="subtle" style="text-align:center;margin-bottom:4px">点击面部区域 · 解析命格</p>
+    <div class="santing-legend">
+      <div class="st-item"><div class="st-age">15-30岁</div>上停</div>
+      <div class="st-item"><div class="st-age">31-50岁</div>中停</div>
+      <div class="st-item"><div class="st-age">51岁后</div>下停</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div id="faceContainer"></div>
+      <div style="margin:10px 0;min-height:20px" id="mxPicked"></div>
+      <div class="mole-toggle" id="moleToggle" onclick="toggleMoles()">● 标注痣相</div>
+      <button class="btn btn-primary btn-wide" onclick="readMianXiang()" style="margin-top:10px">✦ 解读面相 ✦</button>
+      <div id="mxResult" style="display:none"></div>
+    </div>
+    <div class="chapter-nav">
+      <div class="cn-btn" onclick="goCh('love')">← 缘分配对</div>
+      <div class="cn-title">面相篇章</div>
+      <div class="cn-btn" onclick="goCh('shouxiang')">手相三纹 →</div>
+    </div>
+    <div class="disc">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
+  </div>
+
+  <!-- ====== SHOUXIANG ====== -->
+  <div class="sc" id="ch-shouxiang">
+    <h2 style="text-align:center;margin:20px 0 6px">手相 · 天地人三纹</h2>
+    <p class="subtle" style="text-align:center;margin-bottom:16px">选择掌纹特征 · 线随心动</p>
+    <div class="card" style="text-align:center">
+      <div id="palmContainer"></div>
+      <div id="sxControls" style="margin-top:16px">
+        <div class="line-group"><div class="lg">✦ 生命线 地纹</div><div id="lifeOpts"></div></div>
+        <div class="line-group"><div class="lg">✦ 智慧线 人纹</div><div id="headOpts"></div></div>
+        <div class="line-group"><div class="lg">✦ 感情线 天纹</div><div id="heartOpts"></div></div>
+        <div class="line-group"><div class="lg">✦ 命运线 玉柱纹</div><div id="fateOpts"></div></div>
+        <div class="line-group"><div class="lg">✦ 太阳线</div><div id="sunOpts"></div></div>
+      </div>
+      <button class="btn btn-primary btn-wide" onclick="readShouXiang()" style="margin-top:12px">✦ 解读手相 ✦</button>
+      <div id="sxResult" style="display:none"></div>
+    </div>
+    <div class="chapter-nav">
+      <div class="cn-btn" onclick="goCh('mianxiang')">← 面相十二宫</div>
+      <div class="cn-title">手相篇章</div>
+      <div class="cn-btn" onclick="goCh('star-curtain')">返回星盘 →</div>
+    </div>
+    <div class="disc">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
+  </div>
+
+</div><!-- /app -->
+
+<!-- BOTTOM NAV -->
+<div id="bn">
+  <div class="ni on" id="nav-star-curtain" onclick="goCh('star-curtain')">
+    <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="4" fill="currentColor" opacity=".7"><animate attributeName="opacity" values=".3;.9;.3" dur="3s" repeatCount="indefinite"/></circle></svg><span>星盘</span>
+  </div>
+  <div class="ni" id="nav-bazi" onclick="goCh('bazi')">
+    <svg viewBox="0 0 40 40"><rect x="6" y="6" width="28" height="28" rx="4" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="20" y1="8" x2="20" y2="32" stroke="currentColor" stroke-width=".8" opacity=".3"/><line x1="8" y1="20" x2="32" y2="20" stroke="currentColor" stroke-width=".8" opacity=".3"/></svg><span>八字</span>
+  </div>
+  <div class="ni" id="nav-zodiac" onclick="goCh('zodiac')">
+    <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 3"><animateTransform attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="12s" repeatCount="indefinite"/></circle><text x="20" y="27" text-anchor="middle" font-size="20" font-weight="bold" fill="currentColor">辰</text></svg><span>生肖</span>
+  </div>
+  <div class="ni" id="nav-tarot" onclick="goCh('tarot')">
+    <svg viewBox="0 0 40 40"><polygon points="20,4 25,16 38,16 28,23 32,36 20,28 8,36 12,23 2,16 15,16" fill="none" stroke="currentColor" stroke-width="1.5"><animateTransform attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="18s" repeatCount="indefinite"/></polygon></svg><span>塔罗</span>
+  </div>
+  <div class="ni" id="nav-love" onclick="goCh('love')">
+    <svg viewBox="0 0 40 40"><path d="M20 34C10 26 4 20 4 14C4 9 8 5 13 5C16 5 19 7 20 9C21 7 24 5 27 5C32 5 36 9 36 14C36 20 30 26 20 34Z" fill="none" stroke="currentColor" stroke-width="1.8"><animateTransform attributeName="transform" type="scale" values="1;1.12;1;1.06;1" dur="1.6s" repeatCount="indefinite" additive="sum"/></path></svg><span>缘分</span>
+  </div>
+  <div class="ni" id="nav-mianxiang" onclick="goCh('mianxiang')">
+    <svg viewBox="0 0 40 40"><circle cx="20" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="13" r="2" fill="currentColor" opacity=".6"><animate attributeName="opacity" values=".3;1;.3" dur="2s" repeatCount="indefinite"/></circle><circle cx="25" cy="13" r="2" fill="currentColor" opacity=".6"><animate attributeName="opacity" values="1;.3;1" dur="2s" repeatCount="indefinite"/></circle><path d="M14 22 Q20 29 26 22" fill="none" stroke="currentColor" stroke-width="1.2"/></svg><span>面相</span>
+  </div>
+  <div class="ni" id="nav-shouxiang" onclick="goCh('shouxiang')">
+    <svg viewBox="0 0 40 40"><rect x="7" y="5" width="26" height="32" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="28" y2="15" stroke="currentColor" stroke-width="1" opacity=".5"><animate attributeName="opacity" values=".3;.8;.3" dur="2.5s" repeatCount="indefinite"/></line><line x1="11" y1="22" x2="29" y2="22" stroke="currentColor" stroke-width="1" opacity=".6"/><line x1="10" y1="29" x2="30" y2="29" stroke="currentColor" stroke-width="1" opacity=".4"><animate attributeName="opacity" values=".6;.2;.6" dur="2s" repeatCount="indefinite"/></line></svg><span>手相</span>
+  </div>
+</div>
+
+<!-- Face Zone Popup -->
+<div class="popup-overlay" id="popOverlay" style="display:none" onclick="closeFacePopup()"></div>
+<div class="popup" id="zonePopup" style="display:none"></div>
+
+<script>
+// ====== CONSTELLATION BACKGROUND ======
+(function(){
+  var c=document.getElementById('cosmos'),ctx=c.getContext('2d'),w,h,stars=[],cons=[];
+  function rs(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}
+  rs();window.addEventListener('resize',rs);
+  for(var i=0;i<120;i++)stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.2+.2,a:Math.random()*Math.PI*2,s:0.003+Math.random()*0.012});
+  function dr(){
+    ctx.clearRect(0,0,w,h);
+    // Stars
+    stars.forEach(function(s){
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(235,228,213,'+(0.08+Math.abs(Math.sin(s.a+=s.s))*0.25)+')';
+      ctx.fill();
+    });
+    // Constellation lines
+    for(var i=0;i<stars.length;i+=8){
+      var a=stars[i],b=stars[(i+3)%stars.length];
+      var d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<120){
+        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle='rgba(107,91,138,'+(0.02*(1-d/120))+')';
+        ctx.lineWidth=0.3;ctx.stroke();
+      }
+    }
+    requestAnimationFrame(dr);
+  }
+  dr();
+  window.addEventListener('resize',function(){rs();stars.forEach(function(s){s.x=Math.random()*w;s.y=Math.random()*h})});
+})();
+
+// ====== STATE ======
+var LANG='zh',USER=null,ZIDX=-1,TSPREAD=1,CUR_TAROT=null,ZD_IDX=null;
+var palmLines={life:0,head:0,heart:0,fate:0,sun:0};
+var mxPicks={},mxMoles={},mxCurrentZone=null,showMoles=false;
+
+// ====== i18n ======
+var D={
+  'nav-star-curtain-z':['星盘','Cosmos'],'nav-bazi-z':['八字','BaZi'],'nav-zodiac-z':['生肖','Zodiac'],
+  'nav-tarot-z':['塔罗','Tarot'],'nav-love-z':['缘分','Love'],'nav-mianxiang-z':['面相','Face'],'nav-shouxiang-z':['手相','Palm']
+};
+function T(k){var v=D[k];return v?v[LANG==='zh'?0:1]:k}
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function zi(y){return((y-4)%12+12)%12}
+function tg(y){return((y-4)%10+10)%10}
+
+function toast(m){
+  var e=document.createElement('div');e.className='toast';e.textContent=m;
+  document.body.appendChild(e);setTimeout(function(){e.remove()},2000);
+}
+
+// ====== NAVIGATION ======
+function goCh(name){
+  document.querySelectorAll('.sc').forEach(function(s){s.classList.remove('on')});
+  var el=document.getElementById('ch-'+name);
+  if(el)el.classList.add('on');
+  document.querySelectorAll('.ni').forEach(function(n){n.classList.remove('on')});
+  var ni=document.getElementById('nav-'+name);
+  if(ni)ni.classList.add('on');
+  window.scrollTo(0,0);
+  if(name==='zodiac')renderZodiacs();
+  if(name==='love')initLove();
+  if(name==='mianxiang')initMianXiang();
+  if(name==='shouxiang')initShouXiang();
+}
+
+function toggleLang(){
+  LANG=LANG==='zh'?'en':'zh';
+  document.getElementById('langBtn').textContent=LANG==='zh'?'中':'EN';
+  initServiceGrid();renderZodiacs();dailyCard();
+}
+
+// ====== HOOK ROTATOR ======
+(function rotateHooks(){
+  var hooksZh=['Ta是你的正缘吗？','今年财运如何？','何时遇到对的人？','你的命运星图是什么？','宇宙想对你说什么？'];
+  var hooksEn=['Is this your soulmate?','What about your finances?','Find your true path.','The stars whisper…','What destiny awaits?'];
+  var i=0,el=document.getElementById('hookRotate');
+  function build(){return(LANG==='zh'?hooksZh:hooksEn).map(function(h,j){return'<span class="hook-item'+(j===0?' on':'')+'">'+h+'</span>'}).join('')}
+  el.innerHTML=build();
+  setInterval(function(){
+    var items=el.querySelectorAll('.hook-item');
+    items[i].classList.remove('on');
+    i=(i+1)%items.length;
+    items[i].classList.add('on');
+  },3000);
+})();
+
+// ====== SERVICE GRID ======
+function initServiceGrid(){
+  var svcs=[
+    {id:'bazi',icon:'☯',z:'八字命理',e:'BaZi',subz:'四柱推演',sube:'Pillars'},
+    {id:'zodiac',icon:'🐉',z:'十二生肖',e:'Zodiac',subz:'每日运势',sube:'Daily'},
+    {id:'tarot',icon:'◈',z:'塔罗占卜',e:'Tarot',subz:'大阿卡那',sube:'Arcana'},
+    {id:'love',icon:'💕',z:'缘分配对',e:'Love',subz:'六合三合',sube:'Match'},
+    {id:'mianxiang',icon:'☉',z:'面相十二宫',e:'Face',subz:'观相识人',sube:'Reading'},
+    {id:'shouxiang',icon:'✋',z:'手相三纹',e:'Palm',subz:'掌中乾坤',sube:'Lines'}
+  ];
+  document.getElementById('svcGrid').innerHTML=svcs.map(function(s){return'<div class="svc-card" onclick="goCh(\''+s.id+'\')"><div class="si">'+s.icon+'</div><div class="sn">'+(LANG==='zh'?s.z:s.e)+'</div><div class="ss">'+(LANG==='zh'?s.subz:s.sube)+'</div></div>'}).join('');
+}
+
+// ====== DAILY CARD ======
+function dailyCard(){
+  var now=new Date(),sd=now.getFullYear()*10000+(now.getMonth()+1)*100+now.getDate(),rn=function(n){return Math.abs(Math.sin(sd*127.1+n*311.7)*10000)%100},s=Math.floor(rn(1)/20)+1,sr='';for(var i=0;i<Math.min(s,5);i++)sr+='✦';
+  var fz=[{t:'紫气东来',d:'贵人运旺盛，适合社交与拓展人脉。',do:'社交聚会',dont:'大额消费'},{t:'稳中求进',d:'看似平淡，实则在酝酿转机。',do:'整理规划',dont:'冒险投资'},{t:'桃花盛开',d:'桃花运势上升，单身者有望邂逅。',do:'约会表白',dont:'冷战赌气'},{t:'财运亨通',d:'偏财运不错，可能有意外之财。',do:'理财规划',dont:'借贷担保'},{t:'贵人相助',d:'长辈或上司是你的贵人。',do:'进修学习',dont:'骄傲自负'}];
+  var fe=[{t:'Fortune Smiles',d:'Stars align in your favor.',do:'Social events',dont:'Arguments'},{t:'Steady Progress',d:'A quiet turning point ahead.',do:'Planning',dont:'Rushing'},{t:'Love Blossoms',d:'Romantic energy peaks today.',do:'Express feelings',dont:'Silence'},{t:'Prosperity',d:'Favorable for finances.',do:'Budgeting',dont:'Gambling'},{t:'Noble Support',d:'A mentor appears.',do:'Learn & grow',dont:'Ego'}];
+  var f=LANG==='zh'?fz[Math.floor(rn(0)/20)]:fe[Math.floor(rn(0)/20)];
+  document.getElementById('dailyBox').innerHTML='<div class="ddate">'+now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日 · 今日运程</div><div class="dicon">🔮</div><div class="dstars">'+sr+'</div><div class="dtitle">'+f.t+'</div><div class="ddesc">'+f.d+'</div><div class="dadvice"><span class="do-tag do">宜 '+f.do+'</span><span class="do-tag dont">忌 '+f.dont+'</span></div>';
+}
+
+// ====== ZODIAC ======
+var zCh=['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
+var zodiacs=[{k:'Rat',el:'Water',ln:[2,3]},{k:'Ox',el:'Earth',ln:[1,4]},{k:'Tiger',el:'Wood',ln:[1,3,4]},{k:'Rabbit',el:'Wood',ln:[3,4,6]},{k:'Dragon',el:'Earth',ln:[1,6,7]},{k:'Snake',el:'Fire',ln:[2,8,9]},{k:'Horse',el:'Fire',ln:[2,3,7]},{k:'Goat',el:'Earth',ln:[2,7]},{k:'Monkey',el:'Metal',ln:[4,9]},{k:'Rooster',el:'Metal',ln:[5,7,8]},{k:'Dog',el:'Earth',ln:[3,4,9]},{k:'Pig',el:'Water',ln:[2,5,8]}];
+var stemsZh=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+var branchZh=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+
+function renderZodiacs(){
+  document.getElementById('zodiacGrid').innerHTML=zodiacs.map(function(z,i){
+    return'<div class="zi" onclick="showZ('+i+')"><div class="zie">'+zCh[i]+'</div><div class="zin">'+(LANG==='zh'?zCh[i]:z.k)+'</div></div>';
+  }).join('');
+}
+
+var zDet={Rat:{o:'机智灵敏，善于观察，适应力极强。',c:'主动出击，洞察力助你发现隐藏机会。',l:'感情温暖和谐。',w:'财运平稳。'},Ox:{o:'踏实稳重，责任心强。努力见到回报。',c:'领导信任你，适合承担更多责任。',l:'多些浪漫。',w:'正财运好。'},Tiger:{o:'勇敢果断，精力充沛。',c:'事业机遇来临。',l:'热情似火。',w:'偏财运不错。'},Rabbit:{o:'温和聪慧，人缘极佳。',c:'人脉带来机会。',l:'桃花运旺盛。',w:'守成为主。'},Dragon:{o:'气宇轩昂，天生领袖。',c:'光芒四射。',l:'自信魅力。',w:'财运旺盛。'},Snake:{o:'智慧深邃，直觉敏锐。',c:'策略为上。',l:'深度交流。',w:'谨慎为上。'},Horse:{o:'热情奔放，自由不羁。',c:'保持热情。',l:'给对方空间。',w:'控制开支。'},Goat:{o:'温柔善良，创造力爆发。',c:'发挥创造力。',l:'柔情温暖。',w:'创意收入。'},Monkey:{o:'聪明机灵。',c:'换个角度。',l:'轻松有趣。',w:'不要贪心。'},Rooster:{o:'勤奋细致。',c:'获得认可。',l:'陪伴重要的人。',w:'预算规划。'},Dog:{o:'忠诚可靠。',c:'增强凝聚力。',l:'专一安心。',w:'稳步积累。'},Pig:{o:'豁达乐观。',c:'保持开放。',l:'珍惜眼前人。',w:'财运亨通。'}};
+
+function showZ(idx){
+  ZIDX=idx;ZD_IDX=idx;
+  var z=zodiacs[idx],s=rnd(1,5),sr='';for(var i=0;i<s;i++)sr+='✦';
+  var d=zDet[z.k];
+  document.getElementById('zodiacDetail').style.display='block';
+  document.getElementById('zodiacDetail').innerHTML='<div style="font-size:2.2em">'+zCh[idx]+'</div><div style="font-size:1.1em;color:var(--gold)">'+z.k+' · '+z.el+'</div><div style="color:var(--gold);font-size:1.2em;letter-spacing:4px;margin:8px 0">'+sr+'</div><div class="reading"><h3>综合运势</h3><p>'+d.o+'</p></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"><div class="reading"><h3>事业</h3><p>'+d.c+'</p></div><div class="reading"><h3>感情</h3><p>'+d.l+'</p></div></div><div class="reading"><h3>财运</h3><p>'+d.w+'</p></div><div style="margin-top:8px;font-size:.7em;color:var(--moon3)">幸运数字 <b style="color:var(--gold)">'+z.ln.join(',')+'</b></div>';
+  document.getElementById('zodiacDetail').scrollIntoView({behavior:'smooth'});
+}
+
+// ====== BAZI ======
+function pickGender(el,groupId){
+  document.querySelectorAll('#'+groupId+' .go').forEach(function(b){b.classList.remove('sel')});
+  el.classList.add('sel');
+}
+
+function doBazi(){
+  var d=document.getElementById('baziDate').value;
+  if(!d){toast(LANG==='zh'?'请选择出生日期':'Select birth date');return}
+  var parts=d.split('-'),y=parseInt(parts[0]),m=parseInt(parts[1]),dd=parseInt(parts[2]),h=parseInt(document.getElementById('baziHour').value),g=document.querySelector('#baziGender .go.sel').dataset.g;
+  USER={y:y,m:m,d:dd,h:h<0?12:h,g:g,z:zi(y)};
+  ZIDX=USER.z;
+  var z=zodiacs[USER.z],ty=tg(y),td=(ty+dd)%10;
+  var el=z.el,virtueMap={Wood:'仁',Fire:'礼',Earth:'信',Metal:'义',Water:'智'};
+  var interp='你属'+zCh[USER.z]+'，为'+el+'命之人。五行中'+el+'主「'+virtueMap[el]+'」。日主为「'+stemsZh[td]+'」，是你一生运势的关键。';
+  document.getElementById('baziResult').style.display='block';
+  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+zCh[USER.z]+' · '+el+'</div><div style="font-size:.7em;color:var(--moon3)">'+y+'年'+m+'月'+dd+'日 · '+(g==='male'?'男':'女')+'</div></div><div class="pillars"><div class="pillar"><div class="pl">年柱</div><div class="ps">'+stemsZh[ty]+'</div><div class="pb">'+branchZh[zi(y)]+'</div></div><div class="pillar"><div class="pl">月柱</div><div class="ps">'+stemsZh[(ty+2)%10]+'</div><div class="pb">'+branchZh[m] +'</div></div><div class="pillar"><div class="pl">日柱</div><div class="ps">'+stemsZh[td]+'</div><div class="pb">'+branchZh[(USER.z+dd)%12]+'</div></div><div class="pillar"><div class="pl">时柱</div><div class="ps">'+stemsZh[(ty+5)%10]+'</div><div class="pb">'+branchZh[Math.floor(h/12)]+'</div></div></div><div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div>';
+  document.getElementById('baziResult').scrollIntoView({behavior:'smooth'});
+}
+
+// ====== TAROT ======
+var tarotDeck=[{z:'愚者',e:'The Fool',s:'*',mz:'新的开始，大胆前行。',me:'Take the leap.'},{z:'魔术师',e:'The Magician',s:'!',mz:'你拥有所需的一切。',me:'You have all tools.'},{z:'女祭司',e:'High Priestess',s:'@',mz:'倾听内心的声音。',me:'Listen within.'},{z:'女皇',e:'Empress',s:'#',mz:'丰收与富饶。',me:'Abundance.'},{z:'皇帝',e:'Emperor',s:'$',mz:'秩序与权威。',me:'Take control.'},{z:'教皇',e:'Hierophant',s:'|',mz:'遵循传统，寻求指引。',me:'Seek wisdom.'},{z:'恋人',e:'Lovers',s:'%',mz:'重要选择在前方。',me:'Follow heart.'},{z:'战车',e:'Chariot',s:'<',mz:'勇往直前，胜利在望。',me:'Victory ahead.'},{z:'力量',e:'Strength',s:'^',mz:'内心力量无穷大。',me:'Inner strength.'},{z:'隐士',e:'Hermit',s:'?',mz:'向内探索的时刻。',me:'Reflect within.'},{z:'命运之轮',e:'Wheel',s:'&',mz:'命运正在转动。',me:'Destiny turns.'},{z:'正义',e:'Justice',s:'=',mz:'公平与真相终将显现。',me:'Truth prevails.'},{z:'倒吊人',e:'Hanged Man',s:'{',mz:'换个角度看世界。',me:'New view.'},{z:'死神',e:'Death',s:'}',mz:'旧物消逝，新生诞生。',me:'Transformation.'},{z:'节制',e:'Temperance',s:'>',mz:'平衡与和谐。',me:'Balance.'},{z:'恶魔',e:'Devil',s:'[',mz:'审视你的束缚。',me:'Examine chains.'},{z:'高塔',e:'Tower',s:']',mz:'崩塌后的重建。',me:'Rebuild.'},{z:'星星',e:'Star',s:'+',mz:'希望与灵感闪耀。',me:'Hope shines.'},{z:'月亮',e:'Moon',s:'-',mz:'直觉比逻辑更重要。',me:'Trust intuition.'},{z:'太阳',e:'Sun',s:'~',mz:'快乐与成功。',me:'Joy & success.'},{z:'审判',e:'Judgement',s:':',mz:'觉醒与重生。',me:'Awakening.'},{z:'世界',e:'World',s:';',mz:'圆满与完成。',me:'Completion.'}];
+
+function setSpread(n,el){
+  TSPREAD=n;
+  el.parentElement.querySelectorAll('.sp').forEach(function(o){o.classList.remove('on')});
+  el.classList.add('on');
+}
+
+function drawTarot(){
+  var cards=[],used={};
+  for(var i=0;i<TSPREAD;i++){var idx;do{idx=rnd(0,tarotDeck.length-1)}while(used[idx]&&TSPREAD<=tarotDeck.length);used[idx]=1;cards.push(tarotDeck[idx])}
+  CUR_TAROT=cards;
+  var labelsZ=['过去','现在','未来'],labelsE=['Past','Present','Future'],html='';
+  cards.forEach(function(c,i){
+    var lb=TSPREAD>1?(LANG==='zh'?labelsZ[i]:labelsE[i]):'';
+    html+='<div style="text-align:center;padding:8px 4px"><div style="font-size:.55em;color:var(--moon3);margin-bottom:2px">'+lb+'</div><div style="font-size:1.8em;margin:4px 0">'+c.s+'</div><div style="font-size:.75em;color:var(--gold)">'+(LANG==='zh'?c.z:c.e)+'</div><div style="font-size:.65em;color:var(--moon2);margin-top:4px">'+(LANG==='zh'?c.mz:c.me)+'</div></div>';
+  });
+  document.getElementById('tarotFront').innerHTML=html;
+  document.getElementById('tarotCard').classList.remove('flipped');
+  setTimeout(function(){document.getElementById('tarotCard').classList.add('flipped')},100);
+  document.getElementById('tarotHistory').textContent=LANG==='zh'?'最近：'+cards.map(function(c){return c.z}).join(' + '):'Last: '+cards.map(function(c){return c.e}).join(' + ');
+}
+
+function flipTarot(){
+  if(!CUR_TAROT||!document.getElementById('tarotCard').classList.contains('flipped'))drawTarot();
+}
+
+// ====== LOVE ======
+var loveCompat=[97,92,72,60,55,58,70,68,80,85,62,78];
+function initLove(){
+  ['loveA','loveB'].forEach(function(id){
+    var s=document.getElementById(id);
+    s.innerHTML=zodiacs.map(function(z,i){return'<option value="'+i+'">'+zCh[i]+' '+(LANG==='zh'?zCh[i]:z.k)+'</option>'}).join('');
+  });
+}
+function checkLove(){
+  var a=parseInt(document.getElementById('loveA').value),b=parseInt(document.getElementById('loveB').value),sc=Math.min(99,Math.max(30,55+rnd(-10,35)));
+  var msg=sc>=90?'天作之合！':sc>=75?'非常匹配！':sc>=60?'相合不错。':sc>=45?'需要磨合。':'缘分尚需经营。';
+  document.getElementById('loveRes').style.display='block';
+  document.getElementById('loveRes').innerHTML='<div style="font-size:1.8em">'+zCh[a]+' + '+zCh[b]+'</div><div class="love-score">'+sc+'%</div><div class="love-bar"><div class="love-bar-fill" style="width:'+sc+'%"></div></div><p style="color:var(--moon2);font-size:.85em">'+msg+'</p>';
+  document.getElementById('loveRes').scrollIntoView({behavior:'smooth'});
+}
+
+// ====== MIANXIANG ======
+var mxZones=[
+  {id:'g9',n:'官禄宫',tip:'额头正中—主事业官运。15-30岁',cx:150,cy:46,r:13},
+  {id:'g12',n:'父母宫',tip:'额角—主父母缘分。',cx:82,cy:44,r:10},
+  {id:'g7',n:'迁移宫',tip:'额侧-主出行变动。',cx:82,cy:70,r:9},
+  {id:'g11',n:'福德宫',tip:'眉尾上方-主福气。',cx:95,cy:54,r:9},
+  {id:'g2',n:'兄弟宫',tip:'眉毛—主兄弟姐妹朋友。',cx:108,cy:64,r:12},
+  {id:'g1',n:'命宫',tip:'印堂眉心—主一生运势根基。',cx:150,cy:82,r:15},
+  {id:'g10',n:'田宅宫',tip:'眼皮上方—主房产家宅。',cx:138,cy:72,r:9},
+  {id:'g6',n:'疾厄宫',tip:'鼻梁山根—主健康。31-50岁',cx:130,cy:95,r:9},
+  {id:'g5',n:'财帛宫',tip:'鼻子—主一生财运。',cx:150,cy:102,r:12},
+  {id:'g3',n:'夫妻宫',tip:'眼尾奸门—主婚姻感情。',cx:208,cy:90,r:10},
+  {id:'g4',n:'子女宫',tip:'眼下卧蚕—主子嗣缘分。',cx:150,cy:112,r:10},
+  {id:'g8',n:'交友宫',tip:'下巴两侧—主朋友下属。51岁后',cx:195,cy:148,r:11}
+];
+var mxOpts={
+  g9:['天庭饱满','高广明亮','略有凹陷','有伏犀骨'],g12:['额角丰隆','日角月角明','额角平坦','略有下陷'],
+  g7:['额角饱满','开阔平实','驿马位明','略有内收'],g11:['福德宫满','眉尾丰隆','福德略平','额角丰盈'],
+  g2:['眉毛清秀','浓密刚强','眉尾稀疏','眉形朗阔'],g1:['宽阔明亮','有悬针纹','略有凹陷','光洁平整'],
+  g10:['眼皮丰润','田宅宫满','略有微陷','明润光泽'],g6:['山根高挺','山根略低','山根有节','山根光润'],
+  g5:['鼻梁挺直','鼻头圆润','鼻翼丰满','鼻子端正'],g3:['眼尾饱满','眼尾略陷','奸门光洁','略有细纹'],
+  g4:['卧蚕丰满','眼下平实','泪堂微陷','明润饱满'],g8:['下巴圆润','地阁方圆','下巴略尖','地库丰满']
+};
+
+function buildFaceSvg(){
+  var svg='<svg viewBox="0 0 300 320" class="face-svg"><ellipse cx="150" cy="160" rx="100" ry="135" fill="none" stroke="rgba(196,162,74,0.15)" stroke-width="2"/><ellipse cx="150" cy="120" rx="80" ry="95" fill="none" stroke="rgba(196,162,74,0.06)" stroke-width="1" stroke-dasharray="4 3"/>';
+  // 三停分界线
+  svg+='<line x1="60" y1="75" x2="240" y2="75" stroke="rgba(196,162,74,0.12)" stroke-width="0.8" stroke-dasharray="3 4"/>';
+  svg+='<line x1="60" y1="145" x2="240" y2="145" stroke="rgba(196,162,74,0.12)" stroke-width="0.8" stroke-dasharray="3 4"/>';
+  // Eyes
+  svg+='<circle cx="125" cy="85" r="4.5" fill="rgba(196,162,74,0.2)"/><circle cx="175" cy="85" r="4.5" fill="rgba(196,162,74,0.2)"/>';
+  svg+='<path d="M135 100 Q150 115 165 100" fill="none" stroke="rgba(196,162,74,0.3)" stroke-width="2"/>';
+  // Eyebrows
+  svg+='<path d="M108 105 Q128 93 148 100" fill="none" stroke="rgba(196,162,74,0.15)" stroke-width="1.5"/>';
+  svg+='<path d="M152 100 Q172 93 192 105" fill="none" stroke="rgba(196,162,74,0.15)" stroke-width="1.5"/>';
+  // Mouth
+  svg+='<path d="M110 145 Q150 160 190 145" fill="none" stroke="rgba(196,162,74,0.2)" stroke-width="1.5"/>';
+  // Zones
+  mxZones.forEach(function(z){
+    svg+='<circle id="mz-'+z.id+'" cx="'+z.cx+'" cy="'+z.cy+'" r="'+z.r+'" class="face-zone" onclick="pickMz(\''+z.id+'\')"/>';
+    svg+='<text x="'+z.cx+'" y="'+z.cy+'" class="face-label" dy="0.35em">'+z.n+'</text>';
+  });
+  // Moles
+  svg+='<circle id="mole-1" cx="148" cy="104" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-1" x="158" y="106" class="face-mole-label" style="display:none">痣</text>';
+  svg+='<circle id="mole-2" cx="185" cy="75" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-2" x="192" y="77" class="face-mole-label" style="display:none">痣</text>';
+  svg+='<circle id="mole-3" cx="118" cy="118" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-3" x="108" y="120" class="face-mole-label" style="display:none">痣</text>';
+  svg+='<circle id="mole-4" cx="168" cy="142" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-4" x="175" y="144" class="face-mole-label" style="display:none">痣</text>';
+  svg+='</svg>';
+  return svg;
+}
+
+function initMianXiang(){
+  document.getElementById('faceContainer').innerHTML=buildFaceSvg();
+  updateMxPicked();
+}
+
+function toggleMoles(){
+  showMoles=!showMoles;
+  var btn=document.getElementById('moleToggle');
+  btn.classList.toggle('on',showMoles);
+  btn.textContent=showMoles?'● 痣相已开':'● 标注痣相';
+  for(var i=1;i<=4;i++){
+    document.getElementById('mole-'+i).style.display=showMoles?'block':'none';
+    document.getElementById('molel-'+i).style.display=showMoles?'block':'none';
+  }
+}
+
+function pickMz(zid){
+  if(zid==='mole'){toast(LANG==='zh'?'点击痣的位置标注':'Tap mole position');return}
+  mxCurrentZone=zid;
+  var z=mxZones.find(function(z){return z.id===zid});
+  var html='<div class="ptitle">'+z.n+'</div><div style="text-align:center;color:var(--moon3);font-size:.7em;margin-bottom:12px">'+z.tip+'</div>';
+  mxOpts[zid].forEach(function(o,i){
+    html+='<div class="popt'+(mxPicks[zid]===i?' sel':'')+'" onclick="selMxOpt('+i+')">'+o+'</div>';
+  });
+  html+='<div class="popt" style="color:var(--moon3)" onclick="closeFacePopup()">取消</div>';
+  document.getElementById('zonePopup').innerHTML=html;
+  document.getElementById('zonePopup').style.display='block';
+  document.getElementById('popOverlay').style.display='block';
+}
+
+function selMxOpt(i){
+  mxPicks[mxCurrentZone]=i;
+  closeFacePopup();
+  document.querySelectorAll('.face-zone').forEach(function(c){c.classList.remove('picked')});
+  Object.keys(mxPicks).forEach(function(zid){
+    var el=document.getElementById('mz-'+zid);if(el)el.classList.add('picked');
+  });
+  updateMxPicked();
+}
+
+function closeFacePopup(){
+  document.getElementById('zonePopup').style.display='none';
+  document.getElementById('popOverlay').style.display='none';
+}
+
+function updateMxPicked(){
+  var pk=Object.keys(mxPicks),html='';
+  if(pk.length>0){
+    pk.forEach(function(zid){
+      var z=mxZones.find(function(z){return z.id===zid});
+      html+='<span style="display:inline-block;padding:4px 10px;border-radius:10px;font-size:.65em;margin:2px;background:rgba(196,162,74,0.1);border:1px solid rgba(196,162,74,0.2);color:var(--gold)">'+(z?z.n:zid)+' ✓</span> ';
+    });
+  }
+  html+='<span style="color:var(--moon3);font-size:.65em">'+pk.length+'/12</span>';
+  document.getElementById('mxPicked').innerHTML=html;
+}
+
+function readMianXiang(){
+  var pk=Object.keys(mxPicks);
+  if(pk.length<3){toast('请至少选择3个区域');return}
+  var sum=0;pk.forEach(function(z){sum+=mxPicks[z]});
+  var rx=[{t:'贵人之相',d:'面相端方，五官合度。印堂光明、鼻直口方，是谓贵格。主一生贵人扶持，事业有成，受人尊敬。'},{t:'福寿之相',d:'面如满月，地阁方圆。山根高挺、人中深长，福寿双全。晚年儿孙满堂，福泽绵长。'},{t:'才智之相',d:'天庭饱满，眉清目秀。官禄宫明、福德宫丰，才智超群。思维敏捷，学术有成就。'},{t:'刚毅之相',d:'面有棱角，眉如刀裁。颧骨微耸、下巴有力，意志坚定。行事果决，不畏艰难。'},{t:'和善之相',d:'面如冠玉，五官柔和。田宅宫满、交友宫丰，心地善良。待人宽厚，人缘极佳。'}];
+  var r=rx[sum%5],sc=55+rnd(0,38);
+  document.getElementById('mxResult').style.display='block';
+  document.getElementById('mxResult').innerHTML='<div class="reading"><h3>解读：'+r.t+'</h3><div class="score">匹配度 '+sc+'%</div><p>'+r.d+'</p></div>';
+  document.getElementById('mxResult').scrollIntoView({behavior:'smooth'});
+}
+
+// ====== SHOUXIANG ======
+var palmOpts={
+  life:{z:['长而深弧 体质强健','中等弧线 生活规律','较短连续 精力集中','分叉多向 好奇心强','断续链状 注意身体']},
+  head:{z:['长直贯穿 理智力强','弧线下弯 想象力丰','短而平直 务实理性','分叉双线 多才多艺','波浪起伏 创意思维']},
+  heart:{z:['长而清晰 情深义重','短直克制 理性冷静','链状连绵 敏感多情','分叉上扬 热情浪漫','弧线上弯 乐观豁达']},
+  fate:{z:['深长至中 事业有成','中等偏斜 自我奋斗','断续不连 起伏多变','双命运线 双重机遇','隐约可见 随缘自在']},
+  sun:{z:['清晰深长 名利双收','中等明朗 稳步上升','短而有力 锋芒初露','分叉双线 多面发展','浅淡隐约 大器晚成']}
+};
+
+function getLifePath(v){
+  if(v===0)return'120,100 Q100,130 105,170 Q110,220 130,280 Q150,310 170,280';
+  if(v===1)return'125,100 Q105,130 108,170 Q112,210 128,265 Q145,295 160,270';
+  if(v===2)return'128,100 Q110,125 112,160 Q115,190 125,230';
+  if(v===3)return'120,100 Q100,130 108,170 Q118,220 135,270 Q155,310 175,280 Q180,270 170,265';
+  return'120,100 Q102,128 107,165 Q113,200 130,260 Q150,305 170,275';
+}
+function getHeadPath(v){
+  if(v===0)return'120,165 Q145,160 180,162 Q210,165 230,170';
+  if(v===1)return'120,165 Q145,158 175,155 Q200,152 225,158 Q240,165 230,175';
+  if(v===2)return'125,165 Q150,162 170,160 Q190,158 205,160';
+  if(v===3)return'120,165 Q140,160 170,158 Q200,160 210,165 Q220,162 230,170';
+  return'120,165 Q140,160 170,155 Q195,152 215,158 Q225,162 230,172';
+}
+function getHeartPath(v){
+  if(v===0)return'105,115 Q130,110 160,112 Q190,114 210,118 Q225,122 230,120';
+  if(v===1)return'120,115 Q145,112 160,114 Q175,115 185,115 Q195,116 200,114';
+  if(v===2)return'105,115 Q120,112 140,114 Q160,112 180,116 Q200,114 215,118 Q225,120 230,118';
+  if(v===3)return'105,115 Q130,110 160,112 Q190,116 210,108 Q225,104 230,110';
+  return'105,115 Q130,108 160,105 Q190,108 210,115 Q225,118 230,113';
+}
+function getFatePath(v){
+  if(v===0)return'150,55 Q148,100 150,150 Q152,200 150,260 Q149,280 150,295';
+  if(v===1)return'160,60 Q158,100 155,150 Q152,200 148,250 Q145,275 140,290';
+  if(v===2)return'150,70 Q148,110 152,150 Q148,190 150,230 Q152,250 150,265';
+  return'150,80 Q148,120 150,160 Q152,200 150,245';
+}
+function getSunPath(v){
+  if(v===0)return'185,80 Q183,120 182,160 Q181,200 180,245';
+  if(v===1)return'180,85 Q178,120 177,155 Q176,190 175,230';
+  return'185,90 Q183,120 182,155 Q180,180 179,210';
+}
+
+function buildPalmSvg(){
+  var svg='<svg viewBox="0 0 300 340" class="palm-svg"><rect x="60" y="30" width="180" height="290" rx="60" fill="none" stroke="rgba(196,162,74,0.1)" stroke-width="2"/>';
+  svg+='<line x1="90" y1="160" x2="210" y2="160" stroke="rgba(196,162,74,0.05)" stroke-width="1"/>';
+  svg+='<line x1="95" y1="230" x2="205" y2="230" stroke="rgba(196,162,74,0.05)" stroke-width="1"/>';
+  for(var i=0;i<4;i++){var x=95+i*28;svg+='<line x1="'+x+'" y1="90" x2="'+(x-5)+'" y2="45" stroke="rgba(196,162,74,0.04)" stroke-width="1"/>'}
+  svg+='<path id="pl-life" d="M'+getLifePath(palmLines.life)+'" class="palm-line lit"/>';
+  svg+='<path id="pl-head" d="M'+getHeadPath(palmLines.head)+'" class="palm-line lit"/>';
+  svg+='<path id="pl-heart" d="M'+getHeartPath(palmLines.heart)+'" class="palm-line lit"/>';
+  svg+='<path id="pl-fate" d="M'+getFatePath(palmLines.fate)+'" class="palm-line lit"/>';
+  svg+='<path id="pl-sun" d="M'+getSunPath(palmLines.sun)+'" class="palm-line lit"/>';
+  svg+='<text x="105" y="152" fill="rgba(196,162,74,0.25)" font-size="7">地</text><text x="170" y="190" fill="rgba(196,162,74,0.25)" font-size="7">人</text><text x="200" y="115" fill="rgba(196,162,74,0.25)" font-size="7">天</text>';
+  svg+='</svg>';
+  return svg;
+}
+
+function initShouXiang(){
+  document.getElementById('palmContainer').innerHTML=buildPalmSvg();
+  updatePalmLines();
+  ['life','head','heart','fate','sun'].forEach(function(k){
+    var o=palmOpts[k],html='';
+    o.z.forEach(function(opt,i){
+      html+='<span class="line-opt'+(palmLines[k]===i?' sel':'')+'" onclick="setPalm(\''+k+'\','+i+')">'+opt+'</span>';
+    });
+    document.getElementById(k+'Opts').innerHTML=html;
+  });
+}
+
+function setPalm(k,v){
+  palmLines[k]=v;
+  var html='';
+  palmOpts[k].z.forEach(function(opt,i){html+='<span class="line-opt'+(i===v?' sel':'')+'" onclick="setPalm(\''+k+'\','+i+')">'+opt+'</span>'});
+  document.getElementById(k+'Opts').innerHTML=html;
+  updatePalmLines();
+}
+
+function updatePalmLines(){
+  var lines=[{k:'life',p:'pl-life',f:getLifePath},{k:'head',p:'pl-head',f:getHeadPath},{k:'heart',p:'pl-heart',f:getHeartPath},{k:'fate',p:'pl-fate',f:getFatePath},{k:'sun',p:'pl-sun',f:getSunPath}];
+  lines.forEach(function(l){
+    var el=document.getElementById(l.p);if(el)el.setAttribute('d','M'+l.f(palmLines[l.k]));
+  });
+}
+
+function readShouXiang(){
+  var sum=palmLines.life+palmLines.head+palmLines.heart+palmLines.fate+palmLines.sun;
+  var rx=[{t:'玉柱擎天掌',d:'生命线深长有力，命运线直贯中指。地纹稳固、玉柱纹明，根基深厚。中年后运势腾飞。'},{t:'天纹情深掌',d:'感情线绵长红润，天纹清澈。情深义重，桃花缘旺，感情丰盈美满。'},{t:'人纹智慧掌',d:'智慧线笔直深长，人纹清朗。思维敏捷，才学过人，学术精深。'},{t:'天地交泰掌',d:'四线清晰有力，天地人三纹分明。命格均衡，一生平顺，福泽深厚。'},{t:'四线齐辉掌',d:'生命智慧感情命运四线皆有可观，太阳线亦现。五行调和，顺遂安康。'}];
+  var r=rx[sum%5],sc=55+rnd(0,38);
+  document.getElementById('sxResult').style.display='block';
+  document.getElementById('sxResult').innerHTML='<div class="reading"><h3>解读：'+r.t+'</h3><div class="score">匹配度 '+sc+'%</div><p>'+r.d+'</p></div>';
+  document.getElementById('sxResult').scrollIntoView({behavior:'smooth'});
+}
+
+// ====== SHARE ======
+function shareGeneral(){
+  var t='拉拉林·星之密语 ✦ AI东方命理师\n八字·塔罗·生肖·面相手相 → lalalin.xyz';
+  if(navigator.share){navigator.share({text:t}).catch(function(){})}else{navigator.clipboard.writeText(t).then(function(){toast('已复制！')})}
+}
+
+// ====== INIT ======
+initServiceGrid();
+renderZodiacs();
+dailyCard();
+initLove();
+var d=new Date();d.setFullYear(d.getFullYear()-25);
+document.getElementById('baziDate').value=d.toISOString().slice(0,10);
+updateTrustCount();
+
+function updateTrustCount(){
+  var base=19203,c=parseInt(localStorage.getItem('ll_readings')||'0')+1;
+  localStorage.setItem('ll_readings',c);
+  var el=document.getElementById('trustCount');if(el)el.textContent=(base+Math.floor(c/3)).toLocaleString();
+}
+</script>
+</body>
+</html>
