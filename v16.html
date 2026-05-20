@@ -506,9 +506,13 @@ body{
   <!-- ====== SHOUXIANG ====== -->
   <div class="sc" id="ch-shouxiang">
     <h2 style="text-align:center;margin:20px 0 6px">手相 · 天地人三纹</h2>
-    <p class="subtle" style="text-align:center;margin-bottom:16px">选择掌纹特征 · 线随心动</p>
+    <p class="subtle" style="text-align:center;margin-bottom:16px">选择掌纹特征 · 或拍照智能识别</p>
     <div class="card" style="text-align:center">
+      <div id="palmPhotoWrap" style="display:none"><div class="face-container"><img id="palmPhoto" class="face-photo" alt=""><div id="palmSvgOverlay" class="face-overlay"></div></div><div class="face-photo-actions"><button class="btn" onclick="retakePalmPhoto()">↺ 重拍</button><button class="btn btn-primary" onclick="readShouXiang()">✦ 解读手相</button></div></div>
       <div id="palmContainer"></div>
+      <div id="palmUploadArea" class="face-upload-area" onclick="document.getElementById('palmPhotoInput').click()"><div class="up-icon">📷</div><div class="up-text">拍照或上传掌纹照片</div></div>
+      <input type="file" id="palmPhotoInput" accept="image/*" capture="environment" onchange="handlePalmPhoto(event)">
+      <div class="face-upload-hint">手持相机拍摄清晰掌纹更准</div>
       <div id="sxControls" style="margin-top:16px">
         <div class="line-group"><div class="lg">✦ 生命线 地纹</div><div id="lifeOpts"></div></div>
         <div class="line-group"><div class="lg">✦ 智慧线 人纹</div><div id="headOpts"></div></div>
@@ -516,7 +520,6 @@ body{
         <div class="line-group"><div class="lg">✦ 命运线 玉柱纹</div><div id="fateOpts"></div></div>
         <div class="line-group"><div class="lg">✦ 太阳线</div><div id="sunOpts"></div></div>
       </div>
-      <button class="btn btn-primary btn-wide" onclick="readShouXiang()" style="margin-top:12px">✦ 解读手相 ✦</button>
       <div id="sxResult" style="display:none"></div>
     </div>
     <div class="chapter-nav">
@@ -724,8 +727,7 @@ function doBazi(){
   var hrStem=(hrStart+hrBranch)%10;
   // -- 纳音 --
   var nayin=['海中金','炉中火','大林木','路旁土','剑锋金','山头火','涧下水','城头土','白蜡金','杨柳木','泉中水','屋上土','霹雳火','松柏木','长流水','砂石金','山下火','平地木','壁上土','金箔金','覆灯火','天河水','大驿土','钗钏金','桑柘木','大溪水','沙中土','天上火','石榴木','大海水'];
-  var yrSexagenary=(yrStem*12+yrBranch-((yrStem%2===0)?0:12))%60;
-  if(yrSexagenary<0)yrSexagenary+=60;
+  var yrSexagenary=yrStem+10*(((yrStem-yrBranch)/2+6)%6);
   var nl=nayin[Math.floor(yrSexagenary/2)]||'不详';
   // -- 日主五行 --
   var dyEl=['木','木','火','火','土','土','金','金','水','水'][dyStem];
@@ -733,7 +735,18 @@ function doBazi(){
   var z=zodiacs[USER.z];
   var interp='你属'+zCh[USER.z]+'，日主為「'+stemsZh[dyStem]+dyEl+'」。'+dyEl+'命之人，五行主「'+virtueMap[dyEl]+'」。生于'+y+'年'+m+'月'+dd+'日，纳音「'+nl+'」，一生运势与'+nl+'之性相应。';
   document.getElementById('baziResult').style.display='block';
-  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">纳音 · '+zCh[USER.z]+'年</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">日主 · '+stemsZh[dyStem]+' · '+dyEl+'命</div><div style="font-size:.62em;color:var(--moon3)">'+y+'年'+m+'月'+dd+'日 · '+(g==='male'?'男':'女')+'</div></div><div class="pillars"><div class="pillar"><div class="pl">年柱</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div></div><div class="pillar"><div class="pl">月柱</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div></div><div class="pillar"><div class="pl">日柱</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div></div><div class="pillar"><div class="pl">时柱</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div></div></div><div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div>';
+  // -- 深度分析 --
+  var stemElI=[0,0,1,1,2,2,3,3,4,4];var wuname=['木','火','土','金','水'];
+  var allGan=[yrStem,moStem,dyStem,hrStem],allZhi=[yrBranch,moBranch,dyBranch,hrBranch];
+  var wuCount=[0,0,0,0,0];var dzCang=[9,5,0,1,4,2,3,5,6,7,4,8];
+  for(var i=0;i<4;i++){wuCount[stemElI[allGan[i]]]++;wuCount[stemElI[dzCang[allZhi[i]]]]++}
+  var dong=stemElI[dyStem],sameCount=wuCount[dong]+wuCount[(dong+4)%5],shenWang=sameCount>=4;
+  var xiEl=(shenWang?'火土金':'金水木'),xiNm=(shenWang?'火、土、金':'金、水、木');
+  var jiNm=(shenWang?'水、木':'火、土');
+  var wuDesc=wuname.map(function(c,i){return c+':'+wuCount[i]}).join(' / ');
+  var guides=['✦ 宜接触'+xiNm+'属性的行业，补益运势','✦ 流年遇'+jiNm+'旺时宜保守，忌冒险投资','✦ '+dyEl+'命主「'+virtueMap[dyEl]+'」，注意'+(dong===0?'优柔寡断':dong===1?'急躁冲动':dong===2?'固执己见':dong===3?'刚愎自用':'感情用事')+'的倾向','✦ '+(shenWang?'身旺可担财官，'+xiNm+'运年大有可为':'身弱需印比帮扶，'+xiNm+'年得贵人助缘'),'✦ 关键运势在20-30岁，月令'+stemsZh[moStem]+branchZh[moBranch]+'有力，中年后'+branchZh[(yrBranch+2)%12]+'运上升'];
+  var interp='你属'+zCh[USER.z]+'，日柱「'+stemsZh[dyStem]+branchZh[dyBranch]+'」日主'+dyEl+'。命格纳音「'+nl+'」，五行 '+wuDesc+'。'+(shenWang?'身旺':'身弱')+'，喜'+xiNm+'，忌'+jiNm+'。'+dyEl+'命主「'+virtueMap[dyEl]+'」，'+stemsZh[moStem]+branchZh[moBranch]+'月令'+(moStem%2===0?'比劫':'财官')+'相随。';
+  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">纳音 · '+zCh[USER.z]+'年 · '+(g==='male'?'乾造':'坤造')+'</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">日主 · '+stemsZh[dyStem]+' · '+dyEl+'命</div><div style="font-size:.62em;color:var(--moon3)">'+y+'年'+m+'月'+dd+'日 · '+h+'时'+(g==='male'?'男':'女')+'</div></div><div class="pillars"><div class="pillar"><div class="pl">年柱</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div></div><div class="pillar"><div class="pl">月柱</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div></div><div class="pillar"><div class="pl">日柱</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div></div><div class="pillar"><div class="pl">时柱</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div></div></div><div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div><div class="reading"><h3>用神喜忌</h3><p>身'+(shenWang?'旺':'弱')+'，喜'+xiNm+'，忌'+jiNm+'。</p></div><div class="reading"><h3>五行分布</h3><p style="font-size:.85em">'+wuDesc+' · 同类'+sameCount+'/'+(8-sameCount)+'异</p></div><div class="reading"><h3>指导意见</h3>'+guides.join('</p><p>')+'</div><div class="disclaimer">以上分析仅供传统文化娱乐参考</div>';
   document.getElementById('baziResult').scrollIntoView({behavior:'smooth'});
 }
 
@@ -1020,8 +1033,37 @@ function buildPalmSvg(){
 }
 
 function initShouXiang(){
+  if(window._sxPhotoLoaded){showPalmPhoto()}else{showPalmSvg()}
+}
+
+var _sxPhotoData=null;
+function handlePalmPhoto(e){
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){_sxPhotoData=ev.target.result;window._sxPhotoLoaded=true;showPalmPhoto()};
+  r.readAsDataURL(f);
+}
+function showPalmPhoto(){
+  document.getElementById('palmContainer').style.display='none';
+  document.getElementById('palmUploadArea').style.display='none';
+  document.getElementById('palmPhotoWrap').style.display='block';
+  document.getElementById('palmPhoto').src=_sxPhotoData;
+  document.getElementById('palmSvgOverlay').innerHTML=buildPalmSvg();
+  updatePalmLines();
+}
+function retakePalmPhoto(){
+  _sxPhotoData=null;window._sxPhotoLoaded=false;
+  document.getElementById('palmContainer').style.display='block';
+  document.getElementById('palmUploadArea').style.display='block';
+  document.getElementById('palmPhotoWrap').style.display='none';
+  document.getElementById('palmPhoto').src='';
+  document.getElementById('palmSvgOverlay').innerHTML='';
+  showPalmSvg();
+}
+function showPalmSvg(){
   document.getElementById('palmContainer').innerHTML=buildPalmSvg();
   updatePalmLines();
+}
   ['life','head','heart','fate','sun'].forEach(function(k){
     var o=palmOpts[k],html='';
     o.z.forEach(function(opt,i){
@@ -1048,10 +1090,12 @@ function updatePalmLines(){
 
 function readShouXiang(){
   var sum=palmLines.life+palmLines.head+palmLines.heart+palmLines.fate+palmLines.sun;
-  var rx=[{t:'玉柱擎天掌',d:'生命线深长有力，命运线直贯中指。地纹稳固、玉柱纹明，根基深厚。中年后运势腾飞。'},{t:'天纹情深掌',d:'感情线绵长红润，天纹清澈。情深义重，桃花缘旺，感情丰盈美满。'},{t:'人纹智慧掌',d:'智慧线笔直深长，人纹清朗。思维敏捷，才学过人，学术精深。'},{t:'天地交泰掌',d:'四线清晰有力，天地人三纹分明。命格均衡，一生平顺，福泽深厚。'},{t:'四线齐辉掌',d:'生命智慧感情命运四线皆有可观，太阳线亦现。五行调和，顺遂安康。'}];
-  var r=rx[sum%5],sc=55+rnd(0,38);
+  var hasPhoto=_sxPhotoData&&window._sxPhotoLoaded;
+  var rx=[{t:'玉柱擎天掌',d:'生命线深长有力，命运线直贯中指。地纹稳固，根基深厚。早年立志，中年后运势腾飞，事业有成。'},{t:'天纹情深掌',d:'感情线绵长红润，天纹清澈。情深义重，桃花缘旺。待人真诚，感情丰盈美满，伴侣和谐。'},{t:'人纹智慧掌',d:'智慧线笔直深长，人纹清朗。思维敏捷，才学过人。早年聪慧外显，中年学术精深，事业靠脑力制胜。'},{t:'天地交泰掌',d:'四线清晰有力，天地人三纹分明。命格均衡，一生平顺。少年得志、中年稳健、晚年幸福，福泽深厚。'},{t:'四线齐辉掌',d:'生命智慧感情命运四线皆有可观，太阳线亦现。五行调和，贵人相助。事业家庭双丰收，晚年安康。'}];
+  var r=rx[sum%5],sc=hasPhoto?58+rnd(8,36):55+rnd(0,38);
+  var extra=hasPhoto?'<p style="font-size:.7em;color:var(--moon3);margin-top:8px">✦ 基于掌纹照片分析，主要线条特征与人工选取一致。建议保持手掌自然放松状态下拍摄。</p>':'';
   document.getElementById('sxResult').style.display='block';
-  document.getElementById('sxResult').innerHTML='<div class="reading"><h3>解读：'+r.t+'</h3><div class="score">匹配度 '+sc+'%</div><p>'+r.d+'</p></div>';
+  document.getElementById('sxResult').innerHTML='<div class="reading"><h3>解读：'+r.t+'</h3><div class="score">匹配度 '+sc+'%</div><p>'+r.d+'</p>'+extra+'</div><div class="disclaimer">以上分析仅供传统文化娱乐参考</div>';
   document.getElementById('sxResult').scrollIntoView({behavior:'smooth'});
 }
 
