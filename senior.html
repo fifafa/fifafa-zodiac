@@ -546,8 +546,12 @@ function doBazi(){
 }
 
 // ====== INIT ======
-renderAll();
-populateBaZiSelects();
+try {
+  renderAll();
+  populateBaZiSelects();
+} catch(e) {
+  document.getElementById('todayLunar').textContent = 'ERR:' + e.message;
+}
 </script>
 </body>
 </html>
