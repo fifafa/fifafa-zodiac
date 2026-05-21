@@ -1,50 +1,48 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nav Test</title>
-<style>
-body{background:#0a0806;color:#e8dfd0;font-family:sans-serif;margin:0;min-height:100vh;padding-bottom:80px;}
-.screen{display:none;padding:30px;text-align:center;}
-.screen.active{display:block;}
-#nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:rgba(10,8,6,0.95);border-top:1px solid rgba(196,154,60,0.2);z-index:50;}
-.nav-item{flex:1;padding:12px;text-align:center;cursor:pointer;color:#7a6e58;font-size:0.75em;transition:0.3s;}
-.nav-item.active{color:#e8c46a;}
-.nav-item:active{color:#c49a3c;}
-.ni{font-size:1.8em;display:block;margin-bottom:2px;}
-</style>
-</head>
-<body>
-<div class="screen active" id="tab-home"><h2>Tab 1 - HOME</h2><p>This is the home screen</p></div>
-<div class="screen" id="tab-tab2"><h2>Tab 2</h2><p>Tab 2 content</p></div>
-<div class="screen" id="tab-tab3"><h2>Tab 3</h2><p>Tab 3 content</p></div>
-<div class="screen" id="tab-tab4"><h2>Tab 4</h2><p>Tab 4 content</p></div>
-<div class="screen" id="tab-tab5"><h2>Tab 5</h2><p>Tab 5 content</p></div>
-
-<div id="nav">
-  <div class="nav-item active" data-tab="home"><span class="ni">A</span>Home</div>
-  <div class="nav-item" data-tab="tab2"><span class="ni">B</span>Tab2</div>
-  <div class="nav-item" data-tab="tab3"><span class="ni">C</span>Tab3</div>
-  <div class="nav-item" data-tab="tab4"><span class="ni">D</span>Tab4</div>
-  <div class="nav-item" data-tab="tab5"><span class="ni">E</span>Tab5</div>
-</div>
-
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>福临阁 · 诊断</title>
+<style>body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f0e8;color:#3d3226;font-size:18px;padding:20px}
+.card{background:#fffef9;border-radius:16px;padding:24px;margin:12px 0;box-shadow:0 2px 12px rgba(180,160,130,0.08)}
+h2{color:#c43a31} .ok{color:#4a7c59} .err{color:#c43a31} pre{background:#faf5ed;padding:12px;border-radius:8px;font-size:14px;overflow-x:auto}</style></head><body>
+<div class="card"><h2>福临阁 · 诊断</h2><p id="status">运行中...</p></div>
+<div class="card"><h3>1. JS加载</h3><p id="test1">...</p></div>
+<div class="card"><h3>2. renderAll()</h3><pre id="test2">...</pre></div>
+<div class="card"><h3>3. populateBaZiSelects()</h3><pre id="test3">...</pre></div>
+<div class="card"><h3>4. Browser Info</h3><pre id="test4">...</pre></div>
 <script>
-'use strict';
-function switchTab(name) {
-  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
-  var t = document.getElementById('tab-' + name);
-  if (t) t.classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
-  var ni = document.querySelector('.nav-item[data-tab="' + name + '"]');
-  if (ni) ni.classList.add('active');
+var log=[];
+function add(id,msg,cls){log.push(msg);var e=document.getElementById(id);e.textContent=msg;e.className=cls||''}
+
+// Step 0: basic JS
+document.getElementById('test1').innerHTML='<span class="ok">OK: JS引擎正常</span>';
+
+// Test 1: can we run basic ops?
+add('test1','OK: JS引擎正常, const/let/function/for/forEach均可用','ok');
+
+try {
+  // Now try to load the full senior.js logic
+  var fullJS=document.querySelector('script[data-senior]');
+  if(fullJS) {
+    eval(fullJS.textContent);
+    add('test2','OK: 脚本加载成功, renderAll/doBazi 已定义','ok');
+    
+    try {
+      renderAll();
+      add('test3','OK: renderAll() 执行成功','ok');
+    } catch(e) {
+      add('test3','FAIL: renderAll() 报错: '+e.message,'err');
+    }
+    
+    try {
+      populateBaZiSelects();
+    } catch(e) {
+      add('test3',document.getElementById('test3').textContent + '\npopulateBaZiSelects() 报错: '+e.message,'err');
+    }
+  } else {
+    add('test2','SKIP: 未找到data-senior脚本','');
+  }
+} catch(e) {
+  add('test1','FAIL: 脚本解析失败: '+e.message,'err');
 }
-document.querySelectorAll('.nav-item').forEach(function(item) {
-  item.addEventListener('click', function() {
-    switchTab(this.getAttribute('data-tab'));
-  });
-});
-</script>
-</body>
-</html>
+
+// Browser info
+add('test4','UA: '+navigator.userAgent+'\nScreen: '+screen.width+'x'+screen.height+'\nOnline: '+navigator.onLine, 'ok');
+</script></body></html>
