@@ -546,12 +546,14 @@ function doBazi(){
 }
 
 // ====== INIT ======
-try {
-  renderAll();
-  populateBaZiSelects();
-} catch(e) {
-  document.getElementById('todayLunar').textContent = 'ERR:' + e.message;
-}
+(function(){
+  var msgs=[];
+  function step(n,fn){
+    try{fn();msgs.push('OK'+n);return true}catch(e){msgs.push('ERR'+n+':'+e.message);return false}
+  }
+  var ok=step('render',renderAll) && step('pop',populateBaZiSelects);
+  if(!ok){document.getElementById('todayLunar').textContent='诊断:'+msgs.join(';')}
+})();
 </script>
 </body>
 </html>
