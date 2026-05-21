@@ -1,4 +1,4 @@
-<!-- V25.3 FINAL --><!DOCTYPE html>
+﻿<!-- V25.3 FINAL --><!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -305,6 +305,34 @@ body{
 .mx-badge{display:inline-block;padding:5px 12px;border-radius:10px;font-size:.64em;margin:3px;background:rgba(200,166,74,0.08);border:1px solid var(--bd2);color:var(--gold)}
 .mx-badge.pkd{background:rgba(200,166,74,0.12);border-color:var(--gold)}
 
+/* P1: Responsive breakpoints */
+@media(min-width:600px){
+  #app{max-width:640px}
+  .hero h1{font-size:2em}
+  .hero .tagline{font-size:.88em}
+  .zw-grid{max-width:440px;gap:6px}
+  .zw-cell{padding:10px 6px;min-height:72px}
+  .zw-star{font-size:.54em}
+  .tarot-card{width:240px;height:350px}
+  .svc-grid{grid-template-columns:repeat(3,1fr);gap:12px}
+  .pillar{min-width:90px;padding:22px 24px}
+}
+@media(min-width:900px){
+  #app{max-width:880px}
+  .hero{padding:50px 30px 30px}
+  .hero h1{font-size:2.4em}
+  .hero-icon svg{width:80px;height:80px}
+  .svc-grid{grid-template-columns:repeat(3,1fr);gap:16px}
+  .svc-card{padding:22px 16px}
+  .svc-card .sn{font-size:.8em}
+  .svc-card .ss{font-size:.64em}
+  .zw-grid{max-width:520px;gap:8px}
+  .zw-cell{padding:12px 8px;min-height:84px}
+  .zw-star{font-size:.6em}
+  .card{padding:28px 24px;margin-bottom:18px}
+  .tarot-card{width:270px;height:390px}
+  .face-svg{max-width:340px}
+}
 @media(max-width:360px){
   .svc-grid{grid-template-columns:repeat(3,1fr);gap:8px}.svc-card{padding:14px 8px}.zg{grid-template-columns:repeat(3,1fr)}
   .btn-primary{padding:14px 28px;font-size:.88em}
@@ -331,6 +359,15 @@ body{
 .zw-score{font-size:2.4em;color:var(--gold);font-family:'Noto Serif SC',Georgia,serif}
 .zw-sihua-bar{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
 .zw-sh-tag{display:inline-block;padding:4px 12px;border-radius:14px;font-size:.7em;border:1px solid;letter-spacing:.04em}
+
+
+/* Loading states (P1) */
+.spinner{display:none;width:28px;height:28px;border:2px solid var(--bd);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;margin:16px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-overlay{display:none;position:absolute;inset:0;background:rgba(7,5,16,.7);z-index:10;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r2)}
+.loading-overlay.on{display:flex}
+.loading-overlay .spinner{display:block}
+.loading-text{color:var(--moon3);font-size:.7em;margin-top:8px;letter-spacing:.06em}
 </style>
 </head>
 <body>
@@ -553,6 +590,28 @@ body{
   </div>
 
   <!-- ====== ZIWEI ====== -->
+
+    <!-- P1: ZW inline input -->
+    <div class="card" id="zwInputForm" style="display:none">
+      <h3 style="text-align:center;color:var(--gold);margin-bottom:12px">✦ 紫微斗数排盘</h3>
+      <p style="text-align:center;color:var(--moon3);font-size:.7em;margin-bottom:12px">输入出生信息即可排出命盘</p>
+      <div class="fg"><label>✦ 出生日期</label><input type="date" class="inp" id="zwDate" min="1920-01-01" max="2020-12-31"></div>
+      <div class="fg"><label>✦ 出生时辰</label><select class="sel" id="zwHour">
+        <option value="-1">未指定</option>
+        <option value="0">子时 23:00-01:00</option><option value="1">丑时 01:00-03:00</option>
+        <option value="2">寅时 03:00-05:00</option><option value="3">卯时 05:00-07:00</option>
+        <option value="4">辰时 07:00-09:00</option><option value="5">巳时 09:00-11:00</option>
+        <option value="6" selected>午时 11:00-13:00</option><option value="7">未时 13:00-15:00</option>
+        <option value="8">申时 15:00-17:00</option><option value="9">酉时 17:00-19:00</option>
+        <option value="10">戌时 19:00-21:00</option><option value="11">亥时 21:00-23:00</option>
+      </select></div>
+      <div class="fg"><label>✦ 性别</label><div class="grp" id="zwGender">
+        <div class="go sel" data-g="male" onclick="pickGender(this,'zwGender')">♂ 男</div>
+        <div class="go" data-g="female" onclick="pickGender(this,'zwGender')">♀ 女</div>
+      </div></div>
+      <button class="btn btn-primary btn-wide" onclick="doZW()">✦ 排出命盘 ✦</button>
+      <div id="zwLoading" class="spinner"></div>
+    </div>
   <div class="sc" id="ch-ziwei">
     <h2 style="text-align:center;margin:20px 0 6px">紫微斗数</h2>
     <p class="subtle" style="text-align:center;margin-bottom:16px">十四主星 · 十二宫位 · 四化飞星</p>
@@ -651,6 +710,19 @@ function toast(m){
 }
 
 // ====== NAVIGATION ======
+
+function doZW(){
+  var d=document.getElementById('zwDate').value;
+  var h=parseInt(document.getElementById('zwHour').value);
+  var gsel=document.querySelector('#zwGender .go.sel');
+  var g=gsel?gsel.getAttribute('data-g'):'male';
+  if(!d){alert('请选择出生日期');return}
+  var parts=d.split('-');
+  USER={y:parseInt(parts[0]),m:parseInt(parts[1]),d:parseInt(parts[2]),h:h*2,g:g,z:parseInt(parts[0])%12};
+  document.getElementById('zwInputForm').style.display='none';
+  var zwLoading=document.getElementById('zwLoading');if(zwLoading)zwLoading.style.display='block';
+  setTimeout(function(){ZW.init()},100);
+}
 function goCh(name){
   document.querySelectorAll('.sc').forEach(function(s){s.classList.remove('on')});
   var el=document.getElementById('ch-'+name);
@@ -1075,9 +1147,11 @@ function getFatePath(v){
   return'150,80 Q148,120 150,160 Q152,200 150,245';
 }
 function getSunPath(v){
-  if(v===0)return'185,80 Q183,120 182,160 Q181,200 180,245';
-  if(v===1)return'180,85 Q178,120 177,155 Q176,190 175,230';
-  return'185,90 Q183,120 182,155 Q180,180 179,210';
+  if(v===0)return'185,80 Q183,120 182,160 Q181,200 180,245'; // clear, long
+  if(v===1)return'180,85 Q178,120 177,155 Q176,190 175,230'; // slightly curved
+  if(v===2)return'185,90 Q183,118 183,148 Q183,178 182,200'; // moderate, shorter
+  if(v===3)return'182,90 Q178,120 172,150 Q166,175 160,195'; // left-leaning
+  return'188,90 Q192,120 196,150 Q200,175 202,195'; // v=4 right-leaning
 }
 
 function buildPalmSvg(){
@@ -1174,7 +1248,25 @@ dailyCard();
 initLove();
 var d=new Date();d.setFullYear(d.getFullYear()-25);
 document.getElementById('baziDate').value=d.toISOString().slice(0,10);
-updateTrustCount();
+updateTrustCount(
+function prepZW(){
+  // Populate ZW form from existing USER or bazi form data
+  if(USER&&USER.y){
+    var zwDate=document.getElementById('zwDate');
+    if(zwDate&&!zwDate.value){zwDate.value=String(USER.y).padStart(4,'0')+'-'+String(USER.m).padStart(2,'0')+'-'+String(USER.d).padStart(2,'0')}
+    var zwHour=document.getElementById('zwHour');
+    if(zwHour&&USER.h!==undefined){zwHour.value=Math.floor(USER.h/2)%12}
+    var zwGender=document.getElementById('zwGender');
+    if(zwGender&&USER.g){
+      zwGender.querySelectorAll('.go').forEach(function(el){el.classList.toggle('sel',el.getAttribute('data-g')===USER.g)});
+    }
+    ZW.init();
+  } else {
+    ZW.init();
+  }
+}
+
+);
 
 function updateTrustCount(){
   var base=19203,c=parseInt(localStorage.getItem('ll_readings')||'0')+1;
@@ -1185,40 +1277,8 @@ function updateTrustCount(){
 // PWA Service Worker
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){})}
 </script>
-<script>
-// ═══════ 紫微斗数引擎 ═══════
-var ZW={};
-ZW.PALACES=['命宫','兄弟','夫妻','子女','财帛','疾厄','迁移','交友','官禄','田宅','福德','父母'];
-ZW.STARS={'紫微':{kw:'帝王·尊贵·独立',e:'土',n:'中性偏吉',d:'紫微为帝星，主贵气、领导力。命宫有紫微，天生领袖气质。庙旺则权柄在握，陷落则孤高自负。'},'天机':{kw:'智慧·机变·谋略',e:'木',n:'吉星',d:'天机主智慧、谋划。思维敏捷，善于分析。聪明过人但易多虑。宜策划、咨询类工作。'},'太阳':{kw:'阳刚·官贵·慷慨',e:'火',n:'吉星',d:'太阳主光明、官贵。热心慷慨，乐于助人。日生更吉夜生减半。男命主事业，女命主夫星。'},'武曲':{kw:'财富·刚毅·果断',e:'金',n:'中性',d:'武曲为财星，主刚毅果断。与钱财有缘，适合金融、管理。性格刚直，重原则。忌见煞星破格。'},'天同':{kw:'温和·享福·随缘',e:'水',n:'吉星',d:'天同为福星，主温和享福。性情柔顺不喜争斗。命宫有之晚年福厚。唯需防懒散依赖。'},'廉贞':{kw:'才艺·刑囚·桃花',e:'火',n:'凶中带吉',d:'廉贞主才艺、桃花。才华横溢但易生是非。喜会文昌文曲增才学，忌见擎羊化忌。'},'天府':{kw:'财库·稳重·保守',e:'土',n:'吉星',d:'天府为财库之星，主稳重保守。理财能力出色性格可靠。宜不动产、仓储行业。忌空劫冲破库。'},'太阴':{kw:'柔美·财富·阴柔',e:'水',n:'吉星',d:'太阴主柔美、财富。性情温和细腻。夜生更吉日生减半。女命主容貌，男命主妻星。'},'贪狼':{kw:'欲望·桃花·多才',e:'木',n:'中性',d:'贪狼为桃花主，多才多艺。社交能力强兴趣广泛。宜演艺公关行业。忌沉迷酒色。'},'巨门':{kw:'口舌·是非·善辩',e:'水',n:'凶中带吉',d:'巨门主口舌是非亦为暗星。能言善辩适合法律教育行业。需防口舌之灾喜会化权。'},'天相':{kw:'辅佐·行政·印绶',e:'水',n:'吉星',d:'天相为印星主辅佐行政。处事谨慎待人随和。宜政府大企业行政岗位。忌见煞星破印。'},'天梁':{kw:'荫护·医药·长辈',e:'土',n:'吉星',d:'天梁为荫星主医药长辈庇佑。性格稳重可靠。宜医疗教育保险行业。有化难呈祥之力。'},'七杀':{kw:'将星·果决·孤克',e:'金',n:'凶星',d:'七杀为将星主果决开拓。性格刚烈不畏艰难。宜军警外科医生。需防孤克之性晚婚为宜。'},'破军':{kw:'开创·变动·破坏',e:'水',n:'凶星',d:'破军主开创变动为耗星。喜欢改革创新。宜新兴行业创业者。一生多有变动需稳健理财。'}};
-ZW.NAYIN_JU=[2,6,4,5,2,6,3,5,4,5,3,5,6,4,3,5,4,2,6,3,5,3,5,6,4,3,4,5,4,2];
-ZW.SIHUA_TABLE=[['廉贞','破军','武曲','太阳'],['天机','天梁','紫微','太阴'],['天同','天机','文昌','廉贞'],['太阴','天同','天机','巨门'],['贪狼','太阴','右弼','天机'],['武曲','贪狼','天梁','文曲'],['太阳','武曲','太阴','天同'],['巨门','太阳','文曲','文昌'],['天梁','紫微','左辅','武曲'],['破军','巨门','太阴','贪狼']];
-ZW.ZIWEI_TABLE={2:{1:2,2:3,3:2,4:4,5:2,6:5,7:3,8:5,9:3,10:6,11:3,12:6,13:4,14:6,15:4,16:7,17:4,18:7,19:5,20:7,21:5,22:8,23:6,24:8,25:6,26:9,27:7,28:9,29:7,30:10},3:{1:4,2:6,3:3,4:7,5:4,6:8,7:5,8:8,9:5,10:9,11:6,12:9,13:6,14:10,15:7,16:10,17:7,18:11,19:8,20:12,21:8,22:0,23:9,24:0,25:9,26:1,27:10,28:1,29:10,30:2},4:{1:6,2:8,3:10,4:12,5:2,6:3,7:4,8:4,9:5,10:6,11:7,12:7,13:8,14:9,15:10,16:10,17:11,18:12,19:0,20:0,21:1,22:2,23:3,24:3,25:4,26:5,27:6,28:6,29:7,30:8},5:{1:8,2:10,3:12,4:1,5:3,6:5,7:7,8:8,9:10,10:11,11:0,12:2,13:4,14:5,15:7,16:8,17:10,18:11,19:0,20:2,21:3,22:5,23:7,24:8,25:10,26:11,27:0,28:2,29:3,30:5},6:{1:9,2:11,3:1,4:3,5:5,6:7,7:9,8:11,9:0,10:1,11:3,12:5,13:7,14:8,15:10,16:11,17:1,18:2,19:4,20:6,21:8,22:10,23:11,24:1,25:2,26:4,27:6,28:8,29:9,30:11}};
-ZW.TIANKUI={0:1,1:0,2:11,3:11,4:1,5:0,6:1,7:6,8:3,9:3};
-ZW.TIANYUE={0:7,1:8,2:9,3:9,4:7,5:8,6:7,7:2,8:5,9:5};
-ZW.LUCUN={0:2,1:3,2:5,3:6,4:5,5:6,6:8,7:9,8:11,9:0};
-ZW.anMingGong=function(lm,hb){var g=(2+lm-1+12)%12;return(g-hb+12)%12};
-ZW.anShenGong=function(lm,hb){var g=(2+lm-1+12)%12;return(g+hb)%12};
-ZW.wuHuDun=function(ys){return(ys*2+2)%10};
-ZW.setPalaceGan=function(ys){var yg=ZW.wuHuDun(ys);var gs=[];for(var i=0;i<12;i++)gs.push((yg+i)%10);return gs};
-ZW.getWuxingJu=function(mb,mg){var idx=mg+10*(((mg-mb)/2+6)%6);return ZW.NAYIN_JU[idx%30]};
-ZW.anZiwei=function(ju,ld){var t=ZW.ZIWEI_TABLE[ju];return t?t[Math.min(ld,30)]||2:2};
-ZW.an14Majors=function(zb){var tfMap={2:4,3:5,4:6,5:7,6:8,7:10,8:11,9:0,10:1,11:3,0:4,1:4};var tp=tfMap[zb]||4;var purp={'紫微':zb,'天机':(zb-1+12)%12,'太阳':(zb-3+12)%12,'武曲':(zb-4+12)%12,'天同':(zb-5+12)%12,'廉贞':(zb-8+12)%12};var mans={'天府':tp,'太阴':(tp+1)%12,'贪狼':(tp+2)%12,'巨门':(tp+3)%12,'天相':(tp+4)%12,'天梁':(tp+5)%12,'七杀':(tp+6)%12,'破军':(tp+10)%12};var r={};for(var k in purp)r[k]=purp[k];for(var k in mans)r[k]=mans[k];return r};
-ZW.anChangQu=function(hb){return{'文昌':(10-hb+12)%12,'文曲':(4+hb)%12}};
-ZW.anZuoYou=function(lm){return{'左辅':(4+lm-1)%12,'右弼':(10-lm+1+12)%12}};
-ZW.anKuiYue=function(ys){return{'天魁':ZW.TIANKUI[ys],'天钺':ZW.TIANYUE[ys]}};
-ZW.anLuCun=function(ys){var lc=ZW.LUCUN[ys];return{'禄存':lc,'擎羊':(lc+1)%12,'陀罗':(lc+11)%12}};
-ZW.anHuoLing=function(yb,hb){var hs={0:2,2:1,5:3,8:2,4:1,6:1,7:3,11:9,1:9,3:9,9:3,10:9};var ls={0:10,2:9,5:2,8:10,4:9,6:9,7:2,11:1,1:1,3:1,9:2,10:1};return{'火星':((hs[yb]||2)+hb)%12,'铃星':((ls[yb]||10)+hb)%12}};
-ZW.anTianMa=function(yb){var m={2:8,6:8,10:8,8:2,0:2,4:2,5:11,9:11,1:11,11:5,3:5,7:5};return{'天马':m[yb]||8}};
-ZW.anKongJie=function(hb){return{'地空':(12-hb+12)%12,'地劫':(4+hb)%12}};
-ZW.generate=function(y,m,d,h,gender){var ys=(y-4)%10;if(ys<0)ys+=10;var yb=(y-4)%12;if(yb<0)yb+=12;var hb=Math.floor(((h+1)%24)/2)%12;var lm=m,ld=d;var mb=ZW.anMingGong(lm,hb);var sb=ZW.anShenGong(lm,hb);var pg=ZW.setPalaceGan(ys);var ju=ZW.getWuxingJu(mb,pg[mb]);var jn={2:'水二局',3:'木三局',4:'金四局',5:'土五局',6:'火六局'};var zb=ZW.anZiwei(ju,ld);var mj=ZW.an14Majors(zb);var aux={};Object.assign(aux,ZW.anChangQu(hb));Object.assign(aux,ZW.anZuoYou(lm));Object.assign(aux,ZW.anKuiYue(ys));Object.assign(aux,ZW.anLuCun(ys));Object.assign(aux,ZW.anHuoLing(yb,hb));Object.assign(aux,ZW.anTianMa(yb));Object.assign(aux,ZW.anKongJie(hb));var sh=ZW.SIHUA_TABLE[ys];var sm={};sm[sh[0]]='禄';sm[sh[1]]='权';sm[sh[2]]='科';sm[sh[3]]='忌';var pal=[];for(var i=0;i<12;i++){var br=(mb+i)%12;var sr=[];for(var sn in mj){if(mj[sn]===br)sr.push({name:sn,type:'major'})}for(var sn in aux){if(aux[sn]===br)sr.push({name:sn,type:'aux',sh:sm[sn]})}pal.push({name:ZW.PALACES[i],branch:br,gan:pg[br],stars:sr,isMing:br===mb,isShen:br===sb})}return{yearStem:ys,yearBranch:yb,lunarMonth:lm,lunarDay:ld,hourBranch:hb,gender:gender,ju:ju,juName:jn[ju]||'未知',mingBranch:mb,shenBranch:sb,palaces:pal,sihua:sh,sihuaMap:sm}};
-ZW.render=function(chart){var stemsZh=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];var branchZh=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];var scs={禄:'var(--green)',权:'var(--gold)',科:'var(--purple)',忌:'var(--red)'};var pal=chart.palaces;var si=pal.findIndex(function(p){return p.branch===2});if(si<0)si=0;var disp=[];var gm=[[0,0],[0,1],[0,2],[0,3],[1,3],[2,3],[3,3],[3,2],[3,1],[3,0],[2,0],[1,0]];for(var i=0;i<12;i++)disp.push(pal[(si+i)%12]);var html='<div class="zw-chart"><div class="zw-header">'+stemsZh[chart.yearStem]+branchZh[chart.yearBranch]+'年 · '+chart.juName+' · 命宫：'+branchZh[chart.mingBranch]+'</div><div class="zw-grid">';for(var i=0;i<12;i++){var p=disp[i];var g=gm[i];var cls='zw-cell';if(p.isMing)cls+=' zw-ming';if(p.isShen)cls+=' zw-shen';var sh=sp(p);var gn=stemsZh[p.gan]+branchZh[p.branch];html+='<div class="'+cls+'" style="grid-column:'+(g[0]+1)+';grid-row:'+(g[1]+1)+'" onclick="ZW.showPalace('+i+')"><div class="zw-cname">'+p.name+'</div><div class="zw-ganzhi">'+gn+'</div><div class="zw-stars">'+sh+'</div>';if(p.isMing)html+='<div class="zw-tag">命</div>';if(p.isShen)html+='<div class="zw-tag zw-stag">身</div>';html+='</div>'}html+='</div>';var mp=pal.find(function(p){return p.isMing});var ms=mp.stars.filter(function(s){return s.type==='major'});var mn=ms.length>0?ms[0].name:'—';var sc=55+ms.length*6;html+='<div class="card" style="margin-top:14px"><h3 style="color:var(--gold);text-align:center">✦ 命盘解读</h3><div class="zw-summary"><div class="zw-score">'+Math.min(99,sc)+'%</div><div style="color:var(--moon3);font-size:.7em">命盘综合评分</div></div>';if(ZW.STARS[mn]){var sd=ZW.STARS[mn];html+='<div class="reading"><h3>命宫主星 · '+mn+' ('+sd.e+')</h3><p><b>性质：</b>'+sd.n+' | <b>特质：</b>'+sd.kw+'</p><p>'+sd.d+'</p></div>'};var zp=ZW.detectPatterns(chart);if(zp.length>0){zp.forEach(function(pat){html+='<div class="reading"><h3>'+pat.l+' · '+pat.n+'</h3><p>'+pat.d+'</p></div>'});};var am=mp.stars.filter(function(s){return s.type==='major'}).map(function(s){return s.name});if(am.indexOf('紫微')>=0&&am.indexOf('天府')>=0)html+='<div class="reading"><h3>格局 · 紫府同宫 (大吉)</h3><p>紫微天府同宫于命，帝王配财库，贵气非凡。一生事业财运双收。宜管理、金融行业。</p></div>';else if(am.indexOf('太阳')>=0&&am.indexOf('太阴')>=0)html+='<div class="reading"><h3>格局 · 日月并明 (上格)</h3><p>太阳太阴同宫，阴阳调和。一生顺遂德才兼备。适合文职、教育行业。</p></div>';else if(am.indexOf('七杀')>=0&&am.length===1)html+='<div class="reading"><h3>格局 · 七杀朝斗 (将星格)</h3><p>七杀独坐命宫将星入命。性格刚烈果决宜武职军警。晚婚为宜中年后显英雄本色。</p></div>';var shn=['禄','权','科','忌'];html+='<div class="reading"><h3>四化飞星</h3><div class="zw-sihua-bar">';for(var j=0;j<4;j++)html+='<span class="zw-sh-tag" style="background:'+scs[shn[j]]+'20;border-color:'+scs[shn[j]]+'">'+shn[j]+'：'+chart.sihua[j]+'</span>';html+='</div></div><div class="disclaimer">以上分析仅供传统文化娱乐参考</div></div>';return html};function sp(pal){return pal.stars.map(function(s){var shb='';if(s.sh)shb='<span class="zw-sh" style="color:'+({禄:'var(--green)',权:'var(--gold)',科:'var(--purple)',忌:'var(--red)'}[s.sh])+'">'+s.sh+'</span>';return'<div class="zw-star'+(s.type==='major'?' zw-major':'')+'">'+s.name+shb+'</div>'}).join('')||'<div class="zw-empty">—</div>'};
-ZW._chart=null;ZW._displayOrder=null;ZW._di=null;
-ZW.showPalace=function(i){var pidx=(ZW._di||[])[i];var p=ZW._chart.palaces[pidx];var stemsZh=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];var branchZh=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];var h='<div class="ptitle">'+stemsZh[p.gan]+branchZh[p.branch]+' · '+p.name+'</div>';var ms=p.stars.filter(function(s){return s.type==='major'});if(ms.length){h+='<div style="margin-bottom:12px"><div style="font-size:.7em;color:var(--moon3);margin-bottom:6px">主星</div>';ms.forEach(function(s){var sd=ZW.STARS[s.name];h+='<div style="font-size:.78em;color:var(--gold);margin:4px 0"><b>'+s.name+'</b> '+(sd?sd.kw:'')+'</div><div style="font-size:.7em;color:var(--moon2);margin-bottom:6px;line-height:1.5">'+(sd?sd.d.substring(0,80)+'…':'')+'</div>'});h+='</div>'}var as=p.stars.filter(function(s){return s.type==='aux'});if(as.length){h+='<div><div style="font-size:.7em;color:var(--moon3);margin-bottom:6px">辅星</div>';as.forEach(function(s){var shl=s.sh?' <span style="color:'+({禄:'var(--green)',权:'var(--gold)',科:'var(--purple)',忌:'var(--red)'}[s.sh])+'">['+s.sh+']</span>':'';h+='<div style="font-size:.7em;color:var(--moon2);margin:2px 0"><b>'+s.name+'</b>'+shl+'</div>'});h+='</div>'}if(!ms.length&&!as.length)h+='<div style="text-align:center;color:var(--moon3);padding:20px;font-size:.8em">此宫为空宫，借对宫之力</div>';document.getElementById('zonePopup').innerHTML=h;document.getElementById('zonePopup').style.display='block';document.getElementById('popOverlay').style.display='block';};
+<script src="ziwei.js"></script>
+<script src="ziwei-patterns.js"></script>
 
-ZW.init=function(){if(!USER||!USER.y){document.getElementById('zwContent').innerHTML='<div class="card"><p style="text-align:center;color:var(--moon3);padding:30px">请先在八字命理页输入出生日期，再查看紫微斗数命盘</p></div>';return}var chart=ZW.generate(USER.y,USER.m,USER.d,USER.h,USER.g);ZW._chart=chart;var pal=chart.palaces;var si=pal.findIndex(function(p){return p.branch===2});if(si<0)si=0;ZW._di=[];for(var i=0;i<12;i++)ZW._di.push((si+i)%12);document.getElementById('zwContent').innerHTML=ZW.render(chart)};
-
-// Enhanced ZW patterns
-ZW.detectPatterns=function(chart){var mp=chart.palaces.find(function(p){return p.isMing});var ms=mp.stars.filter(function(s){return s.type=='major'});var mn=ms.map(function(s){return s.name});var allMs=[];for(var i=0;i<12;i++)allMs=allMs.concat(chart.palaces[i].stars.filter(function(s){return s.type=='major'}).map(function(s){return s.name}));var p=[];if(mn.indexOf('紫微')>=0&&mn.indexOf('天府')>=0)p.push({n:'紫府同宫',l:'大吉',d:'紫微天府同宫于命，帝王配财库。一生事业财运双收，宜管理、金融行业。'});else if(mn.indexOf('太阳')>=0&&mn.indexOf('太阴')>=0)p.push({n:'日月并明',l:'上格',d:'太阳太阴同宫，阴阳调和。一生顺遂德才兼备，适合文职教育。'});else if(mn.indexOf('七杀')>=0&&ms.length==1)p.push({n:'七杀朝斗',l:'将星格',d:'七杀独坐命宫，将星入命。性格刚烈，宜军警创业。晚婚为宜。'});if(allMs.indexOf('七杀')>=0&&allMs.indexOf('破军')>=0&&allMs.indexOf('贪狼')>=0)p.push({n:'杀破狼',l:'动荡格',d:'七杀破军贪狼齐聚，一生不甘平凡多变动，宜创业销售。中年后稳定。'});if(allMs.indexOf('天机')>=0&&allMs.indexOf('太阴')>=0&&allMs.indexOf('天同')>=0&&allMs.indexOf('天梁')>=0)p.push({n:'机月同梁',l:'文贵格',d:'四星齐入命迁财官，最适合公职、学术、医疗，不宜大冒险。'});if((mn.indexOf('武曲')>=0&&mn.indexOf('贪狼')>=0)||(allMs.indexOf('武曲')>=0&&allMs.indexOf('贪狼')>=0))p.push({n:'武贪格',l:'财格',d:'武曲贪狼会命，三十岁后厚积薄发。财源由人脉而来。'});if(allMs.indexOf('贪狼')>=0&&allMs.indexOf('火星')>=0)p.push({n:'火贪格',l:'横财格',d:'贪狼遇火星，突发横财。来得快也去得快，宜见好就收。'});if(mn.indexOf('紫微')>=0&&allMs.indexOf('左辅')>=0&&allMs.indexOf('右弼')>=0)p.push({n:'君臣庆会',l:'大贵格',d:'紫微入命左右同会，一生贵人不绝，宜政商高层。'});if(allMs.indexOf('太阳')>=0&&allMs.indexOf('天梁')>=0&&allMs.indexOf('文昌')>=0)p.push({n:'阳梁昌禄',l:'清贵格',d:'太阳天梁文昌会命，考运极佳，宜学术文教。'});if(mn.indexOf('巨门')>=0&&mn.indexOf('太阳')>=0)p.push({n:'巨日同宫',l:'口才格',d:'巨门太阳同宫，以口才传媒法律立业。'});if(mn.indexOf('武曲')>=0&&mn.indexOf('七杀')>=0)p.push({n:'武曲七杀',l:'刚毅格',d:'武曲七杀同宫，财星配将星。适合金融军警创业。'});if(mn.indexOf('天同')>=0&&mn.indexOf('天梁')>=0)p.push({n:'天同天梁',l:'福荫格',d:'天同天梁同宫，福星荫星共会。宜医疗教育公益。'});return p};
-</script>
 </body>
 </html>
