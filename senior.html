@@ -262,20 +262,24 @@ function solar2Lunar(y,m,d){
   return {y:year,m:month,d:day,leap:leapM,monthName:lunarMonthNames[month-1],dayName:lunarDayNames[day-1]};
 }
 
+var stemsZh=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+var branchZh=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
 function stemBranch(year,month,day,hour){
+  var yS=(year-4)%10;if(yS<0){yS+=10}
+  var yB=(year-4)%12;if(yB<0){yB+=12}
+  var mStart=[2,4,6,8,0];
+  var moBranch=(month+1)%12;
+  var moOff=(moBranch-2+12)%12;
+  var moStem=(mStart[yS%5]+moOff)%10;
   var base=new Date(1900,0,1),t=new Date(year,month-1,day);
   var diff=Math.floor((t-base)/86400000);
   var daySI=((10+diff)%60+60)%60;
   var dS=daySI%10,dB=daySI%12;
-  var yS=(year-4)%10,yB=(year-4)%12;
-  if(yS<0){yS+=10;yB+=12}
-  var mStart=[2,4,6,8,0];
-  var moS=(mStart[yS%5]+(month+1-2+12)%12)%10;
-  var moB=(month+1)%12;
   var hStart=[0,2,4,6,8];
   var hB=Math.floor(((hour+1)%24)/2)%12;
   var hS=(hStart[dS%5]+hB)%10;
-  return {year:stems[yS]+branches[yB],month:stems[moS]+branches[moB],day:stems[dS]+branches[dB],hour:stems[hS]+branches[hB],dayStem:stems[dS],dayBranch:branches[dB],daySIdx:dS,dayBIdx:dB,yearSIdx:yS,yearBIdx:yB};
+  var yrSexagenary=yS+10*(((yS-yB)/2+6)%6);
+  return {year:stems[yS]+branches[yB],month:stems[moStem]+branches[moBranch],day:stems[dS]+branches[dB],hour:stems[hS]+branches[hB],dayStem:stems[dS],dayBranch:branches[dB],daySIdx:dS,dayBIdx:dB,yearSIdx:yS,yearBIdx:yB,yrSexagenary:yrSexagenary};
 }
 
 // ====== HUANGLI DATA ======
@@ -406,7 +410,7 @@ function renderAll(){
   g.innerHTML='<div class="huangli-item"><div class="hl-label">日柱</div><div class="hl-val">'+sb.day+'</div></div>'+
     '<div class="huangli-item"><div class="hl-label">冲煞</div><div class="hl-val">冲'+hl.chongName+'</div></div>'+
     '<div class="huangli-item"><div class="hl-label">吉神方位</div><div class="hl-val">'+hl.dir+'</div></div>'+
-    '<div class="huangli-item"><div class="hl-label">纳音</div><div class="hl-val">'+nayin[Math.floor(sb.yearSIdx*6+(sb.yearBIdx-sb.yearSIdx)/2)]+'</div></div>';
+    '<div class="huangli-item"><div class="hl-label">纳音</div><div class="hl-val">'+nayin[Math.floor(sb.yrSexagenary/2)]+'</div></div>';
 
   // Yi/Ji
   var yj=document.getElementById('yiJi');
@@ -482,35 +486,61 @@ function doBazi(){
   if(!y||!m||!dd){toast('请选择完整的出生日期');return}
   var h=parseInt(document.getElementById('baziHour').value),g=document.getElementById('baziGender').value;
   if(h<0)h=12;
-  var sb=stemBranch(y,m,dd,h);
   var z=zodiacs[(y-4)%12];
-  var nl=nayin[Math.floor(sb.yearSIdx*6+(sb.yearBIdx-sb.yearSIdx)/2)]||'不详';
-  var dyEl=elements[sb.daySIdx];
+  // 年柱
+  var yrStem=(y-4)%10;if(yrStem<0)yrStem+=10;
+  var yrBranch=(y-4)%12;if(yrBranch<0)yrBranch+=12;
+  // 月柱(五虎遁)
+  var yearStemStart=[2,4,6,8,0];
+  var moStart=yearStemStart[yrStem%5];
+  var moBranch=(m+1)%12;
+  var moOff=(moBranch-2+12)%12;
+  var moStem=(moStart+moOff)%10;
+  // 日柱 (1900-01-01 = index 10)
+  var baseDate=new Date(1900,0,1),targetDate=new Date(y,m-1,dd);
+  var daysDiff=Math.floor((targetDate-baseDate)/86400000);
+  var daySI=((10+daysDiff)%60+60)%60;
+  var dyStem=daySI%10,dyBranch=daySI%12;
+  // 时柱(五鼠遁)
+  var dayStemStartH=[0,2,4,6,8];
+  var hrStart=dayStemStartH[dyStem%5];
+  var hrBranch=Math.floor(((h+1)%24)/2)%12;
+  var hrStem=(hrStart+hrBranch)%10;
+  // 纳音
+  var yrSexagenary=yrStem+10*(((yrStem-yrBranch)/2+6)%6);
+  var nl=nayin[Math.floor(yrSexagenary/2)]||'不详';
+  // 日主五行
+  var dyEl=elements[dyStem];
   var virtueMap={木:'仁',火:'礼',土:'信',金:'义',水:'智'};
   // 十神
   var shiShen=[['比肩','劫财','食神','伤官','偏财','正财','七杀','正官','偏印','正印'],['劫财','比肩','伤官','食神','正财','偏财','正官','七杀','正印','偏印'],['偏印','正印','比肩','劫财','食神','伤官','偏财','正财','七杀','正官'],['正印','偏印','劫财','比肩','伤官','食神','正财','偏财','正官','七杀'],['七杀','正官','偏印','正印','比肩','劫财','食神','伤官','偏财','正财'],['正官','七杀','正印','偏印','劫财','比肩','伤官','食神','正财','偏财'],['偏财','正财','七杀','正官','偏印','正印','比肩','劫财','食神','伤官'],['正财','偏财','正官','七杀','正印','偏印','劫财','比肩','伤官','食神'],['食神','伤官','偏财','正财','七杀','正官','偏印','正印','比肩','劫财'],['伤官','食神','正财','偏财','正官','七杀','正印','偏印','劫财','比肩']];
-  var yrSS=shiShen[sb.daySIdx][sb.yearSIdx],moSS=shiShen[sb.daySIdx][(sb.yearSIdx*6+sb.dayBIdx)%10*0+0],hrSS='';
-  var moSIdx=(sb.daySIdx+sb.dayBIdx)%10;
-  moSS=shiShen[sb.daySIdx][moSIdx];
-  hrSS=shiShen[sb.daySIdx][sb.daySIdx]; // simplified
+  var yrSS=shiShen[dyStem][yrStem],moSS=shiShen[dyStem][moStem],hrSS=shiShen[dyStem][hrStem];
+  // 身强身弱
+  var stemElI=[0,0,1,1,2,2,3,3,4,4];var wuname=['木','火','土','金','水'];
+  var allGan=[yrStem,moStem,dyStem,hrStem],allZhi=[yrBranch,moBranch,dyBranch,hrBranch];
+  var wuCount=[0,0,0,0,0];var dzCang=[9,5,0,1,4,2,3,5,6,7,4,8];
+  for(var i=0;i<4;i++){wuCount[stemElI[allGan[i]]]++;wuCount[stemElI[dzCang[allZhi[i]]]]++}
+  var dong=stemElI[dyStem],sameCount=wuCount[dong]+wuCount[(dong+4)%5],shenWang=sameCount>=4;
+  var xiNm=(shenWang?'火、土、金':'金、水、木');
+  var jiNm=(shenWang?'水、木':'火、土');
+  var wuDesc=wuname.map(function(c,i){return c+':'+wuCount[i]}).join(' / ');
 
-  // Build result
-  var interp='您属'+z+'，生于'+y+'年农历，命格纳音「'+nl+'」。日主为'+dyEl+'，五行主「'+virtueMap[dyEl]+'」。您性格'+(dyEl==='木'?'温和善良，有仁爱之心':dyEl==='火'?'热情开朗，待人真诚有礼':dyEl==='土'?'诚信稳重，值得信赖':dyEl==='金'?'刚毅果断，讲义气':dyEl==='水'?'聪慧灵活，善于变通')+'。一生运势与'+nl+'之性相应，'+(nl.includes('金')?'财运不错，中晚年更佳':nl.includes('木')?'早年多有奔波，中年后安稳':nl.includes('水')?'智慧型人生，靠才智取胜':nl.includes('火')?'大器晚成，晚年享福':nl.includes('土')?'稳扎稳打，积累致富')+'。';
-
-  var tips=['今日宜保持好心态，好的心态是最好的风水。','多行善事，福虽未至祸已远离。','家和万事兴，家人是最宝贵的财富。','知足常乐，珍惜眼前人事物。','每天进步一点点，积少成多。','健康是最大的福气，早睡早起身体好。'];
-  var tip=tips[(sb.daySIdx+sb.dayBIdx)%tips.length];
+  var interp='您属'+z+'，日柱「'+stems[dyStem]+branches[dyBranch]+'」日主'+dyEl+'。命格纳音「'+nl+'」，五行 '+wuDesc+'。'+(shenWang?'身旺':'身弱')+'，喜'+xiNm+'，忌'+jiNm+'。'+dyEl+'命主「'+virtueMap[dyEl]+'」，为人'+(dyEl==='木'?'温和善良':dyEl==='火'?'热情有礼':dyEl==='土'?'诚信稳重':dyEl==='金'?'刚毅果断':'聪慧灵活')+'。';
+  var guides=['宜接触'+xiNm+'属性的行业，补益运势','流年遇'+jiNm+'旺时宜保守，忌冒险投资','注意'+(dong===0?'优柔寡断':dong===1?'急躁冲动':dong===2?'固执己见':dong===3?'刚愎自用':'感情用事')+'的倾向',(shenWang?'身旺可担财官，'+xiNm+'运年大有可为':'身弱需印比帮扶，'+xiNm+'年得贵人助缘')];
 
   document.getElementById('baziResult').innerHTML=
-    '<div style="text-align:center;margin:20px 0 12px"><div style="font-size:24px;color:var(--red);font-weight:700">'+nl+'</div><div style="font-size:16px;color:var(--text3);margin-top:4px">'+z+'年 · '+(g==='male'?'乾造':'坤造')+'</div></div>'+
-    '<div style="text-align:center;margin-bottom:16px"><div style="font-size:20px;color:var(--text)">日主 <span style="color:var(--red);font-weight:700">'+sb.dayStem+' · '+dyEl+'命</span></div></div>'+
+    '<div style="text-align:center;margin:20px 0 12px"><div style="font-size:24px;color:var(--red);font-weight:700">'+nl+'</div><div style="font-size:16px;color:var(--text3);margin-top:4px">纳音 · '+z+'年 · '+(g==='male'?'乾造':'坤造')+'</div></div>'+
+    '<div style="text-align:center;margin-bottom:16px"><div style="font-size:20px;color:var(--text)">日主 <span style="color:var(--red);font-weight:700">'+stems[dyStem]+' · '+dyEl+'命</span></div></div>'+
     '<div class="pillars">'+
-    '<div class="pillar"><div class="pl">年柱</div><div class="ps">'+sb.year[0]+'</div><div class="pb">'+sb.year[1]+'</div><div class="pss">'+yrSS+'</div></div>'+
-    '<div class="pillar"><div class="pl">月柱</div><div class="ps">'+sb.month[0]+'</div><div class="pb">'+sb.month[1]+'</div><div class="pss">'+moSS+'</div></div>'+
-    '<div class="pillar"><div class="pl">日柱</div><div class="ps">'+sb.day[0]+'</div><div class="pb">'+sb.day[1]+'</div><div class="pss">日主</div></div>'+
-    '<div class="pillar"><div class="pl">时柱</div><div class="ps">'+sb.hour[0]+'</div><div class="pb">'+sb.hour[1]+'</div><div class="pss">时柱</div></div>'+
+    '<div class="pillar"><div class="pl">年柱</div><div class="ps">'+stems[yrStem]+'</div><div class="pb">'+branches[yrBranch]+'</div><div class="pss">'+yrSS+'</div></div>'+
+    '<div class="pillar"><div class="pl">月柱</div><div class="ps">'+stems[moStem]+'</div><div class="pb">'+branches[moBranch]+'</div><div class="pss">'+moSS+'</div></div>'+
+    '<div class="pillar"><div class="pl">日柱</div><div class="ps">'+stems[dyStem]+'</div><div class="pb">'+branches[dyBranch]+'</div><div class="pss">日主</div></div>'+
+    '<div class="pillar"><div class="pl">时柱</div><div class="ps">'+stems[hrStem]+'</div><div class="pb">'+branches[hrBranch]+'</div><div class="pss">'+hrSS+'</div></div>'+
     '</div>'+
     '<div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div>'+
-    '<div class="reading"><h3>今日寄语</h3><p style="text-align:center;color:var(--gold);font-size:20px">'+tip+'</p></div>';
+    '<div class="reading"><h3>用神喜忌</h3><p>身'+(shenWang?'旺':'弱')+'，喜'+xiNm+'，忌'+jiNm+'。</p></div>'+
+    '<div class="reading"><h3>五行分布</h3><p>'+wuDesc+' · 同类'+sameCount+'/'+(8-sameCount)+'异</p></div>'+
+    '<div class="reading"><h3>温馨提示</h3>'+guides.map(function(g){return'<p>✦ '+g+'</p>'}).join('')+'</div>';
 
   document.getElementById('baziResult').scrollIntoView({behavior:'smooth'});
 }
