@@ -368,6 +368,7 @@ body{
 .loading-overlay.on{display:flex}
 .loading-overlay .spinner{display:block}
 .loading-text{color:var(--moon3);font-size:.7em;margin-top:8px;letter-spacing:.06em}
+.dr{display:flex;gap:5px}.dr select{flex:1;text-align:center;text-align-last:center}
 </style>
 </head>
 <body>
@@ -454,7 +455,7 @@ body{
     <p class="subtle" style="text-align:center;margin-bottom:16px">四柱八字 · 命理推演</p>
 
     <div class="card" id="baziForm">
-      <div class="fg"><label>✦ 出生日期</label><input type="date" class="inp" id="baziDate" min="1920-01-01" max="2020-12-31"></div>
+      <div class="fg"><label>✦ 出生日期</label><div class="dr"><select class="sel" id="baziYear" onchange="updateDays('baziDay','baziYear','baziMonth')"><option value="">年</option></select><select class="sel" id="baziMonth" onchange="updateDays('baziDay','baziYear','baziMonth')"><option value="">月</option></select><select class="sel" id="baziDay"><option value="">日</option></select></div></div>
       <div class="fg"><label>✦ 出生时辰</label><select class="sel" id="baziHour">
         <option value="-1">未指定</option>
         <option value="0">子时 23:00-01:00</option><option value="1">丑时 01:00-03:00</option>
@@ -595,7 +596,7 @@ body{
     <div class="card" id="zwInputForm" style="display:none">
       <h3 style="text-align:center;color:var(--gold);margin-bottom:12px">✦ 紫微斗数排盘</h3>
       <p style="text-align:center;color:var(--moon3);font-size:.7em;margin-bottom:12px">输入出生信息即可排出命盘</p>
-      <div class="fg"><label>✦ 出生日期</label><input type="date" class="inp" id="zwDate" min="1920-01-01" max="2020-12-31"></div>
+      <div class="fg"><label>✦ 出生日期</label><div class="dr"><select class="sel" id="zwYear" onchange="updateDays('zwDay','zwYear','zwMonth')"><option value="">年</option></select><select class="sel" id="zwMonth" onchange="updateDays('zwDay','zwYear','zwMonth')"><option value="">月</option></select><select class="sel" id="zwDay"><option value="">日</option></select></div></div>
       <div class="fg"><label>✦ 出生时辰</label><select class="sel" id="zwHour">
         <option value="-1">未指定</option>
         <option value="0">子时 23:00-01:00</option><option value="1">丑时 01:00-03:00</option>
@@ -815,10 +816,40 @@ function pickGender(el,groupId){
   el.classList.add('sel');
 }
 
+function populateDateSelects(yId,mId,dId,selY,selM,selD){
+  var ySel=document.getElementById(yId),mSel=document.getElementById(mId),dSel=document.getElementById(dId);
+  if(!ySel||!mSel||!dSel)return;
+  // Year options
+  if(!ySel.options.length||ySel.options.length<2){
+    var yf=document.createDocumentFragment();yf.appendChild(createOpt('','年'));
+    for(var i=2020;i>=1920;i--){yf.appendChild(createOpt(i,i))}
+    ySel.appendChild(yf);
+  }
+  // Month options
+  if(!mSel.options.length||mSel.options.length<2){
+    var mf=document.createDocumentFragment();mf.appendChild(createOpt('','月'));
+    for(var i=1;i<=12;i++){mf.appendChild(createOpt(i,i+'月'))}
+    mSel.appendChild(mf);
+  }
+  if(selY){ySel.value=selY}
+  if(selM){mSel.value=selM}
+  updateDays(dId,yId,mId,selD);
+}
+function createOpt(v,t){var o=document.createElement('option');o.value=v;o.textContent=t;return o}
+function updateDays(dId,yId,mId,selDay){
+  var dSel=document.getElementById(dId),y=parseInt(document.getElementById(yId).value),m=parseInt(document.getElementById(mId).value);
+  if(!dSel||!y||!m){dSel&&(dSel.innerHTML='<option value="">日</option>');return}
+  var maxD=new Date(y,m,0).getDate();
+  var df=document.createDocumentFragment();df.appendChild(createOpt('','日'));
+  for(var i=1;i<=maxD;i++){df.appendChild(createOpt(i,i))}
+  dSel.innerHTML='';dSel.appendChild(df);
+  if(selDay>0&&selDay<=maxD){dSel.value=selDay}
+}
+
 function doBazi(){
-  var d=document.getElementById('baziDate').value;
-  if(!d){toast(LANG==='zh'?'请选择出生日期':'Select birth date');return}
-  var parts=d.split('-'),y=parseInt(parts[0]),m=parseInt(parts[1]),dd=parseInt(parts[2]),h=parseInt(document.getElementById('baziHour').value),g=document.querySelector('#baziGender .go.sel').dataset.g;
+  var y=parseInt(document.getElementById('baziYear').value),m=parseInt(document.getElementById('baziMonth').value),dd=parseInt(document.getElementById('baziDay').value);
+  if(!y||!m||!dd){toast(LANG==='zh'?'请选择完整出生日期':'Select full birth date');return}
+  var h=parseInt(document.getElementById('baziHour').value),g=document.querySelector('#baziGender .go.sel').dataset.g;
   USER={y:y,m:m,d:dd,h:h<0?12:h,g:g,z:zi(y)};
   ZIDX=USER.z;
   // -- 年柱 --
@@ -1247,13 +1278,12 @@ renderZodiacs();
 dailyCard();
 initLove();
 var d=new Date();d.setFullYear(d.getFullYear()-25);
-document.getElementById('baziDate').value=d.toISOString().slice(0,10);
+populateDateSelects('baziYear','baziMonth','baziDay',d.getFullYear(),d.getMonth()+1,d.getDate());
+populateDateSelects('zwYear','zwMonth','zwDay',d.getFullYear(),d.getMonth()+1,d.getDate());
 updateTrustCount(
 function prepZW(){
-  // Populate ZW form from existing USER or bazi form data
   if(USER&&USER.y){
-    var zwDate=document.getElementById('zwDate');
-    if(zwDate&&!zwDate.value){zwDate.value=String(USER.y).padStart(4,'0')+'-'+String(USER.m).padStart(2,'0')+'-'+String(USER.d).padStart(2,'0')}
+    populateDateSelects('zwYear','zwMonth','zwDay',USER.y,USER.m,USER.d);
     var zwHour=document.getElementById('zwHour');
     if(zwHour&&USER.h!==undefined){zwHour.value=Math.floor(USER.h/2)%12}
     var zwGender=document.getElementById('zwGender');
