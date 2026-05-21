@@ -178,9 +178,47 @@ select:focus{outline:none;border-color:var(--red)}
 /* Nav grid for 6 items */
 .nav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
 .nav-item{flex:none}
+
+/* Settings & AI */
+.settings-btn{position:fixed;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--red);color:var(--red);font-size:20px;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:300;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal-box{background:var(--bg);border-radius:var(--r2);padding:24px;width:90%;max-width:380px;box-shadow:0 8px 32px rgba(0,0,0,0.15)}
+.modal-box h3{font-size:22px;margin-bottom:16px;color:var(--red)}
+.modal-box label{display:block;font-size:16px;color:var(--text2);margin-bottom:6px}
+.modal-box input{width:100%;padding:12px;border:1px solid #d0c8b8;border-radius:var(--r);font-size:16px;margin-bottom:16px;background:var(--card);color:var(--text)}
+.modal-box .btn-row{display:flex;gap:12px;justify-content:flex-end}
+.modal-box .btn-row button{padding:10px 20px;border-radius:var(--r);font-size:16px;cursor:pointer;border:none}
+.modal-box .btn-save{background:var(--red);color:#fff}
+.modal-box .btn-cancel{background:#ccc;color:var(--text)}
+.modal-box .hint{font-size:14px;color:var(--text3);margin-bottom:12px}
+.ai-btn{background:linear-gradient(135deg,#667eea,#764ba2)!important;color:#fff!important;animation:pulse-glow 2s infinite}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 8px rgba(102,126,234,0.4)}50%{box-shadow:0 0 20px rgba(118,75,162,0.6)}}
+.ai-loading{text-align:center;padding:24px;color:var(--red)}
+.ai-loading .spinner{display:inline-block;width:32px;height:32px;border:3px solid rgba(196,58,49,0.15);border-top-color:var(--red);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ai-error{background:rgba(196,58,49,0.06);border:1px solid var(--red);border-radius:var(--r);padding:16px;text-align:center;color:var(--red);font-size:16px}
+
 </style>
 </head>
 <body>
+
+<div class="settings-btn" onclick="toggleSettings()" title="AI设置">⚙</div>
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal-box">
+    <h3>⚙ AI掌纹识别设置</h3>
+    <p class="hint">需要 DeepSeek API Key 才能使用AI识别掌纹。<br>在 <b>platform.deepseek.com</b> 获取 Key。</p>
+    <label>API Key</label>
+    <input type="password" id="apiKeyInput" placeholder="sk-xxxxxxxx">
+    <label>API Base URL（可选）</label>
+    <input type="text" id="apiBaseInput" placeholder="https://api.deepseek.com" value="https://api.deepseek.com">
+    <div class="btn-row">
+      <button class="btn-cancel" onclick="toggleSettings()">关闭</button>
+      <button class="btn-save" onclick="saveSettings()">保存</button>
+    </div>
+  </div>
+</div>
+
 
 <div class="header">
   <div class="brand">福 临 阁</div>
@@ -271,6 +309,7 @@ select:focus{outline:none;border-color:var(--red)}
     <div id="palmPhotoWrap" style="display:none">
       <div style="position:relative"><img id="palmPhoto" style="width:100%;max-width:300px;margin:0 auto;display:block;border-radius:var(--r2)" alt=""><div id="palmSvgOverlay" style="position:absolute;top:0;left:0;width:100%;height:100%"></div></div>
       <div style="text-align:center;margin-top:8px"><button class="btn" style="background:var(--text3);color:#fff;padding:10px 24px;font-size:16px;width:auto;display:inline-block" onclick="retakePalmPhoto()">重新拍照</button>
+      <button class="btn ai-btn" id="aiPalmBtn" style="padding:10px 24px;font-size:16px;width:auto;display:none;margin-left:8px" onclick="aiReadPalm()">🤖 AI智能识别</button>
       <button class="btn" style="background:var(--red);color:#fff;padding:10px 24px;font-size:16px;width:auto;display:inline-block;margin-left:8px" onclick="doPalmRead()">生成手相报告</button></div>
     </div>
     <div class="palm-lines-picker" id="palmLinesPicker" style="margin-top:8px"></div>
@@ -874,6 +913,7 @@ function showPalmPhoto(){
   document.getElementById('palmUploadArea').style.display='none';
   document.getElementById('palmPhotoWrap').style.display='block';
   document.getElementById('palmPhoto').src=_sxPhotoData;
+  document.getElementById('aiPalmBtn').style.display='inline-block';
   document.getElementById('palmSvgOverlay').innerHTML=buildPalmSvg();
   updatePalmLines();
 }
@@ -990,13 +1030,133 @@ function changeMjRound(){
 
 
 
+
+// ====== AI Palm Settings ======
+function getSettings(){
+  try{return JSON.parse(localStorage.getItem('lalalin_ai')||'{}')}catch(e){return{}}
+}
+function saveSettings(){
+  var key=document.getElementById('apiKeyInput').value.trim();
+  var base=document.getElementById('apiBaseInput').value.trim()||'https://api.deepseek.com';
+  if(!key){alert('请输入 API Key');return}
+  localStorage.setItem('lalalin_ai',JSON.stringify({apiKey:key,apiBase:base}));
+  document.getElementById('settingsModal').classList.remove('show');
+  toast('AI设置已保存 ✓');
+}
+function toggleSettings(){
+  var m=document.getElementById('settingsModal');
+  m.classList.toggle('show');
+  if(m.classList.contains('show')){
+    var s=getSettings();
+    if(s.apiKey)document.getElementById('apiKeyInput').value=s.apiKey;
+    if(s.apiBase)document.getElementById('apiBaseInput').value=s.apiBase;
+  }
+}
+
+// ====== AI Palm Reading ======
+async function aiReadPalm(){
+  var settings=getSettings();
+  if(!settings.apiKey){toggleSettings();toast('请先设置 API Key');return}
+  if(!_sxPhotoData){toast('请先上传手掌照片');return}
+  
+  var loading=document.getElementById('palmSvgOverlay');
+  loading.innerHTML='<div class="ai-loading"><div class="spinner"></div><p>AI正在分析掌纹...</p><p style="font-size:14px;color:var(--text3)">识别生命线·智慧线·感情线...</p></div>';
+  document.getElementById('aiPalmBtn').disabled=true;
+  
+  try{
+    var imgData=_sxPhotoData.split(',')[1]; // remove data:image/...;base64, prefix
+    var mime=_sxPhotoData.match(/data:(image\/\w+);/)[1]||'image/jpeg';
+    
+    var resp=await fetch(settings.apiBase+'/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+settings.apiKey},
+      body:JSON.stringify({
+        model:'deepseek-chat',
+        messages:[{
+          role:'user',
+          content:[
+            {type:'text',text:'你是掌纹分析专家。请分析手掌照片，识别五条主要纹路返回SVG path的JSON。\n1.生命线:围绕拇指根部弧形\n2.智慧线:横穿掌心从食指下方\n3.感情线:智慧线上方小指下方\n4.命运线:手腕中央竖直向上至中指\n5.太阳线:无名指下方\n坐标适配300x340 viewBox，格式{"life":"M...","head":"M...","heart":"M...","fate":"M...","sun":"M..."}，只返回JSON不说其他。看不清的线设为空字符串。'},
+            {type:'image_url',image_url:{url:'data:'+mime+';base64,'+imgData}}
+          ]
+        }],
+        max_tokens:2000,
+        temperature:0.1
+      })
+    });
+    
+    if(!resp.ok){var err=await resp.text();throw new Error('API error '+resp.status+': '+err.substring(0,100))}
+    var data=await resp.json();
+    var content=data.choices[0].message.content;
+    
+    // Parse JSON from response
+    var json=parsePalmAI(content);
+    if(!json)throw new Error('无法解析AI返回的掌纹数据');
+    
+    // Apply to palm lines
+    applyAILines(json);
+    
+    // Update picker selections based on analysis
+    updatePalmLinesAI(json);
+    
+    toast('AI掌纹识别完成 ✓');
+  }catch(e){
+    console.error('AI Palm Error:',e);
+    document.getElementById('palmSvgOverlay').innerHTML='<div class="ai-error">识别失败：'+e.message+'<br><span style="font-size:14px">请确保手掌照片清晰、光线充足，或使用手动模式</span></div>';
+  }
+  document.getElementById('aiPalmBtn').disabled=false;
+}
+
+function parsePalmAI(text){
+  // Try to extract JSON from response
+  var jsonMatch=text.match(/{[sS]*}/);
+  if(!jsonMatch)return null;
+  try{return JSON.parse(jsonMatch[0])}catch(e){return null}
+}
+
+function applyAILines(json){
+  var lines={life:'life',head:'head',heart:'heart',fate:'fate',sun:'sun'};
+  Object.keys(lines).forEach(function(k){
+    if(json[k]){
+      var el=document.getElementById('pl-'+k);
+      if(el)el.setAttribute('d',json[k]);
+    }
+  });
+  
+  // Heuristic: determine variant numbers for the picker
+  // Based on line characteristics
+  Object.keys(lines).forEach(function(k){
+    var d=json[k]||'';
+    if(d.length<10){palmLines[k]=2;return} // default to middle option
+    
+    // Simple heuristics based on path features
+    var isLong=d.length>60;
+    var hasWaves=d.includes('Q')&&d.split('Q').length>4;
+    var hasSharp=d.includes('L')||d.length<30;
+    
+    if(hasWaves)palmLines[k]=4;
+    else if(hasSharp)palmLines[k]=1;
+    else if(isLong)palmLines[k]=0;
+    else palmLines[k]=3;
+  });
+}
+
+function updatePalmLinesAI(json){
+  // Refresh palm picker UI
+  initPalmPicker();
+  // Update SVG lines to AI-detected paths
+  if(!_sxPhotoData){showPalmSvg();return}
+  // Keep photo visible, just update the SVG overlay
+  document.getElementById('palmSvgOverlay').innerHTML=buildPalmSvg();
+}
+
+// ====== INIT ======
 // ====== INIT ======
 (function(){
   var msgs=[];
   function step(n,fn){
     try{fn();msgs.push('OK'+n);return true}catch(e){msgs.push('ERR'+n+':'+e.message);return false}
   }
-  var ok=step('render',renderAll) && step('pop',populateBaZiSelects) && step('face',function(){showFaceSvg()}) && step('palm',function(){showPalmSvg();initPalmPicker()}) && step('mj',initMijing);
+  var ok=step('render',renderAll) && step('pop',populateBaZiSelects) && step('face',function(){showFaceSvg()}) && step('palm',function(){showPalmSvg();initPalmPicker()});step('settings',function(){var s=getSettings();if(s.apiKey)document.getElementById('apiKeyInput').value=s.apiKey;if(s.apiBase)document.getElementById('apiBaseInput').value=s.apiBase}) && step('mj',initMijing);
   if(!ok){document.getElementById('todayLunar').textContent='诊断:'+msgs.join(';')}
 })();
 </script>
