@@ -1,0 +1,32 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": {
+    "@language": "zh-CN", "@value": "拉拉林 · 星之密语"
+  },
+  "alternateName": [
+    {"@language": "en", "@value": "Lalalin · Star Whispers"},
+    {"@language": "ja", "@value": "ララリン · 星のささやき"}
+  ],
+  "description": {
+    "@language": "zh-CN",
+    "@value": "AI东方命理师。八字命盘、塔罗占卜、生肖运势、面相手相、缘分配对。"
+  },
+  "url": "https://lalalin.xyz",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "Lalalin",
+    "url": "https://lalalin.xyz"
+  },
+  "inLanguage": ["zh-CN", "en", "ja"],
+  "browserRequirements": "Requires JavaScript"
+}
+</script>
