@@ -5,10 +5,10 @@
 (function() {
   'use strict';
 
-  var API_BASE = 'https://lalalin.xyz';  // Same-origin, will need Cloudflare proxy
-  // Fallback: direct VPS access for testing
-  var DIRECT_API = 'http://192.3.232.240:8790';
-  var GATEWAY = location.hostname === 'lalalin.xyz' ? API_BASE : DIRECT_API;
+  var API_BASE = 'https://lalalin.xyz';  // Production: requires Cloudflare proxy
+  var DIRECT_API = 'http://192.3.232.240:8790';  // Direct VPS (testing)
+  // Use same-origin if available, otherwise direct
+  var GATEWAY = DIRECT_API;  // TODO: switch to API_BASE after Cloudflare Tunnel setup
   var AI_ENABLED = true;
   var LOADING_HTML = '<div class="ai-loading"><div class="ai-spinner"></div><p>AI 正在推演命盘…</p></div>';
 
