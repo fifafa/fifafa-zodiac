@@ -5,8 +5,10 @@
 (function() {
   'use strict';
 
-  var API_BASE = 'https://lalalin.xyz';  // Cloudflare Tunnel → backend
-  var GATEWAY = API_BASE;
+  var API_BASE = 'https://api.lalalin.xyz';  // Cloudflare Tunnel (after DNS setup)
+  var DIRECT_API = 'http://192.3.232.240:8790';  // Direct VPS fallback
+  var GATEWAY = location.hostname === 'lalalin.xyz' ? DIRECT_API : DIRECT_API;
+  // Switch to API_BASE after: CF Dashboard → Tunnel → add Public Hostname api.lalalin.xyz → :8790
   var AI_ENABLED = true;
   var LOADING_HTML = '<div class="ai-loading"><div class="ai-spinner"></div><p>AI 正在推演命盘…</p></div>';
 
