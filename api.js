@@ -5,8 +5,9 @@
 (function() {
   'use strict';
 
-  var API_BASE = 'https://192.3.232.240:8443';  // nginx HTTPS proxy
-  var GATEWAY = API_BASE;
+  var API_BASE = 'https://fifafa.xyz:8443';     // Primary: valid HTTPS via fifafa.xyz cert
+  var TUNNEL_URL = 'https://barbie-robot-receptors-benefits.trycloudflare.com';  // CF Tunnel
+  var GATEWAY = API_BASE;  // Use primary
   var AI_ENABLED = true;
   var LOADING_HTML = '<div class="ai-loading"><div class="ai-spinner"></div><p>AI 正在推演命盘…</p></div>';
 
