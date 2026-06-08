@@ -93,67 +93,6 @@
     }
   };
 
-  // ====== Module: 塔罗 (Tarot) ======
-  var origDoTarot = window.doTarot;
-  window.doTarot = async function() {
-    if (origDoTarot) origDoTarot();
-
-    var q = document.getElementById('tarotQuestion').value || '我的命运如何';
-    var result = await aiFortune('tarot', {
-      name: '',
-      question: q
-    });
-
-    if (result && result.result) {
-      injectAIResult('tarotResult', result.result);
-    }
-  };
-
-  // ====== Module: 生肖 (Zodiac) ======
-  var origRenderZodiacs = window.renderZodiacs;
-  window.renderZodiacs = async function() {
-    if (origRenderZodiacs) origRenderZodiacs();
-
-    var zname = '';
-    try {
-      var zodiacs = ['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
-      var el = document.querySelector('.zodiac-card.selected .zl');
-      if (el) zname = el.textContent.trim();
-    } catch(e) {}
-
-    if (zname) {
-      var result = await aiFortune('zodiac', {
-        name: '',
-        birth: '',
-        question: zname + '生肖今年运势如何'
-      });
-      if (result && result.result) {
-        injectAIResult('zodiacResult', result.result);
-      }
-    }
-  };
-
-  // ====== Module: 紫微斗数 ======
-  if (window.ZW && window.ZW.show) {
-    var origZWShow = window.ZW.show;
-    window.ZW.show = async function() {
-      if (origZWShow) origZWShow();
-      // Wait for ZW to set USER
-      setTimeout(async function() {
-        if (window.USER) {
-          var result = await aiFortune('ziwei', {
-            name: '',
-            gender: window.USER.g === '1' ? '男' : '女',
-            birth: window.USER.y + '-' + String(window.USER.m).padStart(2,'0') + '-' + String(window.USER.d).padStart(2,'0') + ' ' + String(window.USER.h||12).padStart(2,'0') + ':00'
-          });
-          if (result && result.result) {
-            injectAIResult('ziweiResult', result.result);
-          }
-        }
-      }, 500);
-    };
-  }
-
   // ====== Module: 面相 (Face Reading) ======
   var origInitMianXiang = window.initMianXiang;
   window.initMianXiang = async function() {
