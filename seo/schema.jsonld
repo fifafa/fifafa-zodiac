@@ -11,16 +11,11 @@
   ],
   "description": {
     "@language": "zh-CN",
-    "@value": "AI东方命理师。八字命盘、塔罗占卜、生肖运势、面相手相、缘分配对。"
+    "@value": "AI东方命理师。八字命盘、面相十二宫、手相三纹。DeepSeek AI深度解读。"
   },
   "url": "https://lalalin.xyz",
   "applicationCategory": "LifestyleApplication",
   "operatingSystem": "Web",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
   "author": {
     "@type": "Organization",
     "name": "Lalalin",

@@ -1,7 +1,7 @@
 {
-  "name": "星之密语",
-  "short_name": "星之密语",
-  "description": "输入生辰八字，解读命理运势",
+  "name": "拉拉林 · 星之密语",
+  "short_name": "拉拉林",
+  "description": "AI东方命理师 — 八字命盘 · 面相十二宫 · 手相三纹",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
@@ -22,10 +22,7 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": [
-    "lifestyle",
-    "entertainment"
-  ],
+  "categories": ["lifestyle", "entertainment"],
   "screenshots": [],
   "prefer_related_applications": false
 }
