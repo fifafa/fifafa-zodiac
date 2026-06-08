@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  var GATEWAY = 'https://fifafa.xyz:8443';  // API base
+  var GATEWAY = 'https://fifafa.xyz:8443';  // API base: valid Let's Encrypt cert + CORS
   var sdkLoaded = false;
   var paypalReady = false;
 
