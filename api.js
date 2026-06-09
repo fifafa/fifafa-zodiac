@@ -5,9 +5,7 @@
 (function() {
   'use strict';
 
-  var API_BASE = 'https://barbie-robot-receptors-benefits.trycloudflare.com';  // CF Tunnel
-  var FALLBACK_BASE = 'https://fifafa.xyz:8443';             // Direct (may be blocked by browser)
-  var GATEWAY = API_BASE;
+  var GATEWAY = '';  // Same-origin: proxied through Cloudflare Pages _redirects
   var AI_ENABLED = true;
   var LOADING_HTML = '<div class="ai-loading"><div class="ai-spinner"></div><p>AI 正在推演命盘…</p></div>';
 
