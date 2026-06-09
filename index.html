@@ -505,7 +505,7 @@ body{
     <h2 style="text-align:center;margin:6px 0" data-i18n="svc-palm">手相解读</h2>
     <p style="text-align:center;color:var(--moon3);font-size:.72em;margin-bottom:16px" data-i18n="svc-palm-desc">三大主线命运轨迹</p>
     <div class="card" style="text-align:center">
-      <div id="palmPhotoWrap" style="display:none"><div class="face-container"><img id="palmPhoto" class="face-photo" alt=""><div id="palmSvgOverlay" class="face-overlay"></div></div><div class="face-photo-actions"><button class="btn" onclick="retakePalmPhoto()">↺ 重拍</button><button class="btn btn-primary" onclick="readShouXiang()">✦ 解读手相</button></div></div>
+      <div id="palmPhotoWrap" style="display:none"><div class="face-container"><img id="palmPhoto" class="face-photo" alt=""><div id="palmSvgOverlay" class="face-overlay"></div></div><div class="face-photo-actions"><button class="btn" onclick="retakePalmPhoto()" data-i18n="btn-retake">↺ 重拍</button><button class="btn btn-primary" onclick="readShouXiang()" data-i18n="btn-palm-read">✦ 解读手相</button></div></div>
       <div id="palmContainer"></div>
       <div id="palmUploadArea" class="face-upload-area" onclick="document.getElementById('palmPhotoInput').click()"><div class="up-icon">📷</div><div class="up-text" data-i18n="tag-palm">拍照或上传掌纹照片</div></div>
       <input type="file" id="palmPhotoInput" accept="image/*" capture="environment" onchange="handlePalmPhoto(event)">

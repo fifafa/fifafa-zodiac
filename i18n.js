@@ -48,8 +48,11 @@
     'form-gender-f':  { zh:'女',                 en:'Female',              ja:'女性' },
     'form-birth':     { zh:'出生日期',           en:'Birth Date',          ja:'生年月日' },
     'form-birth-time':{ zh:'出生时辰',           en:'Birth Time',          ja:'出生時刻' },
-    'form-submit':    { zh:'开始解读',           en:'Start Reading',       ja:'鑑定する' },
-    'form-optional':  { zh:'（选填）',           en:' (Optional)',         ja:'（任意）' },
+    'form-submit': { zh:'开始解读', en:'Start Reading', ja:'鑑定する' },
+    'form-optional': { zh:'（选填）', en:' (Optional)', ja:'（任意）' },
+    'btn-retake': { zh:'↺ 重拍', en:'↺ Retake', ja:'↺ 撮り直し' },
+    'btn-palm-read': { zh:'✦ 解读手相', en:'✦ Read Palm', ja:'✦ 手相を鑑定' },
+    'btn-face-read': { zh:'✦ 解读面相', en:'✦ Read Face', ja:'✦ 人相を鑑定' },
 
     // CTA
     'cta-start':      { zh:'开启你的命盘',       en:'Discover Your Destiny',  ja:'運命の扉を開く' },
@@ -132,7 +135,14 @@
   CURRENT_LANG = detectLang();
   var btn = document.getElementById('langBtn');
   if (btn) btn.textContent = {zh:'中', en:'EN', ja:'日'}[CURRENT_LANG];
-  applyLang();
+
+  // Apply on DOM ready (belt-and-suspenders for inline scripts that manipulate DOM)
+  function doApply() { applyLang(); }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', doApply);
+  } else {
+    doApply();
+  }
 
   console.log('[lalalin] 🌐 i18n loaded, lang:', CURRENT_LANG);
 })();
