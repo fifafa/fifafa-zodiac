@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  var GATEWAY = 'https://fifafa.xyz:8443';  // Valid Let's Encrypt cert, CORS enabled
+  var GATEWAY = 'https://fifafa.xyz';  // Cloudflare proxied (standard 443), no port needed
   var sdkLoaded = false;
   var paypalReady = false;
 

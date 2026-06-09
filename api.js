@@ -5,7 +5,7 @@
 (function() {
   'use strict';
 
-  var API_BASE = 'https://fifafa.xyz:8443';  // Valid Let's Encrypt cert, CORS enabled
+  var API_BASE = 'https://fifafa.xyz';  // Cloudflare proxied (standard 443), no port needed
   var GATEWAY = API_BASE;
   var AI_ENABLED = true;
   var LOADING_HTML = '<div class="ai-loading"><div class="ai-spinner"></div><p>AI 正在推演命盘…</p></div>';
