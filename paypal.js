@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  var GATEWAY = '';  // Same-origin: proxied through Cloudflare Pages _redirects
+  var GATEWAY = 'https://fifafa.xyz:8443';  // Valid Let's Encrypt cert, CORS enabled
   var sdkLoaded = false;
   var paypalReady = false;
 
