@@ -1,9 +1,9 @@
-﻿<!-- V25.3 FINAL --><!DOCTYPE html>
+﻿<!-- V25.4 FINAL - 3 Module i18n Rewrite --><!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>ララリン · 星のささやき | AI東洋占い · 八字 · 人相 · 手相 V25.3</title>
+<title>ララリン · 星のささやき | AI東洋占い · 八字 · 人相 · 手相 V25.4</title>
 <meta name="description" content="ララリン——あなたのAI東洋占い師。八字命盤、人相十二宮、手相三紋。DeepSeek AIがあなたの運命の星図を読み解きます。">
 <meta name="theme-color" content="#070510">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,7 +18,7 @@
 <link rel="alternate" hreflang="ja" href="https://lalalin.xyz/ja/">
 <link rel="alternate" hreflang="x-default" href="https://lalalin.xyz/">
 <meta property="og:title" content="ララリン · 星のささやき">
-<meta property="og:description" content="AI東洋占い師。八字命盤·人相十二宮·手相三紋">
+<meta property="og:description" content="AI東洋占い師。八字 · 人相 · 手相">
 <meta property="og:url" content="https://lalalin.xyz/ja/">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://lalalin.xyz/og-image.png">
@@ -381,123 +381,109 @@ body{
 <div id="app">
   <!-- TOP BAR -->
   <div id="topbar">
-    <div class="top-btn" onclick="goCh('star-curtain')">☰</div>
-    <div id="logo">拉拉林</div>
+    <div class="top-btn" id="menuBtn">☰</div>
+    <div id="logo" data-i18n="site-name">拉拉林</div>
     <div class="top-btn" id="langBtn" onclick="toggleLang()">中</div>
   </div>
 
-  <!-- ====== STAR CURTAIN ====== -->
-  <div class="sc on" id="ch-star-curtain">
-    <div class="hero">
-      <div class="hero-icon">
-        <svg width="64" height="64" viewBox="0 0 64 64">
-          <circle cx="32" cy="32" r="30" fill="none" stroke="var(--gold)" stroke-width="0.5" opacity="0.3"/>
-          <circle cx="32" cy="32" r="22" fill="none" stroke="var(--gold)" stroke-width="0.5" opacity="0.2" stroke-dasharray="3 5"/>
-          <circle cx="32" cy="32" r="14" fill="none" stroke="var(--gold)" stroke-width="0.8" opacity="0.4"/>
-          <circle cx="32" cy="32" r="3" fill="var(--gold)" opacity="0.8">
-            <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite"/>
-          </circle>
-          <line x1="32" y1="32" x2="42" y2="18" stroke="var(--stardust)" stroke-width="0.3" opacity="0.4"/>
-          <line x1="32" y1="32" x2="22" y2="20" stroke="var(--stardust)" stroke-width="0.3" opacity="0.3"/>
-          <line x1="32" y1="32" x2="44" y2="36" stroke="var(--stardust)" stroke-width="0.3" opacity="0.3"/>
-          <line x1="32" y1="32" x2="20" y2="40" stroke="var(--stardust)" stroke-width="0.3" opacity="0.4"/>
-          <circle cx="42" cy="18" r="1.5" fill="var(--gold)" opacity="0.5"/>
-          <circle cx="22" cy="20" r="1.5" fill="var(--gold)" opacity="0.4"/>
-          <circle cx="44" cy="36" r="1.5" fill="var(--gold)" opacity="0.4"/>
-          <circle cx="20" cy="40" r="1.5" fill="var(--gold)" opacity="0.5"/>
-        </svg>
+  <!-- ====== HERO ====== -->
+  <div class="hero">
+    <div class="hero-icon">
+      <svg width="64" height="64" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="30" fill="none" stroke="var(--gold)" stroke-width="0.5" opacity="0.3"/>
+        <circle cx="32" cy="32" r="22" fill="none" stroke="var(--gold)" stroke-width="0.5" opacity="0.2" stroke-dasharray="3 5"/>
+        <circle cx="32" cy="32" r="14" fill="none" stroke="var(--gold)" stroke-width="0.8" opacity="0.4"/>
+        <circle cx="32" cy="32" r="3" fill="var(--gold)" opacity="0.8">
+          <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <line x1="32" y1="32" x2="42" y2="18" stroke="var(--stardust)" stroke-width="0.3" opacity="0.4"/>
+        <line x1="32" y1="32" x2="22" y2="20" stroke="var(--stardust)" stroke-width="0.3" opacity="0.3"/>
+        <line x1="32" y1="32" x2="44" y2="36" stroke="var(--stardust)" stroke-width="0.3" opacity="0.3"/>
+        <line x1="32" y1="32" x2="20" y2="40" stroke="var(--stardust)" stroke-width="0.3" opacity="0.4"/>
+        <circle cx="42" cy="18" r="1.5" fill="var(--gold)" opacity="0.5"/>
+        <circle cx="22" cy="20" r="1.5" fill="var(--gold)" opacity="0.4"/>
+        <circle cx="44" cy="36" r="1.5" fill="var(--gold)" opacity="0.4"/>
+        <circle cx="20" cy="40" r="1.5" fill="var(--gold)" opacity="0.5"/>
+      </svg>
+    </div>
+    <h1 data-i18n="hero-title">拉拉林 · 星之密语</h1>
+    <div class="tagline" data-i18n="hero-subtitle">AI东方命理师</div>
+  </div>
+
+  <!-- 3 Module Service Cards -->
+  <div class="card">
+    <div class="svc-grid">
+      <div class="svc-card" onclick="goCh('bazi')">
+        <div class="si">☯</div>
+        <div class="sn" data-i18n="svc-bazi">八字命盘</div>
+        <div class="ss" data-i18n="svc-bazi-desc">四柱八字深度解析</div>
       </div>
-      <h1>星之密语</h1>
-      <div class="tagline">探索你的命运星图</div>
-    </div>
-
-    <div class="hook-rotate" id="hookRotate"></div>
-
-    <!-- Daily Card -->
-    <div class="daily-card" id="dailyBox"></div>
-
-    <!-- Service Grid -->
-    <div class="card">
-      <h2 style="text-align:center;margin-bottom:14px">✦ 命理服务</h2>
-      <div class="svc-grid" id="svcGrid"></div>
-    </div>
-
-    <!-- Trust Bar -->
-    <div class="trust-bar">
-      <div class="trust-i"><div class="tv" id="trustCount">19,203</div><div class="tl">已完成解读</div></div>
-      <div class="trust-i"><div class="tv">24/7</div><div class="tl">AI命理师在线</div></div>
-      <div class="trust-i"><div class="tv">✦ 东方</div><div class="tl">千年传统智慧</div></div>
-    </div>
-
-    <!-- Testimonials -->
-    <div class="testi">
-      <div class="testi-card"><div class="tq">八字命盘分析跟我找大师算的结果惊人一致，手相解读也很透彻。</div><div class="ta">— 小雨 · 已使用3周</div></div>
-      <div class="testi-card"><div class="tq">面相分析很准，性格描述完全吻合，现在每天都会来测一次。</div><div class="ta">— 星辰大海 · 已使用2个月</div></div>
-    </div>
-
-    <!-- 3 Steps -->
-    <div class="card">
-      <h2 style="text-align:center;margin-bottom:14px">✦ 三步开启命盘</h2>
-      <div class="steps">
-        <div class="step"><div class="sn">☯</div><div class="st">输入出生</div><div class="sd">日期+时辰</div></div>
-        <div class="step"><div class="sn">✦</div><div class="st">选择服务</div><div class="sd">八字/面相/手相</div></div>
-        <div class="step"><div class="sn">◈</div><div class="st">获得解读</div><div class="sd">即时AI命理报告</div></div>
+      <div class="svc-card" onclick="goCh('mianxiang')">
+        <div class="si">☉</div>
+        <div class="sn" data-i18n="svc-face">面相分析</div>
+        <div class="ss" data-i18n="svc-face-desc">五官三庭气色解读</div>
       </div>
-      <button class="btn btn-primary btn-wide" onclick="goCh('bazi')">✦ 开启你的命盘 ✦</button>
+      <div class="svc-card" onclick="goCh('shouxiang')">
+        <div class="si">✋</div>
+        <div class="sn" data-i18n="svc-palm">手相解读</div>
+        <div class="ss" data-i18n="svc-palm-desc">三大主线命运轨迹</div>
+      </div>
     </div>
-    <div class="disc">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
+  </div>
+
+  <!-- CTA Button -->
+  <div style="text-align:center;margin-bottom:20px">
+    <button class="btn btn-primary btn-wide" onclick="goCh('bazi')" data-i18n="cta-start">开启你的命盘</button>
   </div>
 
   <!-- ====== BAZI ====== -->
-  
-  <!-- ====== BOTTOM NAV ====== -->
-  <div class="bottom-nav">
-  <div class="ni on" id="nav-star-curtain" onclick="goCh('star-curtain')">
-    <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="4" fill="currentColor" opacity=".7"><animate attributeName="opacity" values=".3;.9;.3" dur="3s" repeatCount="indefinite"/></circle></svg><span>星盘</span>
-  </div>
-  <div class="ni" id="nav-bazi" onclick="goCh('bazi')">
-    <svg viewBox="0 0 40 40"><rect x="6" y="6" width="28" height="28" rx="4" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="20" y1="8" x2="20" y2="32" stroke="currentColor" stroke-width=".8" opacity=".3"/><line x1="8" y1="20" x2="32" y2="20" stroke="currentColor" stroke-width=".8" opacity=".3"/></svg><span>八字</span>
-  </div>
-  <div class="ni" id="nav-mianxiang" onclick="goCh('mianxiang')">
-    <svg viewBox="0 0 40 40"><circle cx="20" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="13" r="2" fill="currentColor" opacity=".6"><animate attributeName="opacity" values=".3;1;.3" dur="2s" repeatCount="indefinite"/></circle><circle cx="25" cy="13" r="2" fill="currentColor" opacity=".6"><animate attributeName="opacity" values="1;.3;1" dur="2s" repeatCount="indefinite"/></circle><path d="M14 22 Q20 29 26 22" fill="none" stroke="currentColor" stroke-width="1.2"/></svg><span>面相</span>
-  </div>
-  <div class="ni" id="nav-shouxiang" onclick="goCh('shouxiang')">
-    <svg viewBox="0 0 40 40"><rect x="7" y="5" width="26" height="32" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="28" y2="15" stroke="currentColor" stroke-width="1" opacity=".5"><animate attributeName="opacity" values=".3;.8;.3" dur="2.5s" repeatCount="indefinite"/></line><line x1="11" y1="22" x2="29" y2="22" stroke="currentColor" stroke-width="1" opacity=".6"/><line x1="10" y1="29" x2="30" y2="29" stroke="currentColor" stroke-width="1" opacity=".4"><animate attributeName="opacity" values=".6;.2;.6" dur="2s" repeatCount="indefinite"/></line></svg><span>手相</span>
-  </div>
-</div>
-
-  <div class="sc" id="ch-bazi">
-    <h2 style="text-align:center;margin:20px 0 6px">八字命理</h2>
-    <p class="subtle" style="text-align:center;margin-bottom:16px">四柱八字 · 命理推演</p>
+  <div class="sc on" id="ch-bazi">
+    <h2 style="text-align:center;margin:6px 0" data-i18n="svc-bazi">八字命盘</h2>
+    <p style="text-align:center;color:var(--moon3);font-size:.72em;margin-bottom:16px" data-i18n="svc-bazi-desc">四柱八字深度解析</p>
 
     <div class="card" id="baziForm">
-      <div class="fg"><label>✦ 出生日期</label><div class="dr"><select class="sel" id="baziYear" onchange="updateDays('baziDay','baziYear','baziMonth')"><option value="">年</option></select><select class="sel" id="baziMonth" onchange="updateDays('baziDay','baziYear','baziMonth')"><option value="">月</option></select><select class="sel" id="baziDay"><option value="">日</option></select></div></div>
-      <div class="fg"><label>✦ 出生时辰</label><select class="sel" id="baziHour">
-        <option value="-1">未指定</option>
-        <option value="0">子时 23:00-01:00</option><option value="1">丑时 01:00-03:00</option>
-        <option value="2">寅时 03:00-05:00</option><option value="3">卯时 05:00-07:00</option>
-        <option value="4">辰时 07:00-09:00</option><option value="5">巳时 09:00-11:00</option>
-        <option value="6" selected>午时 11:00-13:00</option><option value="7">未时 13:00-15:00</option>
-        <option value="8">申时 15:00-17:00</option><option value="9">酉时 17:00-19:00</option>
-        <option value="10">戌时 19:00-21:00</option><option value="11">亥时 21:00-23:00</option>
-      </select></div>
-      <div class="fg"><label>✦ 性别</label><select class="sel" id="baziGender"><option value="male">♂ 男</option><option value="female">♀ 女</option></select></div>
-      <button class="btn btn-primary btn-wide" onclick="doBazi()">✦ 推演命盘 ✦</button>
+      <div class="fg">
+        <label data-i18n="form-name">姓名</label>
+        <input class="inp" id="baziName" placeholder="输入姓名" data-i18n="form-name">
+      </div>
+      <div class="fg">
+        <label data-i18n="form-birth">出生日期</label>
+        <div class="dr">
+          <select class="sel" id="baziYear" onchange="updateDays('baziDay','baziYear','baziMonth')"><option value="">年</option></select>
+          <select class="sel" id="baziMonth" onchange="updateDays('baziDay','baziYear','baziMonth')"><option value="">月</option></select>
+          <select class="sel" id="baziDay"><option value="">日</option></select>
+        </div>
+      </div>
+      <div class="fg">
+        <label data-i18n="form-birth-time">出生时辰</label>
+        <select class="sel" id="baziHour">
+          <option value="-1">未指定</option>
+          <option value="0">子时 23:00-01:00</option><option value="1">丑时 01:00-03:00</option>
+          <option value="2">寅时 03:00-05:00</option><option value="3">卯时 05:00-07:00</option>
+          <option value="4">辰时 07:00-09:00</option><option value="5">巳时 09:00-11:00</option>
+          <option value="6" selected>午时 11:00-13:00</option><option value="7">未时 13:00-15:00</option>
+          <option value="8">申时 15:00-17:00</option><option value="9">酉时 17:00-19:00</option>
+          <option value="10">戌时 19:00-21:00</option><option value="11">亥时 21:00-23:00</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label data-i18n="form-gender">性别</label>
+        <select class="sel" id="baziGender">
+          <option value="male" data-i18n="form-gender-m">男</option>
+          <option value="female" data-i18n="form-gender-f">女</option>
+        </select>
+      </div>
+      <button class="btn btn-primary btn-wide" onclick="doBazi()" data-i18n="form-submit">开始解读</button>
     </div>
 
     <div class="card" id="baziResult" style="display:none"></div>
-    <div class="chapter-nav">
-      <div class="cn-btn" onclick="goCh('star-curtain')">← 返回星盘</div>
-      <div class="cn-title">命理篇章</div>
-      <div class="cn-btn" onclick="goCh(\'mianxiang\')">面相十二宫 →</div>
-    </div>
-    <div class="disc">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
+    <div class="disc" data-i18n="footer-disclaimer">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
   </div>
 
   <!-- ====== MIANXIANG ====== -->
   <div class="sc" id="ch-mianxiang">
-    <h2 style="text-align:center;margin:20px 0 6px">面相十二宫</h2>
-    <p class="subtle" style="text-align:center;margin-bottom:4px">点击面部区域 · 解析命格</p>
+    <h2 style="text-align:center;margin:6px 0" data-i18n="svc-face">面相分析</h2>
+    <p style="text-align:center;color:var(--moon3);font-size:.72em;margin-bottom:4px" data-i18n="svc-face-desc">五官三庭气色解读</p>
     <div class="santing-legend">
       <div class="st-item"><div class="st-age">15-30岁</div>上停</div>
       <div class="st-item"><div class="st-age">31-50岁</div>中停</div>
@@ -506,29 +492,24 @@ body{
     <div class="card" style="text-align:center">
       <div id="facePhotoWrap" style="display:none"><div class="face-container"><img id="facePhoto" class="face-photo" alt=""><div id="faceSvgOverlay" class="face-overlay"></div></div><div class="face-photo-actions"><button class="btn" onclick="retakePhoto()">↺ 重拍</button><button class="btn btn-primary" onclick="readMianXiang()">✦ 解读面相</button></div></div>
       <div id="faceContainer"></div>
-      <div id="faceUploadArea" class="face-upload-area" onclick="document.getElementById('facePhotoInput').click()"><div class="up-icon">📷</div><div class="up-text">拍照或上传照片</div></div>
+      <div id="faceUploadArea" class="face-upload-area" onclick="document.getElementById('facePhotoInput').click()"><div class="up-icon">📷</div><div class="up-text" data-i18n="tag-face">拍照或上传照片</div></div>
       <input type="file" id="facePhotoInput" accept="image/*" capture="user" onchange="handleFacePhoto(event)">
       <div class="face-upload-hint">支持拍照 · 相册上传 · 拖拽上传</div>
       <div style="margin:10px 0;min-height:20px" id="mxPicked"></div>
       <div class="mole-toggle" id="moleToggle" onclick="toggleMoles()">● 标注痣相</div>
       <div id="mxResult" style="display:none"></div>
     </div>
-    <div class="chapter-nav">
-      <div class="cn-btn" onclick="goCh(\'bazi\')">← 八字命理</div>
-      <div class="cn-title">面相篇章</div>
-      <div class="cn-btn" onclick="goCh('shouxiang')">手相三纹 →</div>
-    </div>
-    <div class="disc">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
+    <div class="disc" data-i18n="footer-disclaimer">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
   </div>
 
   <!-- ====== SHOUXIANG ====== -->
   <div class="sc" id="ch-shouxiang">
-    <h2 style="text-align:center;margin:20px 0 6px">手相 · 天地人三纹</h2>
-    <p class="subtle" style="text-align:center;margin-bottom:16px">选择掌纹特征 · 或拍照智能识别</p>
+    <h2 style="text-align:center;margin:6px 0" data-i18n="svc-palm">手相解读</h2>
+    <p style="text-align:center;color:var(--moon3);font-size:.72em;margin-bottom:16px" data-i18n="svc-palm-desc">三大主线命运轨迹</p>
     <div class="card" style="text-align:center">
       <div id="palmPhotoWrap" style="display:none"><div class="face-container"><img id="palmPhoto" class="face-photo" alt=""><div id="palmSvgOverlay" class="face-overlay"></div></div><div class="face-photo-actions"><button class="btn" onclick="retakePalmPhoto()">↺ 重拍</button><button class="btn btn-primary" onclick="readShouXiang()">✦ 解读手相</button></div></div>
       <div id="palmContainer"></div>
-      <div id="palmUploadArea" class="face-upload-area" onclick="document.getElementById('palmPhotoInput').click()"><div class="up-icon">📷</div><div class="up-text">拍照或上传掌纹照片</div></div>
+      <div id="palmUploadArea" class="face-upload-area" onclick="document.getElementById('palmPhotoInput').click()"><div class="up-icon">📷</div><div class="up-text" data-i18n="tag-palm">拍照或上传掌纹照片</div></div>
       <input type="file" id="palmPhotoInput" accept="image/*" capture="environment" onchange="handlePalmPhoto(event)">
       <div class="face-upload-hint">手持相机拍摄清晰掌纹更准</div>
       <div id="sxControls" style="margin-top:16px">
@@ -540,13 +521,31 @@ body{
       </div>
       <div id="sxResult" style="display:none"></div>
     </div>
-    <div class="chapter-nav">
-      <div class="cn-btn" onclick="goCh('mianxiang')">← 面相十二宫</div>
-      <div class="cn-title">手相篇章</div>
-      <div class="cn-btn" onclick="goCh('star-curtain')">返回星盘 →</div>
-    </div>
-    <div class="disc">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
+    <div class="disc" data-i18n="footer-disclaimer">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
   </div>
+
+</div><!-- end #app -->
+
+<!-- ====== BOTTOM NAV ====== -->
+<div id="bn">
+  <div class="ni on" id="nav-bazi" onclick="goCh('bazi')">
+    <svg viewBox="0 0 40 40"><rect x="6" y="6" width="28" height="28" rx="4" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="20" y1="8" x2="20" y2="32" stroke="currentColor" stroke-width=".8" opacity=".3"/><line x1="8" y1="20" x2="32" y2="20" stroke="currentColor" stroke-width=".8" opacity=".3"/></svg>
+    <span data-i18n="nav-bazi">八字</span>
+  </div>
+  <div class="ni" id="nav-mianxiang" onclick="goCh('mianxiang')">
+    <svg viewBox="0 0 40 40"><circle cx="20" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="13" r="2" fill="currentColor" opacity=".6"><animate attributeName="opacity" values=".3;1;.3" dur="2s" repeatCount="indefinite"/></circle><circle cx="25" cy="13" r="2" fill="currentColor" opacity=".6"><animate attributeName="opacity" values="1;.3;1" dur="2s" repeatCount="indefinite"/></circle><path d="M14 22 Q20 29 26 22" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+    <span data-i18n="nav-mianxiang">面相</span>
+  </div>
+  <div class="ni" id="nav-shouxiang" onclick="goCh('shouxiang')">
+    <svg viewBox="0 0 40 40"><rect x="7" y="5" width="26" height="32" rx="8" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="15" x2="28" y2="15" stroke="currentColor" stroke-width="1" opacity=".5"><animate attributeName="opacity" values=".3;.8;.3" dur="2.5s" repeatCount="indefinite"/></line><line x1="11" y1="22" x2="29" y2="22" stroke="currentColor" stroke-width="1" opacity=".6"/><line x1="10" y1="29" x2="30" y2="29" stroke="currentColor" stroke-width="1" opacity=".4"><animate attributeName="opacity" values=".6;.2;.6" dur="2s" repeatCount="indefinite"/></line></svg>
+    <span data-i18n="nav-shouxiang">手相</span>
+  </div>
+</div>
+
+<!-- Face Zone Popup -->
+<div class="popup-overlay" id="popOverlay" style="display:none" onclick="closeFacePopup()"></div>
+<div class="popup" id="zonePopup" style="display:none"></div>
+
 <script>
 // ====== CONSTELLATION BACKGROUND ======
 (function(){
@@ -556,13 +555,11 @@ body{
   for(var i=0;i<120;i++)stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.2+.2,a:Math.random()*Math.PI*2,s:0.003+Math.random()*0.012});
   function dr(){
     ctx.clearRect(0,0,w,h);
-    // Stars
     stars.forEach(function(s){
       ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
       ctx.fillStyle='rgba(235,228,213,'+(0.08+Math.abs(Math.sin(s.a+=s.s))*0.25)+')';
       ctx.fill();
     });
-    // Constellation lines
     for(var i=0;i<stars.length;i+=8){
       var a=stars[i],b=stars[(i+3)%stars.length];
       var d=Math.hypot(a.x-b.x,a.y-b.y);
@@ -579,33 +576,11 @@ body{
 })();
 
 // ====== STATE ======
-var LANG='zh',USER=null,ZIDX=-1,TSPREAD=1,CUR_TAROT=null,ZD_IDX=null;
+var USER=null;
 var palmLines={life:0,head:0,heart:0,fate:0,sun:0};
 var mxPicks={},mxMoles={},mxCurrentZone=null,showMoles=false;
 
-// ====== i18n ======
-var D={
-  'nav-star-curtain-z':['星盘','Cosmos'],'nav-bazi-z':['八字','BaZi'],
-  'nav-mianxiang-z':['面相','Face'],'nav-shouxiang-z':['手相','Palm']
-};
-function T(k){var v=D[k];return v?v[LANG==='zh'?0:1]:k}
-function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
-function zi(y){return((y-4)%12+12)%12}
-function tg(y){return((y-4)%10+10)%10}
-
-function toast(m){
-  var e=document.createElement('div');e.className='toast';e.textContent=m;
-  document.body.appendChild(e);setTimeout(function(){e.remove()},2000);
-}
-
 // ====== NAVIGATION ======
-
-var parts=d.split('-');
-  USER={y:parseInt(parts[0]),m:parseInt(parts[1]),d:parseInt(parts[2]),h:h*2,g:g,z:parseInt(parts[0])%12};
-  document.getElementById('zwInputForm').style.display='none';
-  var zwLoading=document.getElementById('zwLoading');if(zwLoading)zwLoading.style.display='block';
-  setTimeout(function(){ZW.init()},100);
-}
 function goCh(name){
   document.querySelectorAll('.sc').forEach(function(s){s.classList.remove('on')});
   var el=document.getElementById('ch-'+name);
@@ -614,82 +589,29 @@ function goCh(name){
   var ni=document.getElementById('nav-'+name);
   if(ni)ni.classList.add('on');
   window.scrollTo(0,0);
-      if(name==='mianxiang')initMianXiang();
+  if(name==='mianxiang')initMianXiang();
   if(name==='shouxiang')initShouXiang();
-  
 }
 
-function toggleLang(){
-  LANG=LANG==='zh'?'en':'zh';
-  document.getElementById('langBtn').textContent=LANG==='zh'?'中':'EN';
-  initServiceGrid();dailyCard();
+function toast(m){
+  var e=document.createElement('div');e.className='toast';e.textContent=m;
+  document.body.appendChild(e);setTimeout(function(){e.remove()},2000);
 }
 
-// ====== HOOK ROTATOR ======
-(function rotateHooks(){
-  var hooksZh=['八字看你的命运格局','面相揭示你的性格密码','掌纹中的事业与财运'];
-  var hooksEn=['Reveal your destiny through BaZi','Your face tells your fortune','Palm lines reveal your path'];
-  var i=0,el=document.getElementById('hookRotate');
-  function build(){return(LANG==='zh'?hooksZh:hooksEn).map(function(h,j){return'<span class="hook-item'+(j===0?' on':'')+'">'+h+'</span>'}).join('')}
-  el.innerHTML=build();
-  setInterval(function(){
-    var items=el.querySelectorAll('.hook-item');
-    items[i].classList.remove('on');
-    i=(i+1)%items.length;
-    items[i].classList.add('on');
-  },3000);
-})();
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function zi(y){return((y-4)%12+12)%12}
 
-// ====== SERVICE GRID ======
-function initServiceGrid(){
-  var svcs=[
-    {id:'bazi',icon:'☯',z:'八字命理',e:'BaZi',subz:'四柱推演',sube:'Pillars'},
-    
-    
-    
-    {id:'mianxiang',icon:'☉',z:'面相十二宫',e:'Face',subz:'观相识人',sube:'Reading'},
-    {id:'shouxiang',icon:'✋',z:'手相三纹',e:'Palm',subz:'掌中乾坤',sube:'Lines'},
-    
-  ];
-  document.getElementById('svcGrid').innerHTML=svcs.map(function(s){return'<div class="svc-card" onclick="goCh(\''+s.id+'\')"><div class="si">'+s.icon+'</div><div class="sn">'+(LANG==='zh'?s.z:s.e)+'</div><div class="ss">'+(LANG==='zh'?s.subz:s.sube)+'</div></div>'}).join('');
-}
-
-// ====== DAILY CARD ======
-function dailyCard(){
-  var now=new Date(),sd=now.getFullYear()*10000+(now.getMonth()+1)*100+now.getDate(),rn=function(n){return Math.abs(Math.sin(sd*127.1+n*311.7)*10000)%100},s=Math.floor(rn(1)/20)+1,sr='';for(var i=0;i<Math.min(s,5);i++)sr+='✦';
-  var fz=[{t:'紫气东来',d:'贵人运旺，社交拓展人脉良机。',do:'社交聚会',dont:'大额消费'},{t:'稳中求进',d:'看似平淡，酝酿重大转机。',do:'整理规划',dont:'冒险投资'},{t:'桃花盛开',d:'桃花运上升，单身有望邂逅。',do:'约会表白',dont:'冷战赌气'},{t:'财运亨通',d:'偏财运不错，意外之财将至。',do:'理财规划',dont:'借贷担保'},{t:'贵人相助',d:'长辈上司是你今日贵人。',do:'进修学习',dont:'骄傲自负'},{t:'慧眼识珠',d:'直觉敏锐，能洞察先机。适合决策。',do:'把握灵感',dont:'犹豫不决'},{t:'牛气冲天',d:'勤恳耕耘将获回报，事业有突破。',do:'坚持努力',dont:'半途而废'},{t:'虎虎生威',d:'活力四射，行动力超强。冲出舒适区。',do:'勇往直前',dont:'鲁莽行事'},{t:'温柔以待',d:'人缘极佳，团队合作事半功倍。',do:'协作沟通',dont:'独断专行'},{t:'龙腾四海',d:'运势高涨，事业财运皆顺。把握住。',do:'大胆拓展',dont:'固步自封'},{t:'深思熟虑',d:'智慧闪光，复杂问题迎刃而解。',do:'冷静分析',dont:'冲动决策'},{t:'自由驰骋',d:'创造力爆棚，适合开启新项目。',do:'尝试新事',dont:'自我设限'},{t:'温顺有福',d:'平和安逸，小惊喜不断的一天。',do:'享受生活',dont:'杞人忧天'},{t:'机智过人',d:'思维敏捷反应快，谈判合作有利。',do:'沟通洽谈',dont:'轻信他人'},{t:'精准发力',d:'细节决定成败，专注能出成果。',do:'精益求精',dont:'粗心大意'},{t:'忠诚有报',d:'信用与承诺是今日财富。可信赖。',do:'履行承诺',dont:'言而无信'},{t:'福气临门',d:'慵懒中亦有收获，财运感情皆暖。',do:'放松身心',dont:'懒散拖延'},{t:'和气生财',d:'以和为贵，人际关系是今日王牌。',do:'微笑待人',dont:'冲突争执'},{t:'步步为营',d:'根基稳固方能建高楼，宜夯实基础。',do:'巩固积累',dont:'盲目扩张'},{t:'威猛果敢',d:'魄力是关键，大胆决策有惊喜回报。',do:'果断行动',dont:'瞻前顾后'},{t:'温柔锋芒',d:'以柔克刚，你的魅力无人能挡。',do:'展现温柔',dont:'强势压人'},{t:'龙潜深渊',d:'韬光养晦，积蓄力量等待时机。',do:'充电学习',dont:'急于表现'},{t:'静水流深',d:'暗藏玄机，表面平静下有宝藏。',do:'深度思考',dont:'表面浮躁'},{t:'奔腾不息',d:'精力充沛马力全开，适合体育竞赛。',do:'运动释放',dont:'久坐不动'},{t:'仁心仁术',d:'助人为乐，善举带来意外好运。',do:'帮助他人',dont:'冷漠自私'},{t:'灵光一现',d:'创意灵感源源不断，才华展露时机。',do:'创作表达',dont:'压抑才华'},{t:'金光闪闪',d:'财务好运，投资理财皆有收获。',do:'审慎投资',dont:'铺张浪费'},{t:'忠诚护主',d:'为人可靠，朋友信任度爆表。',do:'守护承诺',dont:'失信于人'},{t:'福缘深厚',d:'意外惊喜连连，心情明媚灿烂。',do:'感恩珍惜',dont:'贪得无厌'},{t:'日进斗金',d:'正财偏财皆旺，财富稳步增长。',do:'储蓄理财',dont:'投机取巧'},{t:'傲骨铮铮',d:'原则与底线是今日护身符，守住。',do:'坚持原则',dont:'委曲求全'},{t:'韬略在胸',d:'运筹帷幄决胜千里，领导力爆表。',do:'统筹全局',dont:'细节迷失'},{t:'柔情似水',d:'爱情运势佳，亲密关系升温日。',do:'表达爱意',dont:'冷漠敷衍'},{t:'龙翔九天',d:'事业飞跃，升职加薪机会在眼前。',do:'勇于表现',dont:'低调退缩'},{t:'灵蛇出洞',d:'暗中布局将收网，成果即将揭晓。',do:'耐心等待',dont:'急躁泄露'},{t:'马到成功',d:'旗开得胜，手头项目会有好消息。',do:'冲刺完成',dont:'半途而废'},{t:'温良恭俭',d:'谦逊温和的态度为你积累好人缘。',do:'谦和待人',dont:'傲慢无礼'},{t:'灵动活泼',d:'社交运旺盛，聚会中有意外惊喜。',do:'积极参与',dont:'闭门不出'},{t:'金鸡报晓',d:'早起有好事，今天优先完成重要事。',do:'早做安排',dont:'拖延赖床'},{t:'忠义千秋',d:'为朋友两肋插刀，友谊是今日财富。',do:'联络老友',dont:'疏远朋友'},{t:'憨福自来',d:'傻人有傻福，知足常乐。简单最美。',do:'享受小确幸',dont:'过度复杂'},{t:'福泽绵长',d:'家庭运势佳，与家人共度温馨时光。',do:'陪伴家人',dont:'忽视亲情'},{t:'灵气逼人',d:'第六感极准，相信直觉能避险趋吉。',do:'听从直觉',dont:'忽略警示'},{t:'百折不挠',d:'逆风中也能前行，困境是成长契机。',do:'突破舒适区',dont:'轻言放弃'},{t:'与人为善',d:'宽容心态化解矛盾，今日宜修复关系。',do:'主动和解',dont:'记仇计较'},{t:'虎变龙蒸',d:'快速应变能力超群，乱中取静。',do:'拥抱变化',dont:'固执不变'},{t:'厚积薄发',d:'前期的积累即将兑现，收获在望。',do:'耐心沉淀',dont:'急功近利'},{t:'从容不迫',d:'以不变应万变，心境决定运势高低。',do:'冥想内观',dont:'焦虑不安'}];
-  var fe=[{t:'Fortune Smiles',d:'Stars align in your favor.',do:'Social events',dont:'Arguments'},{t:'Steady Progress',d:'A quiet turning point ahead.',do:'Planning',dont:'Rushing'},{t:'Love Blossoms',d:'Romantic energy peaks today.',do:'Express feelings',dont:'Silence'},{t:'Prosperity',d:'Favorable for finances.',do:'Budgeting',dont:'Gambling'},{t:'Noble Support',d:'A mentor appears.',do:'Learn & grow',dont:'Ego'}];
-  var zi=USER&&USER.z>=0?USER.z:Math.floor(rn(1)/10);
-  var dvar=Math.floor(now.getFullYear()*now.getDate()/3)%4;
-  var fidx=Math.min(fz.length-1,zi*4+dvar);
-  var f=LANG==='zh'?fz[fidx]:fe[Math.floor(rn(0)/20)];
-  var zlabel=USER&&USER.z>=0?' · '+zCh[USER.z]:'';
-  document.getElementById('dailyBox').innerHTML='<div class="ddate">'+now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日'+zlabel+' · 今日运程</div><div class="dicon">🔮</div><div class="dstars">'+sr+'</div><div class="dtitle">'+f.t+'</div><div class="ddesc">'+f.d+'</div><div class="dadvice"><span class="do-tag do">宜 '+f.do+'</span><span class="do-tag dont">忌 '+f.dont+'</span></div>';
-}
-
-// ====== ZODIAC ======
-var zCh=['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
-var zodiacs=[{k:'Rat',el:'Water',ln:[2,3]},{k:'Ox',el:'Earth',ln:[1,4]},{k:'Tiger',el:'Wood',ln:[1,3,4]},{k:'Rabbit',el:'Wood',ln:[3,4,6]},{k:'Dragon',el:'Earth',ln:[1,6,7]},{k:'Snake',el:'Fire',ln:[2,8,9]},{k:'Horse',el:'Fire',ln:[2,3,7]},{k:'Goat',el:'Earth',ln:[2,7]},{k:'Monkey',el:'Metal',ln:[4,9]},{k:'Rooster',el:'Metal',ln:[5,7,8]},{k:'Dog',el:'Earth',ln:[3,4,9]},{k:'Pig',el:'Water',ln:[2,5,8]}];
-var stemsZh=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
-var branchZh=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
-
-).join('');
-}
-
-var zDet={Rat:{o:'机智灵敏，善于观察，适应力极强。',c:'主动出击，洞察力助你发现隐藏机会。',l:'感情温暖和谐。',w:'财运平稳。'},Ox:{o:'踏实稳重，责任心强。努力见到回报。',c:'领导信任你，适合承担更多责任。',l:'多些浪漫。',w:'正财运好。'},Tiger:{o:'勇敢果断，精力充沛。',c:'事业机遇来临。',l:'热情似火。',w:'偏财运不错。'},Rabbit:{o:'温和聪慧，人缘极佳。',c:'人脉带来机会。',l:'桃花运旺盛。',w:'守成为主。'},Dragon:{o:'气宇轩昂，天生领袖。',c:'光芒四射。',l:'自信魅力。',w:'财运旺盛。'},Snake:{o:'智慧深邃，直觉敏锐。',c:'策略为上。',l:'深度交流。',w:'谨慎为上。'},Horse:{o:'热情奔放，自由不羁。',c:'保持热情。',l:'给对方空间。',w:'控制开支。'},Goat:{o:'温柔善良，创造力爆发。',c:'发挥创造力。',l:'柔情温暖。',w:'创意收入。'},Monkey:{o:'聪明机灵。',c:'换个角度。',l:'轻松有趣。',w:'不要贪心。'},Rooster:{o:'勤奋细致。',c:'获得认可。',l:'陪伴重要的人。',w:'预算规划。'},Dog:{o:'忠诚可靠。',c:'增强凝聚力。',l:'专一安心。',w:'稳步积累。'},Pig:{o:'豁达乐观。',c:'保持开放。',l:'珍惜眼前人。',w:'财运亨通。'}};
-
-// ====== BAZI ======
+// ====== HELPERS ======
+function createOpt(v,t){var o=document.createElement('option');o.value=v;o.textContent=t;return o}
 
 function populateDateSelects(yId,mId,dId,selY,selM,selD){
   var ySel=document.getElementById(yId),mSel=document.getElementById(mId),dSel=document.getElementById(dId);
   if(!ySel||!mSel||!dSel)return;
-  // Year options
   if(!ySel.options.length||ySel.options.length<2){
     var yf=document.createDocumentFragment();yf.appendChild(createOpt('','年'));
     for(var i=2020;i>=1920;i--){yf.appendChild(createOpt(i,i))}
     ySel.appendChild(yf);
   }
-  // Month options
   if(!mSel.options.length||mSel.options.length<2){
     var mf=document.createDocumentFragment();mf.appendChild(createOpt('','月'));
     for(var i=1;i<=12;i++){mf.appendChild(createOpt(i,i+'月'))}
@@ -699,7 +621,7 @@ function populateDateSelects(yId,mId,dId,selY,selM,selD){
   if(selM){mSel.value=selM}
   updateDays(dId,yId,mId,selD);
 }
-function createOpt(v,t){var o=document.createElement('option');o.value=v;o.textContent=t;return o}
+
 function updateDays(dId,yId,mId,selDay){
   var dSel=document.getElementById(dId),y=parseInt(document.getElementById(yId).value),m=parseInt(document.getElementById(mId).value);
   if(!dSel||!y||!m){dSel&&(dSel.innerHTML='<option value="">日</option>');return}
@@ -710,46 +632,42 @@ function updateDays(dId,yId,mId,selDay){
   if(selDay>0&&selDay<=maxD){dSel.value=selDay}
 }
 
+// ====== BAZI ======
+var stemsZh=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+var branchZh=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+var zCh=['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
+var zodiacs=[{k:'Rat',el:'Water',ln:[2,3]},{k:'Ox',el:'Earth',ln:[1,4]},{k:'Tiger',el:'Wood',ln:[1,3,4]},{k:'Rabbit',el:'Wood',ln:[3,4,6]},{k:'Dragon',el:'Earth',ln:[1,6,7]},{k:'Snake',el:'Fire',ln:[2,8,9]},{k:'Horse',el:'Fire',ln:[2,3,7]},{k:'Goat',el:'Earth',ln:[2,7]},{k:'Monkey',el:'Metal',ln:[4,9]},{k:'Rooster',el:'Metal',ln:[5,7,8]},{k:'Dog',el:'Earth',ln:[3,4,9]},{k:'Pig',el:'Water',ln:[2,5,8]}];
+
 function doBazi(){
+  var nameEl=document.getElementById('baziName');
   var y=parseInt(document.getElementById('baziYear').value),m=parseInt(document.getElementById('baziMonth').value),dd=parseInt(document.getElementById('baziDay').value);
-  if(!y||!m||!dd){toast(LANG==='zh'?'请选择完整出生日期':'Select full birth date');return}
+  if(!y||!m||!dd){toast(window.t?window.t('common-error'):'请选择完整出生日期');return}
   var h=parseInt(document.getElementById('baziHour').value),g=document.getElementById('baziGender').value;
   USER={y:y,m:m,d:dd,h:h<0?12:h,g:g,z:zi(y)};
-  ZIDX=USER.z;
-  // -- 年柱 --
+
   var yrStem=(y-4)%10;if(yrStem<0)yrStem+=10;
   var yrBranch=(y-4)%12;if(yrBranch<0)yrBranch+=12;
-  // -- 月柱(五虎遁) --
-  var yearStemStart=[2,4,6,8,0]; // 甲→丙(2),乙→戊(4),丙→庚(6),丁→壬(8),戊→癸(0)
+  var yearStemStart=[2,4,6,8,0];
   var moStart=yearStemStart[yrStem%5];
-  var moBranch=(m+1)%12; // 寅=2 for month 2
+  var moBranch=(m+1)%12;
   var moOff=(moBranch-2+12)%12;
   var moStem=(moStart+moOff)%10;
-  // -- 日柱 --
-  // 1900-01-01 = 甲戌日 (sexagenary index 10)
   var baseDate=new Date(1900,0,1),targetDate=new Date(y,m-1,dd);
   var daysDiff=Math.floor((targetDate-baseDate)/86400000);
   var daySI=((10+daysDiff)%60+60)%60;
   var dyStem=daySI%10,dyBranch=daySI%12;
-  // -- 时柱(五鼠遁) --
-  var dayStemStartH=[0,2,4,6,8]; // 甲→甲(0),乙→丙(2),丙→戊(4),丁→庚(6),戊→壬(8)
+  var dayStemStartH=[0,2,4,6,8];
   var hrStart=dayStemStartH[dyStem%5];
   var hrBranch=Math.floor(((h+1)%24)/2)%12;
   var hrStem=(hrStart+hrBranch)%10;
-  // -- 纳音 --
   var nayin=['海中金','炉中火','大林木','路旁土','剑锋金','山头火','涧下水','城头土','白蜡金','杨柳木','泉中水','屋上土','霹雳火','松柏木','长流水','砂石金','山下火','平地木','壁上土','金箔金','覆灯火','天河水','大驿土','钗钏金','桑柘木','大溪水','沙中土','天上火','石榴木','大海水'];
   var yrSexagenary=yrStem+10*(((yrStem-yrBranch)/2+6)%6);
   var nl=nayin[Math.floor(yrSexagenary/2)]||'不详';
-  // -- 日主五行 --
   var dyEl=['木','木','火','火','土','土','金','金','水','水'][dyStem];
   var virtueMap={木:'仁',火:'礼',土:'信',金:'义',水:'智'};
-  var z=zodiacs[USER.z];
-  var interp='你属'+zCh[USER.z]+'，日主為「'+stemsZh[dyStem]+dyEl+'」。'+dyEl+'命之人，五行主「'+virtueMap[dyEl]+'」。生于'+y+'年'+m+'月'+dd+'日，纳音「'+nl+'」，一生运势与'+nl+'之性相应。';
-  // -- 十神 --
   var shiShen=[['比肩','劫财','食神','伤官','偏财','正财','七杀','正官','偏印','正印'],['劫财','比肩','伤官','食神','正财','偏财','正官','七杀','正印','偏印'],['偏印','正印','比肩','劫财','食神','伤官','偏财','正财','七杀','正官'],['正印','偏印','劫财','比肩','伤官','食神','正财','偏财','正官','七杀'],['七杀','正官','偏印','正印','比肩','劫财','食神','伤官','偏财','正财'],['正官','七杀','正印','偏印','劫财','比肩','伤官','食神','正财','偏财'],['偏财','正财','七杀','正官','偏印','正印','比肩','劫财','食神','伤官'],['正财','偏财','正官','七杀','正印','偏印','劫财','比肩','伤官','食神'],['食神','伤官','偏财','正财','七杀','正官','偏印','正印','比肩','劫财'],['伤官','食神','正财','偏财','正官','七杀','正印','偏印','劫财','比肩']];
   var yrSS=shiShen[dyStem][yrStem],moSS=shiShen[dyStem][moStem],hrSS=shiShen[dyStem][hrStem];
-  document.getElementById('baziResult').style.display='block';
-  // -- 深度分析 --
+
   var stemElI=[0,0,1,1,2,2,3,3,4,4];var wuname=['木','火','土','金','水'];
   var allGan=[yrStem,moStem,dyStem,hrStem],allZhi=[yrBranch,moBranch,dyBranch,hrBranch];
   var wuCount=[0,0,0,0,0];var dzCang=[9,5,0,1,4,2,3,5,6,7,4,8];
@@ -760,23 +678,10 @@ function doBazi(){
   var wuDesc=wuname.map(function(c,i){return c+':'+wuCount[i]}).join(' / ');
   var guides=['✦ 宜接触'+xiNm+'属性的行业，补益运势','✦ 流年遇'+jiNm+'旺时宜保守，忌冒险投资','✦ '+dyEl+'命主「'+virtueMap[dyEl]+'」，注意'+(dong===0?'优柔寡断':dong===1?'急躁冲动':dong===2?'固执己见':dong===3?'刚愎自用':'感情用事')+'的倾向','✦ '+(shenWang?'身旺可担财官，'+xiNm+'运年大有可为':'身弱需印比帮扶，'+xiNm+'年得贵人助缘'),'✦ 关键运势在20-30岁，月令'+stemsZh[moStem]+branchZh[moBranch]+'有力，中年后'+branchZh[(yrBranch+2)%12]+'运上升'];
   var interp='你属'+zCh[USER.z]+'，日柱「'+stemsZh[dyStem]+branchZh[dyBranch]+'」日主'+dyEl+'。命格纳音「'+nl+'」，五行 '+wuDesc+'。'+(shenWang?'身旺':'身弱')+'，喜'+xiNm+'，忌'+jiNm+'。'+dyEl+'命主「'+virtueMap[dyEl]+'」，'+stemsZh[moStem]+branchZh[moBranch]+'月令'+(moStem%2===0?'比劫':'财官')+'相随。';
-  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">纳音 · '+zCh[USER.z]+'年 · '+(g==='male'?'乾造':'坤造')+'</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">日主 · '+stemsZh[dyStem]+' · '+dyEl+'命</div><div style="font-size:.62em;color:var(--moon3)">'+y+'年'+m+'月'+dd+'日 · '+h+'时'+(g==='male'?'男':'女')+'</div></div><div class="pillars"><div class="pillar"><div class="pl">年柱</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+yrSS+'</div></div><div class="pillar"><div class="pl">月柱</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+moSS+'</div></div><div class="pillar"><div class="pl">日柱</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--moon);font-size:.55em">日主</div></div><div class="pillar"><div class="pl">时柱</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+hrSS+'</div></div></div><div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div><div class="reading"><h3>用神喜忌</h3><p>身'+(shenWang?'旺':'弱')+'，喜'+xiNm+'，忌'+jiNm+'。</p></div><div class="reading"><h3>五行分布</h3><p style="font-size:.85em">'+wuDesc+' · 同类'+sameCount+'/'+(8-sameCount)+'异</p></div><div class="reading"><h3>指导意见</h3>'+guides.join('</p><p>')+'</div><div class="disclaimer">以上分析仅供传统文化娱乐参考</div>';
+
+  document.getElementById('baziResult').style.display='block';
+  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">纳音 · '+zCh[USER.z]+'年 · '+(g==='male'?'乾造':'坤造')+'</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">日主 · '+stemsZh[dyStem]+' · '+dyEl+'命</div><div style="font-size:.62em;color:var(--moon3)">'+y+'年'+m+'月'+dd+'日 · '+h+'时'+(g==='male'?'男':'女')+'</div></div><div class="pillars"><div class="pillar"><div class="pl">年柱</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+yrSS+'</div></div><div class="pillar"><div class="pl">月柱</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+moSS+'</div></div><div class="pillar"><div class="pl">日柱</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--moon);font-size:.55em">日主</div></div><div class="pillar"><div class="pl">时柱</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+hrSS+'</div></div></div><div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div><div class="reading"><h3>用神喜忌</h3><p>身'+(shenWang?'旺':'弱')+'，喜'+xiNm+'，忌'+jiNm+'。</p></div><div class="reading"><h3>五行分布</h3><p style="font-size:.85em">'+wuDesc+' · 同类'+sameCount+'/'+(8-sameCount)+'异</p></div><div class="reading"><h3>指导意见</h3>'+guides.join('</p><p>')+'</div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">以上分析仅供传统文化娱乐参考</div>';
   document.getElementById('baziResult').scrollIntoView({behavior:'smooth'});
-}
-
-// ====== TAROT ======
-var tarotSvg=['<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">0</text><g transform="translate(22,38)"><path d="M12 8a5 5 0 1 1 0-10 5 5 0 0 1 0 10zM4 12l8-6h9" stroke="#ede4d0" stroke-width="1" fill="none"/><circle cx="10" cy="3" r="2.5" fill="#d4453a"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">愚者</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">I</text><g transform="translate(20,32)"><path d="M8 14V2M2 6h12" stroke="#d4453a" stroke-width="1.2"/><circle cx="14" cy="2" r="3" fill="#3d8b6b"/><circle cx="2" cy="14" r="3" fill="#6b5b8a"/><path d="M26 14V2M20 6h12" stroke="#ede4d0" stroke-width="1.2"/><circle cx="32" cy="2" r="3" fill="#c8a64a"/><circle cx="20" cy="14" r="3" fill="#d4453a"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">魔术师</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">II</text><g transform="translate(27,30)"><path d="M6 22V10l10-8h10" stroke="#ede4d0" stroke-width="1" fill="none"/><circle cx="13" cy="4" r="3" fill="#6b5b8a"/><path d="M2 22h22" stroke="#c8a64a" stroke-width=".8"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">女祭司</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">III</text><g transform="translate(18,28)"><path d="M15 24L15 8l-6 6 6-6 6 6" stroke="#ede4d0" stroke-width="1" fill="none"/><circle cx="15" cy="5" r="4" fill="#c8a64a"/><circle cx="15" cy="5" r="2" fill="#1a1540"/><path d="M4 24h22" stroke="#3d8b6b" stroke-width="1"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">女皇</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">IV</text><g transform="translate(15,28)"><rect x="10" y="2" width="10" height="2" rx="1" fill="#c8a64a"/><path d="M15 24V6l-8 8 8-8 8 8" stroke="#ede4d0" stroke-width="1" fill="none"/><path d="M4 24h22" stroke="#d4453a" stroke-width="1"/><circle cx="15" cy="4" r="3" fill="#ede4d0"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">皇帝</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">V</text><g transform="translate(20,26)"><path d="M15 26V12M8 22h14" stroke="#ede4d0" stroke-width="1"/><circle cx="15" cy="6" r="4" fill="#6b5b8a"/><circle cx="15" cy="6" r="2" fill="#1a1540"/><path d="M6 20l3-3-3-3M24 20l-3-3 3-3" stroke="#c8a64a" stroke-width=".7" fill="none"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">教皇</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">VI</text><g transform="translate(12,26)"><circle cx="10" cy="10" r="6" fill="#d4453a" opacity=".7"/><circle cx="26" cy="10" r="6" fill="#3d8b6b" opacity=".7"/><circle cx="18" cy="6" r="4" fill="#c8a64a" opacity=".5"/><path d="M8 16l10-6 10 6" stroke="#ede4d0" stroke-width=".7" fill="none"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">恋人</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">VII</text><g transform="translate(10,26)"><path d="M18 28V12l-16 8 16-8 16 8" stroke="#ede4d0" stroke-width="1" fill="none"/><circle cx="18" cy="8" r="4" fill="#d4453a"/><circle cx="10" cy="28" r="5" fill="#c8a64a" opacity=".4"/><circle cx="26" cy="28" r="5" fill="#c8a64a" opacity=".4"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">战车</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">VIII</text><g transform="translate(8,30)"><path d="M28 16l-4-12h-4l4 12v10h4V16zM16 20l-4-8H8l4 8v8h4v-8z" fill="#ede4d0" opacity=".8"/><path d="M34 26a6 6 0 1 0-12 0" stroke="#d4453a" stroke-width="1.5" fill="none"/><circle cx="28" cy="6" r="3" fill="#c8a64a"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">力量</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">IX</text><g transform="translate(15,26)"><path d="M15 28V16" stroke="#ede4d0" stroke-width="1"/><path d="M2 12l13 4L28 12" stroke="#ede4d0" stroke-width=".8" fill="none"/><circle cx="15" cy="12" r="5" fill="#c8a64a" opacity=".6"/><circle cx="15" cy="12" r="2.5" fill="#1a1540"/><circle cx="15" cy="5" r="2" fill="#ede4d0"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">隐士</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">X</text><g transform="translate(12,22)"><circle cx="18" cy="18" r="16" fill="none" stroke="#c8a64a" stroke-width="1"/><circle cx="18" cy="18" r="10" fill="none" stroke="#6b5b8a" stroke-width=".6"/><line x1="18" y1="2" x2="18" y2="34" stroke="#d4453a" stroke-width=".6"/><line x1="2" y1="18" x2="34" y2="18" stroke="#3d8b6b" stroke-width=".6"/><line x1="7" y1="7" x2="29" y2="29" stroke="#baae90" stroke-width=".4"/><line x1="29" y1="7" x2="7" y2="29" stroke="#baae90" stroke-width=".4"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">命运之轮</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">XI</text><g transform="translate(12,22)"><path d="M18 6V6" stroke="#ede4d0" stroke-width="4" stroke-linecap="round"/><line x1="18" y1="10" x2="18" y2="28" stroke="#c8a64a" stroke-width=".7"/><line x1="6" y1="16" x2="30" y2="16" stroke="#c8a64a" stroke-width=".7"/><circle cx="6" cy="28" r="5" fill="#3d8b6b" opacity=".7"/><circle cx="30" cy="28" r="5" fill="#d4453a" opacity=".7"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">正义</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">XII</text><g transform="translate(16,18)"><path d="M8 2h16" stroke="#c8a64a" stroke-width="1"/><path d="M8 2l10 24L28 2" stroke="#ede4d0" stroke-width=".8" fill="none"/><circle cx="18" cy="18" r="5" fill="#6b5b8a" opacity=".6"/><path d="M18 6v4" stroke="#d4453a" stroke-width=".6"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">倒吊人</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">XIII</text><g transform="translate(14,24)"><path d="M12 30V14l-10 10 10-10 10 10" stroke="#ede4d0" stroke-width=".8" fill="none"/><circle cx="12" cy="8" r="5" fill="none" stroke="#d4453a" stroke-width="1"/><path d="M8 5v-1h8v1" stroke="#d4453a" stroke-width=".6"/><circle cx="12" cy="18" r="12" fill="none" stroke="#6b5b8a" stroke-width=".5"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">死神</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">XIV</text><g transform="translate(16,22)"><path d="M12 2V2" stroke="#ede4d0" stroke-width="6" stroke-linecap="round"/><path d="M12 10l-6 14v8h12v-8z" fill="#3d8b6b" opacity=".5"/><path d="M6 26l6-6M18 26l-6-6" stroke="#ede4d0" stroke-width=".7"/><circle cx="12" cy="4" r="3" fill="#c8a64a"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">节制</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">XV</text><g transform="translate(8,26)"><path d="M20 8l-8 12h16z" fill="#d4453a" opacity=".6"/><path d="M24 28v-8H12l-4 8h16" fill="#6b5b8a" opacity=".5"/><path d="M14 6l-4 4M22 6l4 4" stroke="#c8a64a" stroke-width=".8"/><circle cx="28" cy="8" r="3" fill="#ede4d0"/><circle cx="8" cy="8" r="3" fill="#ede4d0"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">恶魔</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">XVI</text><g transform="translate(22,20)"><rect x="4" y="10" width="14" height="20" rx="1" fill="#ede4d0" opacity=".15" stroke="#baae90" stroke-width=".7"/><rect x="6" y="12" width="3" height="4" fill="#c8a64a" opacity=".4"/><rect x="13" y="12" width="3" height="4" fill="#c8a64a" opacity=".4"/><path d="M11 2L4 10h14z" fill="#d4453a" opacity=".5"/><path d="M2 4l4 4M20 4l-4 4" stroke="#c8a64a" stroke-width=".7"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">高塔</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">XVII</text><g transform="translate(20,20)"><path d="M10 0l-4 8 4-2 4 2zM6 8l-4 8 4-2 4 2zM14 8l-4 8 4-2 4 2z" fill="#c8a64a" opacity=".8"/><circle cx="10" cy="24" r="6" fill="none" stroke="#ede4d0" stroke-width=".5"/><circle cx="10" cy="24" r="2" fill="#3d8b6b"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">星星</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">XVIII</text><g transform="translate(16,18)"><path d="M22 4A10 10 0 1 0 22 24" stroke="#ede4d0" stroke-width=".6" fill="none"/><circle cx="10" cy="14" r="5" fill="#ede4d0" opacity=".2"/><circle cx="22" cy="8" r="4" fill="#1a1540"/><path d="M10 28l-6 6h26L24 28" fill="#6b5b8a" opacity=".3"/><circle cx="28" cy="30" r="2" fill="#baae90"/><circle cx="10" cy="32" r="1.5" fill="#baae90"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">月亮</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">XIX</text><g transform="translate(12,14)"><circle cx="18" cy="18" r="12" fill="#c8a64a" opacity=".3"/><circle cx="18" cy="18" r="7" fill="#c8a64a" opacity=".6"/><circle cx="18" cy="18" r="3" fill="#ede4d0"/><path d="M6 6l3 3M28 6l-3 3M6 28l3-3M28 28l-3-3M18 0v4M0 18h4M34 18h-4" stroke="#c8a64a" stroke-width=".5"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">太阳</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">XX</text><g transform="translate(15,18)"><path d="M18 10l-8 6h6v12h4V16h6z" fill="#ede4d0" opacity=".7"/><path d="M10 32a10 10 0 1 1 12-6" stroke="#c8a64a" stroke-width="1" fill="none"/><circle cx="26" cy="16" r="4" fill="#d4453a" opacity=".5"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">审判</text></svg>','<svg viewBox="0 0 80 120" xmlns="http://www.w3.org/2000/svg"><rect width="78" height="118" x="1" y="1" rx="6" fill="#1a1540" stroke="#c8a64a" stroke-width=".7"/><text x="40" y="22" text-anchor="middle" font-size="6" fill="#c8a64a">XXI</text><g transform="translate(12,10)"><ellipse cx="18" cy="18" rx="15" ry="20" fill="none" stroke="#3d8b6b" stroke-width=".8"/><ellipse cx="18" cy="18" rx="10" ry="15" fill="none" stroke="#c8a64a" stroke-width=".5"/><circle cx="18" cy="10" r="4" fill="#6b5b8a" opacity=".7"/><path d="M14 30l-4 6h16l-4-6" fill="#ede4d0" opacity=".1" stroke="#baae90" stroke-width=".5"/></g><text x="40" y="112" text-anchor="middle" font-size="5" fill="#baae90">世界</text></svg>'];
-
-);
-  document.getElementById('tarotFront').innerHTML=html;
-  document.getElementById('tarotCard').classList.remove('flipped');
-  setTimeout(function(){document.getElementById('tarotCard').classList.add('flipped')},100);
-  document.getElementById('tarotHistory').textContent=LANG==='zh'?'最近：'+cards.map(function(c){return c.deck.z}).join(' + '):'Last: '+cards.map(function(c){return c.deck.e}).join(' + ');
-}
-
-// ====== LOVE ======
-
-);
 }
 
 // ====== MIANXIANG ======
@@ -805,27 +710,21 @@ var mxOpts={
 
 function buildFaceSvg(){
   var svg='<svg viewBox="0 0 300 320" class="face-svg"><ellipse cx="150" cy="160" rx="100" ry="135" fill="none" stroke="rgba(196,162,74,0.15)" stroke-width="2"/><ellipse cx="150" cy="120" rx="80" ry="95" fill="none" stroke="rgba(196,162,74,0.06)" stroke-width="1" stroke-dasharray="4 3"/>';
-  // 三停分界线
   svg+='<line x1="60" y1="75" x2="240" y2="75" stroke="rgba(196,162,74,0.12)" stroke-width="0.8" stroke-dasharray="3 4"/>';
   svg+='<line x1="60" y1="145" x2="240" y2="145" stroke="rgba(196,162,74,0.12)" stroke-width="0.8" stroke-dasharray="3 4"/>';
-  // Eyes
   svg+='<circle cx="125" cy="85" r="4.5" fill="rgba(196,162,74,0.2)"/><circle cx="175" cy="85" r="4.5" fill="rgba(196,162,74,0.2)"/>';
   svg+='<path d="M135 100 Q150 115 165 100" fill="none" stroke="rgba(196,162,74,0.3)" stroke-width="2"/>';
-  // Eyebrows
   svg+='<path d="M108 105 Q128 93 148 100" fill="none" stroke="rgba(196,162,74,0.15)" stroke-width="1.5"/>';
   svg+='<path d="M152 100 Q172 93 192 105" fill="none" stroke="rgba(196,162,74,0.15)" stroke-width="1.5"/>';
-  // Mouth
   svg+='<path d="M110 145 Q150 160 190 145" fill="none" stroke="rgba(196,162,74,0.2)" stroke-width="1.5"/>';
-  // Zones
   mxZones.forEach(function(z){
     svg+='<circle id="mz-'+z.id+'" cx="'+z.cx+'" cy="'+z.cy+'" r="'+z.r+'" class="face-zone" onclick="pickMz(\''+z.id+'\')"/>';
     svg+='<text x="'+z.cx+'" y="'+z.cy+'" class="face-label" dy="0.35em">'+z.n+'</text>';
   });
-  // Moles
-  svg+='<circle id="mole-1" cx="148" cy="104" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-1" x="158" y="106" class="face-mole-label" style="display:none">痣</text>';
-  svg+='<circle id="mole-2" cx="185" cy="75" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-2" x="192" y="77" class="face-mole-label" style="display:none">痣</text>';
-  svg+='<circle id="mole-3" cx="118" cy="118" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-3" x="108" y="120" class="face-mole-label" style="display:none">痣</text>';
-  svg+='<circle id="mole-4" cx="168" cy="142" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-4" x="175" y="144" class="face-mole-label" style="display:none">痣</text>';
+  svg+='<circle id="mole-1" cx="148" cy="104" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-1" x="158" y="106" style="display:none;fill:var(--red);font-size:10px">痣</text>';
+  svg+='<circle id="mole-2" cx="185" cy="75" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-2" x="192" y="77" style="display:none;fill:var(--red);font-size:10px">痣</text>';
+  svg+='<circle id="mole-3" cx="118" cy="118" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-3" x="108" y="120" style="display:none;fill:var(--red);font-size:10px">痣</text>';
+  svg+='<circle id="mole-4" cx="168" cy="142" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-4" x="175" y="144" style="display:none;fill:var(--red);font-size:10px">痣</text>';
   svg+='</svg>';
   return svg;
 }
@@ -856,10 +755,10 @@ function showPhotoFace(){
     svg+='<circle cx="'+z.cx+'" cy="'+z.cy+'" r="'+z.r+'" class="face-zone" id="mz-'+z.id+'" onclick="pickMz(\''+z.id+'\')"/>';
     svg+='<text x="'+z.cx+'" y="'+z.cy+'" class="face-label" dy="0.35em">'+z.n+'</text>';
   });
-  svg+='<circle id="mole-1" cx="148" cy="104" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-1" x="158" y="106" class="face-mole-label" style="display:none">痣</text>';
-  svg+='<circle id="mole-2" cx="185" cy="75" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-2" x="192" y="77" class="face-mole-label" style="display:none">痣</text>';
-  svg+='<circle id="mole-3" cx="118" cy="118" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-3" x="108" y="120" class="face-mole-label" style="display:none">痣</text>';
-  svg+='<circle id="mole-4" cx="168" cy="142" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-4" x="175" y="144" class="face-mole-label" style="display:none">痣</text>';
+  svg+='<circle id="mole-1" cx="148" cy="104" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-1" x="158" y="106" style="display:none;fill:var(--red);font-size:10px">痣</text>';
+  svg+='<circle id="mole-2" cx="185" cy="75" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-2" x="192" y="77" style="display:none;fill:var(--red);font-size:10px">痣</text>';
+  svg+='<circle id="mole-3" cx="118" cy="118" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-3" x="108" y="120" style="display:none;fill:var(--red);font-size:10px">痣</text>';
+  svg+='<circle id="mole-4" cx="168" cy="142" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-4" x="175" y="144" style="display:none;fill:var(--red);font-size:10px">痣</text>';
   svg+='</svg>';
   document.getElementById('faceSvgOverlay').innerHTML=svg;
   updateMxPicked();
@@ -890,8 +789,6 @@ function initFaceDrag(){
   el.addEventListener('dragleave',function(e){el.classList.remove('drag')});
   el.addEventListener('drop',function(e){e.preventDefault();el.classList.remove('drag');var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){var inp=document.getElementById('facePhotoInput');var dt=new DataTransfer();dt.items.add(f);inp.files=dt.files;inp.dispatchEvent(new Event('change'))}});
 }
-
-// Init drag on page load
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initFaceDrag)}else{initFaceDrag()}
 
 function toggleMoles(){
@@ -900,13 +797,15 @@ function toggleMoles(){
   btn.classList.toggle('on',showMoles);
   btn.textContent=showMoles?'● 痣相已开':'● 标注痣相';
   for(var i=1;i<=4;i++){
-    document.getElementById('mole-'+i).style.display=showMoles?'block':'none';
-    document.getElementById('molel-'+i).style.display=showMoles?'block':'none';
+    var mEl=document.getElementById('mole-'+i);
+    var lEl=document.getElementById('molel-'+i);
+    if(mEl)mEl.style.display=showMoles?'block':'none';
+    if(lEl)lEl.style.display=showMoles?'block':'none';
   }
 }
 
 function pickMz(zid){
-  if(zid==='mole'){toast(LANG==='zh'?'点击痣的位置标注':'Tap mole position');return}
+  if(zid==='mole'){toast('点击痣的位置标注');return}
   mxCurrentZone=zid;
   var z=mxZones.find(function(z){return z.id===zid});
   var html='<div class="ptitle">'+z.n+'</div><div style="text-align:center;color:var(--moon3);font-size:.7em;margin-bottom:12px">'+z.tip+'</div>';
@@ -949,7 +848,7 @@ function updateMxPicked(){
 function readMianXiang(){
   var pk=Object.keys(mxPicks);
   var hasPhoto=_mxPhotoData&&window._mxPhotoLoaded;
-  if(pk.length<(hasPhoto?1:3)){toast(LANG==='zh'?(hasPhoto?'请至少选择1个区域':'请至少选择3个区域'):(hasPhoto?'Select at least 1 zone':'Select at least 3 zones'));return}
+  if(pk.length<(hasPhoto?1:3)){toast(hasPhoto?'请至少选择1个区域':'请至少选择3个区域');return}
   var sum=0;pk.forEach(function(z){sum+=mxPicks[z]});
   var rx=[{t:'贵人之相',d:'面相端方，五官合度。印堂光明、鼻直口方，是谓贵格。主一生贵人扶持，事业有成，受人尊敬。'},{t:'福寿之相',d:'面如满月，地阁方圆。山根高挺、人中深长，福寿双全。晚年儿孙满堂，福泽绵长。'},{t:'才智之相',d:'天庭饱满，眉清目秀。官禄宫明、福德宫丰，才智超群。思维敏捷，学术有成就。'},{t:'刚毅之相',d:'面有棱角，眉如刀裁。颧骨微耸、下巴有力，意志坚定。行事果决，不畏艰难。'},{t:'和善之相',d:'面如冠玉，五官柔和。田宅宫满、交友宫丰，心地善良。待人宽厚，人缘极佳。'}];
   var r=rx[sum%5],sc=hasPhoto?60+rnd(10,35):55+rnd(0,38);
@@ -996,11 +895,11 @@ function getFatePath(v){
   return'150,80 Q148,120 150,160 Q152,200 150,245';
 }
 function getSunPath(v){
-  if(v===0)return'185,80 Q183,120 182,160 Q181,200 180,245'; // clear, long
-  if(v===1)return'180,85 Q178,120 177,155 Q176,190 175,230'; // slightly curved
-  if(v===2)return'185,90 Q183,118 183,148 Q183,178 182,200'; // moderate, shorter
-  if(v===3)return'182,90 Q178,120 172,150 Q166,175 160,195'; // left-leaning
-  return'188,90 Q192,120 196,150 Q200,175 202,195'; // v=4 right-leaning
+  if(v===0)return'185,80 Q183,120 182,160 Q181,200 180,245';
+  if(v===1)return'180,85 Q178,120 177,155 Q176,190 175,230';
+  if(v===2)return'185,90 Q183,118 183,148 Q183,178 182,200';
+  if(v===3)return'182,90 Q178,120 172,150 Q166,175 160,195';
+  return'188,90 Q192,120 196,150 Q200,175 202,195';
 }
 
 function buildPalmSvg(){
@@ -1050,6 +949,8 @@ function showPalmSvg(){
   document.getElementById('palmContainer').innerHTML=buildPalmSvg();
   updatePalmLines();
 }
+
+function buildPalmOpts(){
   ['life','head','heart','fate','sun'].forEach(function(k){
     var o=palmOpts[k],html='';
     o.z.forEach(function(opt,i){
@@ -1057,6 +958,7 @@ function showPalmSvg(){
     });
     document.getElementById(k+'Opts').innerHTML=html;
   });
+}
 
 function setPalm(k,v){
   palmLines[k]=v;
@@ -1080,51 +982,26 @@ function readShouXiang(){
   var r=rx[sum%5],sc=hasPhoto?58+rnd(8,36):55+rnd(0,38);
   var extra=hasPhoto?'<p style="font-size:.7em;color:var(--moon3);margin-top:8px">✦ 基于掌纹照片分析，主要线条特征与人工选取一致。建议保持手掌自然放松状态下拍摄。</p>':'';
   document.getElementById('sxResult').style.display='block';
-  document.getElementById('sxResult').innerHTML='<div class="reading"><h3>解读：'+r.t+'</h3><div class="score">匹配度 '+sc+'%</div><p>'+r.d+'</p>'+extra+'</div><div class="disclaimer">以上分析仅供传统文化娱乐参考</div>';
+  document.getElementById('sxResult').innerHTML='<div class="reading"><h3>解读：'+r.t+'</h3><div class="score">匹配度 '+sc+'%</div><p>'+r.d+'</p>'+extra+'</div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">以上分析仅供传统文化娱乐参考</div>';
   document.getElementById('sxResult').scrollIntoView({behavior:'smooth'});
 }
 
 // ====== SHARE ======
 function shareGeneral(){
-  var t='拉拉林·星之密语 ✦ AI东方命理师\n八字·塔罗·生肖·面相手相 → lalalin.xyz';
+  var t='拉拉林·星之密语 ✦ AI东方命理师\n八字·面相·手相 → lalalin.xyz';
   if(navigator.share){navigator.share({text:t}).catch(function(){})}else{navigator.clipboard.writeText(t).then(function(){toast('已复制！')})}
 }
 
 // ====== INIT ======
-initServiceGrid();
-
-dailyCard();
-
 var d=new Date();d.setFullYear(d.getFullYear()-25);
 populateDateSelects('baziYear','baziMonth','baziDay',d.getFullYear(),d.getMonth()+1,d.getDate());
-populateDateSelects('zwYear','zwMonth','zwDay',d.getFullYear(),d.getMonth()+1,d.getDate());
-updateTrustCount(
-function prepZW(){
-  if(USER&&USER.y){
-    populateDateSelects('zwYear','zwMonth','zwDay',USER.y,USER.m,USER.d);
-    var zwHour=document.getElementById('zwHour');
-    if(zwHour&&USER.h!==undefined){zwHour.value=Math.floor(USER.h/2)%12}
-    var zwGender=document.getElementById('zwGender');
-    if(zwGender){zwGender.value=USER.g||'male'}
-    ZW.init();
-  } else {
-    ZW.init();
-  }
-}
-
-);
-
-function updateTrustCount(){
-  var base=19203,c=parseInt(localStorage.getItem('ll_readings')||'0')+1;
-  localStorage.setItem('ll_readings',c);
-  var el=document.getElementById('trustCount');if(el)el.textContent=(base+Math.floor(c/3)).toLocaleString();
-}
+buildPalmOpts();
 
 // PWA Service Worker
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){})}
 </script>
-<script>localStorage.setItem('lalalin-lang','ja');</script>
 <script src="api.js"></script>
+<script>localStorage.setItem('lalalin-lang','ja');</script>
 <script src="i18n.js"></script>
 <script src="paypal.js"></script>
 
