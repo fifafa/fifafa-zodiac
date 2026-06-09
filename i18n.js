@@ -97,15 +97,7 @@
 
   window.getLang = function() { return CURRENT_LANG; };
 
-  window.toggleLang = function() {
-    var langs = ['zh', 'en', 'ja'];
-    var idx = langs.indexOf(CURRENT_LANG);
-    CURRENT_LANG = langs[(idx + 1) % 3];
-    localStorage.setItem('lalalin-lang', CURRENT_LANG);
-
-    var btn = document.getElementById('langBtn');
-    if (btn) btn.textContent = {zh:'中', en:'EN', ja:'日'}[CURRENT_LANG];
-
+  function applyLang() {
     // Update all [data-i18n] elements
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
       var key = el.getAttribute('data-i18n');
@@ -115,30 +107,32 @@
         el.textContent = window.t(key);
       }
     });
-
-    // Update meta tags
+    // Update meta
     document.title = window.t('site-title');
-    var metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.content = window.t('site-desc');
-    var ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.content = window.t('og-title');
-    var ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) ogDesc.content = window.t('og-desc');
-
-    // Update html lang
+    var d = document.querySelector('meta[name="description"]');
+    if (d) d.content = window.t('site-desc');
+    var ot = document.querySelector('meta[property="og:title"]');
+    if (ot) ot.content = window.t('og-title');
+    var od = document.querySelector('meta[property="og:description"]');
+    if (od) od.content = window.t('og-desc');
     document.documentElement.lang = {zh:'zh-CN', en:'en', ja:'ja'}[CURRENT_LANG];
+  }
+
+  window.toggleLang = function() {
+    var langs = ['zh', 'en', 'ja'];
+    var idx = langs.indexOf(CURRENT_LANG);
+    CURRENT_LANG = langs[(idx + 1) % 3];
+    localStorage.setItem('lalalin-lang', CURRENT_LANG);
+    var btn = document.getElementById('langBtn');
+    if (btn) btn.textContent = {zh:'中', en:'EN', ja:'日'}[CURRENT_LANG];
+    applyLang();
   };
 
   // ====== Init ======
   CURRENT_LANG = detectLang();
-  var origToggle = window.toggleLang;
-  window.toggleLang = function() {
-    var l = window.toggleLang.original || origToggle;
-    if (l) l();
-  };
-
-  // Also patch existing toggleLang reference
-  window._origToggleLang = origToggle;
+  var btn = document.getElementById('langBtn');
+  if (btn) btn.textContent = {zh:'中', en:'EN', ja:'日'}[CURRENT_LANG];
+  applyLang();
 
   console.log('[lalalin] 🌐 i18n loaded, lang:', CURRENT_LANG);
 })();
