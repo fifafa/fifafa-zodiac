@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  var GATEWAY = 'https://fifafa.xyz';  // Cloudflare proxied (standard 443), no port needed
+  var GATEWAY = 'https://api.lalalin.xyz';  // Cloudflare tunnel (standard 443)
   var sdkLoaded = false;
   var paypalReady = false;
 
