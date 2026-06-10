@@ -11,6 +11,12 @@ import os
 import time
 import aiohttp
 import urllib.parse
+import base64
+import tempfile
+
+from face_detect import extract_features
+from face_report import FaceReportGenerator
+from knowledge.face_kb_v2 import get_knowledge_context, match_features
 
 from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env'))
@@ -22,7 +28,12 @@ app = FastAPI(title="lalalin AI Backend", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://lalalin.xyz",
+        "https://www.lalalin.xyz",
+        "https://fifafa.xyz",
+        "https://fifafa.xyz:8443",
+    ],
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
     max_age=86400,
@@ -222,6 +233,71 @@ async def capture_paypal_order(req: CaptureOrderRequest):
                 "currency": capture.get("amount", {}).get("currency_code", "USD"),
                 "payer_email": data.get("payer", {}).get("email_address", ""),
             }
+
+
+# ====== Face Personality Analysis API ======
+
+class FaceAnalyzeRequest(BaseModel):
+    image_base64: str  # base64-encoded JPEG/PNG
+    gender: Optional[str] = None
+    age_range: Optional[str] = None
+    concern: Optional[str] = None  # what user wants to know
+    language: Optional[str] = "zh"
+
+
+@app.post("/api/face/analyze")
+async def analyze_face(req: FaceAnalyzeRequest):
+    """
+    Full pipeline: photo → feature extraction → KB match → LLM report
+    """
+    # 1. Decode image
+    try:
+        image_data = base64.b64decode(req.image_base64)
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid base64 image")
+
+    # 2. Save to temp file and extract features
+    with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tmp:
+        tmp.write(image_data)
+        tmp_path = tmp.name
+
+    try:
+        features = extract_features(tmp_path)
+    finally:
+        os.unlink(tmp_path)
+
+    if features is None:
+        raise HTTPException(status_code=400, detail="No face detected in image")
+
+    # 3. Add user context
+    if req.gender:
+        features["gender"] = req.gender
+    if req.age_range:
+        features["age_range"] = req.age_range
+    if req.concern:
+        features["concern"] = req.concern
+
+    # 4. Generate report
+    generator = FaceReportGenerator()
+    result = await generator.generate(features)
+
+    return {
+        "features": features,
+        "rules_matched": result["rules_matched"],
+        "report": result["report"],
+        "model": result["model"],
+        "tokens_used": result["tokens_used"],
+    }
+
+
+@app.get("/api/face/features")
+async def face_features_endpoint():
+    """Quick check: is face detection available?"""
+    try:
+        import mediapipe
+        return {"status": "ok", "mediapipe": mediapipe.__version__}
+    except ImportError:
+        return {"status": "unavailable", "error": "mediapipe not installed"}
 
 
 if __name__ == "__main__":
