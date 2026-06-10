@@ -74,6 +74,14 @@
     'lang-zh':        { zh:'zh-CN',  en:'zh-CN',  ja:'zh-CN' },
     'lang-en':        { zh:'en',     en:'en',     ja:'en' },
     'lang-ja':        { zh:'ja',     en:'ja',     ja:'ja' },
+
+    // Face upload context
+    'ctx-gender':     { zh:'性别',             en:'Gender',              ja:'性別' },
+    'ctx-age':        { zh:'年龄段',            en:'Age Range',            ja:'年齢層' },
+    'ctx-concern':    { zh:'关注',             en:'Focus',               ja:'関心事' },
+    'btn-retake':     { zh:'重拍',             en:'Retake',              ja:'再撮影' },
+    'btn-analyze':    { zh:'AI 解读',           en:'AI Analyze',           ja:'AI分析' },
+    'loading-face':   { zh:'AI 正在分析面相特征…',  en:'AI analyzing facial features…',  ja:'AIが顔の特徴を分析中…' },
   };
 
   // ====== Runtime ======

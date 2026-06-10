@@ -225,6 +225,9 @@ body{
 #facePhotoInput{display:none}
 .face-photo-actions{display:flex;gap:8px;justify-content:center;margin-top:8px}
 .face-photo-actions button{flex:1;max-width:140px}
+.ctx-sel{padding:6px 8px;border-radius:14px;border:1px solid var(--bd);background:rgba(15,11,36,0.6);color:var(--moon);font-size:.62em;cursor:pointer;outline:none;min-width:60px;text-align:center}
+.ctx-sel:focus{border-color:var(--gold)}
+.ctx-sel option{background:var(--card);color:var(--moon)}
 .spread-pick{display:flex;gap:6px;justify-content:center;margin-bottom:12px}
 .spread-pick .sp{padding:6px 14px;border-radius:16px;border:1px solid var(--bd);color:var(--moon3);font-size:.68em;cursor:pointer;transition:.25s}
 .spread-pick .sp.on{border-color:var(--gold);background:rgba(200,166,74,0.06);color:var(--gold)}
@@ -488,7 +491,16 @@ body{
       <div class="st-item"><div class="st-age">51岁后</div>下停</div>
     </div>
     <div class="card" style="text-align:center">
-      <div id="facePhotoWrap" style="display:none"><div class="face-container"><img id="facePhoto" class="face-photo" alt=""><div id="faceSvgOverlay" class="face-overlay"></div></div><div class="face-photo-actions"><button class="btn" onclick="retakePhoto()">↺ 重拍</button><button class="btn btn-primary" onclick="readMianXiang()">✦ 解读面相</button></div></div>
+      <div id="facePhotoWrap" style="display:none">
+        <div class="face-container"><img id="facePhoto" class="face-photo" alt=""><div id="faceSvgOverlay" class="face-overlay"></div></div>
+        <div class="face-context" style="display:flex;gap:6px;margin:8px auto 0;max-width:300px;flex-wrap:wrap;justify-content:center">
+          <select id="faceGender" class="ctx-sel"><option value="" data-i18n="ctx-gender">性别</option><option value="男">♂ 男</option><option value="女">♀ 女</option></select>
+          <select id="faceAge" class="ctx-sel"><option value="" data-i18n="ctx-age">年龄段</option><option value="18-25">18-25</option><option value="25-35" selected>25-35</option><option value="35-50">35-50</option><option value="50+">50+</option></select>
+          <select id="faceConcern" class="ctx-sel"><option value="" data-i18n="ctx-concern">关注</option><option value="career">💼 事业</option><option value="love">❤️ 情感</option><option value="growth">🌱 成长</option><option value="social">🤝 社交</option></select>
+        </div>
+        <div class="face-photo-actions"><button class="btn" onclick="retakePhoto()">↺ <span data-i18n="btn-retake">重拍</span></button><button class="btn btn-primary" onclick="readMianXiang()">✦ <span data-i18n="btn-analyze">AI 解读</span></button></div>
+        <div id="faceLoading" class="loading-overlay"><div class="spinner"></div><div class="loading-text" data-i18n="loading-face">AI 正在分析面相特征…</div></div>
+      </div>
       <div id="faceContainer"></div>
       <div id="faceUploadArea" class="face-upload-area" onclick="document.getElementById('facePhotoInput').click()"><div class="up-icon">📷</div><div class="up-text" data-i18n="tag-face">拍照或上传照片</div></div>
       <input type="file" id="facePhotoInput" accept="image/*" capture="user" onchange="handleFacePhoto(event)">
@@ -843,17 +855,83 @@ function updateMxPicked(){
   document.getElementById('mxPicked').innerHTML=html;
 }
 
-function readMianXiang(){
-  var pk=Object.keys(mxPicks);
-  var hasPhoto=_mxPhotoData&&window._mxPhotoLoaded;
-  if(pk.length<(hasPhoto?1:3)){toast(hasPhoto?'请至少选择1个区域':'请至少选择3个区域');return}
-  var sum=0;pk.forEach(function(z){sum+=mxPicks[z]});
-  var rx=[{t:'贵人之相',d:'面相端方，五官合度。印堂光明、鼻直口方，是谓贵格。主一生贵人扶持，事业有成，受人尊敬。'},{t:'福寿之相',d:'面如满月，地阁方圆。山根高挺、人中深长，福寿双全。晚年儿孙满堂，福泽绵长。'},{t:'才智之相',d:'天庭饱满，眉清目秀。官禄宫明、福德宫丰，才智超群。思维敏捷，学术有成就。'},{t:'刚毅之相',d:'面有棱角，眉如刀裁。颧骨微耸、下巴有力，意志坚定。行事果决，不畏艰难。'},{t:'和善之相',d:'面如冠玉，五官柔和。田宅宫满、交友宫丰，心地善良。待人宽厚，人缘极佳。'}];
-  var r=rx[sum%5],sc=hasPhoto?60+rnd(10,35):55+rnd(0,38);
-  var extra=hasPhoto?'<p style="font-size:.7em;color:var(--moon3);margin-top:8px">✦ 基于照片分析，所选宫位特征与命格推断吻合度较高。建议定期更新照片追踪面部变化。</p>':'';
-  document.getElementById('mxResult').style.display='block';
-  document.getElementById('mxResult').innerHTML='<div class="reading"><h3>解读：'+r.t+'</h3><div class="score">匹配度 '+sc+'%</div><p>'+r.d+'</p>'+extra+'</div>';
-  document.getElementById('mxResult').scrollIntoView({behavior:'smooth'});
+// ====== MIANXIANG REAL API ======
+var FACE_API = 'https://api.lalalin.xyz';
+
+async function readMianXiang(){
+  var photoData = _mxPhotoData;
+  if(!photoData||!window._mxPhotoLoaded){toast('请先拍照或上传照片');return}
+
+  // Show loading
+  var loading=document.getElementById('faceLoading');
+  var result=document.getElementById('mxResult');
+  var btn=document.querySelector('#facePhotoWrap .btn-primary');
+  loading.classList.add('on'); loading.style.display='flex';
+  result.style.display='none';
+  btn.disabled=true; btn.textContent='分析中...';
+
+  // Extract base64 (strip data:image/...;base64,)
+  var base64=photoData.split(',')[1]||photoData;
+
+  // Get context
+  var gender=document.getElementById('faceGender').value||'';
+  var age=document.getElementById('faceAge').value||'';
+  var concern=document.getElementById('faceConcern').value||'';
+
+  try{
+    var resp=await fetch(FACE_API+'/api/face/analyze',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        image_base64:base64,
+        gender:gender,
+        age_range:age,
+        concern:concern,
+        language:window._currentLang||'zh'
+      })
+    });
+
+    if(!resp.ok){
+      var errText='API Error ('+resp.status+')';
+      if(resp.status===400)errText='未检测到面部，请确保照片清晰正面';
+      throw new Error(errText);
+    }
+
+    var data=await resp.json();
+    renderFaceReport(data);
+  }catch(e){
+    result.style.display='block';
+    result.innerHTML='<div class="reading" style="text-align:center;color:var(--red)"><p>'+e.message+'</p><p style="font-size:.65em;color:var(--moon3);margin-top:8px">请重试或更换照片</p></div>';
+    console.error('Face API:',e);
+  }finally{
+    loading.classList.remove('on'); loading.style.display='none';
+    btn.disabled=false; btn.innerHTML='AI 解读';
+    if(window.applyLang)applyLang();
+  }
+}
+
+function renderFaceReport(data){
+  var r=data.report||'';
+  var rules=data.rules_matched||0;
+  var tokens=data.tokens_used||0;
+
+  // Simple markdown to HTML
+  var html=r
+    .replace(/### (.*)/g,'<h4 style="color:var(--gold);margin:16px 0 8px;font-size:.85em">$1</h4>')
+    .replace(/## (.*)/g,'<h3 style="color:var(--moon);margin:20px 0 10px;font-size:1em">$1</h3>')
+    .replace(/\*\*(.*?)\*\*/g,'<strong style="color:var(--gold2)">$1</strong>')
+    .replace(/\n\n/g,'</p><p style="line-height:1.7;margin:8px 0;font-size:.78em">')
+    .replace(/\n- /g,'<br> - ')
+    .replace(/\n\d+\. /g,'<br>');
+
+  html='<p style="line-height:1.7;margin:8px 0;font-size:.78em">'+html+'</p>';
+
+  var meta='<div style="text-align:center;font-size:.55em;color:var(--moon3);margin-bottom:10px;opacity:.5">AI DeepSeek - '+rules+' KB rules - '+tokens+' tokens</div>';
+
+  var el=document.getElementById('mxResult');
+  el.style.display='block';
+  el.innerHTML='<div class="reading" style="text-align:left;padding:16px 20px">'+meta+html+'</div>';
+  el.scrollIntoView({behavior:'smooth'});
 }
 
 // ====== SHOUXIANG ======
