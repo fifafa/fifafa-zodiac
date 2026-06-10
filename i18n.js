@@ -304,10 +304,15 @@
       var key = el.getAttribute('data-i18n');
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
         el.placeholder = window.t(key);
+      } else if (el.tagName === 'OPTION' && el.value === '' && el.parentElement) {
+        // Update select placeholders
+        el.textContent = window.t(key);
       } else {
         el.textContent = window.t(key);
       }
     });
+    // Re-populate date selects with current language
+    if (window._repopulateDateSelects) window._repopulateDateSelects();
     // Update meta
     document.title = window.t('site-title');
     var d = document.querySelector('meta[name="description"]');

@@ -617,12 +617,12 @@ function createOpt(v,t){var o=document.createElement('option');o.value=v;o.textC
 function populateDateSelects(yId,mId,dId,selY,selM,selD){
   var ySel=document.getElementById(yId),mSel=document.getElementById(mId),dSel=document.getElementById(dId);
   if(!ySel||!mSel||!dSel)return;
-  if(!ySel.options.length||ySel.options.length<2){
+  ySel.innerHTML='';
     var yf=document.createDocumentFragment();yf.appendChild(createOpt('',(window.t?window.t('bazi-year'):'年')));
     for(var i=2020;i>=1920;i--){yf.appendChild(createOpt(i,i))}
     ySel.appendChild(yf);
   }
-  if(!mSel.options.length||mSel.options.length<2){
+  mSel.innerHTML='';
     var mf=document.createDocumentFragment();mf.appendChild(createOpt('',(window.t?window.t('bazi-month'):'月')));
     for(var i=1;i<=12;i++){mf.appendChild(createOpt(i,i+(window.t?window.t('bazi-month-short'):'月')))}
     mSel.appendChild(mf);
@@ -1076,6 +1076,28 @@ function shareGeneral(){
 }
 
 // ====== INIT ======
+// Repopulate date select placeholders on language change
+window._repopulateDateSelects=function(){
+  var t=window.t||function(k){return k};
+  ['baziYear','baziMonth','baziDay'].forEach(function(id){
+    var sel=document.getElementById(id);
+    if(!sel||!sel.options.length)return;
+    var ph=sel.options[0];
+    if(ph.value===''){
+      var keyMap={baziYear:'bazi-year',baziMonth:'bazi-month',baziDay:'bazi-day'};
+      ph.textContent=t(keyMap[id]);
+    }
+    // Update month option suffixes
+    if(id==='baziMonth'){
+      for(var i=1;i<sel.options.length;i++){
+        var o=sel.options[i];
+        if(o.value&&!isNaN(o.value)){
+          o.textContent=o.value+t('bazi-month-short');
+        }
+      }
+    }
+  });
+};
 var d=new Date();d.setFullYear(d.getFullYear()-25);
 populateDateSelects('baziYear','baziMonth','baziDay',d.getFullYear(),d.getMonth()+1,d.getDate());
 buildPalmOpts();
