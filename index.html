@@ -618,13 +618,13 @@ function populateDateSelects(yId,mId,dId,selY,selM,selD){
   var ySel=document.getElementById(yId),mSel=document.getElementById(mId),dSel=document.getElementById(dId);
   if(!ySel||!mSel||!dSel)return;
   if(!ySel.options.length||ySel.options.length<2){
-    var yf=document.createDocumentFragment();yf.appendChild(createOpt('','年'));
+    var yf=document.createDocumentFragment();yf.appendChild(createOpt('',(window.t?window.t('bazi-year'):'年')));
     for(var i=2020;i>=1920;i--){yf.appendChild(createOpt(i,i))}
     ySel.appendChild(yf);
   }
   if(!mSel.options.length||mSel.options.length<2){
-    var mf=document.createDocumentFragment();mf.appendChild(createOpt('','月'));
-    for(var i=1;i<=12;i++){mf.appendChild(createOpt(i,i+'月'))}
+    var mf=document.createDocumentFragment();mf.appendChild(createOpt('',(window.t?window.t('bazi-month'):'月')));
+    for(var i=1;i<=12;i++){mf.appendChild(createOpt(i,i+(window.t?window.t('bazi-month-short'):'月')))}
     mSel.appendChild(mf);
   }
   if(selY){ySel.value=selY}
@@ -634,9 +634,9 @@ function populateDateSelects(yId,mId,dId,selY,selM,selD){
 
 function updateDays(dId,yId,mId,selDay){
   var dSel=document.getElementById(dId),y=parseInt(document.getElementById(yId).value),m=parseInt(document.getElementById(mId).value);
-  if(!dSel||!y||!m){dSel&&(dSel.innerHTML='<option value="">日</option>');return}
+  if(!dSel||!y||!m){dSel&&(dSel.innerHTML='<option value="">'+(window.t?window.t('bazi-day'):'日')+'</option>');return}
   var maxD=new Date(y,m,0).getDate();
-  var df=document.createDocumentFragment();df.appendChild(createOpt('','日'));
+  var df=document.createDocumentFragment();df.appendChild(createOpt('',(window.t?window.t('bazi-day'):'日')));
   for(var i=1;i<=maxD;i++){df.appendChild(createOpt(i,i))}
   dSel.innerHTML='';dSel.appendChild(df);
   if(selDay>0&&selDay<=maxD){dSel.value=selDay}
@@ -690,33 +690,37 @@ function doBazi(){
   var interp='你属'+zCh[USER.z]+'，日柱「'+stemsZh[dyStem]+branchZh[dyBranch]+'」日主'+dyEl+'。命格纳音「'+nl+'」，五行 '+wuDesc+'。'+(shenWang?'身旺':'身弱')+'，喜'+xiNm+'，忌'+jiNm+'。'+dyEl+'命主「'+virtueMap[dyEl]+'」，'+stemsZh[moStem]+branchZh[moBranch]+'月令'+(moStem%2===0?'比劫':'财官')+'相随。';
 
   document.getElementById('baziResult').style.display='block';
-  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">纳音 · '+zCh[USER.z]+'年 · '+(g==='male'?'乾造':'坤造')+'</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">日主 · '+stemsZh[dyStem]+' · '+dyEl+'命</div><div style="font-size:.62em;color:var(--moon3)">'+y+'年'+m+'月'+dd+'日 · '+h+'时'+(g==='male'?'男':'女')+'</div></div><div class="pillars"><div class="pillar"><div class="pl">年柱</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+yrSS+'</div></div><div class="pillar"><div class="pl">月柱</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+moSS+'</div></div><div class="pillar"><div class="pl">日柱</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--moon);font-size:.55em">日主</div></div><div class="pillar"><div class="pl">时柱</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+hrSS+'</div></div></div><div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div><div class="reading"><h3>用神喜忌</h3><p>身'+(shenWang?'旺':'弱')+'，喜'+xiNm+'，忌'+jiNm+'。</p></div><div class="reading"><h3>五行分布</h3><p style="font-size:.85em">'+wuDesc+' · 同类'+sameCount+'/'+(8-sameCount)+'异</p></div><div class="reading"><h3>指导意见</h3>'+guides.join('</p><p>')+'</div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">以上分析仅供传统文化娱乐参考</div>';
+  var isMale=g==='male';
+  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">'+t('bazi-nayin')+' · '+zCh[USER.z]+' · '+(isMale?t('bazi-qianzao'):t('bazi-kunzao'))+'</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">'+t('bazi-dm')+' · '+stemsZh[dyStem]+' · '+dyEl+t('bazi-ming')+'</div><div style="font-size:.62em;color:var(--moon3)">'+y+'/'+m+'/'+dd+' · '+h+'h '+(isMale?t('form-gender-m'):t('form-gender-f'))+'</div></div><div class="pillars"><div class="pillar"><div class="pl">'+t('bazi-p-year')+'</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+yrSS+'</div></div><div class="pillar"><div class="pl">'+t('bazi-p-month')+'</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+moSS+'</div></div><div class="pillar"><div class="pl">'+t('bazi-p-day')+'</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--moon);font-size:.55em">'+t('bazi-dm')+'</div></div><div class="pillar"><div class="pl">'+t('bazi-p-hour')+'</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+hrSS+'</div></div></div><div class="reading"><h3>'+t('bazi-s-reading')+'</h3><p>'+interp+'</p></div><div class="reading"><h3>'+t('bazi-s-yongji')+'</h3><p>'+t(shenWang?'bazi-shenwang':'bazi-shenruo')+'，'+t('bazi-xi')+xiNm+'，'+t('bazi-ji')+jiNm+'。</p></div><div class="reading"><h3>'+t('bazi-s-wuxing')+'</h3><p style="font-size:.85em">'+wuDesc+' · '+t('bazi-tonglei')+sameCount+'/'+(8-sameCount)+t('bazi-yi')+'</p></div><div class="reading"><h3>'+t('bazi-s-guide')+'</h3>'+guides.join('</p><p>')+'</div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">'+t('misc-ref')+'</div>';
   document.getElementById('baziResult').scrollIntoView({behavior:'smooth'});
 }
 
 // ====== MIANXIANG ======
 var mxZones=[
-  {id:'g9',n:'官禄宫',tip:'额头正中—主事业官运。15-30岁',cx:150,cy:46,r:13},
-  {id:'g12',n:'父母宫',tip:'额角—主父母缘分。',cx:82,cy:44,r:10},
-  {id:'g7',n:'迁移宫',tip:'额侧-主出行变动。',cx:82,cy:70,r:9},
-  {id:'g11',n:'福德宫',tip:'眉尾上方-主福气。',cx:95,cy:54,r:9},
-  {id:'g2',n:'兄弟宫',tip:'眉毛—主兄弟姐妹朋友。',cx:108,cy:64,r:12},
-  {id:'g1',n:'命宫',tip:'印堂眉心—主一生运势根基。',cx:150,cy:82,r:15},
-  {id:'g10',n:'田宅宫',tip:'眼皮上方—主房产家宅。',cx:138,cy:72,r:9},
-  {id:'g6',n:'疾厄宫',tip:'鼻梁山根—主健康。31-50岁',cx:130,cy:95,r:9},
-  {id:'g5',n:'财帛宫',tip:'鼻子—主一生财运。',cx:150,cy:102,r:12},
-  {id:'g3',n:'夫妻宫',tip:'眼尾奸门—主婚姻感情。',cx:208,cy:90,r:10},
-  {id:'g4',n:'子女宫',tip:'眼下卧蚕—主子嗣缘分。',cx:150,cy:112,r:10},
-  {id:'g8',n:'交友宫',tip:'下巴两侧—主朋友下属。51岁后',cx:195,cy:148,r:11}
+  {id:'g9',ik:'mx-g9',tk:'mx-tip-g9',cx:150,cy:46,r:13},
+  {id:'g12',ik:'mx-g12',tk:'mx-tip-g12',cx:82,cy:44,r:10},
+  {id:'g7',ik:'mx-g7',tk:'mx-tip-g7',cx:82,cy:70,r:9},
+  {id:'g11',ik:'mx-g11',tk:'mx-tip-g11',cx:95,cy:54,r:9},
+  {id:'g2',ik:'mx-g2',tk:'mx-tip-g2',cx:108,cy:64,r:12},
+  {id:'g1',ik:'mx-g1',tk:'mx-tip-g1',cx:150,cy:82,r:15},
+  {id:'g10',ik:'mx-g10',tk:'mx-tip-g10',cx:138,cy:72,r:9},
+  {id:'g6',ik:'mx-g6',tk:'mx-tip-g6',cx:130,cy:95,r:9},
+  {id:'g5',ik:'mx-g5',tk:'mx-tip-g5',cx:150,cy:102,r:12},
+  {id:'g3',ik:'mx-g3',tk:'mx-tip-g3',cx:208,cy:90,r:10},
+  {id:'g4',ik:'mx-g4',tk:'mx-tip-g4',cx:150,cy:112,r:10},
+  {id:'g8',ik:'mx-g8',tk:'mx-tip-g8',cx:195,cy:148,r:11}
 ];
+function mxName(z){var t=window.t||function(k){return k};return t(z.ik)||z.id}
+function mxTip(z){var t=window.t||function(k){return k};return t(z.tk)||''}
 var mxOpts={
-  g9:['天庭饱满','高广明亮','略有凹陷','有伏犀骨'],g12:['额角丰隆','日角月角明','额角平坦','略有下陷'],
-  g7:['额角饱满','开阔平实','驿马位明','略有内收'],g11:['福德宫满','眉尾丰隆','福德略平','额角丰盈'],
-  g2:['眉毛清秀','浓密刚强','眉尾稀疏','眉形朗阔'],g1:['宽阔明亮','有悬针纹','略有凹陷','光洁平整'],
-  g10:['眼皮丰润','田宅宫满','略有微陷','明润光泽'],g6:['山根高挺','山根略低','山根有节','山根光润'],
-  g5:['鼻梁挺直','鼻头圆润','鼻翼丰满','鼻子端正'],g3:['眼尾饱满','眼尾略陷','奸门光洁','略有细纹'],
-  g4:['卧蚕丰满','眼下平实','泪堂微陷','明润饱满'],g8:['下巴圆润','地阁方圆','下巴略尖','地库丰满']
+  g9:['mxo-g9-0','mxo-g9-1','mxo-g9-2','mxo-g9-3'],g12:['mxo-g12-0','mxo-g12-1','mxo-g12-2','mxo-g12-3'],
+  g7:['mxo-g7-0','mxo-g7-1','mxo-g7-2','mxo-g7-3'],g11:['mxo-g11-0','mxo-g11-1','mxo-g11-2','mxo-g11-3'],
+  g2:['mxo-g2-0','mxo-g2-1','mxo-g2-2','mxo-g2-3'],g1:['mxo-g1-0','mxo-g1-1','mxo-g1-2','mxo-g1-3'],
+  g10:['mxo-g10-0','mxo-g10-1','mxo-g10-2','mxo-g10-3'],g6:['mxo-g6-0','mxo-g6-1','mxo-g6-2','mxo-g6-3'],
+  g5:['mxo-g5-0','mxo-g5-1','mxo-g5-2','mxo-g5-3'],g3:['mxo-g3-0','mxo-g3-1','mxo-g3-2','mxo-g3-3'],
+  g4:['mxo-g4-0','mxo-g4-1','mxo-g4-2','mxo-g4-3'],g8:['mxo-g8-0','mxo-g8-1','mxo-g8-2','mxo-g8-3']
 };
+function mxOptText(zid,i){var t=window.t||function(k){return k};var o=mxOpts[zid];return o&&o[i]?t(o[i])||o[i]:''}
 
 function buildFaceSvg(){
   var svg='<svg viewBox="0 0 300 320" class="face-svg"><ellipse cx="150" cy="160" rx="100" ry="135" fill="none" stroke="rgba(196,162,74,0.15)" stroke-width="2"/><ellipse cx="150" cy="120" rx="80" ry="95" fill="none" stroke="rgba(196,162,74,0.06)" stroke-width="1" stroke-dasharray="4 3"/>';
@@ -729,7 +733,7 @@ function buildFaceSvg(){
   svg+='<path d="M110 145 Q150 160 190 145" fill="none" stroke="rgba(196,162,74,0.2)" stroke-width="1.5"/>';
   mxZones.forEach(function(z){
     svg+='<circle id="mz-'+z.id+'" cx="'+z.cx+'" cy="'+z.cy+'" r="'+z.r+'" class="face-zone" onclick="pickMz(\''+z.id+'\')"/>';
-    svg+='<text x="'+z.cx+'" y="'+z.cy+'" class="face-label" dy="0.35em">'+z.n+'</text>';
+    svg+='<text x="'+z.cx+'" y="'+z.cy+'" class="face-label" dy="0.35em">'+mxName(z)+'</text>';
   });
   svg+='<circle id="mole-1" cx="148" cy="104" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-1" x="158" y="106" style="display:none;fill:var(--red);font-size:10px">痣</text>';
   svg+='<circle id="mole-2" cx="185" cy="75" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-2" x="192" y="77" style="display:none;fill:var(--red);font-size:10px">痣</text>';
@@ -763,7 +767,7 @@ function showPhotoFace(){
   var svg='<svg viewBox="0 0 300 320" class="face-svg" style="width:100%;height:100%">';
   mxZones.forEach(function(z){
     svg+='<circle cx="'+z.cx+'" cy="'+z.cy+'" r="'+z.r+'" class="face-zone" id="mz-'+z.id+'" onclick="pickMz(\''+z.id+'\')"/>';
-    svg+='<text x="'+z.cx+'" y="'+z.cy+'" class="face-label" dy="0.35em">'+z.n+'</text>';
+    svg+='<text x="'+z.cx+'" y="'+z.cy+'" class="face-label" dy="0.35em">'+mxName(z)+'</text>';
   });
   svg+='<circle id="mole-1" cx="148" cy="104" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-1" x="158" y="106" style="display:none;fill:var(--red);font-size:10px">痣</text>';
   svg+='<circle id="mole-2" cx="185" cy="75" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-2" x="192" y="77" style="display:none;fill:var(--red);font-size:10px">痣</text>';
@@ -805,7 +809,7 @@ function toggleMoles(){
   showMoles=!showMoles;
   var btn=document.getElementById('moleToggle');
   btn.classList.toggle('on',showMoles);
-  btn.textContent=showMoles?'● 痣相已开':'● 标注痣相';
+  btn.textContent=showMoles?(window.t?window.t('mx-mole-on'):'● 痣相已开'):(window.t?window.t('mx-mole-off'):'● 标注痣相');
   for(var i=1;i<=4;i++){
     var mEl=document.getElementById('mole-'+i);
     var lEl=document.getElementById('molel-'+i);
@@ -815,14 +819,15 @@ function toggleMoles(){
 }
 
 function pickMz(zid){
-  if(zid==='mole'){toast('点击痣的位置标注');return}
+  if(zid==='mole'){toast((window.t?window.t('mx-click-mole'):'点击痣的位置标注'));return}
   mxCurrentZone=zid;
   var z=mxZones.find(function(z){return z.id===zid});
-  var html='<div class="ptitle">'+z.n+'</div><div style="text-align:center;color:var(--moon3);font-size:.7em;margin-bottom:12px">'+z.tip+'</div>';
+  var html='<div class="ptitle">'+mxName(z)+'</div><div style="text-align:center;color:var(--moon3);font-size:.7em;margin-bottom:12px">'+mxTip(z)+'</div>';
   mxOpts[zid].forEach(function(o,i){
-    html+='<div class="popt'+(mxPicks[zid]===i?' sel':'')+'" onclick="selMxOpt('+i+')">'+o+'</div>';
+    var t=window.t||function(k){return k};
+    html+='<div class="popt'+(mxPicks[zid]===i?' sel':'')+'" onclick="selMxOpt('+i+')">'+t(o)+'</div>';
   });
-  html+='<div class="popt" style="color:var(--moon3)" onclick="closeFacePopup()">取消</div>';
+  html+='<div class="popt" style="color:var(--moon3)" onclick="closeFacePopup()">'+(window.t?window.t('mx-cancel'):'取消')+'</div>';
   document.getElementById('zonePopup').innerHTML=html;
   document.getElementById('zonePopup').style.display='block';
   document.getElementById('popOverlay').style.display='block';
@@ -848,7 +853,7 @@ function updateMxPicked(){
   if(pk.length>0){
     pk.forEach(function(zid){
       var z=mxZones.find(function(z){return z.id===zid});
-      html+='<span style="display:inline-block;padding:4px 10px;border-radius:10px;font-size:.65em;margin:2px;background:rgba(196,162,74,0.1);border:1px solid rgba(196,162,74,0.2);color:var(--gold)">'+(z?z.n:zid)+' ✓</span> ';
+      html+='<span style="display:inline-block;padding:4px 10px;border-radius:10px;font-size:.65em;margin:2px;background:rgba(196,162,74,0.1);border:1px solid rgba(196,162,74,0.2);color:var(--gold)">'+(z?mxName(z):zid)+' ✓</span> ';
     });
   }
   html+='<span style="color:var(--moon3);font-size:.65em">'+pk.length+'/12</span>';
@@ -860,7 +865,7 @@ var FACE_API = 'https://api.lalalin.xyz';
 
 async function readMianXiang(){
   var photoData = _mxPhotoData;
-  if(!photoData||!window._mxPhotoLoaded){toast('请先拍照或上传照片');return}
+  if(!photoData||!window._mxPhotoLoaded){toast(window.t?window.t('misc-photo-or-upload'):'请先拍照或上传照片');return}
 
   // Show loading
   var loading=document.getElementById('faceLoading');
@@ -868,7 +873,7 @@ async function readMianXiang(){
   var btn=document.querySelector('#facePhotoWrap .btn-primary');
   loading.classList.add('on'); loading.style.display='flex';
   result.style.display='none';
-  btn.disabled=true; btn.textContent='分析中...';
+  btn.disabled=true; btn.textContent=(window.t?window.t('misc-analyzing'):'分析中...');
 
   // Extract base64 (strip data:image/...;base64,)
   var base64=photoData.split(',')[1]||photoData;
@@ -893,7 +898,7 @@ async function readMianXiang(){
 
     if(!resp.ok){
       var errText='API Error ('+resp.status+')';
-      if(resp.status===400)errText='未检测到面部，请确保照片清晰正面';
+      if(resp.status===400)errText=(window.t?window.t('misc-no-face'):'未检测到面部，请确保照片清晰正面');
       throw new Error(errText);
     }
 
@@ -901,11 +906,11 @@ async function readMianXiang(){
     renderFaceReport(data);
   }catch(e){
     result.style.display='block';
-    result.innerHTML='<div class="reading" style="text-align:center;color:var(--red)"><p>'+e.message+'</p><p style="font-size:.65em;color:var(--moon3);margin-top:8px">请重试或更换照片</p></div>';
+    result.innerHTML='<div class="reading" style="text-align:center;color:var(--red)"><p>'+e.message+'</p><p style="font-size:.65em;color:var(--moon3);margin-top:8px">'+(window.t?window.t('misc-retry'):'请重试或更换照片')+'</p></div>';
     console.error('Face API:',e);
   }finally{
     loading.classList.remove('on'); loading.style.display='none';
-    btn.disabled=false; btn.innerHTML='AI 解读';
+    btn.disabled=false; btn.innerHTML=(window.t?window.t('btn-analyze'):'AI 解读');
     if(window.applyLang)applyLang();
   }
 }
@@ -936,12 +941,13 @@ function renderFaceReport(data){
 
 // ====== SHOUXIANG ======
 var palmOpts={
-  life:{z:['长而深弧 体质强健','中等弧线 生活规律','较短连续 精力集中','分叉多向 好奇心强','断续链状 注意身体']},
-  head:{z:['长直贯穿 理智力强','弧线下弯 想象力丰','短而平直 务实理性','分叉双线 多才多艺','波浪起伏 创意思维']},
-  heart:{z:['长而清晰 情深义重','短直克制 理性冷静','链状连绵 敏感多情','分叉上扬 热情浪漫','弧线上弯 乐观豁达']},
-  fate:{z:['深长至中 事业有成','中等偏斜 自我奋斗','断续不连 起伏多变','双命运线 双重机遇','隐约可见 随缘自在']},
-  sun:{z:['清晰深长 名利双收','中等明朗 稳步上升','短而有力 锋芒初露','分叉双线 多面发展','浅淡隐约 大器晚成']}
+  life:{z:['pl-life-0','pl-life-1','pl-life-2','pl-life-3','pl-life-4']},
+  head:{z:['pl-head-0','pl-head-1','pl-head-2','pl-head-3','pl-head-4']},
+  heart:{z:['pl-heart-0','pl-heart-1','pl-heart-2','pl-heart-3','pl-heart-4']},
+  fate:{z:['pl-fate-0','pl-fate-1','pl-fate-2','pl-fate-3','pl-fate-4']},
+  sun:{z:['pl-sun-0','pl-sun-1','pl-sun-2','pl-sun-3','pl-sun-4']}
 };
+function palmOptText(k,i){var t=window.t||function(k){return k};var o=palmOpts[k];return o&&o.z[i]?t(o.z[i])||o.z[i]:''}
 
 function getLifePath(v){
   if(v===0)return'120,100 Q100,130 105,170 Q110,220 130,280 Q150,310 170,280';
@@ -1030,7 +1036,7 @@ function buildPalmOpts(){
   ['life','head','heart','fate','sun'].forEach(function(k){
     var o=palmOpts[k],html='';
     o.z.forEach(function(opt,i){
-      html+='<span class="line-opt'+(palmLines[k]===i?' sel':'')+'" onclick="setPalm(\''+k+'\','+i+')">'+opt+'</span>';
+      html+='<span class="line-opt'+(palmLines[k]===i?' sel':'')+'" onclick="setPalm(\''+k+'\','+i+')">'+palmOptText(k,i)+'</span>';
     });
     document.getElementById(k+'Opts').innerHTML=html;
   });
@@ -1039,7 +1045,7 @@ function buildPalmOpts(){
 function setPalm(k,v){
   palmLines[k]=v;
   var html='';
-  palmOpts[k].z.forEach(function(opt,i){html+='<span class="line-opt'+(i===v?' sel':'')+'" onclick="setPalm(\''+k+'\','+i+')">'+opt+'</span>'});
+  palmOpts[k].z.forEach(function(opt,i){html+='<span class="line-opt'+(i===v?' sel':'')+'" onclick="setPalm(\''+k+'\','+i+')">'+palmOptText(k,i)+'</span>'});
   document.getElementById(k+'Opts').innerHTML=html;
   updatePalmLines();
 }
@@ -1052,20 +1058,21 @@ function updatePalmLines(){
 }
 
 function readShouXiang(){
+  var t=window.t||function(k){return k};
   var sum=palmLines.life+palmLines.head+palmLines.heart+palmLines.fate+palmLines.sun;
   var hasPhoto=_sxPhotoData&&window._sxPhotoLoaded;
   var rx=[{t:'玉柱擎天掌',d:'生命线深长有力，命运线直贯中指。地纹稳固，根基深厚。早年立志，中年后运势腾飞，事业有成。'},{t:'天纹情深掌',d:'感情线绵长红润，天纹清澈。情深义重，桃花缘旺。待人真诚，感情丰盈美满，伴侣和谐。'},{t:'人纹智慧掌',d:'智慧线笔直深长，人纹清朗。思维敏捷，才学过人。早年聪慧外显，中年学术精深，事业靠脑力制胜。'},{t:'天地交泰掌',d:'四线清晰有力，天地人三纹分明。命格均衡，一生平顺。少年得志、中年稳健、晚年幸福，福泽深厚。'},{t:'四线齐辉掌',d:'生命智慧感情命运四线皆有可观，太阳线亦现。五行调和，贵人相助。事业家庭双丰收，晚年安康。'}];
   var r=rx[sum%5],sc=hasPhoto?58+rnd(8,36):55+rnd(0,38);
-  var extra=hasPhoto?'<p style="font-size:.7em;color:var(--moon3);margin-top:8px">✦ 基于掌纹照片分析，主要线条特征与人工选取一致。建议保持手掌自然放松状态下拍摄。</p>':'';
+  var extra=hasPhoto?'<p style="font-size:.7em;color:var(--moon3);margin-top:8px">'+t('palm-extra')+'</p>':'';
   document.getElementById('sxResult').style.display='block';
-  document.getElementById('sxResult').innerHTML='<div class="reading"><h3>解读：'+r.t+'</h3><div class="score">匹配度 '+sc+'%</div><p>'+r.d+'</p>'+extra+'</div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">以上分析仅供传统文化娱乐参考</div>';
+  document.getElementById('sxResult').innerHTML='<div class="reading"><h3>'+t('palm-result')+r.t+'</h3><div class="score">'+t('palm-match')+' '+sc+'%</div><p>'+r.d+'</p>'+extra+'</div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">'+t('misc-ref')+'</div>';
   document.getElementById('sxResult').scrollIntoView({behavior:'smooth'});
 }
 
 // ====== SHARE ======
 function shareGeneral(){
-  var t='拉拉林·星之密语 ✦ AI东方命理师\n八字·面相·手相 → lalalin.xyz';
-  if(navigator.share){navigator.share({text:t}).catch(function(){})}else{navigator.clipboard.writeText(t).then(function(){toast('已复制！')})}
+  var t=window.t?window.t('share-text'):'拉拉林·星之密语 ✦ AI东方命理师\n八字·面相·手相 → lalalin.xyz';
+  if(navigator.share){navigator.share({text:t}).catch(function(){})}else{navigator.clipboard.writeText(t).then(function(){toast(window.t?window.t('common-copied'):'已复制！')})}
 }
 
 // ====== INIT ======
