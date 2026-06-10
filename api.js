@@ -5,7 +5,7 @@
 (function() {
   'use strict';
 
-  var API_BASE = 'https://fifafa.xyz';  // Cloudflare proxied (standard 443), no port needed
+  var API_BASE = 'https://api.lalalin.xyz';  // Cloudflare Tunnel
   var GATEWAY = API_BASE;
   var AI_ENABLED = true;
   var LOADING_HTML = '<div class="ai-loading"><div class="ai-spinner"></div><p>AI 正在推演命盘…</p></div>';
