@@ -450,7 +450,8 @@ body{
       <div class="fg">
         <label data-i18n="form-birth">出生日期</label>
         <div class="dr">
-          <select class="sel" id="baziYear" onchange="updateDays('baziDay','baziYear','baziMonth')"><option value="">年</option></select>
+          <input class="inp" id="baziYearInput" type="number" placeholder="年份" min="1920" max="2020" style="flex:1" onchange="syncYearInput()">
+          <select class="sel" id="baziYear" onchange="updateDays('baziDay','baziYear','baziMonth');syncYearSelect()"><option value="">年</option></select>
           <select class="sel" id="baziMonth" onchange="updateDays('baziDay','baziYear','baziMonth')"><option value="">月</option></select>
           <select class="sel" id="baziDay"><option value="">日</option></select>
         </div>
@@ -610,6 +611,17 @@ function toast(m){
 
 function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
 function zi(y){return((y-4)%12+12)%12}
+
+// ====== YEAR SYNC (input ↔ select) ======
+function syncYearInput(){
+  var inp=document.getElementById('baziYearInput'),sel=document.getElementById('baziYear');
+  var v=parseInt(inp.value);
+  if(v>=1920&&v<=2020){sel.value=v;updateDays('baziDay','baziYear','baziMonth')}
+}
+function syncYearSelect(){
+  var inp=document.getElementById('baziYearInput'),sel=document.getElementById('baziYear');
+  inp.value=sel.value;updateDays('baziDay','baziYear','baziMonth');
+}
 
 // ====== HELPERS ======
 function createOpt(v,t){var o=document.createElement('option');o.value=v;o.textContent=t;return o}
