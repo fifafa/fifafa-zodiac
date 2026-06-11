@@ -369,6 +369,14 @@ body{
 .loading-overlay .spinner{display:block}
 .loading-text{color:var(--moon3);font-size:.7em;margin-top:8px;letter-spacing:.06em}
 .dr{display:flex;gap:5px}.dr select{flex:1;text-align:center;text-align-last:center}
+
+/* Daily Fortune */
+.daily-fortune-header{display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:10px}
+.daily-date{color:var(--moon3);font-size:.66em;letter-spacing:.08em}
+.daily-label{color:var(--gold);font-size:.78em;letter-spacing:.1em;font-weight:600}
+.daily-stems{font-size:1.6em;color:var(--moon);margin:6px 0;letter-spacing:.08em;font-family:'Noto Serif SC',Georgia,serif}
+.daily-element{font-size:.82em;color:var(--gold);margin:4px 0}
+.daily-tip{font-size:.72em;color:var(--moon2);margin:8px 0 2px;line-height:1.7}
 </style>
 </head>
 <body>
@@ -409,6 +417,17 @@ body{
     </div>
     <h1 data-i18n="hero-title">拉拉林 · 星之密语</h1>
     <div class="tagline" data-i18n="hero-subtitle">AI东方命理师</div>
+  </div>
+
+  <!-- Daily Fortune Card -->
+  <div class="card" id="dailyFortuneCard" style="text-align:center;margin-bottom:18px">
+    <div class="daily-fortune-header">
+      <span class="daily-date" id="dailyDate"></span>
+      <span class="daily-label">✦ 今日运势</span>
+    </div>
+    <div class="daily-stems" id="dailyStems"></div>
+    <div class="daily-element" id="dailyElement"></div>
+    <div class="daily-tip" id="dailyTip"></div>
   </div>
 
   <!-- 3 Module Service Cards -->
@@ -1111,6 +1130,24 @@ window._repopulateDateSelects=function(){
 var d=new Date();d.setFullYear(d.getFullYear()-25);
 populateDateSelects('baziYear','baziMonth','baziDay',d.getFullYear(),d.getMonth()+1,d.getDate());
 buildPalmOpts();
+
+// Daily fortune card
+(function(){
+  var now=new Date();
+  var stemsZh=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+  var branchZh=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+  var elements=['木','木','火','火','土','土','金','金','水','水'];
+  var colors=['宜积极进取，木主生发','宜柔韧应变，乙木可曲可伸','宜热情行动，火主光辉','宜稳重踏实，丁火如灯烛','宜诚信待人，土主承载','宜厚德载物，己土润泽','宜果断决策，金主义气','宜精益求精，辛金雕琢','宜深思远虑，水主智慧','宜灵活变通，癸水润下'];
+  var base=new Date(1900,0,1);
+  var diff=Math.floor((now-base)/86400000);
+  var si=((10+diff)%60+60)%60;
+  var ds=si%10, db=si%12;
+  document.getElementById('dailyDate').textContent=now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate();
+  document.getElementById('dailyStems').textContent=stemsZh[ds]+branchZh[db]+'日';
+  document.getElementById('dailyElement').textContent='日主'+elements[ds]+' · '+colors[ds];
+  var tips=['诸事顺遂，宜签约合作','宜静不宜动，守成为上','贵人相助，宜社交出行','灵感迸发，宜学习创作','稳扎稳打，宜理财规划'];
+  document.getElementById('dailyTip').textContent='✦ '+tips[db%5];
+})();
 
 // PWA Service Worker
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){})}
