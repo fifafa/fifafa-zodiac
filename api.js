@@ -1,5 +1,5 @@
 /**
- * lalalin.xyz AI Fortune API Integration v2.0
+ * lalalin.xyz AI Fortune API Integration v2.1
  * DeepSeek-powered fortune telling with robust error handling
  */
 (function() {
@@ -47,15 +47,31 @@
   }
 
   // ====== Loading state manager ======
+  var _loadingTarget = null;
+  var _submitBtn = null;
+
   function showLoading(targetId) {
     var el = document.getElementById(targetId);
     if (!el) return;
+    _loadingTarget = targetId;
     el.innerHTML = LOADING_HTML;
     el.style.display = 'block';
     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
+  function clearLoading() {
+    if (!_loadingTarget) return;
+    var el = document.getElementById(_loadingTarget);
+    if (el) {
+      var spin = el.querySelector('.ai-loading');
+      if (spin) spin.remove();
+    }
+    _loadingTarget = null;
+    if (_submitBtn) { _submitBtn.disabled = false; _submitBtn.textContent = (window.t ? window.t('form-submit') : '开始解读'); _submitBtn = null; }
+  }
+
   function showError(targetId, msg) {
+    clearLoading();
     var el = document.getElementById(targetId);
     if (!el) return;
     el.innerHTML = ERROR_HTML;
@@ -67,25 +83,23 @@
 
   // ====== Result injection ======
   function injectAIResult(containerId, aiHtml) {
+    clearLoading();
     var container = document.getElementById(containerId);
     if (!container) return;
     var div = document.createElement('div');
     div.className = 'ai-result-section';
-    div.innerHTML = '<div class="ai-badge">🤖 DeepSeek AI 深度解读</div>' +
-      '<div class="ai-content">' + formatAIResponse(aiHtml) + '</div>' +
-      '<div class="ai-result-footer">' +
-        '<button class="ai-share-btn" onclick="shareAIFortune()">✧ 分享结果</button>' +
-        '<div class="ai-next-module">' +
-          '<span class="ai-next-hint">继续探索 → </span>' +
-          '<span class="ai-next-link" onclick="goCh(\'mianxiang\')">☉ 面相分析</span>' +
-          '<span class="ai-next-link" onclick="goCh(\'shouxiang\')">✋ 手相解读</span>' +
-        '</div>' +
-      '</div>';
-    if (container.firstChild) {
-      container.insertBefore(div, container.firstChild.nextSibling);
-    } else {
-      container.appendChild(div);
-    }
+    div.innerHTML = '<div class="ai-badge">🤖 DeepSeek AI 深度解读</div>'
+      + '<div class="ai-content">' + formatAIResponse(aiHtml) + '</div>'
+      + '<div class="ai-disclaimer">⚠️ 以上内容由 AI 生成，仅供传统文化娱乐参考</div>'
+      + '<div class="ai-result-footer">'
+        + '<button class="ai-share-btn" onclick="shareAIFortune()">✧ 分享结果</button>'
+        + '<div class="ai-next-module">'
+          + '<span class="ai-next-hint">继续探索 → </span>'
+          + '<span class="ai-next-link" onclick="goCh(\'mianxiang\')">☉ 面相分析</span>'
+          + '<span class="ai-next-link" onclick="goCh(\'shouxiang\')">✋ 手相解读</span>'
+        + '</div>'
+      + '</div>';
+    container.appendChild(div);
     div.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
@@ -123,6 +137,10 @@
       var h = document.getElementById('baziHour').value || '12';
       var g = document.getElementById('baziGender').value;
       if (!y || !m || !d) return;
+
+      // Anti-double-submit
+      _submitBtn = document.querySelector('#baziForm .btn-primary');
+      if (_submitBtn) { _submitBtn.disabled = true; _submitBtn.textContent = '分析中…'; }
 
       showLoading('baziResult');
 
@@ -186,139 +204,143 @@
   // ====== Add CSS for AI results ======
   function addAIStyles() {
     var style = document.createElement('style');
-    style.textContent = `
-      .ai-result-section {
-        margin: 20px 0;
-        padding: 20px 16px;
-        background: linear-gradient(135deg, rgba(107,91,138,0.15), rgba(61,139,107,0.1));
-        border: 1px solid rgba(200,166,74,0.3);
-        border-radius: 12px;
-        animation: aiFadeIn 0.6s ease;
-      }
-      .ai-badge {
-        display: inline-block;
-        padding: 4px 12px;
-        background: rgba(200,166,74,0.2);
-        border: 1px solid var(--gold);
-        border-radius: 20px;
-        font-size: 0.78em;
-        color: var(--gold);
-        margin-bottom: 14px;
-        letter-spacing: 0.05em;
-      }
-      .ai-content {
-        color: var(--moon);
-        font-size: 0.92em;
-        line-height: 1.8;
-        letter-spacing: 0.03em;
-      }
-      .ai-content h3 { color: var(--gold); font-size: 1.1em; margin: 16px 0 8px; font-weight:600; }
-      .ai-content h4 { color: var(--gold); font-size: 1em; margin: 12px 0 6px; font-weight:600; }
-      .ai-content strong { color: #ede4d0; }
-      .ai-content li { margin-left: 16px; padding: 2px 0; }
-
-      .ai-loading {
-        text-align: center;
-        padding: 40px;
-        color: var(--gold);
-      }
-      .ai-loading-sub {
-        font-size: 0.78em;
-        opacity: 0.6;
-        margin-top: 8px;
-      }
-      .ai-spinner {
-        width: 36px; height: 36px;
-        margin: 0 auto 16px;
-        border: 2px solid rgba(200,166,74,0.2);
-        border-top-color: var(--gold);
-        border-radius: 50%;
-        animation: aiSpin 1s linear infinite;
-      }
-
-      .ai-error {
-        text-align: center;
-        padding: 30px 16px;
-        background: rgba(220,38,38,0.08);
-        border: 1px solid rgba(220,38,38,0.25);
-        border-radius: 12px;
-        margin: 20px 0;
-      }
-      .ai-error-icon { font-size: 2em; margin-bottom: 8px; }
-      .ai-error-title { color: #f87171; font-size: 1em; font-weight:600; margin: 4px 0; }
-      .ai-error-msg { color: var(--moon); font-size: 0.85em; opacity: 0.8; margin: 8px 0 16px; }
-      .ai-retry-btn {
-        padding: 8px 20px;
-        background: rgba(200,166,74,0.15);
-        border: 1px solid var(--gold);
-        border-radius: 20px;
-        color: var(--gold);
-        font-size: 0.88em;
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-      .ai-retry-btn:hover {
-        background: rgba(200,166,74,0.3);
-        transform: translateY(-1px);
-      }
-
-      .ai-result-footer {
-        margin-top: 20px;
-        padding-top: 16px;
-        border-top: 1px solid rgba(200,166,74,0.15);
-        text-align: center;
-      }
-      .ai-share-btn {
-        padding: 10px 28px;
-        background: linear-gradient(135deg, rgba(200,166,74,0.15), rgba(158,126,48,0.2));
-        border: 1px solid var(--gold);
-        border-radius: 22px;
-        color: var(--gold);
-        font-size: 0.88em;
-        cursor: pointer;
-        transition: all 0.25s;
-        font-family: inherit;
-        letter-spacing: 0.04em;
-      }
-      .ai-share-btn:active {
-        background: rgba(200,166,74,0.3);
-        transform: scale(0.96);
-      }
-      .ai-next-module {
-        margin-top: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .ai-next-hint {
-        color: var(--moon3);
-        font-size: 0.78em;
-      }
-      .ai-next-link {
-        padding: 6px 16px;
-        border: 1px solid rgba(200,166,74,0.2);
-        border-radius: 16px;
-        color: var(--moon2);
-        font-size: 0.78em;
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-      .ai-next-link:active {
-        border-color: var(--gold);
-        background: rgba(200,166,74,0.06);
-        color: var(--gold);
-        transform: scale(0.96);
-      }
-
-      @keyframes aiFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-      @keyframes aiSpin { to { transform: rotate(360deg); } }
-    `;
+    style.textContent = '\
+      .ai-result-section {\
+        margin: 20px 0;\
+        padding: 20px 16px;\
+        background: linear-gradient(135deg, rgba(107,91,138,0.15), rgba(61,139,107,0.1));\
+        border: 1px solid rgba(200,166,74,0.3);\
+        border-radius: 12px;\
+        animation: aiFadeIn 0.6s ease;\
+      }\
+      .ai-badge {\
+        display: inline-block;\
+        padding: 4px 12px;\
+        background: rgba(200,166,74,0.2);\
+        border: 1px solid var(--gold);\
+        border-radius: 20px;\
+        font-size: 0.78em;\
+        color: var(--gold);\
+        margin-bottom: 14px;\
+        letter-spacing: 0.05em;\
+      }\
+      .ai-content {\
+        color: var(--moon);\
+        font-size: 0.92em;\
+        line-height: 1.8;\
+        letter-spacing: 0.03em;\
+      }\
+      .ai-content h3 { color: var(--gold); font-size: 1.1em; margin: 16px 0 8px; font-weight:600; }\
+      .ai-content h4 { color: var(--gold); font-size: 1em; margin: 12px 0 6px; font-weight:600; }\
+      .ai-content strong { color: #ede4d0; }\
+      .ai-content li { margin-left: 16px; padding: 2px 0; }\
+      .ai-disclaimer {\
+        text-align: center;\
+        color: var(--moon3);\
+        font-size: 0.65em;\
+        margin: 16px 0 4px;\
+        opacity: 0.55;\
+        letter-spacing: 0.04em;\
+      }\
+      .ai-loading {\
+        text-align: center;\
+        padding: 40px;\
+        color: var(--gold);\
+      }\
+      .ai-loading-sub {\
+        font-size: 0.78em;\
+        opacity: 0.6;\
+        margin-top: 8px;\
+      }\
+      .ai-spinner {\
+        width: 36px; height: 36px;\
+        margin: 0 auto 16px;\
+        border: 2px solid rgba(200,166,74,0.2);\
+        border-top-color: var(--gold);\
+        border-radius: 50%;\
+        animation: aiSpin 1s linear infinite;\
+      }\
+      .ai-error {\
+        text-align: center;\
+        padding: 30px 16px;\
+        background: rgba(220,38,38,0.08);\
+        border: 1px solid rgba(220,38,38,0.25);\
+        border-radius: 12px;\
+        margin: 20px 0;\
+      }\
+      .ai-error-icon { font-size: 2em; margin-bottom: 8px; }\
+      .ai-error-title { color: #f87171; font-size: 1em; font-weight:600; margin: 4px 0; }\
+      .ai-error-msg { color: var(--moon); font-size: 0.85em; opacity: 0.8; margin: 8px 0 16px; }\
+      .ai-retry-btn {\
+        padding: 8px 20px;\
+        background: rgba(200,166,74,0.15);\
+        border: 1px solid var(--gold);\
+        border-radius: 20px;\
+        color: var(--gold);\
+        font-size: 0.88em;\
+        cursor: pointer;\
+        transition: all 0.2s;\
+      }\
+      .ai-retry-btn:hover {\
+        background: rgba(200,166,74,0.3);\
+        transform: translateY(-1px);\
+      }\
+      .ai-result-footer {\
+        margin-top: 20px;\
+        padding-top: 16px;\
+        border-top: 1px solid rgba(200,166,74,0.15);\
+        text-align: center;\
+      }\
+      .ai-share-btn {\
+        padding: 10px 28px;\
+        background: linear-gradient(135deg, rgba(200,166,74,0.15), rgba(158,126,48,0.2));\
+        border: 1px solid var(--gold);\
+        border-radius: 22px;\
+        color: var(--gold);\
+        font-size: 0.88em;\
+        cursor: pointer;\
+        transition: all 0.25s;\
+        font-family: inherit;\
+        letter-spacing: 0.04em;\
+      }\
+      .ai-share-btn:active {\
+        background: rgba(200,166,74,0.3);\
+        transform: scale(0.96);\
+      }\
+      .ai-next-module {\
+        margin-top: 14px;\
+        display: flex;\
+        align-items: center;\
+        justify-content: center;\
+        gap: 10px;\
+        flex-wrap: wrap;\
+      }\
+      .ai-next-hint {\
+        color: var(--moon3);\
+        font-size: 0.78em;\
+      }\
+      .ai-next-link {\
+        padding: 6px 16px;\
+        border: 1px solid rgba(200,166,74,0.2);\
+        border-radius: 16px;\
+        color: var(--moon2);\
+        font-size: 0.78em;\
+        cursor: pointer;\
+        transition: all 0.2s;\
+      }\
+      .ai-next-link:active {\
+        border-color: var(--gold);\
+        background: rgba(200,166,74,0.06);\
+        color: var(--gold);\
+        transform: scale(0.96);\
+      }\
+      @keyframes aiFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }\
+      @keyframes aiSpin { to { transform: rotate(360deg); } }\
+    ';
     document.head.appendChild(style);
   }
 
   // ====== Init ======
   addAIStyles();
-  console.log('[lalalin] 🤖 DeepSeek AI integration v2.0 loaded');
+  console.log('[lalalin] 🤖 DeepSeek AI integration v2.1 loaded');
 })();
