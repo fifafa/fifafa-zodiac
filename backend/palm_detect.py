@@ -87,8 +87,7 @@ def _warp_palm(image_bgr: np.ndarray) -> np.ndarray | None:
         pts = np.float32([[hand_landmarks.landmark[i].x * w, hand_landmarks.landmark[i].y * h] for i in pts_index])
         pts_target = np.float32([[x * w, y * h] for x, y in pts_target_normalized])
         M, _ = cv2.findHomography(pts, pts_target, cv2.RANSAC, 5.0)
-        warped = cv2.warpPerspective(image, M, (w, h), borderMode=cv2.BORDER_REPLICATE)
-        return warped
+        return cv2.warpPerspective(image, M, (w, h), borderMode=cv2.BORDER_REPLICATE)
 
 
 def _detect_lines(warped_bgr: np.ndarray) -> np.ndarray:
@@ -107,7 +106,13 @@ def _detect_lines(warped_bgr: np.ndarray) -> np.ndarray:
 
 def _classify_lines(line_mask: np.ndarray) -> list:
     """Classify detected pixels into 3 principal lines using K-means cluster centers."""
-    gray = cv2.cvtColor(line_mask, cv2.COLOR_RGB2GRAY) if len(line_mask.shape) == 3 else line_mask
+    if len(line_mask.shape) == 3:
+        if line_mask.shape[2] == 1:
+            gray = line_mask[:, :, 0]
+        else:
+            gray = cv2.cvtColor(line_mask, cv2.COLOR_RGB2GRAY)
+    else:
+        gray = line_mask
     skel = skeletonize(gray > 0).astype(np.uint8) * 255
 
     # Build graph from skeleton
@@ -316,10 +321,28 @@ def analyze_palm(image_data: bytes) -> dict:
         return {"success": False, "error": features["error"], "lines_detected": 0}
 
     n_lines = len([l for l in lines if l is not None])
-    return {
+    result = {
         "success": True,
         "lines_detected": n_lines,
         "heart_line": features["heart_line"],
         "head_line": features["head_line"],
         "life_line": features["life_line"],
     }
+    
+    # Convert numpy types to native Python for JSON serialization
+    def _to_native(obj):
+        if isinstance(obj, dict):
+            return {k: _to_native(v) for k, v in obj.items()}
+        elif isinstance(obj, (list, tuple)):
+            return [_to_native(x) for x in obj]
+        elif isinstance(obj, (np.integer,)):
+            return int(obj)
+        elif isinstance(obj, (np.floating,)):
+            return float(obj)
+        elif isinstance(obj, (np.bool_,)):
+            return bool(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return obj
+    
+    return _to_native(result)
