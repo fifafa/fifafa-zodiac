@@ -80,7 +80,42 @@
     if (_submitBtn) { _submitBtn.disabled = false; _submitBtn.textContent = (window.t ? window.t('form-submit') : '开始解读'); _submitBtn = null; }
   }
 
+  // Scan overlay — full-screen AI processing visual
+  var _scanOverlay = null;
+  function showScanOverlay(photoDataUrl, module) {
+    hideScanOverlay();
+    var t = window.t || function(k,d){return d;};
+    var msg = module === 'face' ? t('loading-face', 'AI analyzing facial features…') : t('palm-loading', 'AI analyzing palm lines…');
+    var sub = t('misc-ref', 'DeepSeek neural analysis in progress');
+    var tri = ['☰','☷','☵','☲'];
+    var ov = document.createElement('div');
+    ov.className = 'scan-overlay';
+    ov.id = 'lalalinScanOverlay';
+    ov.innerHTML =
+      '<div class="scan-wrap">' +
+        '<div class="scan-bg" style="background-image:url(' + photoDataUrl + ')"></div>' +
+        '<div class="scan-core" style="background-image:url(' + photoDataUrl + ')"></div>' +
+        '<div class="scan-ring"></div><div class="scan-ring r2"></div><div class="scan-ring r3"></div>' +
+        '<div class="scan-line"></div>' +
+        '<div class="scan-node n1"></div><div class="scan-node n2"></div><div class="scan-node n3"></div><div class="scan-node n4"></div>' +
+        '<div class="scan-tag t1">' + tri[0] + '</div><div class="scan-tag t2">' + tri[1] + '</div>' +
+        '<div class="scan-tag t3">' + tri[2] + '</div><div class="scan-tag t4">' + tri[3] + '</div>' +
+      '</div>' +
+      '<div class="scan-msg">' + msg + '</div>' +
+      '<div class="scan-msg-sub">' + sub + '</div>' +
+      '<div class="scan-progress"><div class="scan-progress-bar"></div></div>';
+    document.body.appendChild(ov);
+    _scanOverlay = ov;
+    // Prevent background scroll
+    document.body.style.overflow = 'hidden';
+  }
+  function hideScanOverlay() {
+    if (_scanOverlay) { _scanOverlay.remove(); _scanOverlay = null; }
+    document.body.style.overflow = '';
+  }
+
   function showError(targetId, msg) {
+    hideScanOverlay();
     clearLoading();
     var el = document.getElementById(targetId);
     if (!el) return;
@@ -92,6 +127,7 @@
   }
 
   function injectAIResult(containerId, aiHtml) {
+    hideScanOverlay();
     clearLoading();
     var container = document.getElementById(containerId);
     if (!container) return;
@@ -168,8 +204,10 @@
     if (origInitMianXiang) origInitMianXiang();
     window._mxPhotoLoaded = async function() {
       if (window._mxPhotoData) {
+        showScanOverlay(window._mxPhotoData, 'face');
         showLoading('mianxiangResult');
         var r = await aiFortune('face', { name: '', question: '请根据面相分析性格与运势' });
+        hideScanOverlay();
         if (r && r.result) injectAIResult('mianxiangResult', r.result);
         else if (r && r.error) showError('mianxiangResult', r.error);
       }
@@ -187,6 +225,7 @@
     var btn = document.querySelector('#palmPhotoWrap .btn-primary');
     var btnOrig = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = window.t ? window.t('palm-btn-analyzing') : '分析中…'; }
+    showScanOverlay(window._sxPhotoData, 'palm');
     showLoading('sxResult');
     var base64 = window._sxPhotoData.split(',')[1] || window._sxPhotoData;
     try {
@@ -202,7 +241,7 @@
       }
       var data = await resp.json();
       if (data.report) injectAIResult('sxResult', data.report);
-    } catch(e) { showError('sxResult', e.message); }
+    } catch(e) { hideScanOverlay(); showError('sxResult', e.message); }
     if (btn) { btn.disabled = false; btn.textContent = btnOrig; }
   };
 

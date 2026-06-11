@@ -368,6 +368,34 @@ body{
 .loading-overlay .spinner{display:block}
 .loading-text{color:var(--moon3);font-size:.7em;margin-top:8px;letter-spacing:.06em}
 .dr{display:flex;gap:5px}.dr select{flex:1;text-align:center;text-align-last:center}
+
+/* === Scan Overlay: AI Processing Visual === */
+.scan-overlay{position:fixed;inset:0;z-index:999;background:rgba(7,5,16,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;animation:sof .35s ease}
+.scan-wrap{position:relative;width:240px;height:240px;border-radius:50%;overflow:hidden;margin-bottom:28px;box-shadow:0 0 50px rgba(200,166,74,.12),0 0 100px rgba(107,91,138,.06)}
+.scan-bg{position:absolute;inset:-10px;background-size:cover;background-position:center;filter:blur(7px) brightness(.4);transform:scale(1.08)}
+.scan-core{position:absolute;inset:0;background-size:cover;background-position:center;-webkit-mask-image:radial-gradient(circle at center,#000 26%,transparent 58%);mask-image:radial-gradient(circle at center,#000 26%,transparent 58%)}
+.scan-ring{position:absolute;inset:-8px;border-radius:50%;border:1.5px solid rgba(200,166,74,.28);animation:sp 2.2s ease-in-out infinite}
+.scan-ring.r2{inset:-20px;border-width:.8px;opacity:.5;animation-delay:.6s}
+.scan-ring.r3{inset:-34px;border-width:.4px;opacity:.28;animation-delay:1.2s;border-style:dashed}
+.scan-line{position:absolute;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,rgba(200,166,74,.55),transparent);animation:sl 2.8s ease-in-out infinite}
+.scan-node{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--gold);animation:nf 3.2s ease-in-out infinite;box-shadow:0 0 8px rgba(200,166,74,.5)}
+.scan-node.n1{left:18%;top:22%;animation-delay:0s}
+.scan-node.n2{left:76%;top:30%;animation-delay:.8s}
+.scan-node.n3{left:32%;top:70%;animation-delay:1.6s}
+.scan-node.n4{left:65%;top:62%;animation-delay:2.4s}
+.scan-tag{position:absolute;color:rgba(200,166,74,.2);font-size:1.1em;font-family:'Noto Serif SC',Georgia,serif}
+.scan-tag.t1{top:6%;left:10%}.scan-tag.t2{top:6%;right:10%}
+.scan-tag.t3{bottom:6%;left:10%}.scan-tag.t4{bottom:6%;right:10%}
+.scan-msg{color:var(--gold);font-size:.86em;letter-spacing:.08em;animation:tp 1.6s ease-in-out infinite;text-align:center;font-family:'Noto Serif SC',Georgia,serif}
+.scan-msg-sub{color:var(--moon3);font-size:.62em;margin-top:8px;opacity:.5;letter-spacing:.06em}
+.scan-progress{margin-top:14px;width:160px;height:2px;background:rgba(200,166,74,.08);border-radius:1px;overflow:hidden}
+.scan-progress-bar{height:100%;width:0;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:pb 2.5s ease-in-out infinite}
+@keyframes sof{from{opacity:0}to{opacity:1}}
+@keyframes sp{0%,100%{transform:scale(1);opacity:.28}50%{transform:scale(1.06);opacity:.65}}
+@keyframes sl{0%{top:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:100%;opacity:0}}
+@keyframes nf{0%,100%{transform:translateY(0) scale(.8);opacity:.3}50%{transform:translateY(-10px) scale(1.4);opacity:1}}
+@keyframes tp{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes pb{0%{width:0;margin-left:0}40%{width:60%;margin-left:0}70%{width:30%;margin-left:50%}100%{width:0;margin-left:100%}}
 </style>
 </head>
 <body>
@@ -1002,9 +1030,9 @@ buildPalmOpts();
 // PWA Service Worker
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){})}
 </script>
-<script src="api.js"></script>
+<script src="/api.js"></script>
 <script>localStorage.setItem('lalalin-lang','ja');</script>
-<script src="i18n.js"></script>
-<script src="paypal.js"></script>
+<script src="/i18n.js"></script>
+<script src="/paypal.js"></script>
 
 </html>
