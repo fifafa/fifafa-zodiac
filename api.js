@@ -183,6 +183,10 @@
       if (window.t) toast(window.t('misc-photo-or-upload'));
       return;
     }
+    // Button loading state
+    var btn = document.querySelector('#palmPhotoWrap .btn-primary');
+    var btnOrig = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = window.t ? window.t('palm-btn-analyzing') : '分析中…'; }
     showLoading('sxResult');
     var base64 = window._sxPhotoData.split(',')[1] || window._sxPhotoData;
     try {
@@ -192,12 +196,14 @@
         body: JSON.stringify({ image_base64: base64, language: (window._currentLang || 'zh') })
       });
       if (!resp.ok) {
-        var errText = resp.status === 400 ? '未检测到手掌，请确保照片清晰、手掌平展' : '服务异常 (' + resp.status + ')';
+        var t = window.t || function(k){return k;};
+        var errText = resp.status === 400 ? t('palm-err-nohand') : t('palm-err-server') + ' (' + resp.status + ')';
         throw new Error(errText);
       }
       var data = await resp.json();
       if (data.report) injectAIResult('sxResult', data.report);
     } catch(e) { showError('sxResult', e.message); }
+    if (btn) { btn.disabled = false; btn.textContent = btnOrig; }
   };
 
   // CSS

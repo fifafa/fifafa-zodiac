@@ -259,6 +259,13 @@
     'misc-retry':           { zh:'请重试或更换照片',   en:'Please retry or change photo', ja:'再試行または写真を変更' },
     'misc-no-face':         { zh:'未检测到面部，请确保照片清晰正面', en:'No face detected. Use a clear front-facing photo', ja:'顔が検出されません。正面を向いた鮮明な写真を' },
     'misc-analyzing':       { zh:'分析中...',           en:'Analyzing...',            ja:'分析中...' },
+
+    // Palm errors
+    'palm-err-nohand':  { zh:'未检测到手掌，请确保照片清晰、手掌平展', en:'No palm detected. Use a clear, flat palm photo', ja:'手のひらが検出されません。鮮明で平らな手のひらの写真を使用してください' },
+    'palm-err-server':  { zh:'服务异常',              en:'Service error',           ja:'サービスエラー' },
+    'palm-manual-title':{ zh:'✦ 手动选线（可选）',    en:'✦ Manual Selection (Optional)', ja:'✦ 手動選択（任意）' },
+    'palm-loading':     { zh:'AI 正在分析掌纹…',      en:'AI analyzing palm lines…', ja:'AIが掌紋を分析中…' },
+    'palm-btn-analyzing':{ zh:'分析中…',              en:'Analyzing…',              ja:'分析中…' },
     'misc-ref':             { zh:'以上分析仅供传统文化娱乐参考', en:'Above is for entertainment & cultural reference only', ja:'以上の分析は伝統文化の娯楽参考です' },
     // ====== Date selects ======
     'bazi-year':       { zh:'年',               en:'Year',              ja:'年' },

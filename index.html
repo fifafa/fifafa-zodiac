@@ -542,13 +542,15 @@ body{
       <div id="palmUploadArea" class="face-upload-area" onclick="document.getElementById('palmPhotoInput').click()"><div class="up-icon">📷</div><div class="up-text" data-i18n="tag-palm">拍照或上传掌纹照片</div></div>
       <input type="file" id="palmPhotoInput" accept="image/*" capture="environment" onchange="handlePalmPhoto(event)">
       <div class="face-upload-hint">手持相机拍摄清晰掌纹更准</div>
-      <div id="sxControls" style="margin-top:16px">
+      <details id="sxDetails" style="margin-top:16px"><summary data-i18n="palm-manual-title">✦ 手动选线（可选）</summary>
+      <div id="sxControls">
         <div class="line-group"><div class="lg">✦ 生命线 地纹</div><div id="lifeOpts"></div></div>
         <div class="line-group"><div class="lg">✦ 智慧线 人纹</div><div id="headOpts"></div></div>
         <div class="line-group"><div class="lg">✦ 感情线 天纹</div><div id="heartOpts"></div></div>
         <div class="line-group"><div class="lg">✦ 命运线 玉柱纹</div><div id="fateOpts"></div></div>
         <div class="line-group"><div class="lg">✦ 太阳线</div><div id="sunOpts"></div></div>
       </div>
+      </details>
       <div id="sxResult" style="display:none"></div>
     </div>
     <div class="disc" data-i18n="footer-disclaimer">* 以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。</div>
