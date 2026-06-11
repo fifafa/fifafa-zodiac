@@ -176,16 +176,28 @@
     };
   };
 
-  // Module: Palm Reading
-  var origShowPalmPhoto = window.showPalmPhoto;
-  window.showPalmPhoto = async function() {
-    if (origShowPalmPhoto) origShowPalmPhoto();
-    if (window._sxPhotoLoaded) {
-      showLoading('shouxiangResult');
-      var r = await aiFortune('palm', { name: '', question: '请根据手相分析性格与命运走向' });
-      if (r && r.result) injectAIResult('shouxiangResult', r.result);
-      else if (r && r.error) showError('shouxiangResult', r.error);
+  // Module: Palm Reading — real CV pipeline
+  var origReadShouXiang = window.readShouXiang;
+  window.readShouXiang = async function() {
+    if (!window._sxPhotoData || !window._sxPhotoLoaded) {
+      if (window.t) toast(window.t('misc-photo-or-upload'));
+      return;
     }
+    showLoading('sxResult');
+    var base64 = window._sxPhotoData.split(',')[1] || window._sxPhotoData;
+    try {
+      var resp = await fetch(GATEWAY + '/api/palm/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image_base64: base64, language: (window._currentLang || 'zh') })
+      });
+      if (!resp.ok) {
+        var errText = resp.status === 400 ? '未检测到手掌，请确保照片清晰、手掌平展' : '服务异常 (' + resp.status + ')';
+        throw new Error(errText);
+      }
+      var data = await resp.json();
+      if (data.report) injectAIResult('sxResult', data.report);
+    } catch(e) { showError('sxResult', e.message); }
   };
 
   // CSS

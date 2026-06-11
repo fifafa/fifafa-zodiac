@@ -1087,15 +1087,10 @@ function updatePalmLines(){
 }
 
 function readShouXiang(){
-  var t=window.t||function(k){return k};
-  var sum=palmLines.life+palmLines.head+palmLines.heart+palmLines.fate+palmLines.sun;
   var hasPhoto=_sxPhotoData&&window._sxPhotoLoaded;
-  var rx=[{t:'玉柱擎天掌',d:'生命线深长有力，命运线直贯中指。地纹稳固，根基深厚。早年立志，中年后运势腾飞，事业有成。'},{t:'天纹情深掌',d:'感情线绵长红润，天纹清澈。情深义重，桃花缘旺。待人真诚，感情丰盈美满，伴侣和谐。'},{t:'人纹智慧掌',d:'智慧线笔直深长，人纹清朗。思维敏捷，才学过人。早年聪慧外显，中年学术精深，事业靠脑力制胜。'},{t:'天地交泰掌',d:'四线清晰有力，天地人三纹分明。命格均衡，一生平顺。少年得志、中年稳健、晚年幸福，福泽深厚。'},{t:'四线齐辉掌',d:'生命智慧感情命运四线皆有可观，太阳线亦现。五行调和，贵人相助。事业家庭双丰收，晚年安康。'}];
-  var r=rx[sum%5],sc=hasPhoto?58+rnd(8,36):55+rnd(0,38);
-  var extra=hasPhoto?'<p style="font-size:.7em;color:var(--moon3);margin-top:8px">'+t('palm-extra')+'</p>':'';
-  document.getElementById('sxResult').style.display='block';
-  document.getElementById('sxResult').innerHTML='<div class="reading"><h3>'+t('palm-result')+r.t+'</h3><div class="score">'+t('palm-match')+' '+sc+'%</div><p>'+r.d+'</p>'+extra+'</div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">'+t('misc-ref')+'</div>';
-  document.getElementById('sxResult').scrollIntoView({behavior:'smooth'});
+  if(!hasPhoto){if(window.t)toast(window.t('misc-photo-or-upload'));return}
+  // Real CV pipeline handled by api.js — this fallback shows immediate skeleton
+  showPalmPhoto();
 }
 
 // ====== SHARE ======
@@ -1129,7 +1124,7 @@ window._repopulateDateSelects=function(){
 };
 var d=new Date();d.setFullYear(d.getFullYear()-25);
 populateDateSelects('baziYear','baziMonth','baziDay',d.getFullYear(),d.getMonth()+1,d.getDate());
-buildPalmOpts();
+// buildPalmOpts() moved to after i18n loads (defer fix)
 
 // Daily fortune card
 (function(){

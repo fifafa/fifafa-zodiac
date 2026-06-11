@@ -341,7 +341,7 @@
   if (btn) btn.textContent = {zh:'中', en:'EN', ja:'日'}[CURRENT_LANG];
 
   // Apply on DOM ready (belt-and-suspenders for inline scripts that manipulate DOM)
-  function doApply() { applyLang(); }
+  function doApply() { applyLang(); if (window.buildPalmOpts) window.buildPalmOpts(); }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', doApply);
   } else {
