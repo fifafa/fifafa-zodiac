@@ -450,7 +450,7 @@ body{
       <div class="fg">
         <label data-i18n="form-birth">出生日期</label>
         <div class="dr">
-          <input class="inp" id="baziYearInput" type="number" placeholder="年份" min="1920" max="2020" style="flex:1" onchange="syncYearInput()">
+          <input class="inp" id="baziYearInput" type="number" data-i18n="bazi-year-input" placeholder="输入年份" min="1920" max="2020" style="flex:1" onchange="syncYearInput()">
           <select class="sel" id="baziYear" onchange="updateDays('baziDay','baziYear','baziMonth');syncYearSelect()"><option value="">年</option></select>
           <select class="sel" id="baziMonth" onchange="updateDays('baziDay','baziYear','baziMonth')"><option value="">月</option></select>
           <select class="sel" id="baziDay"><option value="">日</option></select>
@@ -1115,8 +1115,8 @@ buildPalmOpts();
 // PWA Service Worker
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){})}
 </script>
-<script src="api.js"></script>
-<script src="i18n.js"></script>
-<script src="paypal.js"></script>
+<script src="api.js" defer></script>
+<script src="i18n.js" defer></script>
+<script src="paypal.js" defer></script>
 
 </html>

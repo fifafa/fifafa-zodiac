@@ -72,7 +72,15 @@
     var div = document.createElement('div');
     div.className = 'ai-result-section';
     div.innerHTML = '<div class="ai-badge">🤖 DeepSeek AI 深度解读</div>' +
-      '<div class="ai-content">' + formatAIResponse(aiHtml) + '</div>';
+      '<div class="ai-content">' + formatAIResponse(aiHtml) + '</div>' +
+      '<div class="ai-result-footer">' +
+        '<button class="ai-share-btn" onclick="shareAIFortune()">✧ 分享结果</button>' +
+        '<div class="ai-next-module">' +
+          '<span class="ai-next-hint">继续探索 → </span>' +
+          '<span class="ai-next-link" onclick="goCh(\'mianxiang\')">☉ 面相分析</span>' +
+          '<span class="ai-next-link" onclick="goCh(\'shouxiang\')">✋ 手相解读</span>' +
+        '</div>' +
+      '</div>';
     if (container.firstChild) {
       container.insertBefore(div, container.firstChild.nextSibling);
     } else {
@@ -80,6 +88,15 @@
     }
     div.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
+
+  // Share AI fortune result
+  window.shareAIFortune = function() {
+    var content = document.querySelector('.ai-content');
+    var text = content ? content.textContent.trim().substring(0, 200) + '…' : '';
+    var shareText = '🔮 拉拉林 AI 命理解读\n' + text + '\n→ lalalin.xyz';
+    if (navigator.share) { navigator.share({text: shareText}).catch(function(){}) }
+    else { navigator.clipboard.writeText(shareText).then(function(){ toast('已复制！') }) }
+  };
 
   function formatAIResponse(text) {
     text = text
@@ -94,33 +111,38 @@
     return text;
   }
 
-  // ====== Module: 八字 (Bazi) ======
-  var origDoBazi = window.doBazi;
-  window.doBazi = async function() {
-    if (origDoBazi) origDoBazi();
+  // ====== Module: 八字 (Bazi) — defensive override ======
+  function _patchBazi(){
+    var origDoBazi = window.doBazi;
+    window.doBazi = async function() {
+      if (origDoBazi) origDoBazi();
 
-    var y = document.getElementById('baziYear').value;
-    var m = document.getElementById('baziMonth').value;
-    var d = document.getElementById('baziDay').value;
-    var h = document.getElementById('baziHour').value || '12';
-    var g = document.getElementById('baziGender').value;
-    if (!y || !m || !d) return;
+      var y = document.getElementById('baziYear').value;
+      var m = document.getElementById('baziMonth').value;
+      var d = document.getElementById('baziDay').value;
+      var h = document.getElementById('baziHour').value || '12';
+      var g = document.getElementById('baziGender').value;
+      if (!y || !m || !d) return;
 
-    showLoading('baziResult');
+      showLoading('baziResult');
 
-    var result = await aiFortune('bazi', {
-      name: '',
-      gender: g === '1' ? '男' : '女',
-      birth: y + '-' + String(m).padStart(2,'0') + '-' + String(d).padStart(2,'0') + ' ' + String(h).padStart(2,'0') + ':00',
-      question: '请详细解读我的八字命盘，包括事业、财运、感情、健康'
-    });
+      var result = await aiFortune('bazi', {
+        name: '',
+        gender: g === '1' ? '男' : '女',
+        birth: y + '-' + String(m).padStart(2,'0') + '-' + String(d).padStart(2,'0') + ' ' + String(h).padStart(2,'0') + ':00',
+        question: '请详细解读我的八字命盘，包括事业、财运、感情、健康'
+      });
 
-    if (result && result.result) {
-      injectAIResult('baziResult', result.result);
-    } else if (result && result.error) {
-      showError('baziResult', result.error);
-    }
-  };
+      if (result && result.result) {
+        injectAIResult('baziResult', result.result);
+      } else if (result && result.error) {
+        showError('baziResult', result.error);
+      }
+    };
+  }
+  // Ensure original doBazi exists before patching; retry up to 3s
+  if (typeof window.doBazi === 'function') { _patchBazi(); }
+  else { var _baziRetry=0,_baziTimer=setInterval(function(){if(typeof window.doBazi==='function'){_patchBazi();clearInterval(_baziTimer)}else if(++_baziRetry>30)clearInterval(_baziTimer)},100); }
 
   // ====== Module: 面相 (Face Reading) ======
   var origInitMianXiang = window.initMianXiang;
@@ -238,6 +260,56 @@
       .ai-retry-btn:hover {
         background: rgba(200,166,74,0.3);
         transform: translateY(-1px);
+      }
+
+      .ai-result-footer {
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(200,166,74,0.15);
+        text-align: center;
+      }
+      .ai-share-btn {
+        padding: 10px 28px;
+        background: linear-gradient(135deg, rgba(200,166,74,0.15), rgba(158,126,48,0.2));
+        border: 1px solid var(--gold);
+        border-radius: 22px;
+        color: var(--gold);
+        font-size: 0.88em;
+        cursor: pointer;
+        transition: all 0.25s;
+        font-family: inherit;
+        letter-spacing: 0.04em;
+      }
+      .ai-share-btn:active {
+        background: rgba(200,166,74,0.3);
+        transform: scale(0.96);
+      }
+      .ai-next-module {
+        margin-top: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .ai-next-hint {
+        color: var(--moon3);
+        font-size: 0.78em;
+      }
+      .ai-next-link {
+        padding: 6px 16px;
+        border: 1px solid rgba(200,166,74,0.2);
+        border-radius: 16px;
+        color: var(--moon2);
+        font-size: 0.78em;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .ai-next-link:active {
+        border-color: var(--gold);
+        background: rgba(200,166,74,0.06);
+        color: var(--gold);
+        transform: scale(0.96);
       }
 
       @keyframes aiFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
