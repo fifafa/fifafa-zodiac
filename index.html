@@ -423,9 +423,166 @@ body{
 .daily-stems{font-size:1.6em;color:var(--moon);margin:6px 0;letter-spacing:.08em;font-family:'Noto Serif SC',Georgia,serif}
 .daily-element{font-size:.82em;color:var(--gold);margin:4px 0}
 .daily-tip{font-size:.72em;color:var(--moon2);margin:8px 0 2px;line-height:1.7}
+
+/* === INTRO SPLASH === */
+#intro-splash {
+  position: fixed; inset: 0; z-index: 10000;
+  background: radial-gradient(ellipse at 50% 30%, rgba(107,91,138,0.15) 0%, transparent 55%),
+              radial-gradient(ellipse at 50% 80%, rgba(200,166,74,0.06) 0%, transparent 50%),
+              #070510;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  animation: introFadeIn .8s ease-out;
+  padding: 40px 20px;
+}
+@keyframes introFadeIn { from { opacity: 0; } to { opacity: 1; } }
+#intro-splash.hidden { display: none !important; }
+
+.intro-stars {
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+}
+.intro-star {
+  position: absolute; width: 1px; height: 1px; background: var(--moon);
+  border-radius: 50%; animation: starTwinkle var(--dur) ease-in-out infinite;
+  animation-delay: var(--delay); opacity: 0;
+}
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 0.8; transform: scale(1.2); }
+}
+
+.intro-title-wrap {
+  text-align: center; margin-bottom: 32px; position: relative; z-index: 1;
+}
+.intro-symbol {
+  font-size: 3.2em; margin-bottom: 8px;
+  animation: introSymbolFloat 3.5s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes introSymbolFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-6px) rotate(2deg); }
+  75% { transform: translateY(-4px) rotate(-1deg); }
+}
+.intro-title {
+  font-family: 'Noto Serif SC', Georgia, serif;
+  font-size: 1.8em; font-weight: 700;
+  background: linear-gradient(135deg, var(--moon), var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: .16em; margin-bottom: 6px;
+}
+.intro-subtitle {
+  font-size: .72em; color: var(--moon3); letter-spacing: .14em;
+}
+
+.intro-cards {
+  width: 100%; max-width: 420px; display: flex; flex-direction: column;
+  gap: 16px; position: relative; z-index: 1; margin-bottom: 28px;
+}
+.intro-card {
+  background: linear-gradient(160deg, rgba(15,11,36,0.9), rgba(21,16,48,0.7));
+  border: 1px solid rgba(200,166,74,0.12); border-radius: var(--r2);
+  padding: 20px 18px; transition: .3s; position: relative; overflow: hidden;
+}
+.intro-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 100%;
+  background: linear-gradient(180deg, transparent, var(--gold), transparent);
+  opacity: 0.3;
+}
+.intro-card-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.intro-card-icon {
+  font-size: 1.6em; flex-shrink: 0;
+}
+.intro-card-name {
+  font-family: 'Noto Serif SC', Georgia, serif;
+  font-size: .94em; color: var(--gold); font-weight: 600; letter-spacing: .06em;
+}
+.intro-card-body {
+  font-size: .74em; color: var(--moon2); line-height: 1.75; letter-spacing: .03em;
+}
+.intro-card-note {
+  margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(200,166,74,0.06);
+  font-size: .6em; color: var(--moon3); line-height: 1.8; font-style: italic;
+  letter-spacing: .04em;
+}
+
+.intro-btn-wrap { position: relative; z-index: 1; text-align: center; }
+.intro-enter-btn {
+  display: inline-block; padding: 16px 48px;
+  background: linear-gradient(135deg, rgba(200,166,74,0.15), rgba(158,126,48,0.2));
+  border: 1.5px solid var(--gold); border-radius: 30px;
+  color: var(--moon); font-size: .96em; font-weight: 600;
+  cursor: pointer; letter-spacing: .1em; font-family: 'Noto Serif SC', Georgia, serif;
+  transition: .3s; animation: introBtnPulse 2.5s ease-in-out infinite;
+  position: relative;
+}
+@keyframes introBtnPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200,166,74,0.3); }
+  50% { box-shadow: 0 0 24px 4px rgba(200,166,74,0.15); }
+}
+.intro-enter-btn:active {
+  background: rgba(200,166,74,0.25); transform: scale(0.96);
+}
+
+.intro-skip {
+  margin-top: 16px; font-size: .6em; color: var(--moon3);
+  cursor: pointer; letter-spacing: .06em; opacity: 0.5; transition: .2s;
+}
+.intro-skip:hover { opacity: 0.8; }
+
+/* Mobile */
+@media (max-width: 380px) {
+  .intro-title { font-size: 1.5em; }
+  .intro-card { padding: 16px 14px; }
+  .intro-card-body { font-size: .7em; }
+  .intro-enter-btn { padding: 14px 40px; font-size: .88em; }
+}
+
 </style>
 </head>
 <body>
+<!-- INTRO SPLASH -->
+<div id="intro-splash">
+  <div class="intro-stars" id="introStars"></div>
+  <div class="intro-title-wrap">
+    <div class="intro-symbol">☯</div>
+    <div class="intro-title" data-i18n="intro-title">星之密语</div>
+    <div class="intro-subtitle" data-i18n="intro-subtitle">东方命理三脉</div>
+  </div>
+  <div class="intro-cards">
+    <div class="intro-card">
+      <div class="intro-card-header">
+        <span class="intro-card-icon">☯</span>
+        <span class="intro-card-name" data-i18n="intro-bazi-name">八字命盘</span>
+      </div>
+      <div class="intro-card-body" data-i18n="intro-bazi-body">八字源于《周易》阴阳五行学说。出生时刻的年月日时，化作天干地支四柱八字——这八个字承载天地之气的流转，映照先天命格、五行盛衰、大运起伏。</div>
+      <div class="intro-card-note" data-i18n="intro-bazi-note">《珞琭子》云：「元命胜负，三元者干禄、支命、纳音身，各分衰旺之地。」——《李虚中命书》</div>
+    </div>
+    <div class="intro-card">
+      <div class="intro-card-header">
+        <span class="intro-card-icon">☉</span>
+        <span class="intro-card-name" data-i18n="intro-face-name">面相十二宫</span>
+      </div>
+      <div class="intro-card-body" data-i18n="intro-face-body">面相源自《麻衣神相》。人面应天象，五官各主其位：天庭主事业，鼻准主财帛，双眉主兄弟，双眼主心性。气色明暗、骨相起伏，皆是命运外显。</div>
+      <div class="intro-card-note" data-i18n="intro-face-note">「列百部之灵居，通五脏之神路，惟三才之成象，定一生之失得。」——《麻衣神相·相法总论》</div>
+    </div>
+    <div class="intro-card">
+      <div class="intro-card-header">
+        <span class="intro-card-icon">✋</span>
+        <span class="intro-card-name" data-i18n="intro-palm-name">手相三纹</span>
+      </div>
+      <div class="intro-card-body" data-i18n="intro-palm-body">手相可溯至《黄帝内经》。天之纹为感情线、地之纹为智慧线、人之纹为生命线，三才并立。掌中八卦九宫，纹路深浅曲直，映射人生际遇与心性变化。</div>
+      <div class="intro-card-note" data-i18n="intro-palm-note">「掌中八卦，定乾坤贵贱。三才纹路，分天地人之气数。」——《玉掌记》</div>
+    </div>
+  </div>
+  <div class="intro-btn-wrap">
+    <button class="intro-enter-btn" onclick="enterApp()" data-i18n="intro-enter">✦ 进入密语 ✦</button>
+    <div class="intro-skip" onclick="enterApp()" data-i18n="intro-skip">直接进入</div>
+  </div>
+</div>
+
 <canvas id="cosmos"></canvas>
 
 <!-- Share FAB -->
@@ -1217,6 +1374,47 @@ populateDateSelects('baziYear','baziMonth','baziDay',d.getFullYear(),d.getMonth(
 
 // PWA Service Worker
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){})}
+
+// === INTRO SPLASH LOGIC ===
+(function() {
+  var seen = localStorage.getItem('lalalin-intro-seen');
+  var splash = document.getElementById('intro-splash');
+  if (!splash) return;
+  
+  // Check if seen within 7 days
+  if (seen) {
+    try {
+      var data = JSON.parse(seen);
+      var ago = Date.now() - data.ts;
+      if (ago < 7 * 24 * 3600 * 1000) {
+        splash.classList.add('hidden');
+        return;
+      }
+    } catch(e) {}
+  }
+  
+  // Generate stars
+  var starsContainer = document.getElementById('introStars');
+  if (starsContainer) {
+    for (var i = 0; i < 40; i++) {
+      var star = document.createElement('div');
+      star.className = 'intro-star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.setProperty('--dur', (1.5 + Math.random() * 3) + 's');
+      star.style.setProperty('--delay', Math.random() * 4 + 's');
+      starsContainer.appendChild(star);
+    }
+  }
+  
+  window.enterApp = function() {
+    localStorage.setItem('lalalin-intro-seen', JSON.stringify({ts: Date.now()}));
+    splash.style.opacity = '0';
+    splash.style.transition = 'opacity .5s ease';
+    setTimeout(function() { splash.classList.add('hidden'); }, 500);
+  };
+})();
+
 </script>
 <script src="api.js" defer></script>
 <script src="i18n.js" defer></script>
