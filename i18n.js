@@ -21,7 +21,7 @@
 
     // Hero
     'hero-title':     { zh:'TaoPulse · 东方三脉', en:'TaoPulse',           ja:'TaoPulse' },
-    'hero-subtitle':  { zh:'探索你的命运星图',    en:'Oriental Astrology & Face Reading', ja:'東方命理の三脈' },
+    'hero-subtitle':  { zh:'解读你的命理之脉',    en:'Oriental Astrology & Face Reading', ja:'東方命理の三脈' },
 
     // Intro splash
     'intro-title':    { zh:'TaoPulse',           en:'TaoPulse',             ja:'TaoPulse' },
@@ -82,7 +82,7 @@
     'btn-face-read': { zh:'✦ 解读面相', en:'✦ Read Face', ja:'✦ 人相を鑑定' },
 
     // CTA
-    'cta-start':      { zh:'开启你的命盘',       en:'Discover Your Destiny',  ja:'運命の扉を開く' },
+    'cta-start':      { zh:'开启你的命盘',       en:'Start Free Reading',     ja:'運命の扉を開く' },
 
     // Results
     'result-loading':   { zh:'正在推演命盘…',          en:'Reading your fortune…',            ja:'運命を読み解いています…' },

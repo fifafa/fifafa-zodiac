@@ -518,7 +518,7 @@ body{
 }
 
 .intro-skip {
-  margin-top: 16px; font-size: .6em; color: var(--moon3);
+  margin-top: 16px; font-size: .72em; color: var(--moon3);
   cursor: pointer; letter-spacing: .06em; opacity: 0.5; transition: .2s;
 }
 .intro-skip:hover { opacity: 0.8; }
@@ -584,7 +584,7 @@ body{
 <div id="app">
   <!-- TOP BAR -->
   <div id="topbar">
-    <div class="top-btn" id="menuBtn">☰</div>
+    <div class="top-btn" id="menuBtn" onclick="toggleLang()" title="切换语言">☰</div>
     <div id="logo" data-i18n="site-name">TaoPulse</div>
     <div class="top-btn" id="langBtn" onclick="toggleLang()">中</div>
   </div>
