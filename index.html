@@ -475,6 +475,28 @@ body{
   font-size: .72em; color: var(--moon3); letter-spacing: .14em;
 }
 
+/* Palm gender bar */
+.palm-gender-bar {
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px; gap: 6px; flex-wrap: wrap;
+}
+.palm-gender-btn {
+  padding: 8px 18px; border-radius: var(--r); border: 1px solid var(--bd2);
+  background: var(--card2); color: var(--moon3); font-size: .75em; cursor: pointer;
+  transition: all .25s; font-family: inherit;
+}
+.palm-gender-btn.sel {
+  border-color: var(--gold); color: var(--gold);
+  background: rgba(200,166,74,0.08); box-shadow: 0 0 10px rgba(200,166,74,0.1);
+}
+.palm-gender-btn:active { transform: scale(0.96); }
+.confirm-dialog {
+  text-align: center; padding: 16px 12px;
+  background: var(--card2); border-radius: var(--r2);
+  border: 1px solid var(--bd); margin-bottom: 12px;
+}
+.confirm-dialog .btn { margin: 4px 6px; }
+
 .intro-cards {
   width: 100%; max-width: 420px; display: flex; flex-direction: column;
   gap: 16px; position: relative; z-index: 1; margin-bottom: 28px;
