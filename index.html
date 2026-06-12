@@ -398,6 +398,24 @@ body{
 @keyframes tp{0%,100%{opacity:.5}50%{opacity:1}}
 @keyframes pb{0%{width:0;margin-left:0}40%{width:60%;margin-left:0}70%{width:30%;margin-left:50%}100%{width:0;margin-left:100%}}
 
+/* PayPal Modal */
+.pp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.pp-overlay.show{display:flex}
+.pp-modal{background:var(--card);border:1px solid var(--bd2);border-radius:var(--r3);padding:28px 24px;max-width:380px;width:90%;position:relative;max-height:90vh;overflow-y:auto}
+.pp-close{position:absolute;top:12px;right:16px;font-size:1.3em;color:var(--moon3);cursor:pointer;line-height:1;transition:.2s}
+.pp-close:hover{color:var(--moon)}
+.pp-title{text-align:center;font-size:1.1em;color:var(--gold);font-weight:700;margin-bottom:6px}
+.pp-sub{text-align:center;font-size:.72em;color:var(--moon3);margin-bottom:20px;line-height:1.5}
+.pp-plan-card{border:1px solid var(--bd);border-radius:var(--r2);padding:20px 16px;margin-bottom:14px;text-align:center;background:var(--card2);transition:.2s}
+.pp-plan-card.pp-plan-best{border-color:rgba(200,166,74,.4);background:linear-gradient(160deg,rgba(200,166,74,.06),rgba(21,16,48,.9))}
+.pp-plan-badge{display:inline-block;background:var(--gold);color:#1a1a2e;font-size:.6em;font-weight:700;padding:2px 10px;border-radius:10px;margin-bottom:8px;letter-spacing:.04em}
+.pp-plan-name{font-size:.9em;color:var(--moon);font-weight:600;margin-bottom:4px}
+.pp-plan-price{font-size:1.8em;color:var(--gold);font-weight:700;letter-spacing:.02em}
+.pp-plan-unit{font-size:.45em;color:var(--moon3);font-weight:400}
+.pp-plan-desc{font-size:.64em;color:var(--moon3);margin-bottom:14px}
+.paypal-btn-container{min-height:40px;margin-top:8px}
+.paypal-btn-container iframe{max-width:100%!important}
+
 /* Daily Fortune */
 .daily-fortune-header{display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:10px}
 .daily-date{color:var(--moon3);font-size:.66em;letter-spacing:.08em}
@@ -1203,5 +1221,27 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catc
 <script src="api.js" defer></script>
 <script src="i18n.js" defer></script>
 <script src="paypal.js" defer></script>
+
+<!-- PayPal Payment Modal -->
+<div id="pp-modal-overlay" class="pp-overlay">
+  <div class="pp-modal">
+    <div class="pp-close" onclick="document.getElementById('pp-modal-overlay').classList.remove('show')">✕</div>
+    <div class="pp-title">✨ 解锁无限解读</div>
+    <div class="pp-sub">每次深度解读都需要算力支持，感谢理解</div>
+    <div class="pp-plan-card">
+      <div class="pp-plan-name">☕ 请喝杯咖啡</div>
+      <div class="pp-plan-price">$1.99</div>
+      <div class="pp-plan-desc">单次解读</div>
+      <div class="paypal-btn-container" data-plan="coffee"></div>
+    </div>
+    <div class="pp-plan-card pp-plan-best">
+      <div class="pp-plan-badge">最受欢迎</div>
+      <div class="pp-plan-name">⭐ 月度会员</div>
+      <div class="pp-plan-price">$5.99<span class="pp-plan-unit">/月</span></div>
+      <div class="pp-plan-desc">无限解读 · 可随时取消</div>
+      <div class="paypal-btn-container" data-plan="monthly"></div>
+    </div>
+  </div>
+</div>
 
 </html>
