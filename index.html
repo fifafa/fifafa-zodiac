@@ -1376,24 +1376,30 @@ populateDateSelects('baziYear','baziMonth','baziDay',d.getFullYear(),d.getMonth(
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){})}
 
 // === INTRO SPLASH LOGIC ===
-(function() {
+window.enterApp = function() {
+  var splash = document.getElementById('intro-splash');
+  if (!splash) return;
+  localStorage.setItem('lalalin-intro-seen', JSON.stringify({ts: Date.now()}));
+  splash.style.opacity = '0';
+  splash.style.transition = 'opacity .5s ease';
+  setTimeout(function() { splash.classList.add('hidden'); }, 500);
+};
+
+(function initIntro() {
   var seen = localStorage.getItem('lalalin-intro-seen');
   var splash = document.getElementById('intro-splash');
   if (!splash) return;
   
-  // Check if seen within 7 days
   if (seen) {
     try {
       var data = JSON.parse(seen);
-      var ago = Date.now() - data.ts;
-      if (ago < 7 * 24 * 3600 * 1000) {
+      if (Date.now() - data.ts < 7 * 24 * 3600 * 1000) {
         splash.classList.add('hidden');
         return;
       }
     } catch(e) {}
   }
   
-  // Generate stars
   var starsContainer = document.getElementById('introStars');
   if (starsContainer) {
     for (var i = 0; i < 40; i++) {
@@ -1406,13 +1412,6 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catc
       starsContainer.appendChild(star);
     }
   }
-  
-  window.enterApp = function() {
-    localStorage.setItem('lalalin-intro-seen', JSON.stringify({ts: Date.now()}));
-    splash.style.opacity = '0';
-    splash.style.transition = 'opacity .5s ease';
-    setTimeout(function() { splash.classList.add('hidden'); }, 500);
-  };
 })();
 
 </script>
