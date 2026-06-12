@@ -1524,7 +1524,7 @@ function buildPalmOpts(){
   1489|window.enterApp = function() {
   1490|  var s = document.getElementById('intro-splash');
   1491|  if (!s) return;
-  1492|  s.style.display = 'none';
+  1492|  s.classList.add('hidden');
   1493|  try { localStorage.setItem('lalalin-intro-seen', '1'); } catch(e) {}
   1494|};
   1495|
@@ -1534,7 +1534,7 @@ function buildPalmOpts(){
   1499|  
   1500|  try {
   1501|    if (localStorage.getItem('lalalin-intro-seen')) {
-  1502|      splash.style.display = 'none';
+  1502|      splash.classList.add('hidden');
   1503|      return;
   1504|    }
   1505|  } catch(e) {}
