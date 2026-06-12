@@ -160,7 +160,7 @@
   window.shareAIFortune = function() {
     var c = document.querySelector('.ai-content');
     var t = c ? c.textContent.trim().substring(0, 200) + '…' : '';
-    var s = '🔮 拉拉林 命理解读\\n' + t + '\\n→ lalalin.xyz';
+    var s = '🔮 TaoPulse 命理解读\\n' + t + '\\n→ lalalin.xyz';
     if (navigator.share) navigator.share({text: s}).catch(function(){});
     else navigator.clipboard.writeText(s).then(function(){ toast('已复制！') });
   };

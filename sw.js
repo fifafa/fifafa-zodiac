@@ -1,4 +1,4 @@
-// Service Worker — 星之密语 PWA
+// Service Worker — TaoPulse PWA
 const CACHE = 'star-fate-v1';
 const ASSETS = [
   '/',

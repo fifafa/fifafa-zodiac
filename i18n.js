@@ -9,23 +9,23 @@
   // ====== Dictionary ======
   var I18N = {
     // Site identity
-    'site-name':      { zh:'拉拉林',           en:'Lalalin',             ja:'ララリン' },
-    'site-title':     { zh:'拉拉林 · 星之密语 | 东方命理 · 八字 · 面相 · 手相',
-                        en:'Lalalin · Star Whispers | Eastern Fortune · Bazi · Face Reading · Palm Reading',
-                        ja:'ララリン · 星のささやき | 東洋占い · 八字 · 人相 · 手相' },
-    'site-desc':      { zh:'拉拉林——你的东方命理师。八字命盘、面相分析、手相解读。探索你的星图。',
-                        en:'Lalalin — your Eastern fortune teller. Bazi chart, face reading, palm reading. Explore your star map.',
-                        ja:'ララリン——あなたの東洋占い師。八字命盤、人相鑑定、手相鑑定。あなたの星図を探索。' },
-    'og-title':       { zh:'拉拉林 · 星之密语',  en:'Lalalin · Star Whispers',   ja:'ララリン · 星のささやき' },
-    'og-desc':        { zh:'东方命理师。八字·面相·手相',  en:'Eastern Fortune Teller. Bazi · Face · Palm',  ja:'東洋占い師。八字·人相·手相' },
+    'site-name':      { zh:'TaoPulse',          en:'TaoPulse',            ja:'TaoPulse' },
+    'site-title':     { zh:'TaoPulse · 东方三脉 | 八字 · 面相 · 手相',
+                        en:'TaoPulse · Oriental Astrology & Face Reading | Bazi · Face · Palm',
+                        ja:'TaoPulse · 東方命理の三脈 | 八字 · 人相 · 手相' },
+    'site-desc':      { zh:'TaoPulse——东方命理三脉。八字命盘、面相分析、手相解读。探索你的星图。',
+                        en:'TaoPulse — Oriental Astrology & Face Reading. Bazi chart, face reading, palm reading. Explore your star map.',
+                        ja:'TaoPulse——東方命理の三脈。八字命盤、人相鑑定、手相鑑定。あなたの星図を探索。' },
+    'og-title':       { zh:'TaoPulse · 东方三脉',  en:'TaoPulse · Oriental Astrology & Face Reading',  ja:'TaoPulse · 東方命理の三脈' },
+    'og-desc':        { zh:'东方命理三脉。八字·面相·手相', en:'Oriental Astrology & Face Reading. Bazi · Face · Palm', ja:'東方命理の三脈。八字·人相·手相' },
 
     // Hero
-    'hero-title':     { zh:'星之密语',           en:'Star Whispers',       ja:'星のささやき' },
-    'hero-subtitle':  { zh:'探索你的命运星图',    en:'Explore your destiny chart',  ja:'あなたの運命図を探索' },
+    'hero-title':     { zh:'TaoPulse · 东方三脉', en:'TaoPulse',           ja:'TaoPulse' },
+    'hero-subtitle':  { zh:'探索你的命运星图',    en:'Oriental Astrology & Face Reading', ja:'東方命理の三脈' },
 
     // Intro splash
-    'intro-title':    { zh:'星之密语',           en:'Star Whispers',        ja:'星のささやき' },
-    'intro-subtitle': { zh:'东方命理三脉',        en:'Three Pillars of Eastern Destiny', ja:'東洋運命の三脈' },
+    'intro-title':    { zh:'TaoPulse',           en:'TaoPulse',             ja:'TaoPulse' },
+    'intro-subtitle': { zh:'八字 · 面相 · 手相',  en:'Oriental Astrology & Face Reading', ja:'東方命理の三脈' },
     'intro-bazi-name':{ zh:'八字命盘',           en:'Bazi — The Eight Characters', ja:'八字 — 八つの文字' },
     'intro-bazi-body':{ zh:'八字源于《周易》阴阳五行学说。出生时刻的年月日时，化作天干地支四柱八字——这八个字承载天地之气的流转，映照先天命格、五行盛衰、大运起伏。',
                         en:'Bazi originates from the I Ching\'s Yin-Yang and Five Elements theory. Your birth moment — year, month, day, and hour — forms four pillars of Heavenly Stems and Earthly Branches. These eight characters embody cosmic energy flow, revealing innate destiny, elemental balance, and life cycles.',
@@ -276,9 +276,9 @@
     'pl-sun-4':   { zh:'浅淡隐约 大器晚成',    en:'Faint — late bloomer',               ja:'かすか—大器晩成' },
 
     // ====== Share ======
-    'share-text':    { zh:'拉拉林·星之密语\n八字·面相·手相 → lalalin.xyz',
-                       en:'Lalalin · Star Whispers\nBazi · Face · Palm → lalalin.xyz',
-                       ja:'ララリン · 星のささやき\\n八字·人相·手相 → lalalin.xyz' },
+    'share-text':    { zh:'TaoPulse·东方三脉\n八字·面相·手相 → lalalin.xyz',
+                       en:'TaoPulse · Oriental Astrology & Face Reading\nBazi · Face · Palm → lalalin.xyz',
+                       ja:'TaoPulse · 東方命理の三脈\\n八字·人相·手相 → lalalin.xyz' },
 
     // ====== Misc ======
     'misc-photo-or-upload': { zh:'拍照或上传照片',     en:'Take or upload photo',    ja:'写真を撮るかアップロード' },
