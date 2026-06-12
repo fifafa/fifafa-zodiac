@@ -13,9 +13,18 @@
   var AI_ENABLED = true;
   var FREE_LIMIT = 3;
 
-  var LOADING_HTML = '<div class="ai-loading"><div class="ai-spinner"></div><p>正在推演命盘…</p><p class="ai-loading-sub">深度分析中，约需 5-10 秒</p></div>';
-  var ERROR_HTML = '<div class="ai-error"><div class="ai-error-icon">⚠️</div><p class="ai-error-title">连接失败</p><p class="ai-error-msg" id="aiErrorMsg">无法连接到服务，请稍后重试</p><button class="ai-retry-btn" onclick="location.reload()">🔄 重新加载</button></div>';
-  var PAYWALL_HTML = '<div class="ai-paywall"><div class="ai-paywall-icon">🔒</div><h3 class="ai-paywall-title">免费次数已用完</h3><p class="ai-paywall-desc">每次深度解读都需要算力支持，感谢理解与支持</p><div class="ai-paywall-plans"><div class="ai-paywall-plan" onclick="document.getElementById(\'pp-modal-overlay\')&&document.getElementById(\'pp-modal-overlay\').classList.add(\'show\')"><span class="ai-paywall-price">$1.99</span><span>请喝杯咖啡</span></div><div class="ai-paywall-plan ai-paywall-plan-best" onclick="document.getElementById(\'pp-modal-overlay\')&&document.getElementById(\'pp-modal-overlay\').classList.add(\'show\')"><span class="ai-paywall-price">$5.99/月</span><span>无限解读 ⭐</span></div></div><p class="ai-paywall-alt">或试试其他模块：<a onclick="goCh(\'mianxiang\')">☉ 面相分析</a> · <a onclick="goCh(\'shouxiang\')">✋ 手相解读</a></p></div>';
+  var LOADING_HTML = function() {
+    var t = window.t || function(k,d){return d;};
+    return '<div class="ai-loading"><div class="ai-spinner"></div><p>'+t('load-title','正在推演命盘…')+'</p><p class="ai-loading-sub">'+t('load-sub','深度分析中，约需 5-10 秒')+'</p></div>';
+  };
+  function getErrorHTML() {
+    var t = window.t || function(k,d){return d;};
+    return '<div class="ai-error"><div class="ai-error-icon">⚠️</div><p class="ai-error-title">'+t('err-title','连接失败')+'</p><p class="ai-error-msg" id="aiErrorMsg">'+t('err-msg','无法连接到服务，请稍后重试')+'</p><button class="ai-retry-btn" onclick="location.reload()">'+t('err-retry','🔄 重新加载')+'</button></div>';
+  }
+  function getPaywallHTML() {
+    var t = window.t || function(k,d){return d;};
+    return '<div class="ai-paywall"><div class="ai-paywall-icon">🔒</div><h3 class="ai-paywall-title">'+t('pw-title','免费次数已用完')+'</h3><p class="ai-paywall-desc">'+t('pw-desc','每次深度解读都需要算力支持，感谢理解与支持')+'</p><div class="ai-paywall-plans"><div class="ai-paywall-plan" onclick="document.getElementById(\'pp-modal-overlay\')&&document.getElementById(\'pp-modal-overlay\').classList.add(\'show\')"><span class="ai-paywall-price">$1.99</span><span>'+t('pw-coffee','请喝杯咖啡')+'</span></div><div class="ai-paywall-plan ai-paywall-plan-best" onclick="document.getElementById(\'pp-modal-overlay\')&&document.getElementById(\'pp-modal-overlay\').classList.add(\'show\')"><span class="ai-paywall-price">$5.99/月</span><span>'+t('pw-monthly','无限解读 ⭐')+'</span></div></div><p class="ai-paywall-alt">'+t('pw-alt','或试试其他模块：')+'<a onclick="goCh(\'mianxiang\')">☉ '+t('svc-face','Face Reading')+'</a> · <a onclick="goCh(\'shouxiang\')">✋ '+t('svc-palm','Palm Reading')+'</a></p></div>';
+  }
 
   // Free trial / premium
   function getFreeReadings() {
@@ -36,7 +45,7 @@
     if (!el) return;
     var div = document.createElement('div');
     div.className = 'ai-paywall-wrap';
-    div.innerHTML = PAYWALL_HTML;
+    div.innerHTML = getPaywallHTML();
     el.appendChild(div);
     el.style.display = 'block';
     div.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -67,7 +76,7 @@
     var el = document.getElementById(targetId);
     if (!el) return;
     _loadingTarget = targetId;
-    el.innerHTML = LOADING_HTML;
+    el.innerHTML = LOADING_HTML();
     el.style.display = 'block';
     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
@@ -119,7 +128,7 @@
     clearLoading();
     var el = document.getElementById(targetId);
     if (!el) return;
-    el.innerHTML = ERROR_HTML;
+    el.innerHTML = getErrorHTML();
     el.style.display = 'block';
     var m = document.getElementById('aiErrorMsg');
     if (m) m.textContent = msg || '无法连接到服务，请稍后重试';

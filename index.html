@@ -403,7 +403,7 @@ body{
 .pp-overlay.show{display:flex}
 .pp-modal{background:var(--card);border:1px solid var(--bd2);border-radius:var(--r3);padding:28px 24px;max-width:380px;width:90%;position:relative;max-height:90vh;overflow-y:auto}
 .pp-close{position:absolute;top:12px;right:16px;font-size:1.3em;color:var(--moon3);cursor:pointer;line-height:1;transition:.2s}
-.pp-close:hover{color:var(--moon)}
+.pp-close:hover{color:var(--gold)}
 .pp-title{text-align:center;font-size:1.1em;color:var(--gold);font-weight:700;margin-bottom:6px}
 .pp-sub{text-align:center;font-size:.72em;color:var(--moon3);margin-bottom:20px;line-height:1.5}
 .pp-plan-card{border:1px solid var(--bd);border-radius:var(--r2);padding:20px 16px;margin-bottom:14px;text-align:center;background:var(--card2);transition:.2s}
@@ -1226,22 +1226,21 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catc
 <div id="pp-modal-overlay" class="pp-overlay">
   <div class="pp-modal">
     <div class="pp-close" onclick="document.getElementById('pp-modal-overlay').classList.remove('show')">✕</div>
-    <div class="pp-title">✨ 解锁无限解读</div>
-    <div class="pp-sub">每次深度解读都需要算力支持，感谢理解</div>
+    <div class="pp-title" data-i18n="pp-title">✨ 解锁无限解读</div>
+    <div class="pp-sub" data-i18n="pp-sub">每次深度解读都需要算力支持，感谢理解</div>
     <div class="pp-plan-card">
-      <div class="pp-plan-name">☕ 请喝杯咖啡</div>
+      <div class="pp-plan-name" data-i18n="pp-coffee">☕ 请喝杯咖啡</div>
       <div class="pp-plan-price">$1.99</div>
-      <div class="pp-plan-desc">单次解读</div>
+      <div class="pp-plan-desc" data-i18n="pp-coffee-desc">单次解读</div>
       <div class="paypal-btn-container" data-plan="coffee"></div>
     </div>
     <div class="pp-plan-card pp-plan-best">
-      <div class="pp-plan-badge">最受欢迎</div>
-      <div class="pp-plan-name">⭐ 月度会员</div>
+      <div class="pp-plan-badge" data-i18n="pp-best-badge">最受欢迎</div>
+      <div class="pp-plan-name" data-i18n="pp-monthly">⭐ 月度会员</div>
       <div class="pp-plan-price">$5.99<span class="pp-plan-unit">/月</span></div>
-      <div class="pp-plan-desc">无限解读 · 可随时取消</div>
+      <div class="pp-plan-desc" data-i18n="pp-monthly-desc">无限解读 · 可随时取消</div>
       <div class="paypal-btn-container" data-plan="monthly"></div>
     </div>
   </div>
 </div>
-
 </html>
