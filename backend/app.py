@@ -337,15 +337,35 @@ class PalmAnalyzeRequest(BaseModel):
 @app.post("/api/palm/analyze")
 async def analyze_palm_endpoint(req: PalmAnalyzeRequest):
     """Full pipeline: photo → MediaPipe warp → U-Net detection → classification → DeepSeek report"""
+    
+    # Trilingual error messages
+    _ERROR_MSGS = {
+        "invalid_base64": {
+            "zh": "无效的图片编码",
+            "en": "Invalid base64 image",
+            "ja": "無効な画像エンコード"
+        },
+        "analysis_failed": {
+            "zh": "手相分析失败",
+            "en": "Palm analysis failed",
+            "ja": "手相分析に失敗しました"
+        }
+    }
+    lang = (req.language or "zh")[:2]
+    if lang not in ("zh", "en", "ja"):
+        lang = "en"
+    def _err(key, detail=None):
+        return _ERROR_MSGS.get(key, {}).get(lang, _ERROR_MSGS[key]["en"]) + (f": {detail}" if detail else "")
+    
     try:
         image_data = base64.b64decode(req.image_base64)
     except Exception:
-        raise HTTPException(status_code=400, detail="Invalid base64 image")
+        raise HTTPException(status_code=400, detail=_err("invalid_base64"))
 
     result = analyze_palm(image_data)
     if not result.get("success"):
         stats["errors"] += 1
-        raise HTTPException(status_code=400, detail=result.get("error", "Palm analysis failed"))
+        raise HTTPException(status_code=400, detail=_err("analysis_failed", result.get("error")))
 
     # Build KB context
     kb_context = get_palm_context(result)

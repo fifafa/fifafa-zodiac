@@ -10,14 +10,14 @@
   var I18N = {
     // Site identity
     'site-name':      { zh:'拉拉林',           en:'Lalalin',             ja:'ララリン' },
-    'site-title':     { zh:'拉拉林 · 星之密语 | AI东方命理 · 八字 · 面相 · 手相',
-                        en:'Lalalin · Star Whispers | AI Eastern Fortune · Bazi · Face Reading · Palm Reading',
-                        ja:'ララリン · 星のささやき | AI東洋占い · 八字 · 人相 · 手相' },
-    'site-desc':      { zh:'拉拉林——你的AI东方命理师。八字命盘、面相分析、手相解读。探索你的星图。',
-                        en:'Lalalin — your AI Eastern fortune teller. Bazi chart, face reading, palm reading. Explore your star map.',
-                        ja:'ララリン——あなたのAI東洋占い師。八字命盤、人相鑑定、手相鑑定。あなたの星図を探索。' },
+    'site-title':     { zh:'拉拉林 · 星之密语 | 东方命理 · 八字 · 面相 · 手相',
+                        en:'Lalalin · Star Whispers | Eastern Fortune · Bazi · Face Reading · Palm Reading',
+                        ja:'ララリン · 星のささやき | 東洋占い · 八字 · 人相 · 手相' },
+    'site-desc':      { zh:'拉拉林——你的东方命理师。八字命盘、面相分析、手相解读。探索你的星图。',
+                        en:'Lalalin — your Eastern fortune teller. Bazi chart, face reading, palm reading. Explore your star map.',
+                        ja:'ララリン——あなたの東洋占い師。八字命盤、人相鑑定、手相鑑定。あなたの星図を探索。' },
     'og-title':       { zh:'拉拉林 · 星之密语',  en:'Lalalin · Star Whispers',   ja:'ララリン · 星のささやき' },
-    'og-desc':        { zh:'AI东方命理师。八字·面相·手相',  en:'AI Eastern Fortune Teller. Bazi · Face Reading · Palm Reading',  ja:'AI東洋占い師。八字·人相·手相' },
+    'og-desc':        { zh:'东方命理师。八字·面相·手相',  en:'Eastern Fortune Teller. Bazi · Face · Palm',  ja:'東洋占い師。八字·人相·手相' },
 
     // Hero
     'hero-title':     { zh:'星之密语',           en:'Star Whispers',       ja:'星のささやき' },
@@ -58,8 +58,8 @@
     'cta-start':      { zh:'开启你的命盘',       en:'Discover Your Destiny',  ja:'運命の扉を開く' },
 
     // Results
-    'result-loading':   { zh:'AI 正在推演命盘…',        en:'AI is reading your fortune…',       ja:'AIが運命を読み解いています…' },
-    'result-ai-badge':  { zh:'🤖 DeepSeek AI 深度解读',  en:'🤖 DeepSeek AI Deep Reading',        ja:'🤖 DeepSeek AI 深層鑑定' },
+    'result-loading':   { zh:'正在推演命盘…',          en:'Reading your fortune…',            ja:'運命を読み解いています…' },
+    'result-ai-badge':  { zh:'✦ 命理深度解读',         en:'✦ Deep Fortune Reading',            ja:'✦ 深層鑑定' },
 
     // Footer
     'footer-disclaimer':{ zh:'以上内容仅供传统文化娱乐参考。命运在自己手中，请理性看待。',
@@ -80,8 +80,8 @@
     'ctx-age':        { zh:'年龄段',            en:'Age Range',            ja:'年齢層' },
     'ctx-concern':    { zh:'关注',             en:'Focus',               ja:'関心事' },
     'btn-retake':     { zh:'重拍',             en:'Retake',              ja:'再撮影' },
-    'btn-analyze':    { zh:'AI 解读',           en:'AI Analyze',           ja:'AI分析' },
-    'loading-face':   { zh:'AI 正在分析面相特征…',  en:'AI analyzing facial features…',  ja:'AIが顔の特徴を分析中…' },
+    'btn-analyze':    { zh:'解读',              en:'Analyze',              ja:'分析' },
+    'loading-face':   { zh:'正在分析面相特征…',     en:'Analyzing facial features…',     ja:'顔の特徴を分析中…' },
 
     // ====== Bazi Results ======
     'bazi-nayin':     { zh:'纳音',        en:'Nayin',           ja:'納音' },
@@ -249,9 +249,9 @@
     'pl-sun-4':   { zh:'浅淡隐约 大器晚成',    en:'Faint — late bloomer',               ja:'かすか—大器晩成' },
 
     // ====== Share ======
-    'share-text':    { zh:'拉拉林·星之密语 ✦ AI东方命理师\n八字·面相·手相 → lalalin.xyz',
-                       en:'Lalalin · Star Whispers ✦ AI Eastern Fortune\nBazi · Face · Palm → lalalin.xyz',
-                       ja:'ララリン · 星のささやき ✦ AI東洋占い\n八字·人相·手相 → lalalin.xyz' },
+    'share-text':    { zh:'拉拉林·星之密语\n八字·面相·手相 → lalalin.xyz',
+                       en:'Lalalin · Star Whispers\nBazi · Face · Palm → lalalin.xyz',
+                       ja:'ララリン · 星のささやき\\n八字·人相·手相 → lalalin.xyz' },
 
     // ====== Misc ======
     'misc-photo-or-upload': { zh:'拍照或上传照片',     en:'Take or upload photo',    ja:'写真を撮るかアップロード' },
@@ -264,7 +264,7 @@
     'palm-err-nohand':  { zh:'未检测到手掌，请确保照片清晰、手掌平展', en:'No palm detected. Use a clear, flat palm photo', ja:'手のひらが検出されません。鮮明で平らな手のひらの写真を使用してください' },
     'palm-err-server':  { zh:'服务异常',              en:'Service error',           ja:'サービスエラー' },
     'palm-manual-title':{ zh:'✦ 手动选线（可选）',    en:'✦ Manual Selection (Optional)', ja:'✦ 手動選択（任意）' },
-    'palm-loading':     { zh:'AI 正在分析掌纹…',      en:'AI analyzing palm lines…', ja:'AIが掌紋を分析中…' },
+    'palm-loading':     { zh:'正在分析掌纹…',          en:'Analyzing palm lines…',    ja:'掌紋を分析中…' },
     'palm-btn-analyzing':{ zh:'分析中…',              en:'Analyzing…',              ja:'分析中…' },
     'misc-ref':             { zh:'以上分析仅供传统文化娱乐参考', en:'Above is for entertainment & cultural reference only', ja:'以上の分析は伝統文化の娯楽参考です' },
     // ====== Date selects ======

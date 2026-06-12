@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>lalalin · Star Whispers | AI Eastern Fortune Teller · Bazi · Face · Palm V25.3</title>
-<meta name="description" content="lalalin — Your AI Eastern fortune teller. Bazi destiny charts, face reading (12 palaces), palm reading (3 lines). DeepSeek AI deciphers your cosmic blueprint.">
+<title>lalalin · Star Whispers | Eastern Fortune Teller · Bazi · Face · Palm V25.5</title>
+<meta name="description" content="lalalin — Your Eastern fortune teller. Bazi destiny charts, face reading (12 palaces), palm reading (3 lines). Decipher your cosmic blueprint.">
 <meta name="theme-color" content="#070510">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,7 +18,7 @@
 <link rel="alternate" hreflang="ja" href="https://lalalin.xyz/ja/">
 <link rel="alternate" hreflang="x-default" href="https://lalalin.xyz/">
 <meta property="og:title" content="lalalin · Star Whispers">
-<meta property="og:description" content="AI Eastern Fortune Teller. Bazi · Face · Palm">
+<meta property="og:description" content="Eastern Fortune Teller. Bazi · Face · Palm">
 <meta property="og:url" content="https://lalalin.xyz/en/">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://lalalin.xyz/og-image.png">
@@ -369,7 +369,7 @@ body{
 .loading-text{color:var(--moon3);font-size:.7em;margin-top:8px;letter-spacing:.06em}
 .dr{display:flex;gap:5px}.dr select{flex:1;text-align:center;text-align-last:center}
 
-/* === Scan Overlay: AI Processing Visual === */
+/* === Scan Overlay: Processing Visual === */
 .scan-overlay{position:fixed;inset:0;z-index:999;background:rgba(7,5,16,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;animation:sof .35s ease}
 .scan-wrap{position:relative;width:240px;height:240px;border-radius:50%;overflow:hidden;margin-bottom:28px;box-shadow:0 0 50px rgba(200,166,74,.12),0 0 100px rgba(107,91,138,.06)}
 .scan-bg{position:absolute;inset:-10px;background-size:cover;background-position:center;filter:blur(7px) brightness(.4);transform:scale(1.08)}
@@ -435,7 +435,7 @@ body{
       </svg>
     </div>
     <h1 data-i18n="hero-title">拉拉林 · 星之密语</h1>
-    <div class="tagline" data-i18n="hero-subtitle">AI东方命理师</div>
+    <div class="tagline" data-i18n="hero-subtitle">东方命理师</div>
   </div>
 
   <!-- 3 Module Service Cards -->
@@ -631,6 +631,40 @@ function toast(m){
 function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
 function zi(y){return((y-4)%12+12)%12}
 
+// ====== POEM OF DESTINY ======
+function poemOf(el,shenWang,z){
+  var ps={
+    0:[ // Metal
+      '金锋出匣寒光动','千锤百炼自刚强',
+      '山藏玉润光华隐','一遇风云化栋梁',
+      '金藏厚土待天时','锋芒未露有谁知',
+      '静候春风生万物','一朝出土展新枝'],
+    1:[ // Water
+      '上善若水润无声','潜渊涵养育龙灵',
+      '千回百转归沧海','日月同辉照锦程',
+      '清泉石上细流长','滴水穿石志自强',
+      '待到春来冰雪化','涓涓汇入大江洋'],
+    2:[ // Wood
+      '青松立雪见精神','盘根厚土养天真',
+      '春雷一动生机发','万里东风送绿茵',
+      '新芽破土向阳生','细雨和风渐长成',
+      '根深不怕霜来早','自有凌云向日横'],
+    3:[ // Fire
+      '星火燎原势自雄','光耀乾坤气贯虹',
+      '丹心一点燃天地','万丈云霞映日红',
+      '烛火微明照暗窗','守得长夜待晨光',
+      '星芒一点虽微弱','亦向苍穹放焰芒'],
+    4:[ // Earth
+      '厚德载物承天命','中和正气育群生',
+      '山岳巍巍安社稷','金玉满堂福自盈',
+      '沃土深藏种善根','春耕秋获待时辰',
+      '静守方寸安心处','自有繁花满院门']
+  };
+  var p=ps[el]||ps[0];
+  var off=shenWang?0:4;
+  return p[off]+', '+p[off+1]+'. '+p[off+2]+', '+p[off+3]+'.';
+}
+
 // ====== HELPERS ======
 function createOpt(v,t){var o=document.createElement('option');o.value=v;o.textContent=t;return o}
 
@@ -707,10 +741,11 @@ function doBazi(){
   var jiNm=(shenWang?'水、木':'火、土');
   var wuDesc=wuname.map(function(c,i){return c+':'+wuCount[i]}).join(' / ');
   var guides=['✦ 宜接触'+xiNm+'属性的行业，补益运势','✦ 流年遇'+jiNm+'旺时宜保守，忌冒险投资','✦ '+dyEl+'命主「'+virtueMap[dyEl]+'」，注意'+(dong===0?'优柔寡断':dong===1?'急躁冲动':dong===2?'固执己见':dong===3?'刚愎自用':'感情用事')+'的倾向','✦ '+(shenWang?'身旺可担财官，'+xiNm+'运年大有可为':'身弱需印比帮扶，'+xiNm+'年得贵人助缘'),'✦ 关键运势在20-30岁，月令'+stemsZh[moStem]+branchZh[moBranch]+'有力，中年后'+branchZh[(yrBranch+2)%12]+'运上升'];
+  var poem=poemOf(dong,shenWang,zCh[USER.z]);
   var interp='你属'+zCh[USER.z]+'，日柱「'+stemsZh[dyStem]+branchZh[dyBranch]+'」日主'+dyEl+'。命格纳音「'+nl+'」，五行 '+wuDesc+'。'+(shenWang?'身旺':'身弱')+'，喜'+xiNm+'，忌'+jiNm+'。'+dyEl+'命主「'+virtueMap[dyEl]+'」，'+stemsZh[moStem]+branchZh[moBranch]+'月令'+(moStem%2===0?'比劫':'财官')+'相随。';
 
   document.getElementById('baziResult').style.display='block';
-  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">纳音 · '+zCh[USER.z]+'年 · '+(g==='male'?'乾造':'坤造')+'</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">日主 · '+stemsZh[dyStem]+' · '+dyEl+'命</div><div style="font-size:.62em;color:var(--moon3)">'+y+'年'+m+'月'+dd+'日 · '+h+'时'+(g==='male'?'男':'女')+'</div></div><div class="pillars"><div class="pillar"><div class="pl">年柱</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+yrSS+'</div></div><div class="pillar"><div class="pl">月柱</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+moSS+'</div></div><div class="pillar"><div class="pl">日柱</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--moon);font-size:.55em">日主</div></div><div class="pillar"><div class="pl">时柱</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+hrSS+'</div></div></div><div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div><div class="reading"><h3>用神喜忌</h3><p>身'+(shenWang?'旺':'弱')+'，喜'+xiNm+'，忌'+jiNm+'。</p></div><div class="reading"><h3>五行分布</h3><p style="font-size:.85em">'+wuDesc+' · 同类'+sameCount+'/'+(8-sameCount)+'异</p></div><div class="reading"><h3>指导意见</h3>'+guides.join('</p><p>')+'</div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">以上分析仅供传统文化娱乐参考</div>';
+  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">纳音 · '+zCh[USER.z]+'年 · '+(g==='male'?'乾造':'坤造')+'</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">日主 · '+stemsZh[dyStem]+' · '+dyEl+'命</div><div style="font-size:.62em;color:var(--moon3)">'+y+'年'+m+'月'+dd+'日 · '+h+'时'+(g==='male'?'男':'女')+'</div></div><div class="pillars"><div class="pillar"><div class="pl">年柱</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+yrSS+'</div></div><div class="pillar"><div class="pl">月柱</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+moSS+'</div></div><div class="pillar"><div class="pl">日柱</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--moon);font-size:.55em">日主</div></div><div class="pillar"><div class="pl">时柱</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+hrSS+'</div></div></div><div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div><div class="reading"><h3>用神喜忌</h3><p>身'+(shenWang?'旺':'弱')+'，喜'+xiNm+'，忌'+jiNm+'。</p></div><div class="reading"><h3>五行分布</h3><p style="font-size:.85em">'+wuDesc+' · 同类'+sameCount+'/'+(8-sameCount)+'异</p></div><div class="reading"><h3>指导意见</h3>'+guides.join('</p><p>')+'</div><div class="reading" style="text-align:center;border-color:rgba(200,166,74,0.15)"><h3 style="text-align:center">✦ Poem of Destiny</h3><p style="text-align:center;line-height:2.2;font-size:.88em;color:var(--gold);font-family:'Noto Serif SC',Georgia,serif">'+poem+'</p></div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">以上分析仅供传统文化娱乐参考</div>';
   document.getElementById('baziResult').scrollIntoView({behavior:'smooth'});
 }
 
@@ -1018,7 +1053,7 @@ function readShouXiang(){
 
 // ====== SHARE ======
 function shareGeneral(){
-  var t='拉拉林·星之密语 ✦ AI东方命理师\n八字·面相·手相 → lalalin.xyz';
+  var t='lalalin · Star Whispers\nBazi · Face · Palm → lalalin.xyz';
   if(navigator.share){navigator.share({text:t}).catch(function(){})}else{navigator.clipboard.writeText(t).then(function(){toast('已复制！')})}
 }
 

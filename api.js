@@ -1,6 +1,6 @@
 /**
- * lalalin.xyz AI Fortune API Integration v2.2
- * DeepSeek-powered fortune telling with free trial + paywall
+ * lalalin.xyz Fortune API Integration v2.3
+ * Fortune telling API with free trial + paywall
  */
 (function() {
   'use strict';
@@ -13,9 +13,9 @@
   var AI_ENABLED = true;
   var FREE_LIMIT = 3;
 
-  var LOADING_HTML = '<div class="ai-loading"><div class="ai-spinner"></div><p>AI 正在推演命盘…</p><p class="ai-loading-sub">DeepSeek 深度分析中，约需 5-10 秒</p></div>';
-  var ERROR_HTML = '<div class="ai-error"><div class="ai-error-icon">⚠️</div><p class="ai-error-title">连接失败</p><p class="ai-error-msg" id="aiErrorMsg">无法连接到 AI 服务，请稍后重试</p><button class="ai-retry-btn" onclick="location.reload()">🔄 重新加载</button></div>';
-  var PAYWALL_HTML = '<div class="ai-paywall"><div class="ai-paywall-icon">🔒</div><h3 class="ai-paywall-title">免费次数已用完</h3><p class="ai-paywall-desc">DeepSeek AI 每次解读都有成本，感谢理解与支持</p><div class="ai-paywall-plans"><div class="ai-paywall-plan" onclick="document.getElementById(\'pp-modal-overlay\')&&document.getElementById(\'pp-modal-overlay\').classList.add(\'show\')"><span class="ai-paywall-price">$1.99</span><span>请喝杯咖啡</span></div><div class="ai-paywall-plan ai-paywall-plan-best" onclick="document.getElementById(\'pp-modal-overlay\')&&document.getElementById(\'pp-modal-overlay\').classList.add(\'show\')"><span class="ai-paywall-price">$5.99/月</span><span>无限解读 ⭐</span></div></div><p class="ai-paywall-alt">或试试其他模块：<a onclick="goCh(\'mianxiang\')">☉ 面相分析</a> · <a onclick="goCh(\'shouxiang\')">✋ 手相解读</a></p></div>';
+  var LOADING_HTML = '<div class="ai-loading"><div class="ai-spinner"></div><p>正在推演命盘…</p><p class="ai-loading-sub">深度分析中，约需 5-10 秒</p></div>';
+  var ERROR_HTML = '<div class="ai-error"><div class="ai-error-icon">⚠️</div><p class="ai-error-title">连接失败</p><p class="ai-error-msg" id="aiErrorMsg">无法连接到服务，请稍后重试</p><button class="ai-retry-btn" onclick="location.reload()">🔄 重新加载</button></div>';
+  var PAYWALL_HTML = '<div class="ai-paywall"><div class="ai-paywall-icon">🔒</div><h3 class="ai-paywall-title">免费次数已用完</h3><p class="ai-paywall-desc">每次深度解读都需要算力支持，感谢理解与支持</p><div class="ai-paywall-plans"><div class="ai-paywall-plan" onclick="document.getElementById(\'pp-modal-overlay\')&&document.getElementById(\'pp-modal-overlay\').classList.add(\'show\')"><span class="ai-paywall-price">$1.99</span><span>请喝杯咖啡</span></div><div class="ai-paywall-plan ai-paywall-plan-best" onclick="document.getElementById(\'pp-modal-overlay\')&&document.getElementById(\'pp-modal-overlay\').classList.add(\'show\')"><span class="ai-paywall-price">$5.99/月</span><span>无限解读 ⭐</span></div></div><p class="ai-paywall-alt">或试试其他模块：<a onclick="goCh(\'mianxiang\')">☉ 面相分析</a> · <a onclick="goCh(\'shouxiang\')">✋ 手相解读</a></p></div>';
 
   // Free trial / premium
   function getFreeReadings() {
@@ -85,8 +85,8 @@
   function showScanOverlay(photoDataUrl, module) {
     hideScanOverlay();
     var t = window.t || function(k,d){return d;};
-    var msg = module === 'face' ? t('loading-face', 'AI analyzing facial features…') : t('palm-loading', 'AI analyzing palm lines…');
-    var sub = t('misc-ref', 'DeepSeek neural analysis in progress');
+    var msg = module === 'face' ? t('loading-face', 'Analyzing facial features…') : t('palm-loading', 'Analyzing palm lines…');
+    var sub = t('misc-ref', 'Neural analysis in progress');
     var tri = ['☰','☷','☵','☲'];
     var ov = document.createElement('div');
     ov.className = 'scan-overlay';
@@ -122,7 +122,7 @@
     el.innerHTML = ERROR_HTML;
     el.style.display = 'block';
     var m = document.getElementById('aiErrorMsg');
-    if (m) m.textContent = msg || '无法连接到 AI 服务，请稍后重试';
+    if (m) m.textContent = msg || '无法连接到服务，请稍后重试';
     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
@@ -133,9 +133,9 @@
     if (!container) return;
     var div = document.createElement('div');
     div.className = 'ai-result-section';
-    div.innerHTML = '<div class="ai-badge">🤖 DeepSeek AI 深度解读</div>'
+    div.innerHTML = '<div class="ai-badge">✦ 命理深度解读</div>'
       + '<div class="ai-content">' + formatAIResponse(aiHtml) + '</div>'
-      + '<div class="ai-disclaimer">⚠️ 以上内容由 AI 生成，仅供传统文化娱乐参考</div>'
+      + '<div class="ai-disclaimer">⚠️ 以上内容仅供传统文化娱乐参考</div>'
       + '<div class="ai-result-footer">'
         + '<button class="ai-share-btn" onclick="shareAIFortune()">✧ 分享结果</button>'
         + '<div class="ai-next-module">'
@@ -151,7 +151,7 @@
   window.shareAIFortune = function() {
     var c = document.querySelector('.ai-content');
     var t = c ? c.textContent.trim().substring(0, 200) + '…' : '';
-    var s = '🔮 拉拉林 AI 命理解读\n' + t + '\n→ lalalin.xyz';
+    var s = '🔮 拉拉林 命理解读\\n' + t + '\\n→ lalalin.xyz';
     if (navigator.share) navigator.share({text: s}).catch(function(){});
     else navigator.clipboard.writeText(s).then(function(){ toast('已复制！') });
   };
