@@ -318,6 +318,19 @@
     'bazi-day':        { zh:'日',               en:'Day',               ja:'日' },
     'bazi-month-short':{ zh:'月',               en:'',                  ja:'月' },
 
+
+    // Intro detail
+    'intro-more':        { zh:'了解更多 ↓',        en:'Learn more ↓',         ja:'さらに詳しく ↓' },
+    'detail-bazi-text':  { zh:'八字即四柱命理学，以人出生时的年月日时对应天干地支，排成四柱共八字。年柱为根，月柱为苗，日柱为花，时柱为果。天干地支共六十甲子，循环不息。五行（金木水火土）相生相克，通过日主天干的五行属性，配合月令旺衰，参看十神关系，即可推演人一生的富贵贫贱、吉凶祸福。核心概念包括：日主强弱、用神喜忌、大运流年。',
+                           en:'Bazi (Four Pillars of Destiny) maps your birth year, month, day, and hour to the Heavenly Stems and Earthly Branches — forming four pillars of eight characters. The Year Pillar is the root, Month the sprout, Day the flower, and Hour the fruit. Through the 60-cycle Jiazi system and Five Elements (Metal, Wood, Water, Fire, Earth) interactions, the Day Master's element strength is analyzed alongside seasonal influence and Ten Gods relationships to reveal life patterns. Key concepts: Day Master strength, Useful God, Favorable/Unfavorable elements, and Luck Pillars.',
+                           ja:'八字（四柱推命）は、生まれた年月日時を天干地支に当てはめ、四柱八字を構成します。年柱は根、月柱は苗、日柱は花、時柱は果。六十甲子の循環と五行（木火土金水）の相生相克により、日主の強弱を月令と十神関係から判断し、人生の吉凶禍福を推し量ります。核心概念：日主強弱、用神喜忌、大運流年。' },
+    'detail-face-text': { zh:'面相学将人脸分为十二宫，对应人生十二个方面。天庭（额头）为官禄宫，主事业功名；印堂（两眉之间）为命宫，主一生运势；两眼为监察宫，主心性善恶；鼻为财帛宫，主财富运势；口为出纳宫，主食禄口福；耳为采听宫，主寿元根基。三庭（上停、中停、下停）对应少年、中年、晚年运势。气色以黄润为吉，青黑为凶。',
+                           en:'Face reading divides the face into Twelve Palaces, each governing a life domain. The forehead (Career Palace) rules achievements; the space between brows (Life Palace) governs overall fortune; the eyes (Inspection Palace) reveal character; the nose (Wealth Palace) governs finances; the mouth (Utterance Palace) rules sustenance; the ears (Listening Palace) govern longevity. The Three Regions (upper, middle, lower) correspond to youth, middle age, and later years. A warm, clear complexion is auspicious; dark, ashen tones are inauspicious.',
+                           ja:'人相学では顔を十二宮に分け、人生の各側面を読み解きます。額（官禄宮）は事業、眉間（命宮）は運勢、両眼（監察宮）は心性、鼻（財帛宮）は財運、口（出納宮）は食禄、耳（採聴宮）は寿命を司ります。三停（上停・中停・下停）はそれぞれ少年・中年・晚年の運勢に対応。気色は黄色みのある潤いが吉、青黒い色は凶とされます。' },
+    'detail-palm-text': { zh:'手相学以三大主线为核心。天纹（感情线）起于小指下方，横贯手掌，主情感婚姻；人纹（智慧线）起于食指下方，斜穿掌心，主思维学业；地纹（生命线）环绕拇指根部，主健康寿元。此外，玉柱纹（事业线）、太阳纹（成功线）、婚姻线、健康线等辅线亦各有深意。掌分八卦九宫，各方位对应不同人生领域。纹理以清晰深长为佳，断续凌乱为劣。',
+                           en:'Palmistry centers on three major lines. The Heaven Line (Heart Line) starts below the little finger and crosses the palm — governing emotions and marriage. The Human Line (Head Line) starts below the index finger and angles across the palm — governing intellect and learning. The Earth Line (Life Line) curves around the thumb — governing health and longevity. Secondary lines include the Fate Line (career), Sun Line (success), Marriage Line, and Health Line. The palm is divided into Eight Trigrams and Nine Palaces, each zone corresponding to a life area. Deep, clear, unbroken lines are favorable.',
+                           ja:'手相は三大線を核心とします。天紋（感情線）は小指の下から手のひらを横切り、感情・結婚を司ります。人紋（頭脳線）は人差し指の下から斜めに走り、思考・学業を示します。地紋（生命線）は親指の付け根を囲み、健康・寿命を表します。他に玉柱紋（運命線）、太陽紋（成功線）、結婚線、健康線などの補助線もあります。掌は八卦九宮に分かれ、各方位が異なる人生領域に対応。線紋は明瞭で深く長いものが良く、途切れや乱れは注意が必要です。' },
+
     // Daily fortune
     'daily-label':    { zh:'✦ 今日运势',        en:'✦ Today\'s Fortune',   ja:'✦ 今日の運勢' },
 

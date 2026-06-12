@@ -523,6 +523,44 @@ body{
 }
 .intro-skip:hover { opacity: 0.8; }
 
+/* Lang toggle in intro */
+.intro-lang-bar {
+  position: absolute; top: 16px; right: 16px; z-index: 2; display: flex; gap: 6px;
+}
+.intro-lang-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid rgba(200,166,74,0.2); background: rgba(15,11,36,0.6);
+  color: var(--moon3); font-size: .6em; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: .25s; letter-spacing: .02em;
+}
+.intro-lang-btn:active, .intro-lang-btn.on {
+  color: var(--gold); border-color: var(--gold); background: rgba(200,166,74,0.08);
+}
+
+/* Expandable detail */
+.intro-card { cursor: pointer; }
+.intro-card-more {
+  font-size: .58em; color: var(--moon3); text-align: right; margin-top: 6px;
+  letter-spacing: .04em; opacity: 0.6;
+}
+.intro-detail {
+  display: none; margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid rgba(200,166,74,0.1);
+  animation: introDetailIn .35s ease;
+}
+.intro-detail.open { display: block; }
+@keyframes introDetailIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+.intro-detail-text {
+  font-size: .68em; color: var(--moon2); line-height: 1.8; letter-spacing: .03em;
+  margin-bottom: 14px;
+}
+.intro-detail-diagram {
+  text-align: center; margin: 10px 0;
+}
+.intro-detail-diagram svg { max-width: 100%; height: auto; }
+
+
 /* Mobile */
 @media (max-width: 380px) {
   .intro-title { font-size: 1.5em; }
@@ -536,6 +574,11 @@ body{
 <body>
 <!-- INTRO SPLASH -->
 <div id="intro-splash">
+  <div class="intro-lang-bar">
+    <button class="intro-lang-btn" onclick="event.stopPropagation();setIntroLang('zh')">中</button>
+    <button class="intro-lang-btn" onclick="event.stopPropagation();setIntroLang('en')">EN</button>
+    <button class="intro-lang-btn" onclick="event.stopPropagation();setIntroLang('ja')">日</button>
+  </div>
   <div class="intro-stars" id="introStars"></div>
   <div class="intro-title-wrap">
     <div class="intro-symbol">☯</div>
@@ -549,6 +592,11 @@ body{
         <span class="intro-card-name" data-i18n="intro-bazi-name">八字命盘</span>
       </div>
       <div class="intro-card-body" data-i18n="intro-bazi-body">八字源于《周易》阴阳五行学说。出生时刻的年月日时，化作天干地支四柱八字——这八个字承载天地之气的流转，映照先天命格、五行盛衰、大运起伏。</div>
+            <div class="intro-card-more" data-i18n="intro-more">了解更多 ↓</div>
+      <div class="intro-detail" id="detail-bazi">
+        <div class="intro-detail-text" data-i18n="detail-bazi-text">八字即四柱命理学，以人出生时的年月日时对应天干地支，排成四柱共八字。年柱为根，月柱为苗，日柱为花，时柱为果。天干地支共六十甲子，循环不息。五行（金木水火土）相生相克，通过日主天干的五行属性，配合月令旺衰，参看十神关系，即可推演人一生的富贵贫贱、吉凶祸福。核心概念包括：日主强弱、用神喜忌、大运流年。</div>
+        <div class="intro-detail-diagram" data-i18n="detail-bazi-diagram"><svg width="280" height="200" viewBox="0 0 280 200"><rect x="10" y="10" width="120" height="40" rx="6" fill="none" stroke="#c8a64a" stroke-width="1" opacity="0.6"/><text x="70" y="28" text-anchor="middle" fill="#c8a64a" font-size="9">年柱 · 根</text><text x="70" y="42" text-anchor="middle" fill="#ede4d0" font-size="11">甲子</text><rect x="150" y="10" width="120" height="40" rx="6" fill="none" stroke="#c8a64a" stroke-width="1" opacity="0.6"/><text x="210" y="28" text-anchor="middle" fill="#c8a64a" font-size="9">月柱 · 苗</text><text x="210" y="42" text-anchor="middle" fill="#ede4d0" font-size="11">丙寅</text><rect x="10" y="60" width="120" height="40" rx="6" fill="none" stroke="#c8a64a" stroke-width="1" opacity="0.6"/><text x="70" y="78" text-anchor="middle" fill="#c8a64a" font-size="9">日柱 · 花</text><text x="70" y="92" text-anchor="middle" fill="#ede4d0" font-size="11">戊辰</text><rect x="150" y="60" width="120" height="40" rx="6" fill="none" stroke="#c8a64a" stroke-width="1" opacity="0.6"/><text x="210" y="78" text-anchor="middle" fill="#c8a64a" font-size="9">时柱 · 果</text><text x="210" y="92" text-anchor="middle" fill="#ede4d0" font-size="11">庚午</text><circle cx="70" cy="140" r="18" fill="none" stroke="#c8a64a" stroke-width="1" opacity="0.5"/><text x="70" y="144" text-anchor="middle" fill="#c8a64a" font-size="10">日主</text><text x="70" y="115" text-anchor="middle" fill="#7a6e55" font-size="7">↑</text><circle cx="130" cy="140" r="12" fill="none" stroke="#d4453a" stroke-width="1" opacity="0.4"/><text x="130" y="144" text-anchor="middle" fill="#d4453a" font-size="8">火</text><circle cx="160" cy="140" r="12" fill="none" stroke="#c8a64a" stroke-width="1" opacity="0.4"/><text x="160" y="144" text-anchor="middle" fill="#c8a64a" font-size="8">土</text><circle cx="190" cy="140" r="12" fill="none" stroke="#baae90" stroke-width="1" opacity="0.4"/><text x="190" y="144" text-anchor="middle" fill="#baae90" font-size="8">金</text><circle cx="220" cy="140" r="12" fill="none" stroke="#3d8b6b" stroke-width="1" opacity="0.4"/><text x="220" y="144" text-anchor="middle" fill="#3d8b6b" font-size="8">木</text><circle cx="100" cy="170" r="12" fill="none" stroke="#6b5b8a" stroke-width="1" opacity="0.4"/><text x="100" y="174" text-anchor="middle" fill="#6b5b8a" font-size="8">水</text><line x1="77" y1="155" x2="124" y2="144" stroke="#c8a64a" stroke-width="0.5" opacity="0.3"/><line x1="77" y1="155" x2="154" y2="144" stroke="#c8a64a" stroke-width="0.5" opacity="0.3"/><line x1="77" y1="155" x2="184" y2="144" stroke="#c8a64a" stroke-width="0.5" opacity="0.3"/><line x1="77" y1="155" x2="214" y2="144" stroke="#c8a64a" stroke-width="0.5" opacity="0.3"/><line x1="77" y1="155" x2="97" y2="162" stroke="#c8a64a" stroke-width="0.5" opacity="0.3"/><text x="140" y="195" text-anchor="middle" fill="#7a6e55" font-size="7">四柱八字 · 五行生克</text></svg></div>
+      </div>
       <div class="intro-card-note" data-i18n="intro-bazi-note">《珞琭子》云：「元命胜负，三元者干禄、支命、纳音身，各分衰旺之地。」——《李虚中命书》</div>
     </div>
     <div class="intro-card">
@@ -557,6 +605,11 @@ body{
         <span class="intro-card-name" data-i18n="intro-face-name">面相十二宫</span>
       </div>
       <div class="intro-card-body" data-i18n="intro-face-body">面相源自《麻衣神相》。人面应天象，五官各主其位：天庭主事业，鼻准主财帛，双眉主兄弟，双眼主心性。气色明暗、骨相起伏，皆是命运外显。</div>
+            <div class="intro-card-more" data-i18n="intro-more">了解更多 ↓</div>
+      <div class="intro-detail" id="detail-face">
+        <div class="intro-detail-text" data-i18n="detail-face-text">面相学将人脸分为十二宫，对应人生十二个方面。天庭（额头）为官禄宫，主事业功名；印堂（两眉之间）为命宫，主一生运势；两眼为监察宫，主心性善恶；鼻为财帛宫，主财富运势；口为出纳宫，主食禄口福；耳为采听宫，主寿元根基。三庭（上停、中停、下停）对应少年、中年、晚年运势。气色以黄润为吉，青黑为凶。</div>
+        <div class="intro-detail-diagram" data-i18n="detail-face-diagram"><svg width="200" height="260" viewBox="0 0 200 260"><ellipse cx="100" cy="120" rx="60" ry="80" fill="none" stroke="#c8a64a" stroke-width="0.8" opacity="0.5"/><line x1="100" y1="40" x2="100" y2="200" stroke="#c8a64a" stroke-width="0.3" opacity="0.3"/><line x1="40" y1="90" x2="160" y2="90" stroke="#c8a64a" stroke-width="0.3" opacity="0.3"/><line x1="40" y1="150" x2="160" y2="150" stroke="#c8a64a" stroke-width="0.3" opacity="0.3"/><rect x="75" y="45" width="50" height="14" rx="4" fill="rgba(200,166,74,0.08)" stroke="#c8a64a" stroke-width="0.5"/><text x="100" y="55" text-anchor="middle" fill="#c8a64a" font-size="6">官禄宫</text><rect x="80" y="63" width="40" height="12" rx="4" fill="rgba(200,166,74,0.06)" stroke="#c8a64a" stroke-width="0.4"/><text x="100" y="72" text-anchor="middle" fill="#ede4d0" font-size="6">命宫</text><rect x="15" y="95" width="28" height="12" rx="4" fill="rgba(200,166,74,0.06)" stroke="#c8a64a" stroke-width="0.4"/><text x="29" y="104" text-anchor="middle" fill="#baae90" font-size="5">兄弟</text><rect x="157" y="95" width="28" height="12" rx="4" fill="rgba(200,166,74,0.06)" stroke="#c8a64a" stroke-width="0.4"/><text x="171" y="104" text-anchor="middle" fill="#baae90" font-size="5">兄弟</text><circle cx="80" cy="110" r="10" fill="none" stroke="#c8a64a" stroke-width="0.6" opacity="0.5"/><text x="80" y="113" text-anchor="middle" fill="#ede4d0" font-size="6">夫妻</text><circle cx="120" cy="110" r="10" fill="none" stroke="#c8a64a" stroke-width="0.6" opacity="0.5"/><text x="120" y="113" text-anchor="middle" fill="#ede4d0" font-size="6">夫妻</text><rect x="55" y="130" width="16" height="28" rx="4" fill="rgba(200,166,74,0.08)" stroke="#c8a64a" stroke-width="0.5"/><text x="63" y="148" text-anchor="middle" fill="#c8a64a" font-size="6">财帛</text><rect x="85" y="160" width="30" height="12" rx="4" fill="rgba(200,166,74,0.06)" stroke="#c8a64a" stroke-width="0.4"/><text x="100" y="169" text-anchor="middle" fill="#ede4d0" font-size="6">出纳</text><rect x="10" y="105" width="20" height="12" rx="4" fill="rgba(200,166,74,0.04)" stroke="#baae90" stroke-width="0.3"/><text x="20" y="114" text-anchor="middle" fill="#7a6e55" font-size="4">采听</text><rect x="170" y="105" width="20" height="12" rx="4" fill="rgba(200,166,74,0.04)" stroke="#baae90" stroke-width="0.3"/><text x="180" y="114" text-anchor="middle" fill="#7a6e55" font-size="4">采听</text><text x="100" y="85" text-anchor="middle" fill="#7a6e55" font-size="5">上停 · 少年运</text><text x="100" y="125" text-anchor="middle" fill="#7a6e55" font-size="5">中停 · 中年运</text><text x="100" y="195" text-anchor="middle" fill="#7a6e55" font-size="5">下停 · 晚年运</text><line x1="40" y1="200" x2="160" y2="200" stroke="#c8a64a" stroke-width="0.3" opacity="0.2"/><rect x="56" y="205" width="88" height="12" rx="4" fill="rgba(200,166,74,0.04)" stroke="#c8a64a" stroke-width="0.3"/><text x="100" y="214" text-anchor="middle" fill="#7a6e55" font-size="6">奴仆 · 地阁</text></svg></div>
+      </div>
       <div class="intro-card-note" data-i18n="intro-face-note">「列百部之灵居，通五脏之神路，惟三才之成象，定一生之失得。」——《麻衣神相·相法总论》</div>
     </div>
     <div class="intro-card">
@@ -565,6 +618,11 @@ body{
         <span class="intro-card-name" data-i18n="intro-palm-name">手相三纹</span>
       </div>
       <div class="intro-card-body" data-i18n="intro-palm-body">手相可溯至《黄帝内经》。天之纹为感情线、地之纹为智慧线、人之纹为生命线，三才并立。掌中八卦九宫，纹路深浅曲直，映射人生际遇与心性变化。</div>
+            <div class="intro-card-more" data-i18n="intro-more">了解更多 ↓</div>
+      <div class="intro-detail" id="detail-palm">
+        <div class="intro-detail-text" data-i18n="detail-palm-text">手相学以三大主线为核心。天纹（感情线）起于小指下方，横贯手掌，主情感婚姻；人纹（智慧线）起于食指下方，斜穿掌心，主思维学业；地纹（生命线）环绕拇指根部，主健康寿元。此外，玉柱纹（事业线）、太阳纹（成功线）、婚姻线、健康线等辅线亦各有深意。掌分八卦九宫，各方位对应不同人生领域。纹理以清晰深长为佳，断续凌乱为劣。</div>
+        <div class="intro-detail-diagram" data-i18n="detail-palm-diagram"><svg width="200" height="240" viewBox="0 0 200 240"><rect x="40" y="30" width="120" height="180" rx="50" fill="none" stroke="#c8a64a" stroke-width="0.8" opacity="0.5"/><path d="M 60 80 Q 100 70 150 95" fill="none" stroke="#c8a64a" stroke-width="1.5" opacity="0.8"/><text x="155" y="98" fill="#c8a64a" font-size="7">天纹</text><path d="M 65 120 Q 100 115 140 135" fill="none" stroke="#baae90" stroke-width="1.5" opacity="0.8"/><text x="145" y="138" fill="#baae90" font-size="7">人纹</text><path d="M 75 65 Q 85 110 80 180" fill="none" stroke="#ede4d0" stroke-width="1.5" opacity="0.8"/><text x="55" y="125" fill="#ede4d0" font-size="7" transform="rotate(-90 55 125)">地纹</text><line x1="70" y1="175" x2="130" y2="165" stroke="#6b5b8a" stroke-width="0.8" opacity="0.4" stroke-dasharray="3 2"/><text x="135" y="168" fill="#7a6e55" font-size="5">玉柱</text><line x1="140" y1="90" x2="160" y2="78" stroke="#d4453a" stroke-width="0.5" opacity="0.3"/><text x="163" y="76" fill="#7a6e55" font-size="5">婚姻</text><text x="100" y="225" text-anchor="middle" fill="#7a6e55" font-size="6">三大主线 · 掌中八卦</text></svg></div>
+      </div>
       <div class="intro-card-note" data-i18n="intro-palm-note">「掌中八卦，定乾坤贵贱。三才纹路，分天地人之气数。」——《玉掌记》</div>
     </div>
   </div>
