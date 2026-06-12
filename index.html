@@ -1378,28 +1378,22 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catc
 
 // === INTRO SPLASH LOGIC ===
 window.enterApp = function() {
-  var splash = document.getElementById('intro-splash');
-  if (!splash) return;
-  localStorage.setItem('lalalin-intro-seen', JSON.stringify({ts: Date.now()}));
-  splash.style.opacity = '0';
-  splash.style.transition = 'opacity .5s ease';
-  setTimeout(function() { splash.classList.add('hidden'); }, 500);
+  var s = document.getElementById('intro-splash');
+  if (!s) return;
+  s.style.display = 'none';
+  try { localStorage.setItem('lalalin-intro-seen', '1'); } catch(e) {}
 };
 
 (function initIntro() {
-  var seen = localStorage.getItem('lalalin-intro-seen');
   var splash = document.getElementById('intro-splash');
   if (!splash) return;
   
-  if (seen) {
-    try {
-      var data = JSON.parse(seen);
-      if (Date.now() - data.ts < 7 * 24 * 3600 * 1000) {
-        splash.classList.add('hidden');
-        return;
-      }
-    } catch(e) {}
-  }
+  try {
+    if (localStorage.getItem('lalalin-intro-seen')) {
+      splash.style.display = 'none';
+      return;
+    }
+  } catch(e) {}
   
   var starsContainer = document.getElementById('introStars');
   if (starsContainer) {
