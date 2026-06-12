@@ -207,97 +207,20 @@
       }
       .pp-float-btn:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(0,112,186,0.6); }
       .pp-float-btn:active { transform: scale(0.95); }
-      .pp-modal-overlay {
-        display: none; position: fixed; inset: 0; z-index: 10000;
-        background: rgba(0,0,0,0.75); justify-content: center; align-items: center;
-      }
-      .pp-modal-overlay.show { display: flex; }
-      .pp-modal {
-        background: var(--bg,#1a1a2e); border: 1px solid var(--bd,rgba(200,166,74,0.2));
-        border-radius: 16px; padding: 24px; max-width: 380px; width: 90%;
-        color: var(--text,#ede4d0); animation: aiFadeIn .3s ease;
-      }
-      .pp-modal h3 { text-align: center; color: var(--gold,#c8a64a); margin-bottom: 8px; }
-      .pp-modal .pp-sub { text-align: center; color: var(--moon3,#888); font-size: .8em; margin-bottom: 20px; }
-      .pp-plan-row {
-        display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;
-      }
-      .pp-plan-chip {
-        flex: 1; min-width: 80px; padding: 10px 8px; text-align: center;
-        border: 1px solid var(--bd); border-radius: 10px; cursor: pointer;
-        font-size: .75em; color: var(--moon); transition: .2s;
-        background: var(--card2);
-      }
-      .pp-plan-chip:hover, .pp-plan-chip.sel {
-        border-color: var(--gold); background: rgba(200,166,74,0.1); color: var(--gold);
-      }
-      .pp-plan-chip .p { font-weight: 700; font-size: 1.1em; }
-      .pp-close {
-        text-align: center; margin-top: 16px; color: var(--moon3);
-        font-size: .75em; cursor: pointer;
-      }
     `;
     document.head.appendChild(style);
 
-    // Floating button
+    // Floating PayPal button — opens the static payment modal
     var btn = document.createElement('div');
     btn.id = 'pp-float-btn';
     btn.className = 'pp-float-btn';
     btn.innerHTML = '💳';
     btn.title = '支持我们';
-    btn.onclick = function() { showPaymentModal(plan); };
+    btn.onclick = function() {
+      var overlay = document.getElementById('pp-modal-overlay');
+      if (overlay) overlay.classList.add('show');
+    };
     document.body.appendChild(btn);
-
-    // Modal
-    var overlay = document.createElement('div');
-    overlay.id = 'pp-modal-overlay';
-    overlay.className = 'pp-modal-overlay';
-    overlay.onclick = function(e) { if (e.target === overlay) overlay.classList.remove('show'); };
-
-    var modal = document.createElement('div');
-    modal.className = 'pp-modal';
-    modal.innerHTML =
-      '<h3>💰 支持 lalalin.xyz</h3>' +
-      '<div class="pp-sub">AI命理服务需要持续维护，感谢你的支持</div>' +
-      '<div class="pp-plan-row">' +
-      '<div class="pp-plan-chip sel" data-plan="coffee"><div class="p">$1.99</div>请喝杯咖啡</div>' +
-      '<div class="pp-plan-chip" data-plan="v16_monthly"><div class="p">$5.99</div>月度会员</div>' +
-      '</div>' +
-      '<div class="pp-plan-row">' +
-      '<div class="pp-plan-chip" data-plan="v16_yearly"><div class="p">$39.99</div>年度会员</div>' +
-      '<div class="pp-plan-chip" data-plan="lifetime"><div class="p">$49.99</div>终身会员</div>' +
-      '</div>' +
-      '<div id="pp-btn-container" class="paypal-btn-container" data-plan="coffee" style="margin-top:16px;min-height:150px"></div>' +
-      '<div class="pp-close" onclick="document.getElementById(\'pp-modal-overlay\').classList.remove(\'show\')">✕ 关闭</div>';
-
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-
-    // Plan chip click handler
-    modal.querySelectorAll('.pp-plan-chip').forEach(function(chip) {
-      chip.onclick = function() {
-        modal.querySelectorAll('.pp-plan-chip').forEach(function(c) { c.classList.remove('sel'); });
-        this.classList.add('sel');
-        var container = document.getElementById('pp-btn-container');
-        if (container) {
-          container.setAttribute('data-plan', this.getAttribute('data-plan'));
-          // Re-render button
-          container.innerHTML = '';
-          if (paypalReady) renderButton(container, this.getAttribute('data-plan'));
-        }
-      };
-    });
-  }
-
-  function showPaymentModal(plan) {
-    var overlay = document.getElementById('pp-modal-overlay');
-    if (overlay) {
-      overlay.classList.add('show');
-      var container = document.getElementById('pp-btn-container');
-      if (container && paypalReady && !container.querySelector('.paypal-buttons')) {
-        renderButton(container, plan);
-      }
-    }
   }
 
   // ====== Start ======
