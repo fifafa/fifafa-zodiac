@@ -1,4 +1,4 @@
-﻿<!-- V25.4 FINAL - 3 Module i18n Rewrite --><!DOCTYPE html>
+<!-- V25.4 FINAL - 3 Module i18n Rewrite --><!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -466,6 +466,28 @@ body{
   font-size: .72em; color: var(--moon3); letter-spacing: .14em;
 }
 
+/* Palm gender bar */
+.palm-gender-bar {
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px; gap: 6px; flex-wrap: wrap;
+}
+.palm-gender-btn {
+  padding: 8px 18px; border-radius: var(--r); border: 1px solid var(--bd2);
+  background: var(--card2); color: var(--moon3); font-size: .75em; cursor: pointer;
+  transition: all .25s; font-family: inherit;
+}
+.palm-gender-btn.sel {
+  border-color: var(--gold); color: var(--gold);
+  background: rgba(200,166,74,0.08); box-shadow: 0 0 10px rgba(200,166,74,0.1);
+}
+.palm-gender-btn:active { transform: scale(0.96); }
+.confirm-dialog {
+  text-align: center; padding: 16px 12px;
+  background: var(--card2); border-radius: var(--r2);
+  border: 1px solid var(--bd); margin-bottom: 12px;
+}
+.confirm-dialog .btn { margin: 4px 6px; }
+
 .intro-cards {
   width: 100%; max-width: 420px; display: flex; flex-direction: column;
   gap: 16px; position: relative; z-index: 1; margin-bottom: 28px;
@@ -769,7 +791,21 @@ body{
     <h2 style="text-align:center;margin:6px 0" data-i18n="svc-palm">手相解读</h2>
     <p style="text-align:center;color:var(--moon3);font-size:.72em;margin-bottom:16px" data-i18n="svc-palm-desc">三大主线命运轨迹</p>
     <div class="card" style="text-align:center">
-      <div id="palmPhotoWrap" style="display:none"><div class="face-container"><img id="palmPhoto" class="face-photo" alt=""><div id="palmSvgOverlay" class="face-overlay"></div></div><div class="face-photo-actions"><button class="btn" onclick="retakePalmPhoto()">↺ 重拍</button><button class="btn btn-primary" onclick="readShouXiang()">✦ 解读手相</button></div></div>
+      <!-- Palm gender selector -->
+      <div class="palm-gender-bar">
+        <span style="color:var(--moon3);font-size:.72em;margin-right:10px" data-i18n="form-gender">性别</span>
+        <button class="palm-gender-btn sel" id="pg-female" onclick="setPalmGender('female')" data-i18n="form-gender-f">♀ 女</button>
+        <button class="palm-gender-btn" id="pg-male" onclick="setPalmGender('male')" data-i18n="form-gender-m">♂ 男</button>
+        <span style="color:var(--moon3);font-size:.58em;opacity:0.6;margin-left:8px" id="palmHandHint">— 右手</span>
+      </div>
+      <div id="palmPhotoWrap" style="display:none"><div class="face-container"><img id="palmPhoto" class="face-photo" alt=""><div id="palmSvgOverlay" class="face-overlay"></div></div>
+      <div id="palmHintBar" style="display:none;text-align:center;padding:6px;color:var(--red);font-size:.6em;margin-bottom:6px" data-i18n="palm-reject-hint">⚠ 请上传清晰的手掌照片，非手型图片将被拒绝</div>
+      <div class="face-photo-actions"><button class="btn" onclick="retakePalmPhoto()">↺ 重拍</button><button class="btn btn-primary" onclick="confirmPalmPhoto()">✦ 确认解读</button></div></div>
+      <div id="palmConfirmWrap" style="display:none"><div class="confirm-dialog">
+        <p style="color:var(--moon);font-size:.78em;margin-bottom:14px" data-i18n="palm-confirm-msg">确认这是一张清晰的<b>手掌</b>照片？</p>
+        <button class="btn" onclick="rejectPalmPhoto()" style="color:var(--red)">✕ 不是手掌</button>
+        <button class="btn btn-primary" onclick="readShouXiang()">✓ 确认解读</button>
+      </div></div>
       <div id="palmContainer"></div>
       <div id="palmUploadArea" class="face-upload-area" onclick="document.getElementById('palmPhotoInput').click()"><div class="up-icon">📷</div><div class="up-text" data-i18n="tag-palm">拍照或上传掌纹照片</div></div>
       <input type="file" id="palmPhotoInput" accept="image/*" capture="environment" onchange="handlePalmPhoto(event)">
@@ -1143,6 +1179,16 @@ function readMianXiang(){
 }
 
 // ====== SHOUXIANG ======
+var _sxGender='female';
+function setPalmGender(g){
+  _sxGender=g;
+  document.getElementById('pg-female').classList.toggle('sel',g==='female');
+  document.getElementById('pg-male').classList.toggle('sel',g==='male');
+  var hint=document.getElementById('palmHandHint');
+  var t=window.t||function(k){return k};
+  hint.textContent=g==='male'?'— '+t('palm-left-hand'):'— '+t('palm-right-hand');
+  if(window._sxPhotoLoaded){showPalmPhoto()}else{showPalmSvg()}
+}
 var palmOpts={
   life:{z:['长而深弧 体质强健','中等弧线 生活规律','较短连续 精力集中','分叉多向 好奇心强','断续链状 注意身体']},
   head:{z:['长直贯穿 理智力强','弧线下弯 想象力丰','短而平直 务实理性','分叉双线 多才多艺','波浪起伏 创意思维']},
@@ -1187,16 +1233,26 @@ function getSunPath(v){
 }
 
 function buildPalmSvg(){
-  var svg='<svg viewBox="0 0 300 340" class="palm-svg"><rect x="60" y="30" width="180" height="290" rx="60" fill="none" stroke="rgba(196,162,74,0.1)" stroke-width="2"/>';
-  svg+='<line x1="90" y1="160" x2="210" y2="160" stroke="rgba(196,162,74,0.05)" stroke-width="1"/>';
-  svg+='<line x1="95" y1="230" x2="205" y2="230" stroke="rgba(196,162,74,0.05)" stroke-width="1"/>';
-  for(var i=0;i<4;i++){var x=95+i*28;svg+='<line x1="'+x+'" y1="90" x2="'+(x-5)+'" y2="45" stroke="rgba(196,162,74,0.04)" stroke-width="1"/>'}
-  svg+='<path id="pl-life" d="M'+getLifePath(palmLines.life)+'" class="palm-line lit"/>';
-  svg+='<path id="pl-head" d="M'+getHeadPath(palmLines.head)+'" class="palm-line lit"/>';
-  svg+='<path id="pl-heart" d="M'+getHeartPath(palmLines.heart)+'" class="palm-line lit"/>';
-  svg+='<path id="pl-fate" d="M'+getFatePath(palmLines.fate)+'" class="palm-line lit"/>';
-  svg+='<path id="pl-sun" d="M'+getSunPath(palmLines.sun)+'" class="palm-line lit"/>';
-  svg+='<text x="105" y="152" fill="rgba(196,162,74,0.25)" font-size="7">地</text><text x="170" y="190" fill="rgba(196,162,74,0.25)" font-size="7">人</text><text x="200" y="115" fill="rgba(196,162,74,0.25)" font-size="7">天</text>';
+  var isLeft=_sxGender==='male';
+  function mx(x){return isLeft?(300-x):x}
+  var svg='<svg viewBox="0 0 300 340" class="palm-svg">';
+  svg+='<rect x="60" y="30" width="180" height="290" rx="60" fill="none" stroke="rgba(196,162,74,0.1)" stroke-width="2"/>';
+  svg+='<text x="'+mx(10)+'" y="20" fill="rgba(200,166,74,0.28)" font-size="7" style="font-family:Noto Serif SC,serif">'+(isLeft?'Left Hand':'Right Hand')+'</text>';
+  svg+='<line x1="'+mx(90)+'" y1="160" x2="'+mx(210)+'" y2="160" stroke="rgba(196,162,74,0.05)" stroke-width="1"/>';
+  svg+='<line x1="'+mx(95)+'" y1="230" x2="'+mx(205)+'" y2="230" stroke="rgba(196,162,74,0.05)" stroke-width="1"/>';
+  for(var i=0;i<4;i++){var x=95+i*28;svg+='<line x1="'+mx(x)+'" y1="90" x2="'+mx(x-5)+'" y2="45" stroke="rgba(196,162,74,0.04)" stroke-width="1"/>'}
+  var tr=(isLeft?' transform="translate(300,0) scale(-1,1)"':'');
+  svg+='<path id="pl-life" d="M'+getLifePath(palmLines.life)+'" class="palm-line lit"'+tr+'/>';
+  svg+='<path id="pl-head" d="M'+getHeadPath(palmLines.head)+'" class="palm-line lit"'+tr+'/>';
+  svg+='<path id="pl-heart" d="M'+getHeartPath(palmLines.heart)+'" class="palm-line lit"'+tr+'/>';
+  svg+='<path id="pl-fate" d="M'+getFatePath(palmLines.fate)+'" class="palm-line lit"'+tr+'/>';
+  svg+='<path id="pl-sun" d="M'+getSunPath(palmLines.sun)+'" class="palm-line lit"'+tr+'/>';
+  svg+='<text x="'+mx(105)+'" y="152" fill="rgba(196,162,74,0.25)" font-size="7">Earth</text><text x="'+mx(170)+'" y="190" fill="rgba(196,162,74,0.25)" font-size="7">Human</text><text x="'+mx(200)+'" y="115" fill="rgba(196,162,74,0.25)" font-size="7">Heaven</text>';
+  if(isLeft){
+    svg+='<text x="'+mx(245)+'" y="55" fill="rgba(196,162,74,0.13)" font-size="6">Index</text><text x="'+mx(265)+'" y="82" fill="rgba(196,162,74,0.13)" font-size="6">Middle</text><text x="'+mx(225)+'" y="45" fill="rgba(196,162,74,0.13)" font-size="6">Thumb</text>';
+  }else{
+    svg+='<text x="'+mx(35)+'" y="55" fill="rgba(196,162,74,0.13)" font-size="6">Index</text><text x="'+mx(15)+'" y="82" fill="rgba(196,162,74,0.13)" font-size="6">Middle</text><text x="'+mx(55)+'" y="45" fill="rgba(196,162,74,0.13)" font-size="6">Thumb</text>';
+  }
   svg+='</svg>';
   return svg;
 }
@@ -1209,7 +1265,21 @@ var _sxPhotoData=null;
 function handlePalmPhoto(e){
   var f=e.target.files[0];if(!f)return;
   var r=new FileReader();
-  r.onload=function(ev){_sxPhotoData=ev.target.result;window._sxPhotoLoaded=true;showPalmPhoto()};
+  r.onload=function(ev){
+    _sxPhotoData=ev.target.result;window._sxPhotoLoaded=true;
+    var img=new Image();
+    img.onload=function(){
+      var ratio=img.width/img.height;
+      if(ratio<0.4||ratio>1.7){
+        var t=window.t||function(k){return k};
+        alert(t('palm-reject-hint')||'Please upload a clear palm photo.');
+        retakePalmPhoto();
+        return;
+      }
+      showPalmPhoto();
+    };
+    img.src=_sxPhotoData;
+  };
   r.readAsDataURL(f);
 }
 function showPalmPhoto(){
@@ -1220,11 +1290,20 @@ function showPalmPhoto(){
   document.getElementById('palmSvgOverlay').innerHTML=buildPalmSvg();
   updatePalmLines();
 }
+function confirmPalmPhoto(){
+  document.getElementById('palmPhotoWrap').style.display='none';
+  document.getElementById('palmConfirmWrap').style.display='block';
+}
+function rejectPalmPhoto(){
+  document.getElementById('palmConfirmWrap').style.display='none';
+  retakePalmPhoto();
+}
 function retakePalmPhoto(){
   _sxPhotoData=null;window._sxPhotoLoaded=false;
   document.getElementById('palmContainer').style.display='block';
   document.getElementById('palmUploadArea').style.display='block';
   document.getElementById('palmPhotoWrap').style.display='none';
+  document.getElementById('palmConfirmWrap').style.display='none';
   document.getElementById('palmPhoto').src='';
   document.getElementById('palmSvgOverlay').innerHTML='';
   showPalmSvg();
@@ -1288,7 +1367,7 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catc
 window.enterApp = function() {
   var s = document.getElementById('intro-splash');
   if (!s) return;
-  s.style.display = 'none';
+  s.classList.add('hidden');
   try { localStorage.setItem('lalalin-intro-seen', '1'); } catch(e) {}
 };
 

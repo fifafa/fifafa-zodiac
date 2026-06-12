@@ -293,6 +293,12 @@
     'palm-manual-title':{ zh:'✦ 手动选线（可选）',    en:'✦ Manual Selection (Optional)', ja:'✦ 手動選択（任意）' },
     'palm-loading':     { zh:'正在分析掌纹…',          en:'Analyzing palm lines…',    ja:'掌紋を分析中…' },
     'palm-btn-analyzing':{ zh:'分析中…',              en:'Analyzing…',              ja:'分析中…' },
+    'palm-left-hand':   { zh:'左手',               en:'Left Hand',             ja:'左手' },
+    'palm-right-hand':  { zh:'右手',               en:'Right Hand',            ja:'右手' },
+    'palm-reject-hint': { zh:'⚠ 请上传清晰的手掌照片，非手型图片将被拒绝', en:'⚠ Please upload a clear palm photo. Non-palm images will be rejected.', ja:'⚠ 鮮明な手のひらの写真をアップロードしてください。手のひら以外の画像は拒否されます' },
+    'palm-confirm-msg': { zh:'确认这是一张清晰的<b>手掌</b>照片？', en:'Confirm this is a clear <b>palm</b> photo?', ja:'これは鮮明な<b>手のひら</b>の写真ですか？' },
+    'palm-confirm-no':  { zh:'✕ 不是手掌',           en:'✕ Not a palm',          ja:'✕ 手のひらではない' },
+    'palm-confirm-yes': { zh:'✓ 确认解读',           en:'✓ Confirm Reading',     ja:'✓ 鑑定を確認' },
     'misc-ref':             { zh:'以上分析仅供传统文化娱乐参考', en:'Above is for entertainment & cultural reference only', ja:'以上の分析は伝統文化の娯楽参考です' },
     // ====== Payment & Error UI ======
     'err-title':        { zh:'连接失败',               en:'Connection Failed',         ja:'接続失敗' },
