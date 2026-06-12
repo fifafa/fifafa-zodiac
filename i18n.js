@@ -272,7 +272,6 @@
     'bazi-month':      { zh:'月',               en:'Month',             ja:'月' },
     'bazi-day':        { zh:'日',               en:'Day',               ja:'日' },
     'bazi-month-short':{ zh:'月',               en:'',                  ja:'月' },
-    'bazi-year-input': { zh:'输入年份',          en:'Enter year',        ja:'年を入力' },
 
     // ====== Vice names ======
     'vice-indecisive': { zh:'优柔寡断',         en:'indecisive',        ja:'優柔不断' },
