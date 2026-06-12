@@ -47,8 +47,8 @@
     'intro-palm-note':{ zh:'「掌中八卦，定乾坤贵贱。三才纹路，分天地人之气数。」——《玉掌记》',
                         en:'"The palm\'s Eight Trigrams determine nobility and humility. The Three Lines divide the qi of Heaven, Earth, and Humanity." — Jade Palm Records',
                         ja:'「掌中の八卦、乾坤の貴賤を定む。三才の紋路、天地人の気数を分かつ。」——『玉掌記』' },
-    'intro-enter':    { zh:'✦ 进入密语 ✦',       en:'✦ Enter the Stars ✦',  ja:'✦ 星へ入る ✦' },
-    'intro-skip':     { zh:'直接进入',            en:'Skip intro',            ja:'スキップ' },
+    'intro-enter':    { zh:'✦ 开启命盘 ✦',       en:'✦ Begin Your Reading ✦', ja:'✦ 鑑定を始める ✦' },
+    'intro-skip':     { zh:'跳过介绍',            en:'Skip intro',            ja:'スキップ' },
 
     // Tags
     'tag-bazi':       { zh:'八字命理',           en:'Bazi Destiny',        ja:'八字命理' },
@@ -317,6 +317,29 @@
     'bazi-month':      { zh:'月',               en:'Month',             ja:'月' },
     'bazi-day':        { zh:'日',               en:'Day',               ja:'日' },
     'bazi-month-short':{ zh:'月',               en:'',                  ja:'月' },
+
+    // Daily fortune
+    'daily-label':    { zh:'✦ 今日运势',        en:'✦ Today\'s Fortune',   ja:'✦ 今日の運勢' },
+
+    // Shichen (12 two-hour periods)
+    'shichen-unspec': { zh:'未指定',              en:'Unspecified',          ja:'未指定' },
+    'shichen-zi':     { zh:'子时 23:00-01:00',   en:'Zi 23:00-01:00',       ja:'子の刻 23:00-01:00' },
+    'shichen-chou':   { zh:'丑时 01:00-03:00',   en:'Chou 01:00-03:00',     ja:'丑の刻 01:00-03:00' },
+    'shichen-yin':    { zh:'寅时 03:00-05:00',   en:'Yin 03:00-05:00',      ja:'寅の刻 03:00-05:00' },
+    'shichen-mao':    { zh:'卯时 05:00-07:00',   en:'Mao 05:00-07:00',      ja:'卯の刻 05:00-07:00' },
+    'shichen-chen':   { zh:'辰时 07:00-09:00',   en:'Chen 07:00-09:00',     ja:'辰の刻 07:00-09:00' },
+    'shichen-si':     { zh:'巳时 09:00-11:00',   en:'Si 09:00-11:00',       ja:'巳の刻 09:00-11:00' },
+    'shichen-wu':     { zh:'午时 11:00-13:00',   en:'Wu 11:00-13:00',       ja:'午の刻 11:00-13:00' },
+    'shichen-wei':    { zh:'未时 13:00-15:00',   en:'Wei 13:00-15:00',      ja:'未の刻 13:00-15:00' },
+    'shichen-shen':   { zh:'申时 15:00-17:00',   en:'Shen 15:00-17:00',     ja:'申の刻 15:00-17:00' },
+    'shichen-you':    { zh:'酉时 17:00-19:00',   en:'You 17:00-19:00',      ja:'酉の刻 17:00-19:00' },
+    'shichen-xu':     { zh:'戌时 19:00-21:00',   en:'Xu 19:00-21:00',       ja:'戌の刻 19:00-21:00' },
+    'shichen-hai':    { zh:'亥时 21:00-23:00',   en:'Hai 21:00-23:00',      ja:'亥の刻 21:00-23:00' },
+
+    // Privacy
+    'privacy-note':   { zh:'你的照片仅用于面相分析，不会存储或分享。',
+                        en:'Your photo is used solely for face reading analysis. Never stored or shared.',
+                        ja:'お写真は人相鑑定のみに使用し、保存・共有は一切いたしません。' },
 
     // ====== Vice names ======
     'vice-indecisive': { zh:'优柔寡断',         en:'indecisive',        ja:'優柔不断' },

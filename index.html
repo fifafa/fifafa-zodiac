@@ -578,8 +578,8 @@ body{
     </div>
   </div>
   <div class="intro-btn-wrap">
-    <button class="intro-enter-btn" onclick="enterApp()" data-i18n="intro-enter">✦ 进入密语 ✦</button>
-    <div class="intro-skip" onclick="enterApp()" data-i18n="intro-skip">直接进入</div>
+    <button class="intro-enter-btn" onclick="enterApp()" data-i18n="intro-enter">✦ 开启命盘 ✦</button>
+    <div class="intro-skip" onclick="enterApp()" data-i18n="intro-skip">跳过介绍</div>
   </div>
 </div>
 
@@ -626,7 +626,7 @@ body{
   <div class="card" id="dailyFortuneCard" style="text-align:center;margin-bottom:18px">
     <div class="daily-fortune-header">
       <span class="daily-date" id="dailyDate"></span>
-      <span class="daily-label">✦ 今日运势</span>
+      <span class="daily-label" data-i18n="daily-label">✦ 今日运势</span>
     </div>
     <div class="daily-stems" id="dailyStems"></div>
     <div class="daily-element" id="dailyElement"></div>
@@ -680,13 +680,13 @@ body{
       <div class="fg">
         <label data-i18n="form-birth-time">出生时辰</label>
         <select class="sel" id="baziHour">
-          <option value="-1">未指定</option>
-          <option value="0">子时 23:00-01:00</option><option value="1">丑时 01:00-03:00</option>
-          <option value="2">寅时 03:00-05:00</option><option value="3">卯时 05:00-07:00</option>
-          <option value="4">辰时 07:00-09:00</option><option value="5">巳时 09:00-11:00</option>
-          <option value="6" selected>午时 11:00-13:00</option><option value="7">未时 13:00-15:00</option>
-          <option value="8">申时 15:00-17:00</option><option value="9">酉时 17:00-19:00</option>
-          <option value="10">戌时 19:00-21:00</option><option value="11">亥时 21:00-23:00</option>
+          <option value="-1" data-i18n="shichen-unspec">未指定</option>
+          <option value="0" data-i18n="shichen-zi">子时 23:00-01:00</option><option value="1" data-i18n="shichen-chou">丑时 01:00-03:00</option>
+          <option value="2" data-i18n="shichen-yin">寅时 03:00-05:00</option><option value="3" data-i18n="shichen-mao">卯时 05:00-07:00</option>
+          <option value="4" data-i18n="shichen-chen">辰时 07:00-09:00</option><option value="5" data-i18n="shichen-si">巳时 09:00-11:00</option>
+          <option value="6" selected data-i18n="shichen-wu">午时 11:00-13:00</option><option value="7" data-i18n="shichen-wei">未时 13:00-15:00</option>
+          <option value="8" data-i18n="shichen-shen">申时 15:00-17:00</option><option value="9" data-i18n="shichen-you">酉时 17:00-19:00</option>
+          <option value="10" data-i18n="shichen-xu">戌时 19:00-21:00</option><option value="11" data-i18n="shichen-hai">亥时 21:00-23:00</option>
         </select>
       </div>
       <div class="fg">
@@ -726,7 +726,8 @@ body{
       <div id="faceContainer"></div>
       <div id="faceUploadArea" class="face-upload-area" onclick="document.getElementById('facePhotoInput').click()"><div class="up-icon">📷</div><div class="up-text" data-i18n="tag-face">拍照或上传照片</div></div>
       <input type="file" id="facePhotoInput" accept="image/*" capture="user" onchange="handleFacePhoto(event)">
-      <div class="face-upload-hint">支持拍照 · 相册上传 · 拖拽上传</div>
+      <div class="face-upload-hint" data-i18n="privacy-note" style="color:var(--moon3);opacity:0.6">你的照片仅用于面相分析，不会存储或分享。</div>
+<div class="face-upload-hint">支持拍照 · 相册上传 · 拖拽上传</div>
       <div style="margin:10px 0;min-height:20px" id="mxPicked"></div>
       <div class="mole-toggle" id="moleToggle" onclick="toggleMoles()">● 标注痣相</div>
       <div id="mxResult" style="display:none"></div>
