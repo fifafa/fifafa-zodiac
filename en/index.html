@@ -1,10 +1,10 @@
-<!-- V25.4 FINAL - 3 Module i18n Rewrite --><!DOCTYPE html>
-<html lang="en">
+<!-- V25.5 - AI/DeepSeek removal + poem + spacing fix --><!DOCTYPE html>
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>TaoPulse · Oriental Astrology &amp; Face Reading | Bazi · Face · Palm</title>
-<meta name="description" content="lalalin — Your Eastern fortune teller. Bazi destiny charts, face reading (12 palaces), palm reading (3 lines). Decipher your cosmic blueprint.">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes,viewport-fit=cover"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>TaoPulse · 东方三脉 | 八字 · 面相 · 手相</title>
+<meta name="description" content="TaoPulse——东方命理三脉。八字命盘、面相十二宫、手相三纹。深度解读你的命运星图。">
 <meta name="theme-color" content="#070510">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,15 +12,13 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" type="image/svg+xml" href="/icon-192.svg">
 <link rel="apple-touch-icon" href="/icon-192.svg">
-<link rel="canonical" href="https://lalalin.xyz/en/">
+<link rel="canonical" href="https://lalalin.xyz/">
 <link rel="alternate" hreflang="zh-CN" href="https://lalalin.xyz/">
 <link rel="alternate" hreflang="en" href="https://lalalin.xyz/en/">
 <link rel="alternate" hreflang="ja" href="https://lalalin.xyz/ja/">
 <link rel="alternate" hreflang="x-default" href="https://lalalin.xyz/">
-<meta property="og:title" content="TaoPulse · Oriental Astrology &amp; Face Reading">
-<meta property="og:description" content="Oriental Astrology &amp; Face Reading. Bazi · Face · Palm">
-<meta property="og:url" content="https://lalalin.xyz/en/">
-<meta property="og:locale" content="en_US">
+<meta property="og:title" content="TaoPulse · 东方三脉">
+<meta property="og:description" content="东方命理三脉。八字·面相·手相">
 <meta property="og:image" content="https://lalalin.xyz/og-image.png">
 <meta property="og:type" content="website">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3Z37YZYL5Z"></script>
@@ -227,6 +225,9 @@ body{
 #facePhotoInput{display:none}
 .face-photo-actions{display:flex;gap:8px;justify-content:center;margin-top:8px}
 .face-photo-actions button{flex:1;max-width:140px}
+.ctx-sel{padding:6px 8px;border-radius:14px;border:1px solid var(--bd);background:rgba(15,11,36,0.6);color:var(--moon);font-size:.62em;cursor:pointer;outline:none;min-width:60px;text-align:center}
+.ctx-sel:focus{border-color:var(--gold)}
+.ctx-sel option{background:var(--card);color:var(--moon)}
 .spread-pick{display:flex;gap:6px;justify-content:center;margin-bottom:12px}
 .spread-pick .sp{padding:6px 14px;border-radius:16px;border:1px solid var(--bd);color:var(--moon3);font-size:.68em;cursor:pointer;transition:.25s}
 .spread-pick .sp.on{border-color:var(--gold);background:rgba(200,166,74,0.06);color:var(--gold)}
@@ -414,6 +415,14 @@ body{
 .pp-plan-desc{font-size:.64em;color:var(--moon3);margin-bottom:14px}
 .paypal-btn-container{min-height:40px;margin-top:8px}
 .paypal-btn-container iframe{max-width:100%!important}
+
+/* Daily Fortune */
+.daily-fortune-header{display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:10px}
+.daily-date{color:var(--moon3);font-size:.66em;letter-spacing:.08em}
+.daily-label{color:var(--gold);font-size:.78em;letter-spacing:.1em;font-weight:600}
+.daily-stems{font-size:1.6em;color:var(--moon);margin:6px 0;letter-spacing:.08em;font-family:Noto Serif SC,Georgia,serif}
+.daily-element{font-size:.82em;color:var(--gold);margin:4px 0}
+.daily-tip{font-size:.72em;color:var(--moon2);margin:8px 0 2px;line-height:1.7}
 
 /* === INTRO SPLASH === */
 #intro-splash {
@@ -605,7 +614,7 @@ body{
   <div class="intro-title-wrap">
     <div class="intro-symbol">☯</div>
     <div class="intro-title" data-i18n="intro-title">TaoPulse</div>
-    <div class="intro-subtitle" data-i18n="intro-subtitle">东方命理三脉</div>
+    <div class="intro-subtitle" data-i18n="intro-subtitle">八字 · 面相 · 手相</div>
   </div>
   <div class="intro-cards">
     <div class="intro-card">
@@ -689,8 +698,19 @@ body{
         <circle cx="20" cy="40" r="1.5" fill="var(--gold)" opacity="0.5"/>
       </svg>
     </div>
-    <h1 data-i18n="hero-title">TaoPulse</h1>
-    <div class="tagline" data-i18n="hero-subtitle">东方命理师</div>
+    <h1 data-i18n="hero-title">TaoPulse · 东方三脉</h1>
+    <div class="tagline" data-i18n="hero-subtitle">解读你的命理之脉</div>
+  </div>
+
+  <!-- Daily Fortune Card -->
+  <div class="card" id="dailyFortuneCard" style="text-align:center;margin-bottom:18px">
+    <div class="daily-fortune-header">
+      <span class="daily-date" id="dailyDate"></span>
+      <span class="daily-label" data-i18n="daily-label">✦ 今日运势</span>
+    </div>
+    <div class="daily-stems" id="dailyStems"></div>
+    <div class="daily-element" id="dailyElement"></div>
+    <div class="daily-tip" id="dailyTip"></div>
   </div>
 
   <!-- 3 Module Service Cards -->
@@ -773,7 +793,16 @@ body{
       <div class="st-item"><div class="st-age">51岁后</div>下停</div>
     </div>
     <div class="card" style="text-align:center">
-      <div id="facePhotoWrap" style="display:none"><div class="face-container"><img id="facePhoto" class="face-photo" alt=""><div id="faceSvgOverlay" class="face-overlay"></div></div><div class="face-photo-actions"><button class="btn" onclick="retakePhoto()">↺ 重拍</button><button class="btn btn-primary" onclick="readMianXiang()">✦ 解读面相</button></div></div>
+      <div id="facePhotoWrap" style="display:none">
+        <div class="face-container"><img id="facePhoto" class="face-photo" alt=""><div id="faceSvgOverlay" class="face-overlay"></div></div>
+        <div class="face-context" style="display:flex;gap:6px;margin:8px auto 0;max-width:300px;flex-wrap:wrap;justify-content:center">
+          <select id="faceGender" class="ctx-sel"><option value="" data-i18n="ctx-gender">性别</option><option value="男">♂ 男</option><option value="女">♀ 女</option></select>
+          <select id="faceAge" class="ctx-sel"><option value="" data-i18n="ctx-age">年龄段</option><option value="18-25">18-25</option><option value="25-35" selected>25-35</option><option value="35-50">35-50</option><option value="50+">50+</option></select>
+          <select id="faceConcern" class="ctx-sel"><option value="" data-i18n="ctx-concern">关注</option><option value="career">💼 事业</option><option value="love">❤️ 情感</option><option value="growth">🌱 成长</option><option value="social">🤝 社交</option></select>
+        </div>
+        <div class="face-photo-actions"><button class="btn" onclick="retakePhoto()">↺ <span data-i18n="btn-retake">重拍</span></button><button class="btn btn-primary" onclick="readMianXiang()">✦ <span data-i18n="btn-analyze">解读</span></button></div>
+        <div id="faceLoading" class="loading-overlay"><div class="spinner"></div><div class="loading-text" data-i18n="loading-face">正在分析面相特征…</div></div>
+      </div>
       <div id="faceContainer"></div>
       <div id="faceUploadArea" class="face-upload-area" onclick="document.getElementById('facePhotoInput').click()"><div class="up-icon">📷</div><div class="up-text" data-i18n="tag-face">拍照或上传照片</div></div>
       <input type="file" id="facePhotoInput" accept="image/*" capture="user" onchange="handleFacePhoto(event)">
@@ -791,21 +820,7 @@ body{
     <h2 style="text-align:center;margin:6px 0" data-i18n="svc-palm">手相解读</h2>
     <p style="text-align:center;color:var(--moon3);font-size:.72em;margin-bottom:16px" data-i18n="svc-palm-desc">三大主线命运轨迹</p>
     <div class="card" style="text-align:center">
-      <!-- Palm gender selector -->
-      <div class="palm-gender-bar">
-        <span style="color:var(--moon3);font-size:.72em;margin-right:10px" data-i18n="form-gender">性别</span>
-        <button class="palm-gender-btn sel" id="pg-female" onclick="setPalmGender('female')" data-i18n="form-gender-f">♀ 女</button>
-        <button class="palm-gender-btn" id="pg-male" onclick="setPalmGender('male')" data-i18n="form-gender-m">♂ 男</button>
-        <span style="color:var(--moon3);font-size:.58em;opacity:0.6;margin-left:8px" id="palmHandHint">— 右手</span>
-      </div>
-      <div id="palmPhotoWrap" style="display:none"><div class="face-container"><img id="palmPhoto" class="face-photo" alt=""><div id="palmSvgOverlay" class="face-overlay"></div></div>
-      <div id="palmHintBar" style="display:none;text-align:center;padding:6px;color:var(--red);font-size:.6em;margin-bottom:6px" data-i18n="palm-reject-hint">⚠ 请上传清晰的手掌照片，非手型图片将被拒绝</div>
-      <div class="face-photo-actions"><button class="btn" onclick="retakePalmPhoto()">↺ 重拍</button><button class="btn btn-primary" onclick="confirmPalmPhoto()">✦ 确认解读</button></div></div>
-      <div id="palmConfirmWrap" style="display:none"><div class="confirm-dialog">
-        <p style="color:var(--moon);font-size:.78em;margin-bottom:14px" data-i18n="palm-confirm-msg">确认这是一张清晰的<b>手掌</b>照片？</p>
-        <button class="btn" onclick="rejectPalmPhoto()" style="color:var(--red)">✕ 不是手掌</button>
-        <button class="btn btn-primary" onclick="readShouXiang()">✓ 确认解读</button>
-      </div></div>
+      <div id="palmPhotoWrap" style="display:none"><div class="face-container"><img id="palmPhoto" class="face-photo" alt=""><div id="palmSvgOverlay" class="face-overlay"></div></div><div class="face-photo-actions"><button class="btn" onclick="retakePalmPhoto()" data-i18n="btn-retake">↺ 重拍</button><button class="btn btn-primary" onclick="readShouXiang()" data-i18n="btn-palm-read">✦ 解读手相</button></div></div>
       <div id="palmContainer"></div>
       <div id="palmUploadArea" class="face-upload-area" onclick="document.getElementById('palmPhotoInput').click()"><div class="up-icon">📷</div><div class="up-text" data-i18n="tag-palm">拍照或上传掌纹照片</div></div>
       <input type="file" id="palmPhotoInput" accept="image/*" capture="environment" onchange="handlePalmPhoto(event)">
@@ -904,27 +919,27 @@ function zi(y){return((y-4)%12+12)%12}
 // ====== POEM OF DESTINY ======
 function poemOf(el,shenWang,z){
   var ps={
-    0:[ // Metal
+    0:[ // 金
       '金锋出匣寒光动','千锤百炼自刚强',
       '山藏玉润光华隐','一遇风云化栋梁',
       '金藏厚土待天时','锋芒未露有谁知',
       '静候春风生万物','一朝出土展新枝'],
-    1:[ // Water
+    1:[ // 水
       '上善若水润无声','潜渊涵养育龙灵',
       '千回百转归沧海','日月同辉照锦程',
       '清泉石上细流长','滴水穿石志自强',
       '待到春来冰雪化','涓涓汇入大江洋'],
-    2:[ // Wood
+    2:[ // 木
       '青松立雪见精神','盘根厚土养天真',
       '春雷一动生机发','万里东风送绿茵',
       '新芽破土向阳生','细雨和风渐长成',
       '根深不怕霜来早','自有凌云向日横'],
-    3:[ // Fire
+    3:[ // 火
       '星火燎原势自雄','光耀乾坤气贯虹',
       '丹心一点燃天地','万丈云霞映日红',
       '烛火微明照暗窗','守得长夜待晨光',
       '星芒一点虽微弱','亦向苍穹放焰芒'],
-    4:[ // Earth
+    4:[ // 土
       '厚德载物承天命','中和正气育群生',
       '山岳巍巍安社稷','金玉满堂福自盈',
       '沃土深藏种善根','春耕秋获待时辰',
@@ -932,7 +947,7 @@ function poemOf(el,shenWang,z){
   };
   var p=ps[el]||ps[0];
   var off=shenWang?0:4;
-  return p[off]+', '+p[off+1]+'. '+p[off+2]+', '+p[off+3]+'.';
+  return p[off]+'，'+p[off+1]+'。'+p[off+2]+'，'+p[off+3]+'。';
 }
 
 // ====== HELPERS ======
@@ -941,16 +956,14 @@ function createOpt(v,t){var o=document.createElement('option');o.value=v;o.textC
 function populateDateSelects(yId,mId,dId,selY,selM,selD){
   var ySel=document.getElementById(yId),mSel=document.getElementById(mId),dSel=document.getElementById(dId);
   if(!ySel||!mSel||!dSel)return;
-  if(!ySel.options.length||ySel.options.length<2){
-    var yf=document.createDocumentFragment();yf.appendChild(createOpt('','年'));
-    for(var i=2020;i>=1920;i--){yf.appendChild(createOpt(i,i))}
+  ySel.innerHTML='';
+    var yf=document.createDocumentFragment();yf.appendChild(createOpt('',(window.t?window.t('bazi-year'):'年')));
+    for(var i=new Date().getFullYear();i>=1920;i--){yf.appendChild(createOpt(i,i))}
     ySel.appendChild(yf);
-  }
-  if(!mSel.options.length||mSel.options.length<2){
-    var mf=document.createDocumentFragment();mf.appendChild(createOpt('','月'));
-    for(var i=1;i<=12;i++){mf.appendChild(createOpt(i,i+'月'))}
+  mSel.innerHTML='';
+    var mf=document.createDocumentFragment();mf.appendChild(createOpt('',(window.t?window.t('bazi-month'):'月')));
+    for(var i=1;i<=12;i++){mf.appendChild(createOpt(i,i+(window.t?window.t('bazi-month-short'):'月')))}
     mSel.appendChild(mf);
-  }
   if(selY){ySel.value=selY}
   if(selM){mSel.value=selM}
   updateDays(dId,yId,mId,selD);
@@ -958,9 +971,9 @@ function populateDateSelects(yId,mId,dId,selY,selM,selD){
 
 function updateDays(dId,yId,mId,selDay){
   var dSel=document.getElementById(dId),y=parseInt(document.getElementById(yId).value),m=parseInt(document.getElementById(mId).value);
-  if(!dSel||!y||!m){dSel&&(dSel.innerHTML='<option value="">日</option>');return}
+  if(!dSel||!y||!m){dSel&&(dSel.innerHTML='<option value="">'+(window.t?window.t('bazi-day'):'日')+'</option>');return}
   var maxD=new Date(y,m,0).getDate();
-  var df=document.createDocumentFragment();df.appendChild(createOpt('','日'));
+  var df=document.createDocumentFragment();df.appendChild(createOpt('',(window.t?window.t('bazi-day'):'日')));
   for(var i=1;i<=maxD;i++){df.appendChild(createOpt(i,i))}
   dSel.innerHTML='';dSel.appendChild(df);
   if(selDay>0&&selDay<=maxD){dSel.value=selDay}
@@ -1011,37 +1024,41 @@ function doBazi(){
   var jiNm=(shenWang?'水、木':'火、土');
   var wuDesc=wuname.map(function(c,i){return c+':'+wuCount[i]}).join(' / ');
   var guides=['✦ 宜接触'+xiNm+'属性的行业，补益运势','✦ 流年遇'+jiNm+'旺时宜保守，忌冒险投资','✦ '+dyEl+'命主「'+virtueMap[dyEl]+'」，注意'+(dong===0?'优柔寡断':dong===1?'急躁冲动':dong===2?'固执己见':dong===3?'刚愎自用':'感情用事')+'的倾向','✦ '+(shenWang?'身旺可担财官，'+xiNm+'运年大有可为':'身弱需印比帮扶，'+xiNm+'年得贵人助缘'),'✦ 关键运势在20-30岁，月令'+stemsZh[moStem]+branchZh[moBranch]+'有力，中年后'+branchZh[(yrBranch+2)%12]+'运上升'];
-  var poem=poemOf(dong,shenWang,zCh[USER.z]);
   var interp='你属'+zCh[USER.z]+'，日柱「'+stemsZh[dyStem]+branchZh[dyBranch]+'」日主'+dyEl+'。命格纳音「'+nl+'」，五行 '+wuDesc+'。'+(shenWang?'身旺':'身弱')+'，喜'+xiNm+'，忌'+jiNm+'。'+dyEl+'命主「'+virtueMap[dyEl]+'」，'+stemsZh[moStem]+branchZh[moBranch]+'月令'+(moStem%2===0?'比劫':'财官')+'相随。';
+  var poem=poemOf(dong,shenWang,zCh[USER.z]);
 
   document.getElementById('baziResult').style.display='block';
-  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">纳音 · '+zCh[USER.z]+'年 · '+(g==='male'?'乾造':'坤造')+'</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">日主 · '+stemsZh[dyStem]+' · '+dyEl+'命</div><div style="font-size:.62em;color:var(--moon3)">'+y+'年'+m+'月'+dd+'日 · '+h+'时'+(g==='male'?'男':'女')+'</div></div><div class="pillars"><div class="pillar"><div class="pl">年柱</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+yrSS+'</div></div><div class="pillar"><div class="pl">月柱</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+moSS+'</div></div><div class="pillar"><div class="pl">日柱</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--moon);font-size:.55em">日主</div></div><div class="pillar"><div class="pl">时柱</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+hrSS+'</div></div></div><div class="reading"><h3>命理解读</h3><p>'+interp+'</p></div><div class="reading"><h3>用神喜忌</h3><p>身'+(shenWang?'旺':'弱')+'，喜'+xiNm+'，忌'+jiNm+'。</p></div><div class="reading"><h3>五行分布</h3><p style="font-size:.85em">'+wuDesc+' · 同类'+sameCount+'/'+(8-sameCount)+'异</p></div><div class="reading"><h3>指导意见</h3>'+guides.join('</p><p>')+'</div><div class="reading" style="text-align:center;border-color:rgba(200,166,74,0.15)"><h3 style="text-align:center">✦ Poem of Destiny</h3><p style="text-align:center;line-height:2.2;font-size:.88em;color:var(--gold);font-family:Noto Serif SC,Georgia,serif">'+poem+'</p></div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">以上分析仅供传统文化娱乐参考</div>';
+  var isMale=g==='male';
+  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">'+t('bazi-nayin')+' · '+zCh[USER.z]+' · '+(isMale?t('bazi-qianzao'):t('bazi-kunzao'))+'</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">'+t('bazi-dm')+' · '+stemsZh[dyStem]+' · '+dyEl+t('bazi-ming')+'</div><div style="font-size:.62em;color:var(--moon3)">'+y+'/'+m+'/'+dd+' · '+h+'h '+(isMale?t('form-gender-m'):t('form-gender-f'))+'</div></div><div class="pillars"><div class="pillar"><div class="pl">'+t('bazi-p-year')+'</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+yrSS+'</div></div><div class="pillar"><div class="pl">'+t('bazi-p-month')+'</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+moSS+'</div></div><div class="pillar"><div class="pl">'+t('bazi-p-day')+'</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--moon);font-size:.55em">'+t('bazi-dm')+'</div></div><div class="pillar"><div class="pl">'+t('bazi-p-hour')+'</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+hrSS+'</div></div></div><div class="reading"><h3>'+t('bazi-s-reading')+'</h3><p>'+interp+'</p></div><div class="reading"><h3>'+t('bazi-s-yongji')+'</h3><p>'+t(shenWang?'bazi-shenwang':'bazi-shenruo')+'，'+t('bazi-xi')+xiNm+'，'+t('bazi-ji')+jiNm+'。</p></div><div class="reading"><h3>'+t('bazi-s-wuxing')+'</h3><p style="font-size:.85em">'+wuDesc+' · '+t('bazi-tonglei')+sameCount+'/'+(8-sameCount)+t('bazi-yi')+'</p></div><div class="reading"><h3>'+t('bazi-s-guide')+'</h3>'+guides.join('</p><p>')+'</div><div class="reading" style="text-align:center;border-color:rgba(200,166,74,0.15)"><h3 style="text-align:center">✦ 命诗</h3><p style="text-align:center;line-height:2.2;font-size:.88em;color:var(--gold);font-family:Noto Serif SC,Georgia,serif">'+poem+'</p></div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">'+t('misc-ref')+'</div>';
   document.getElementById('baziResult').scrollIntoView({behavior:'smooth'});
 }
 
 // ====== MIANXIANG ======
 var mxZones=[
-  {id:'g9',n:'官禄宫',tip:'额头正中—主事业官运。15-30岁',cx:150,cy:46,r:13},
-  {id:'g12',n:'父母宫',tip:'额角—主父母缘分。',cx:82,cy:44,r:10},
-  {id:'g7',n:'迁移宫',tip:'额侧-主出行变动。',cx:82,cy:70,r:9},
-  {id:'g11',n:'福德宫',tip:'眉尾上方-主福气。',cx:95,cy:54,r:9},
-  {id:'g2',n:'兄弟宫',tip:'眉毛—主兄弟姐妹朋友。',cx:108,cy:64,r:12},
-  {id:'g1',n:'命宫',tip:'印堂眉心—主一生运势根基。',cx:150,cy:82,r:15},
-  {id:'g10',n:'田宅宫',tip:'眼皮上方—主房产家宅。',cx:138,cy:72,r:9},
-  {id:'g6',n:'疾厄宫',tip:'鼻梁山根—主健康。31-50岁',cx:130,cy:95,r:9},
-  {id:'g5',n:'财帛宫',tip:'鼻子—主一生财运。',cx:150,cy:102,r:12},
-  {id:'g3',n:'夫妻宫',tip:'眼尾奸门—主婚姻感情。',cx:208,cy:90,r:10},
-  {id:'g4',n:'子女宫',tip:'眼下卧蚕—主子嗣缘分。',cx:150,cy:112,r:10},
-  {id:'g8',n:'交友宫',tip:'下巴两侧—主朋友下属。51岁后',cx:195,cy:148,r:11}
+  {id:'g9',ik:'mx-g9',tk:'mx-tip-g9',cx:150,cy:46,r:13},
+  {id:'g12',ik:'mx-g12',tk:'mx-tip-g12',cx:82,cy:44,r:10},
+  {id:'g7',ik:'mx-g7',tk:'mx-tip-g7',cx:82,cy:70,r:9},
+  {id:'g11',ik:'mx-g11',tk:'mx-tip-g11',cx:95,cy:54,r:9},
+  {id:'g2',ik:'mx-g2',tk:'mx-tip-g2',cx:108,cy:64,r:12},
+  {id:'g1',ik:'mx-g1',tk:'mx-tip-g1',cx:150,cy:82,r:15},
+  {id:'g10',ik:'mx-g10',tk:'mx-tip-g10',cx:138,cy:72,r:9},
+  {id:'g6',ik:'mx-g6',tk:'mx-tip-g6',cx:130,cy:95,r:9},
+  {id:'g5',ik:'mx-g5',tk:'mx-tip-g5',cx:150,cy:102,r:12},
+  {id:'g3',ik:'mx-g3',tk:'mx-tip-g3',cx:208,cy:90,r:10},
+  {id:'g4',ik:'mx-g4',tk:'mx-tip-g4',cx:150,cy:112,r:10},
+  {id:'g8',ik:'mx-g8',tk:'mx-tip-g8',cx:195,cy:148,r:11}
 ];
+function mxName(z){var t=window.t||function(k){return k};return t(z.ik)||z.id}
+function mxTip(z){var t=window.t||function(k){return k};return t(z.tk)||''}
 var mxOpts={
-  g9:['天庭饱满','高广明亮','略有凹陷','有伏犀骨'],g12:['额角丰隆','日角月角明','额角平坦','略有下陷'],
-  g7:['额角饱满','开阔平实','驿马位明','略有内收'],g11:['福德宫满','眉尾丰隆','福德略平','额角丰盈'],
-  g2:['眉毛清秀','浓密刚强','眉尾稀疏','眉形朗阔'],g1:['宽阔明亮','有悬针纹','略有凹陷','光洁平整'],
-  g10:['眼皮丰润','田宅宫满','略有微陷','明润光泽'],g6:['山根高挺','山根略低','山根有节','山根光润'],
-  g5:['鼻梁挺直','鼻头圆润','鼻翼丰满','鼻子端正'],g3:['眼尾饱满','眼尾略陷','奸门光洁','略有细纹'],
-  g4:['卧蚕丰满','眼下平实','泪堂微陷','明润饱满'],g8:['下巴圆润','地阁方圆','下巴略尖','地库丰满']
+  g9:['mxo-g9-0','mxo-g9-1','mxo-g9-2','mxo-g9-3'],g12:['mxo-g12-0','mxo-g12-1','mxo-g12-2','mxo-g12-3'],
+  g7:['mxo-g7-0','mxo-g7-1','mxo-g7-2','mxo-g7-3'],g11:['mxo-g11-0','mxo-g11-1','mxo-g11-2','mxo-g11-3'],
+  g2:['mxo-g2-0','mxo-g2-1','mxo-g2-2','mxo-g2-3'],g1:['mxo-g1-0','mxo-g1-1','mxo-g1-2','mxo-g1-3'],
+  g10:['mxo-g10-0','mxo-g10-1','mxo-g10-2','mxo-g10-3'],g6:['mxo-g6-0','mxo-g6-1','mxo-g6-2','mxo-g6-3'],
+  g5:['mxo-g5-0','mxo-g5-1','mxo-g5-2','mxo-g5-3'],g3:['mxo-g3-0','mxo-g3-1','mxo-g3-2','mxo-g3-3'],
+  g4:['mxo-g4-0','mxo-g4-1','mxo-g4-2','mxo-g4-3'],g8:['mxo-g8-0','mxo-g8-1','mxo-g8-2','mxo-g8-3']
 };
+function mxOptText(zid,i){var t=window.t||function(k){return k};var o=mxOpts[zid];return o&&o[i]?t(o[i])||o[i]:''}
 
 function buildFaceSvg(){
   var svg='<svg viewBox="0 0 300 320" class="face-svg"><ellipse cx="150" cy="160" rx="100" ry="135" fill="none" stroke="rgba(196,162,74,0.15)" stroke-width="2"/><ellipse cx="150" cy="120" rx="80" ry="95" fill="none" stroke="rgba(196,162,74,0.06)" stroke-width="1" stroke-dasharray="4 3"/>';
@@ -1054,7 +1071,7 @@ function buildFaceSvg(){
   svg+='<path d="M110 145 Q150 160 190 145" fill="none" stroke="rgba(196,162,74,0.2)" stroke-width="1.5"/>';
   mxZones.forEach(function(z){
     svg+='<circle id="mz-'+z.id+'" cx="'+z.cx+'" cy="'+z.cy+'" r="'+z.r+'" class="face-zone" onclick="pickMz(\''+z.id+'\')"/>';
-    svg+='<text x="'+z.cx+'" y="'+z.cy+'" class="face-label" dy="0.35em">'+z.n+'</text>';
+    svg+='<text x="'+z.cx+'" y="'+z.cy+'" class="face-label" dy="0.35em">'+mxName(z)+'</text>';
   });
   svg+='<circle id="mole-1" cx="148" cy="104" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-1" x="158" y="106" style="display:none;fill:var(--red);font-size:10px">痣</text>';
   svg+='<circle id="mole-2" cx="185" cy="75" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-2" x="192" y="77" style="display:none;fill:var(--red);font-size:10px">痣</text>';
@@ -1088,7 +1105,7 @@ function showPhotoFace(){
   var svg='<svg viewBox="0 0 300 320" class="face-svg" style="width:100%;height:100%">';
   mxZones.forEach(function(z){
     svg+='<circle cx="'+z.cx+'" cy="'+z.cy+'" r="'+z.r+'" class="face-zone" id="mz-'+z.id+'" onclick="pickMz(\''+z.id+'\')"/>';
-    svg+='<text x="'+z.cx+'" y="'+z.cy+'" class="face-label" dy="0.35em">'+z.n+'</text>';
+    svg+='<text x="'+z.cx+'" y="'+z.cy+'" class="face-label" dy="0.35em">'+mxName(z)+'</text>';
   });
   svg+='<circle id="mole-1" cx="148" cy="104" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-1" x="158" y="106" style="display:none;fill:var(--red);font-size:10px">痣</text>';
   svg+='<circle id="mole-2" cx="185" cy="75" r="2.5" class="face-zone mole" style="display:none" onclick="pickMz(\'mole\')"/><text id="molel-2" x="192" y="77" style="display:none;fill:var(--red);font-size:10px">痣</text>';
@@ -1130,7 +1147,7 @@ function toggleMoles(){
   showMoles=!showMoles;
   var btn=document.getElementById('moleToggle');
   btn.classList.toggle('on',showMoles);
-  btn.textContent=showMoles?'● 痣相已开':'● 标注痣相';
+  btn.textContent=showMoles?(window.t?window.t('mx-mole-on'):'● 痣相已开'):(window.t?window.t('mx-mole-off'):'● 标注痣相');
   for(var i=1;i<=4;i++){
     var mEl=document.getElementById('mole-'+i);
     var lEl=document.getElementById('molel-'+i);
@@ -1140,14 +1157,15 @@ function toggleMoles(){
 }
 
 function pickMz(zid){
-  if(zid==='mole'){toast('点击痣的位置标注');return}
+  if(zid==='mole'){toast((window.t?window.t('mx-click-mole'):'点击痣的位置标注'));return}
   mxCurrentZone=zid;
   var z=mxZones.find(function(z){return z.id===zid});
-  var html='<div class="ptitle">'+z.n+'</div><div style="text-align:center;color:var(--moon3);font-size:.7em;margin-bottom:12px">'+z.tip+'</div>';
+  var html='<div class="ptitle">'+mxName(z)+'</div><div style="text-align:center;color:var(--moon3);font-size:.7em;margin-bottom:12px">'+mxTip(z)+'</div>';
   mxOpts[zid].forEach(function(o,i){
-    html+='<div class="popt'+(mxPicks[zid]===i?' sel':'')+'" onclick="selMxOpt('+i+')">'+o+'</div>';
+    var t=window.t||function(k){return k};
+    html+='<div class="popt'+(mxPicks[zid]===i?' sel':'')+'" onclick="selMxOpt('+i+')">'+t(o)+'</div>';
   });
-  html+='<div class="popt" style="color:var(--moon3)" onclick="closeFacePopup()">取消</div>';
+  html+='<div class="popt" style="color:var(--moon3)" onclick="closeFacePopup()">'+(window.t?window.t('mx-cancel'):'取消')+'</div>';
   document.getElementById('zonePopup').innerHTML=html;
   document.getElementById('zonePopup').style.display='block';
   document.getElementById('popOverlay').style.display='block';
@@ -1173,24 +1191,90 @@ function updateMxPicked(){
   if(pk.length>0){
     pk.forEach(function(zid){
       var z=mxZones.find(function(z){return z.id===zid});
-      html+='<span style="display:inline-block;padding:4px 10px;border-radius:10px;font-size:.65em;margin:2px;background:rgba(196,162,74,0.1);border:1px solid rgba(196,162,74,0.2);color:var(--gold)">'+(z?z.n:zid)+' ✓</span> ';
+      html+='<span style="display:inline-block;padding:4px 10px;border-radius:10px;font-size:.65em;margin:2px;background:rgba(196,162,74,0.1);border:1px solid rgba(196,162,74,0.2);color:var(--gold)">'+(z?mxName(z):zid)+' ✓</span> ';
     });
   }
   html+='<span style="color:var(--moon3);font-size:.65em">'+pk.length+'/12</span>';
   document.getElementById('mxPicked').innerHTML=html;
 }
 
-function readMianXiang(){
-  var pk=Object.keys(mxPicks);
-  var hasPhoto=_mxPhotoData&&window._mxPhotoLoaded;
-  if(pk.length<(hasPhoto?1:3)){toast(hasPhoto?'请至少选择1个区域':'请至少选择3个区域');return}
-  var sum=0;pk.forEach(function(z){sum+=mxPicks[z]});
-  var rx=[{t:'贵人之相',d:'面相端方，五官合度。印堂光明、鼻直口方，是谓贵格。主一生贵人扶持，事业有成，受人尊敬。'},{t:'福寿之相',d:'面如满月，地阁方圆。山根高挺、人中深长，福寿双全。晚年儿孙满堂，福泽绵长。'},{t:'才智之相',d:'天庭饱满，眉清目秀。官禄宫明、福德宫丰，才智超群。思维敏捷，学术有成就。'},{t:'刚毅之相',d:'面有棱角，眉如刀裁。颧骨微耸、下巴有力，意志坚定。行事果决，不畏艰难。'},{t:'和善之相',d:'面如冠玉，五官柔和。田宅宫满、交友宫丰，心地善良。待人宽厚，人缘极佳。'}];
-  var r=rx[sum%5],sc=hasPhoto?60+rnd(10,35):55+rnd(0,38);
-  var extra=hasPhoto?'<p style="font-size:.7em;color:var(--moon3);margin-top:8px">✦ 基于照片分析，所选宫位特征与命格推断吻合度较高。建议定期更新照片追踪面部变化。</p>':'';
-  document.getElementById('mxResult').style.display='block';
-  document.getElementById('mxResult').innerHTML='<div class="reading"><h3>解读：'+r.t+'</h3><div class="score">匹配度 '+sc+'%</div><p>'+r.d+'</p>'+extra+'</div>';
-  document.getElementById('mxResult').scrollIntoView({behavior:'smooth'});
+// ====== MIANXIANG REAL API ======
+var FACE_API = 'https://api.lalalin.xyz';
+
+async function readMianXiang(){
+  var photoData = _mxPhotoData;
+  if(!photoData||!window._mxPhotoLoaded){toast(window.t?window.t('misc-photo-or-upload'):'请先拍照或上传照片');return}
+
+  // Show loading
+  var loading=document.getElementById('faceLoading');
+  var result=document.getElementById('mxResult');
+  var btn=document.querySelector('#facePhotoWrap .btn-primary');
+  loading.classList.add('on'); loading.style.display='flex';
+  result.style.display='none';
+  btn.disabled=true; btn.textContent=(window.t?window.t('misc-analyzing'):'分析中...');
+
+  // Extract base64 (strip data:image/...;base64,)
+  var base64=photoData.split(',')[1]||photoData;
+
+  // Get context
+  var gender=document.getElementById('faceGender').value||'';
+  var age=document.getElementById('faceAge').value||'';
+  var concern=document.getElementById('faceConcern').value||'';
+
+  try{
+    var resp=await fetch(FACE_API+'/api/face/analyze',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        image_base64:base64,
+        gender:gender,
+        age_range:age,
+        concern:concern,
+        language:window._currentLang||'zh'
+      })
+    });
+
+    if(!resp.ok){
+      var errText='API Error ('+resp.status+')';
+      if(resp.status===400)errText=(window.t?window.t('misc-no-face'):'未检测到面部，请确保照片清晰正面');
+      throw new Error(errText);
+    }
+
+    var data=await resp.json();
+    renderFaceReport(data);
+  }catch(e){
+    result.style.display='block';
+    result.innerHTML='<div class="reading" style="text-align:center;color:var(--red)"><p>'+e.message+'</p><p style="font-size:.65em;color:var(--moon3);margin-top:8px">'+(window.t?window.t('misc-retry'):'请重试或更换照片')+'</p></div>';
+    console.error('Face API:',e);
+  }finally{
+    loading.classList.remove('on'); loading.style.display='none';
+    btn.disabled=false; btn.innerHTML=(window.t?window.t('btn-analyze'):'解读');
+    if(window.applyLang)applyLang();
+  }
+}
+
+function renderFaceReport(data){
+  var r=data.report||'';
+  var rules=data.rules_matched||0;
+  var tokens=data.tokens_used||0;
+
+  // Simple markdown to HTML
+  var html=r
+    .replace(/### (.*)/g,'<h4 style="color:var(--gold);margin:16px 0 8px;font-size:.85em">$1</h4>')
+    .replace(/## (.*)/g,'<h3 style="color:var(--moon);margin:20px 0 10px;font-size:1em">$1</h3>')
+    .replace(/\*\*(.*?)\*\*/g,'<strong style="color:var(--gold2)">$1</strong>')
+    .replace(/\n\n/g,'</p><p style="line-height:1.7;margin:8px 0;font-size:.78em">')
+    .replace(/\n- /g,'<br> - ')
+    .replace(/\n\d+\. /g,'<br>');
+
+  html='<p style="line-height:1.7;margin:8px 0;font-size:.78em">'+html+'</p>';
+
+  var meta='<div style="text-align:center;font-size:.55em;color:var(--moon3);margin-bottom:10px;opacity:.5">'+rules+' 条命理规则 · '+tokens+' tokens</div>';
+
+  var el=document.getElementById('mxResult');
+  el.style.display='block';
+  el.innerHTML='<div class="reading" style="text-align:left;padding:16px 20px">'+meta+html+'</div>';
+  el.scrollIntoView({behavior:'smooth'});
 }
 
 // ====== SHOUXIANG ======
@@ -1205,12 +1289,13 @@ function setPalmGender(g){
   if(window._sxPhotoLoaded){showPalmPhoto()}else{showPalmSvg()}
 }
 var palmOpts={
-  life:{z:['长而深弧 体质强健','中等弧线 生活规律','较短连续 精力集中','分叉多向 好奇心强','断续链状 注意身体']},
-  head:{z:['长直贯穿 理智力强','弧线下弯 想象力丰','短而平直 务实理性','分叉双线 多才多艺','波浪起伏 创意思维']},
-  heart:{z:['长而清晰 情深义重','短直克制 理性冷静','链状连绵 敏感多情','分叉上扬 热情浪漫','弧线上弯 乐观豁达']},
-  fate:{z:['深长至中 事业有成','中等偏斜 自我奋斗','断续不连 起伏多变','双命运线 双重机遇','隐约可见 随缘自在']},
-  sun:{z:['清晰深长 名利双收','中等明朗 稳步上升','短而有力 锋芒初露','分叉双线 多面发展','浅淡隐约 大器晚成']}
+  life:{z:['pl-life-0','pl-life-1','pl-life-2','pl-life-3','pl-life-4']},
+  head:{z:['pl-head-0','pl-head-1','pl-head-2','pl-head-3','pl-head-4']},
+  heart:{z:['pl-heart-0','pl-heart-1','pl-heart-2','pl-heart-3','pl-heart-4']},
+  fate:{z:['pl-fate-0','pl-fate-1','pl-fate-2','pl-fate-3','pl-fate-4']},
+  sun:{z:['pl-sun-0','pl-sun-1','pl-sun-2','pl-sun-3','pl-sun-4']}
 };
+function palmOptText(k,i){var t=window.t||function(k){return k};var o=palmOpts[k];return o&&o.z[i]?t(o.z[i])||o.z[i]:''}
 
 function getLifePath(v){
   if(v===0)return'120,100 Q100,130 105,170 Q110,220 130,280 Q150,310 170,280';
@@ -1252,7 +1337,7 @@ function buildPalmSvg(){
   function mx(x){return isLeft?(300-x):x}
   var svg='<svg viewBox="0 0 300 340" class="palm-svg">';
   svg+='<rect x="60" y="30" width="180" height="290" rx="60" fill="none" stroke="rgba(196,162,74,0.1)" stroke-width="2"/>';
-  svg+='<text x="'+mx(10)+'" y="20" fill="rgba(200,166,74,0.28)" font-size="7" style="font-family:Noto Serif SC,serif">'+(isLeft?'Left Hand':'Right Hand')+'</text>';
+  svg+='<text x="'+mx(10)+'" y="20" fill="rgba(200,166,74,0.28)" font-size="7" style="font-family:Noto Serif SC,serif">'+(isLeft?'左手':'右手')+'</text>';
   svg+='<line x1="'+mx(90)+'" y1="160" x2="'+mx(210)+'" y2="160" stroke="rgba(196,162,74,0.05)" stroke-width="1"/>';
   svg+='<line x1="'+mx(95)+'" y1="230" x2="'+mx(205)+'" y2="230" stroke="rgba(196,162,74,0.05)" stroke-width="1"/>';
   for(var i=0;i<4;i++){var x=95+i*28;svg+='<line x1="'+mx(x)+'" y1="90" x2="'+mx(x-5)+'" y2="45" stroke="rgba(196,162,74,0.04)" stroke-width="1"/>'}
@@ -1262,11 +1347,11 @@ function buildPalmSvg(){
   svg+='<path id="pl-heart" d="M'+getHeartPath(palmLines.heart)+'" class="palm-line lit"'+tr+'/>';
   svg+='<path id="pl-fate" d="M'+getFatePath(palmLines.fate)+'" class="palm-line lit"'+tr+'/>';
   svg+='<path id="pl-sun" d="M'+getSunPath(palmLines.sun)+'" class="palm-line lit"'+tr+'/>';
-  svg+='<text x="'+mx(105)+'" y="152" fill="rgba(196,162,74,0.25)" font-size="7">Earth</text><text x="'+mx(170)+'" y="190" fill="rgba(196,162,74,0.25)" font-size="7">Human</text><text x="'+mx(200)+'" y="115" fill="rgba(196,162,74,0.25)" font-size="7">Heaven</text>';
+  svg+='<text x="'+mx(105)+'" y="152" fill="rgba(196,162,74,0.25)" font-size="7">地</text><text x="'+mx(170)+'" y="190" fill="rgba(196,162,74,0.25)" font-size="7">人</text><text x="'+mx(200)+'" y="115" fill="rgba(196,162,74,0.25)" font-size="7">天</text>';
   if(isLeft){
-    svg+='<text x="'+mx(245)+'" y="55" fill="rgba(196,162,74,0.13)" font-size="6">Index</text><text x="'+mx(265)+'" y="82" fill="rgba(196,162,74,0.13)" font-size="6">Middle</text><text x="'+mx(225)+'" y="45" fill="rgba(196,162,74,0.13)" font-size="6">Thumb</text>';
+    svg+='<text x="'+mx(245)+'" y="55" fill="rgba(196,162,74,0.13)" font-size="6">食指</text><text x="'+mx(265)+'" y="82" fill="rgba(196,162,74,0.13)" font-size="6">中指</text><text x="'+mx(225)+'" y="45" fill="rgba(196,162,74,0.13)" font-size="6">拇指</text>';
   }else{
-    svg+='<text x="'+mx(35)+'" y="55" fill="rgba(196,162,74,0.13)" font-size="6">Index</text><text x="'+mx(15)+'" y="82" fill="rgba(196,162,74,0.13)" font-size="6">Middle</text><text x="'+mx(55)+'" y="45" fill="rgba(196,162,74,0.13)" font-size="6">Thumb</text>';
+    svg+='<text x="'+mx(35)+'" y="55" fill="rgba(196,162,74,0.13)" font-size="6">食指</text><text x="'+mx(15)+'" y="82" fill="rgba(196,162,74,0.13)" font-size="6">中指</text><text x="'+mx(55)+'" y="45" fill="rgba(196,162,74,0.13)" font-size="6">拇指</text>';
   }
   svg+='</svg>';
   return svg;
@@ -1287,7 +1372,7 @@ function handlePalmPhoto(e){
       var ratio=img.width/img.height;
       if(ratio<0.4||ratio>1.7){
         var t=window.t||function(k){return k};
-        alert(t('palm-reject-hint')||'Please upload a clear palm photo.');
+        alert(t('palm-reject-hint')||'请上传清晰的手掌照片，非手型图片将被拒绝');
         retakePalmPhoto();
         return;
       }
@@ -1332,7 +1417,7 @@ function buildPalmOpts(){
   ['life','head','heart','fate','sun'].forEach(function(k){
     var o=palmOpts[k],html='';
     o.z.forEach(function(opt,i){
-      html+='<span class="line-opt'+(palmLines[k]===i?' sel':'')+'" onclick="setPalm(\''+k+'\','+i+')">'+opt+'</span>';
+      html+='<span class="line-opt'+(palmLines[k]===i?' sel':'')+'" onclick="setPalm(\''+k+'\','+i+')">'+palmOptText(k,i)+'</span>';
     });
     document.getElementById(k+'Opts').innerHTML=html;
   });
@@ -1341,7 +1426,7 @@ function buildPalmOpts(){
 function setPalm(k,v){
   palmLines[k]=v;
   var html='';
-  palmOpts[k].z.forEach(function(opt,i){html+='<span class="line-opt'+(i===v?' sel':'')+'" onclick="setPalm(\''+k+'\','+i+')">'+opt+'</span>'});
+  palmOpts[k].z.forEach(function(opt,i){html+='<span class="line-opt'+(i===v?' sel':'')+'" onclick="setPalm(\''+k+'\','+i+')">'+palmOptText(k,i)+'</span>'});
   document.getElementById(k+'Opts').innerHTML=html;
   updatePalmLines();
 }
@@ -1354,26 +1439,63 @@ function updatePalmLines(){
 }
 
 function readShouXiang(){
-  var sum=palmLines.life+palmLines.head+palmLines.heart+palmLines.fate+palmLines.sun;
   var hasPhoto=_sxPhotoData&&window._sxPhotoLoaded;
-  var rx=[{t:'玉柱擎天掌',d:'生命线深长有力，命运线直贯中指。地纹稳固，根基深厚。早年立志，中年后运势腾飞，事业有成。'},{t:'天纹情深掌',d:'感情线绵长红润，天纹清澈。情深义重，桃花缘旺。待人真诚，感情丰盈美满，伴侣和谐。'},{t:'人纹智慧掌',d:'智慧线笔直深长，人纹清朗。思维敏捷，才学过人。早年聪慧外显，中年学术精深，事业靠脑力制胜。'},{t:'天地交泰掌',d:'四线清晰有力，天地人三纹分明。命格均衡，一生平顺。少年得志、中年稳健、晚年幸福，福泽深厚。'},{t:'四线齐辉掌',d:'生命智慧感情命运四线皆有可观，太阳线亦现。五行调和，贵人相助。事业家庭双丰收，晚年安康。'}];
-  var r=rx[sum%5],sc=hasPhoto?58+rnd(8,36):55+rnd(0,38);
-  var extra=hasPhoto?'<p style="font-size:.7em;color:var(--moon3);margin-top:8px">✦ 基于掌纹照片分析，主要线条特征与人工选取一致。建议保持手掌自然放松状态下拍摄。</p>':'';
-  document.getElementById('sxResult').style.display='block';
-  document.getElementById('sxResult').innerHTML='<div class="reading"><h3>解读：'+r.t+'</h3><div class="score">匹配度 '+sc+'%</div><p>'+r.d+'</p>'+extra+'</div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">以上分析仅供传统文化娱乐参考</div>';
-  document.getElementById('sxResult').scrollIntoView({behavior:'smooth'});
+  if(!hasPhoto){if(window.t)toast(window.t('misc-photo-or-upload'));return}
+  // Real CV pipeline handled by api.js — this fallback shows immediate skeleton
+  showPalmPhoto();
 }
 
 // ====== SHARE ======
 function shareGeneral(){
-  var t='TaoPulse · Oriental Astrology &amp; Face Reading\nBazi · Face · Palm → lalalin.xyz';
-  if(navigator.share){navigator.share({text:t}).catch(function(){})}else{navigator.clipboard.writeText(t).then(function(){toast('已复制！')})}
+  var t=window.t?window.t('share-text'):'TaoPulse·东方三脉\n八字·面相·手相 → lalalin.xyz';
+  if(navigator.share){navigator.share({text:t}).catch(function(){})}else{navigator.clipboard.writeText(t).then(function(){toast(window.t?window.t('common-copied'):'已复制！')})}
 }
 
 // ====== INIT ======
-var d=new Date();d.setFullYear(d.getFullYear()-25);
+// Repopulate date select placeholders on language change
+window._repopulateDateSelects=function(){
+  var t=window.t||function(k){return k};
+  ['baziYear','baziMonth','baziDay'].forEach(function(id){
+    var sel=document.getElementById(id);
+    if(!sel||!sel.options.length)return;
+    var ph=sel.options[0];
+    if(ph.value===''){
+      var keyMap={baziYear:'bazi-year',baziMonth:'bazi-month',baziDay:'bazi-day'};
+      ph.textContent=t(keyMap[id]);
+    }
+    // Update month option suffixes
+    if(id==='baziMonth'){
+      for(var i=1;i<sel.options.length;i++){
+        var o=sel.options[i];
+        if(o.value&&!isNaN(o.value)){
+          o.textContent=o.value+t('bazi-month-short');
+        }
+      }
+    }
+  });
+};
+var d=new Date();// Default: current date
 populateDateSelects('baziYear','baziMonth','baziDay',d.getFullYear(),d.getMonth()+1,d.getDate());
-buildPalmOpts();
+// buildPalmOpts() moved to after i18n loads (defer fix)
+
+// Daily fortune card
+(function(){
+  var now=new Date();
+  var stemsZh=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+  var branchZh=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+  var t=window.t||function(k,d){return d;};
+  var elements=['木','木','火','火','土','土','金','金','水','水'];
+  var colors=[t('daily-0','宜积极进取'),t('daily-1','宜柔韧应变'),t('daily-2','宜热情行动'),t('daily-3','宜稳重踏实'),t('daily-4','宜诚信待人'),t('daily-5','宜厚德载物'),t('daily-6','宜果断决策'),t('daily-7','宜精益求精'),t('daily-8','宜深思远虑'),t('daily-9','宜灵活变通')];
+  var base=new Date(1900,0,1);
+  var diff=Math.floor((now-base)/86400000);
+  var si=((10+diff)%60+60)%60;
+  var ds=si%10, db=si%12;
+  document.getElementById('dailyDate').textContent=now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate();
+  document.getElementById('dailyStems').textContent=stemsZh[ds]+branchZh[db]+'日';
+  document.getElementById('dailyElement').textContent='日主'+elements[ds]+' · '+colors[ds];
+  var tips=[t('dtip-0','诸事顺遂'),t('dtip-1','宜静不宜动'),t('dtip-2','贵人相助'),t('dtip-3','灵感迸发'),t('dtip-4','稳扎稳打')];
+  document.getElementById('dailyTip').textContent='✦ '+tips[db%5];
+})();
 
 // PWA Service Worker
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){})}
@@ -1387,18 +1509,16 @@ window.enterApp = function() {
 };
 
 (function initIntro() {
-  var seen = localStorage.getItem('lalalin-intro-seen');
   var splash = document.getElementById('intro-splash');
   if (!splash) return;
-  if (seen) {
-    try {
-      var data = JSON.parse(seen);
-      if (Date.now() - data.ts < 7 * 24 * 3600 * 1000) {
-        splash.classList.add('hidden');
-        return;
-      }
-    } catch(e) {}
-  }
+  
+  try {
+    if (localStorage.getItem('lalalin-intro-seen')) {
+      splash.classList.add('hidden');
+      return;
+    }
+  } catch(e) {}
+  
   var starsContainer = document.getElementById('introStars');
   if (starsContainer) {
     for (var i = 0; i < 40; i++) {
@@ -1412,11 +1532,56 @@ window.enterApp = function() {
     }
   }
 })();
+
+// === INTRO DETAIL TOGGLE ===
+window.setIntroLang = function(lang) {
+  localStorage.setItem('lalalin-lang', lang);
+  if (typeof toggleLang === 'function') toggleLang();
+  // Highlight active lang button
+  document.querySelectorAll('.intro-lang-btn').forEach(function(b) {
+    b.classList.remove('on');
+    if (b.textContent.trim().toLowerCase().indexOf(lang) >= 0 || 
+        (lang==='zh' && b.textContent.trim()==='中') ||
+        (lang==='en' && b.textContent.trim()==='EN') ||
+        (lang==='ja' && b.textContent.trim()==='日')) {
+      b.classList.add('on');
+    }
+  });
+};
+
+document.querySelectorAll('.intro-card').forEach(function(card) {
+  card.addEventListener('click', function(e) {
+    if (e.target.closest('.intro-lang-bar') || e.target.closest('button')) return;
+    var detail = card.querySelector('.intro-detail');
+    if (!detail) return;
+    var isOpen = detail.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.intro-detail.open').forEach(function(d) { d.classList.remove('open'); });
+    document.querySelectorAll('.intro-card-more').forEach(function(m) { m.textContent = m.getAttribute('data-i18n') ? (window.t ? window.t('intro-more') : '了解更多 ↓') : m.textContent; });
+    if (!isOpen) {
+      detail.classList.add('open');
+      var more = card.querySelector('.intro-card-more');
+      if (more) more.textContent = '收起 ↑';
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  });
+});
+
+// Highlight current lang on load
+(function() {
+  var lang = localStorage.getItem('lalalin-lang') || 'zh';
+  document.querySelectorAll('.intro-lang-btn').forEach(function(b) {
+    var t = b.textContent.trim();
+    if ((lang==='zh' && t==='中') || (lang==='en' && t==='EN') || (lang==='ja' && t==='日')) {
+      b.classList.add('on');
+    }
+  });
+})();
+
 </script>
-<script src="/api.js"></script>
-<script>localStorage.setItem('lalalin-lang','en');</script>
-<script src="/i18n.js"></script>
-<script src="/paypal.js"></script>
+<script src="api.js" defer></script>
+<script src="i18n.js" defer></script>
+<script src="paypal.js" defer></script>
 
 <!-- PayPal Payment Modal -->
 <div id="pp-modal-overlay" class="pp-overlay">

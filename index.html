@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes,viewport-fit=cover"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>TaoPulse · 东方三脉 | 八字 · 面相 · 手相</title>
 <meta name="description" content="TaoPulse——东方命理三脉。八字命盘、面相十二宫、手相三纹。深度解读你的命运星图。">
 <meta name="theme-color" content="#070510">
@@ -958,7 +958,7 @@ function populateDateSelects(yId,mId,dId,selY,selM,selD){
   if(!ySel||!mSel||!dSel)return;
   ySel.innerHTML='';
     var yf=document.createDocumentFragment();yf.appendChild(createOpt('',(window.t?window.t('bazi-year'):'年')));
-    for(var i=2020;i>=1920;i--){yf.appendChild(createOpt(i,i))}
+    for(var i=new Date().getFullYear();i>=1920;i--){yf.appendChild(createOpt(i,i))}
     ySel.appendChild(yf);
   mSel.innerHTML='';
     var mf=document.createDocumentFragment();mf.appendChild(createOpt('',(window.t?window.t('bazi-month'):'月')));
@@ -1474,7 +1474,7 @@ window._repopulateDateSelects=function(){
     }
   });
 };
-var d=new Date();d.setFullYear(d.getFullYear()-25);
+var d=new Date();// Default: current date
 populateDateSelects('baziYear','baziMonth','baziDay',d.getFullYear(),d.getMonth()+1,d.getDate());
 // buildPalmOpts() moved to after i18n loads (defer fix)
 
@@ -1483,8 +1483,9 @@ populateDateSelects('baziYear','baziMonth','baziDay',d.getFullYear(),d.getMonth(
   var now=new Date();
   var stemsZh=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
   var branchZh=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+  var t=window.t||function(k,d){return d;};
   var elements=['木','木','火','火','土','土','金','金','水','水'];
-  var colors=['宜积极进取，木主生发','宜柔韧应变，乙木可曲可伸','宜热情行动，火主光辉','宜稳重踏实，丁火如灯烛','宜诚信待人，土主承载','宜厚德载物，己土润泽','宜果断决策，金主义气','宜精益求精，辛金雕琢','宜深思远虑，水主智慧','宜灵活变通，癸水润下'];
+  var colors=[t('daily-0','宜积极进取'),t('daily-1','宜柔韧应变'),t('daily-2','宜热情行动'),t('daily-3','宜稳重踏实'),t('daily-4','宜诚信待人'),t('daily-5','宜厚德载物'),t('daily-6','宜果断决策'),t('daily-7','宜精益求精'),t('daily-8','宜深思远虑'),t('daily-9','宜灵活变通')];
   var base=new Date(1900,0,1);
   var diff=Math.floor((now-base)/86400000);
   var si=((10+diff)%60+60)%60;
@@ -1492,7 +1493,7 @@ populateDateSelects('baziYear','baziMonth','baziDay',d.getFullYear(),d.getMonth(
   document.getElementById('dailyDate').textContent=now.getFullYear()+'/'+(now.getMonth()+1)+'/'+now.getDate();
   document.getElementById('dailyStems').textContent=stemsZh[ds]+branchZh[db]+'日';
   document.getElementById('dailyElement').textContent='日主'+elements[ds]+' · '+colors[ds];
-  var tips=['诸事顺遂，宜签约合作','宜静不宜动，守成为上','贵人相助，宜社交出行','灵感迸发，宜学习创作','稳扎稳打，宜理财规划'];
+  var tips=[t('dtip-0','诸事顺遂'),t('dtip-1','宜静不宜动'),t('dtip-2','贵人相助'),t('dtip-3','灵感迸发'),t('dtip-4','稳扎稳打')];
   document.getElementById('dailyTip').textContent='✦ '+tips[db%5];
 })();
 
