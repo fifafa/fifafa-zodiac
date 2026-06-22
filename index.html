@@ -238,6 +238,31 @@ body{
 .pillar .pl{font-size:.6em;color:var(--moon3);margin-bottom:6px;letter-spacing:.1em}
 .pillar .ps{font-size:1.4em;color:var(--gold);margin-bottom:2px}
 .pillar .pb{font-size:.9em;color:var(--moon2)}
+/* 四柱卡片升级 — 宣纸凹陷质感 + 五行色标识 */
+.pillar-up{position:relative;padding:18px 20px;border-radius:var(--r);background:var(--card2);border:0.5px solid rgba(200,166,74,0.08);text-align:center;min-width:72px;box-shadow:inset 0 1px 4px rgba(0,0,0,0.18)}
+.pillar-up .pl{font-size:.6em;color:var(--moon3);margin-bottom:6px;letter-spacing:.1em}
+.pillar-up .ps{font-size:1.4em;color:var(--gold);margin-bottom:2px}
+.pillar-up .pb{font-size:.9em;color:var(--moon2)}
+.pillar-up .pel{display:inline-block;margin:3px 2px 0;font-size:.52em;padding:1px 6px;border-radius:6px;letter-spacing:.06em}
+.pillar-up.day{border:0.5px solid rgba(200,166,74,0.25);box-shadow:inset 0 0 10px rgba(200,166,74,0.05),0 0 15px rgba(200,166,74,0.05)}
+/* 五行色标 */
+.pel-w{background:rgba(107,91,138,0.15);color:#9b8fc4}
+.pel-f{background:rgba(212,69,58,0.12);color:#e8736a}
+.pel-e{background:rgba(184,144,64,0.12);color:#d4af5a}
+.pel-m{background:rgba(122,110,85,0.15);color:#c4b090}
+.pel-wd{background:rgba(61,139,107,0.12);color:#5db88b}
+/* 五行雷达图 */
+.chart-row{display:grid;grid-template-columns:1fr;gap:14px;margin:16px 0}
+.chart-card{background:linear-gradient(160deg,rgba(200,166,74,0.03),rgba(107,91,138,0.02));border:0.5px solid var(--bd);border-radius:var(--r2);padding:16px;box-shadow:inset 0 1px 3px rgba(0,0,0,0.12)}
+.chart-title{font-size:.62em;color:var(--moon3);letter-spacing:.16em;margin-bottom:10px;text-align:center}
+.radar-wrap{display:flex;justify-content:center;align-items:center}
+.radar-axis{font-size:7px;fill:var(--moon3);text-anchor:middle}
+.radar-label{font-size:8px;fill:var(--gold);text-anchor:middle}
+.radar-grid{fill:none;stroke:rgba(200,166,74,0.08);stroke-width:0.5}
+.radar-fill{fill:rgba(200,166,74,0.08);stroke:var(--gold);stroke-width:1}
+.radar-dot{fill:var(--gold);animation:dotPulse 2s infinite ease-in-out}
+@keyframes dotPulse{0%,100%{r:2.5;opacity:.7}50%{r:4;opacity:1}}
+.radar-tip{font-size:7px;fill:var(--moon2);text-anchor:middle}
 
 /* FACE */
 .face-svg{width:100%;max-width:280px;margin:0 auto;display:block}
@@ -985,6 +1010,49 @@ var branchZh=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌',
 var zCh=['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'];
 var zodiacs=[{k:'Rat',el:'Water',ln:[2,3]},{k:'Ox',el:'Earth',ln:[1,4]},{k:'Tiger',el:'Wood',ln:[1,3,4]},{k:'Rabbit',el:'Wood',ln:[3,4,6]},{k:'Dragon',el:'Earth',ln:[1,6,7]},{k:'Snake',el:'Fire',ln:[2,8,9]},{k:'Horse',el:'Fire',ln:[2,3,7]},{k:'Goat',el:'Earth',ln:[2,7]},{k:'Monkey',el:'Metal',ln:[4,9]},{k:'Rooster',el:'Metal',ln:[5,7,8]},{k:'Dog',el:'Earth',ln:[3,4,9]},{k:'Pig',el:'Water',ln:[2,5,8]}];
 
+function buildRadarChart(wuCount){
+  var r=55, cx=80, cy=80;
+  var wuname=['木','火','土','金','水'];
+  var maxVal=Math.max.apply(null,wuCount)||1;
+  var points=[];
+  var gridHTML='';
+  [20,38,55].forEach(function(gr){
+    var gp=[];
+    for(var i=0;i<5;i++){
+      var ang=(Math.PI*2*i/5)-(Math.PI/2);
+      gp.push((cx+gr*Math.cos(ang)).toFixed(1)+','+(cy+gr*Math.sin(ang)).toFixed(1));
+    }
+    gridHTML+='<polygon points=\"'+gp.join(' ')+'\" class=\"radar-grid\"/>';
+  });
+  var axisHTML='';
+  for(var i=0;i<5;i++){
+    var ang=(Math.PI*2*i/5)-(Math.PI/2);
+    var ax=cx+r*Math.cos(ang),ay=cy+r*Math.sin(ang);
+    axisHTML+='<line x1=\"'+cx+'\" y1=\"'+cy+'\" x2=\"'+ax.toFixed(1)+'\" y2=\"'+ay.toFixed(1)+'\" class=\"radar-grid\"/>';
+    var lx=cx+(r+16)*Math.cos(ang),ly=cy+(r+16)*Math.sin(ang);
+    axisHTML+='<text x=\"'+lx.toFixed(1)+'\" y=\"'+(ly+3).toFixed(1)+'\" class=\"radar-label\">'+wuname[i]+'</text>';
+  }
+  var dataPoly='';
+  for(var i=0;i<5;i++){
+    var ang=(Math.PI*2*i/5)-(Math.PI/2);
+    var val=wuCount[i]/maxVal*r;
+    points.push((cx+val*Math.cos(ang)).toFixed(1)+','+(cy+val*Math.sin(ang)).toFixed(1));
+  }
+  dataPoly='<polygon points=\"'+points.join(' ')+'\" class=\"radar-fill\"/>';
+  var dotsHTML='';
+  for(var i=0;i<5;i++){
+    var ang=(Math.PI*2*i/5)-(Math.PI/2);
+    var val=wuCount[i]/maxVal*r;
+    var dx=cx+val*Math.cos(ang),dy=cy+val*Math.sin(ang);
+    dotsHTML+='<circle cx=\"'+dx.toFixed(1)+'\" cy=\"'+dy.toFixed(1)+'\" class=\"radar-dot\"/>';
+    var tx=cx+(val+12)*Math.cos(ang),ty=cy+(val+12)*Math.sin(ang);
+    dotsHTML+='<text x=\"'+tx.toFixed(1)+'\" y=\"'+(ty+2).toFixed(1)+'\" class=\"radar-tip\">'+wuCount[i]+'</text>';
+  }
+  return '<div class=\"chart-row\"><div class=\"chart-card\"><div class=\"chart-title\">◈ 五行气场强弱</div><div class=\"radar-wrap\"><svg viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">'+gridHTML+axisHTML+dataPoly+dotsHTML+'</svg></div></div></div>';
+}
+function pillarUp(label,stem,branch,ss,tagCls,isDay){
+  return '<div class=\"pillar-up'+(isDay?' day':'')+'\"><div class=\"pl\">'+label+'</div><div class=\"ps\">'+stem+'</div><div class=\"pb\">'+branch+'</div><span class=\"pel '+tagCls+'\">'+ss+'</span></div>';
+}
 function doBazi(){
   var nameEl=document.getElementById('baziName');
   var y=parseInt(document.getElementById('baziYear').value),m=parseInt(document.getElementById('baziMonth').value),dd=parseInt(document.getElementById('baziDay').value);
@@ -1029,7 +1097,8 @@ function doBazi(){
 
   document.getElementById('baziResult').style.display='block';
   var isMale=g==='male';
-  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">'+t('bazi-nayin')+' · '+zCh[USER.z]+' · '+(isMale?t('bazi-qianzao'):t('bazi-kunzao'))+'</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">'+t('bazi-dm')+' · '+stemsZh[dyStem]+' · '+dyEl+t('bazi-ming')+'</div><div style="font-size:.62em;color:var(--moon3)">'+y+'/'+m+'/'+dd+' · '+h+'h '+(isMale?t('form-gender-m'):t('form-gender-f'))+'</div></div><div class="pillars"><div class="pillar"><div class="pl">'+t('bazi-p-year')+'</div><div class="ps">'+stemsZh[yrStem]+'</div><div class="pb">'+branchZh[yrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+yrSS+'</div></div><div class="pillar"><div class="pl">'+t('bazi-p-month')+'</div><div class="ps">'+stemsZh[moStem]+'</div><div class="pb">'+branchZh[moBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+moSS+'</div></div><div class="pillar"><div class="pl">'+t('bazi-p-day')+'</div><div class="ps">'+stemsZh[dyStem]+'</div><div class="pb">'+branchZh[dyBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--moon);font-size:.55em">'+t('bazi-dm')+'</div></div><div class="pillar"><div class="pl">'+t('bazi-p-hour')+'</div><div class="ps">'+stemsZh[hrStem]+'</div><div class="pb">'+branchZh[hrBranch]+'</div><div class="pl" style="margin-top:3px;color:var(--gold);font-size:.55em">'+hrSS+'</div></div></div><div class="reading"><h3>'+t('bazi-s-reading')+'</h3><p>'+interp+'</p></div><div class="reading"><h3>'+t('bazi-s-yongji')+'</h3><p>'+t(shenWang?'bazi-shenwang':'bazi-shenruo')+'，'+t('bazi-xi')+xiNm+'，'+t('bazi-ji')+jiNm+'。</p></div><div class="reading"><h3>'+t('bazi-s-wuxing')+'</h3><p style="font-size:.85em">'+wuDesc+' · '+t('bazi-tonglei')+sameCount+'/'+(8-sameCount)+t('bazi-yi')+'</p></div><div class="reading"><h3>'+t('bazi-s-guide')+'</h3>'+guides.join('</p><p>')+'</div><div class="reading" style="text-align:center;border-color:rgba(200,166,74,0.15)"><h3 style="text-align:center">✦ 命诗</h3><p style="text-align:center;line-height:2.2;font-size:.88em;color:var(--gold);font-family:Noto Serif SC,Georgia,serif">'+poem+'</p></div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">'+t('misc-ref')+'</div>';
+  var elCls=['pel-wd','pel-f','pel-e','pel-m','pel-w'];
+  document.getElementById('baziResult').innerHTML='<div style="text-align:center;margin-bottom:14px"><div style="font-size:1.3em;color:var(--gold)">'+nl+'</div><div style="font-size:.7em;color:var(--moon3)">'+t('bazi-nayin')+' · '+zCh[USER.z]+' · '+(isMale?t('bazi-qianzao'):t('bazi-kunzao'))+'</div></div><div style="text-align:center;margin-bottom:10px"><div style="font-size:1.1em;color:var(--moon)">'+t('bazi-dm')+' · '+stemsZh[dyStem]+' · '+dyEl+t('bazi-ming')+'</div><div style="font-size:.62em;color:var(--moon3)">'+y+'/'+m+'/'+dd+' · '+h+'h '+(isMale?t('form-gender-m'):t('form-gender-f'))+'</div></div><div class="pillars">'+pillarUp(t('bazi-p-year'),stemsZh[yrStem],branchZh[yrBranch],yrSS,elCls[stemElI[yrStem]],false)+pillarUp(t('bazi-p-month'),stemsZh[moStem],branchZh[moBranch],moSS,elCls[stemElI[moStem]],false)+pillarUp(t('bazi-p-day'),stemsZh[dyStem],branchZh[dyBranch],t('bazi-dm'),elCls[stemElI[dyStem]],true)+pillarUp(t('bazi-p-hour'),stemsZh[hrStem],branchZh[hrBranch],hrSS,elCls[stemElI[hrStem]],false)+'</div>'+buildRadarChart(wuCount)+'<div class="reading"><h3>'+t('bazi-s-reading')+'</h3><p>'+interp+'</p></div><div class="reading"><h3>'+t('bazi-s-yongji')+'</h3><p>'+t(shenWang?'bazi-shenwang':'bazi-shenruo')+'，'+t('bazi-xi')+xiNm+'，'+t('bazi-ji')+jiNm+'。</p></div><div class="reading"><h3>'+t('bazi-s-wuxing')+'</h3><p style="font-size:.85em">'+wuDesc+' · '+t('bazi-tonglei')+sameCount+'/'+(8-sameCount)+t('bazi-yi')+'</p></div><div class="reading"><h3>'+t('bazi-s-guide')+'</h3>'+guides.join('</p><p>')+'</div><div class="reading" style="text-align:center;border-color:rgba(200,166,74,0.15)"><h3 style="text-align:center">✦ 命诗</h3><p style="text-align:center;line-height:2.2;font-size:.88em;color:var(--gold);font-family:Noto Serif SC,Georgia,serif">'+poem+'</p></div><div style="text-align:center;padding:10px;font-size:.62em;color:var(--moon3);opacity:.45">'+t('misc-ref')+'</div>';
   document.getElementById('baziResult').scrollIntoView({behavior:'smooth'});
 }
 
